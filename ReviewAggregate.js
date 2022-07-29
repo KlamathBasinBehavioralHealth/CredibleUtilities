@@ -727,11 +727,14 @@ function addStyling() {
   document.head.appendChild(css);
 }
 
+const form = 'TIC Review';
+const subForm = 'TIC Review Subforms';
+
 waitForElement(parent.document, "frame[name='left']").then((navFrame) => {
   generateIframes(
     '#questions_container',
     'live',
-    'TIC Review Subforms',
+    subForm,
     navFrame.contentWindow.document
   ).then(() => {
     addHeaderScriptToAll();
@@ -739,17 +742,17 @@ waitForElement(parent.document, "frame[name='left']").then((navFrame) => {
     setFrameHeightEvents();
     hideSubforms(
       parent.document.querySelector("frame[name='left']").contentDocument,
-      'TIC Review Subforms',
+      subForm,
       false
     );
     setHref(
       parent.document.querySelector("frame[name='left']").contentDocument,
-      'TIC Review',
+      form,
       false
     );
     setLinks(
       parent.document.querySelector("frame[name='left']").contentDocument,
-      'TIC Review Subforms'
+      subForm
     );
     createSubmitButtons();
     hideSubCompletes();
