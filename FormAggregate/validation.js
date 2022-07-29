@@ -100,7 +100,11 @@ function validation() {
             }
             inputElements = [...inputElements].filter(x => x.type != 'button');
             if (inputElements.length == 1){
-                if (inputElements[0].value == '' && inputElements[0].getAttribute('data-value') == '' && (inputElements[0].offsetParent != null || userChange == true )){
+                if (inputElements[0].hasAttribute('data-value') && inputElements[0].getAttribute('data-value') == '' && inputElements[0].value == ''){
+                    errorMsg(font);
+                    isValid = false;
+                }
+                else if (inputElements[0].value == '' && (inputElements[0].offsetParent != null || userChange == true )){
                     errorMsg(font);
                     isValid = false;
                 }
@@ -141,7 +145,15 @@ function validation() {
                         }
                         inputElements = [...inputElements].filter(x => x.type != 'button');
                         if (inputElements.length == 1){
-                            if (inputElements[0].value == '' && (inputElements[0].offsetParent != null || frame.contentWindow.userChange == true)){
+                            if (inputElements[0].hasAttribute('data-value') && inputElements[0].getAttribute('data-value') == '' && inputElements[0].value == ''){
+                                errorMsg(font);
+                                isValid = false;
+                                if (frame.contentWindow.document.querySelector('#questions_container').hidden){
+                                    frame.contentWindow.document.querySelector('.toolHead').click();
+                                }
+                                frame.style.height = idealFrameHeight(frame);
+                            }
+                            else if (inputElements[0].value == '' && (inputElements[0].offsetParent != null || userChange == true )){
                                 errorMsg(font);
                                 isValid = false;
                                 if (frame.contentWindow.document.querySelector('#questions_container').hidden){

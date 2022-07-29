@@ -485,155 +485,117 @@ function errorMsg(element) {
 }
 
 function validation() {
-  let isValid = true;
-  if (document.querySelectorAll("font[color='red'], .redAsterisk").length > 0) {
-    document
-      .querySelectorAll("font[color='red'], .redAsterisk")
-      .forEach((font) => {
-        let inputElements;
-        if (font.closest('tr').querySelector('div[questionSelector]') != null) {
-          const selector = font
-            .closest('tr')
-            .querySelector('div[questionSelector]')
-            .getAttribute('questionSelector');
-          inputElements = [...document.querySelectorAll(selector)].map((x) =>
-            x.closest('tr').querySelector('input, select, textarea')
-          );
-        } else {
-          inputElements = font
-            .closest('table')
-            .querySelectorAll('input, select, textarea');
-        }
-        inputElements = [...inputElements].filter((x) => x.type != 'button');
-        if (inputElements.length == 1) {
-          if (
-            inputElements[0].value == '' &&
-            inputElements[0].getAttribute('data-value') == '' &&
-            (inputElements[0].offsetParent != null || userChange == true)
-          ) {
-            errorMsg(font);
-            isValid = false;
-          }
-        } else if (inputElements.length > 1) {
-          let noneSelected = true;
-          inputElements.forEach((elem) => {
-            if (elem.type == 'radio' || elem.type == 'checkbox') {
-              if (elem.checked) {
-                noneSelected = false;
-              }
-            } else {
-              if (elem.value != '') {
-                noneSelected = false;
-              }
+    let isValid = true;
+    if (document.querySelectorAll('font[color=\'red\'], .redAsterisk').length > 0){
+        document.querySelectorAll('font[color=\'red\'], .redAsterisk').forEach(font => {
+            let inputElements;
+            if (font.closest('tr').querySelector('div[questionSelector]') != null){
+                const selector = font.closest('tr').querySelector('div[questionSelector]').getAttribute('questionSelector');
+                inputElements = [...document.querySelectorAll(selector)].map(x => x.closest('tr').querySelector('input, select, textarea'));
             }
-          });
-          if (noneSelected && font.offsetParent != null) {
-            errorMsg(font);
-            isValid = false;
-          }
-        }
-      });
-  }
-  if (document.querySelectorAll('.frame').length > 0) {
-    document.querySelectorAll('.frame').forEach((frame) => {
-      if (frame.contentWindow.userChange) {
-        if (
-          frame.contentWindow.document.querySelectorAll(
-            "font[color='red'], .redAsterisk"
-          ).length > 0
-        ) {
-          frame.contentWindow.document
-            .querySelectorAll("font[color='red'], .redAsterisk")
-            .forEach((font) => {
-              let inputElements;
-              if (
-                font.closest('tr').querySelector('div[questionSelector]') !=
-                null
-              ) {
-                const selector = font
-                  .closest('tr')
-                  .querySelector('div[questionSelector]')
-                  .getAttribute('questionSelector');
-                inputElements = [
-                  ...frame.contentWindow.document.querySelectorAll(selector),
-                ].map((x) =>
-                  x.closest('tr').querySelector('input, select, textarea')
-                );
-              } else {
-                inputElements = font
-                  .closest('table')
-                  .querySelectorAll('input, select, textarea');
-              }
-              inputElements = [...inputElements].filter(
-                (x) => x.type != 'button'
-              );
-              if (inputElements.length == 1) {
-                if (
-                  inputElements[0].value == '' &&
-                  (inputElements[0].offsetParent != null ||
-                    frame.contentWindow.userChange == true)
-                ) {
-                  errorMsg(font);
-                  isValid = false;
-                  if (
-                    frame.contentWindow.document.querySelector(
-                      '#questions_container'
-                    ).hidden
-                  ) {
-                    frame.contentWindow.document
-                      .querySelector('.toolHead')
-                      .click();
-                  }
-                  frame.style.height = idealFrameHeight(frame);
+            else{
+                inputElements = font.closest('table').querySelectorAll('input, select, textarea');
+            }
+            inputElements = [...inputElements].filter(x => x.type != 'button');
+            if (inputElements.length == 1){
+                if (inputElements[0].hasAttribute('data-value') && inputElements[0].getAttribute('data-value') == '' && inputElements[0].value == ''){
+                    errorMsg(font);
+                    isValid = false;
                 }
-              } else if (inputElements.length > 1) {
+                else if (inputElements[0].value == '' && (inputElements[0].offsetParent != null || userChange == true )){
+                    errorMsg(font);
+                    isValid = false;
+                }
+            }
+            else if (inputElements.length > 1){
                 let noneSelected = true;
-                inputElements.forEach((elem) => {
-                  if (elem.type == 'radio' || elem.type == 'checkbox') {
-                    if (elem.checked) {
-                      noneSelected = false;
+                inputElements.forEach(elem => {
+                    if (elem.type == 'radio' || elem.type == 'checkbox'){
+                        if (elem.checked){
+                            noneSelected = false;
+                        }
                     }
-                  } else {
-                    if (elem.value != '') {
-                      noneSelected = false;
+                    else{
+                        if (elem.value != ''){
+                            noneSelected = false;
+                        }
                     }
-                  }
                 });
-                if (
-                  noneSelected &&
-                  (font.offsetParent != null ||
-                    frame.contentWindow.userChange == true)
-                ) {
-                  errorMsg(font);
-                  isValid = false;
-                  if (
-                    frame.contentWindow.document.querySelector(
-                      '#questions_container'
-                    ).hidden
-                  ) {
-                    frame.contentWindow.document
-                      .querySelector('.toolHead')
-                      .click();
-                  }
-                  frame.style.height = idealFrameHeight(frame);
+                if (noneSelected && font.offsetParent != null){
+                    errorMsg(font);
+                    isValid = false;
                 }
-              }
-            });
-        }
-      }
+            }
+        });
+    }
+    if (document.querySelectorAll('.frame').length > 0){
+        document.querySelectorAll('.frame').forEach(frame => {
+            if (frame.contentWindow.userChange){
+                if (frame.contentWindow.document.querySelectorAll('font[color=\'red\'], .redAsterisk').length > 0){
+                    frame.contentWindow.document.querySelectorAll('font[color=\'red\'], .redAsterisk').forEach(font => {
+                        let inputElements;
+                        if (font.closest('tr').querySelector('div[questionSelector]') != null){
+                            const selector = font.closest('tr').querySelector('div[questionSelector]').getAttribute('questionSelector');
+                            inputElements = [...frame.contentWindow.document.querySelectorAll(selector)].map(x => x.closest('tr').querySelector('input, select, textarea'));
+                        }
+                        else{
+                            inputElements = font.closest('table').querySelectorAll('input, select, textarea');
+                        }
+                        inputElements = [...inputElements].filter(x => x.type != 'button');
+                        if (inputElements.length == 1){
+                            if (inputElements[0].hasAttribute('data-value') && inputElements[0].getAttribute('data-value') == '' && inputElements[0].value == ''){
+                                errorMsg(font);
+                                isValid = false;
+                                if (frame.contentWindow.document.querySelector('#questions_container').hidden){
+                                    frame.contentWindow.document.querySelector('.toolHead').click();
+                                }
+                                frame.style.height = idealFrameHeight(frame);
+                            }
+                            else if (inputElements[0].value == '' && (inputElements[0].offsetParent != null || userChange == true )){
+                                errorMsg(font);
+                                isValid = false;
+                                if (frame.contentWindow.document.querySelector('#questions_container').hidden){
+                                    frame.contentWindow.document.querySelector('.toolHead').click();
+                                }
+                                frame.style.height = idealFrameHeight(frame);
+                            }
+                        }
+                        else if (inputElements.length > 1){
+                            let noneSelected = true;
+                            inputElements.forEach(elem => {
+                                if (elem.type == 'radio' || elem.type == 'checkbox'){
+                                    if (elem.checked){
+                                        noneSelected = false;
+                                    }
+                                }
+                                else{
+                                    if (elem.value != ''){
+                                        noneSelected = false;
+                                    }
+                                }
+                            });
+                            if (noneSelected && (font.offsetParent != null || frame.contentWindow.userChange == true)){
+                                errorMsg(font);
+                                isValid = false;
+                                if (frame.contentWindow.document.querySelector('#questions_container').hidden){
+                                    frame.contentWindow.document.querySelector('.toolHead').click();
+                                }
+                                frame.style.height = idealFrameHeight(frame);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+    let errorMsgs = [...document.querySelectorAll('.errMsg')];
+    document.querySelectorAll('.frame').forEach(frame => {
+        errorMsgs = [...errorMsgs, ...frame.contentDocument.querySelectorAll('.errMsg')]
     });
-  }
-  let errorMsgs = [...document.querySelectorAll('.errMsg')];
-  document.querySelectorAll('.frame').forEach((frame) => {
-    errorMsgs = [
-      ...errorMsgs,
-      ...frame.contentDocument.querySelectorAll('.errMsg'),
-    ];
-  });
-  if (errorMsgs.length > 0) {
-    isValid = false;
-  }
-  return isValid;
+    if (errorMsgs.length > 0){
+        isValid = false;
+    }
+    return isValid;
 }
 
 let globalIsValid = true;
