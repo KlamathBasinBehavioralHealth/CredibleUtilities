@@ -53,4 +53,4 @@ $('document').ready(function () {
   $('tr').has('div[class=dla20Q]').find('select').click(calculateDLA20);
 });
 
-document.addEventListener('DOMContentLoaded', () => { createSubmitButtons(); linkValueToExtFrame(parent.document, 'dla20Score', '#ticEvaluation', '#dla20Score');  });
+document.addEventListener('DOMContentLoaded', () => {linkValueToExtFrame(parent.document, 'dla20Score', '#ticEvaluation', '#dla20Score');  });
