@@ -132,14 +132,14 @@ function inlineError(element, condition, msg){
     element.onchange = (e) => {
         if (condition){
             e.target.style.border = '1px solid #8f8f9d';
-            if (e.target.parentElement.querySelector('.errMsg') != null){
-                e.target.parentElement.querySelector('.errMsg').remove();
+            if (e.target.closest('table').querySelector('.errMsg') != null){
+                e.target.closest('table').querySelector('.errMsg').remove();
             }
         }
     };
 
-    if (element.parentElement.querySelector('.errMsg') == null){
-        element.parentElement.appendChild(err);
+    if (element.closest('table').querySelector('.errMsg') == null){
+        element.closest('table').appendChild(err);
     }
 }
 

@@ -340,24 +340,28 @@ function numTextInputVal(context) {
     }
   });
 }
-function inlineError(element, condition, msg) {
-  const err = document.createElement('p');
-  err.className = 'errMsg';
-  err.innerHTML = msg;
-  err.style.color = 'red';
-  element.style.border = '2px solid red';
-  element.style.borderRadius = '0.25em';
-  element.onchange = (e) => {
-    if (condition) {
-      e.target.style.border = '1px solid #8f8f9d';
-      if (e.target.parentElement.querySelector('.errMsg') != null) {
-        e.target.parentElement.querySelector('.errMsg').remove();
-      }
+function inlineError(element, condition, msg){
+    const err = document.createElement('p');
+    err.className = 'errMsg';
+    err.innerHTML = msg;
+    err.style.color = 'red';
+
+
+    element.style.border = '2px solid red';
+    element.style.borderRadius = '0.25em';
+
+    element.onchange = (e) => {
+        if (condition){
+            e.target.style.border = '1px solid #8f8f9d';
+            if (e.target.closest('table').querySelector('.errMsg') != null){
+                e.target.closest('table').querySelector('.errMsg').remove();
+            }
+        }
+    };
+
+    if (element.closest('table').querySelector('.errMsg') == null){
+        element.closest('table').appendChild(err);
     }
-  };
-  if (element.parentElement.querySelector('.errMsg') == null) {
-    element.parentElement.appendChild(err);
-  }
 }
 function deployInlineValidation() {
   const frames = document.querySelectorAll('.frame');
