@@ -806,7 +806,7 @@ waitForElement(parent.document, "frame[name='left']").then((navFrame) => {
     );
     setHref(
       parent.document.querySelector("frame[name='left']").contentDocument,
-      'TIC Eval',
+      'TIC EVAL',
       false
     );
     setLinks(
