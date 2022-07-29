@@ -658,33 +658,33 @@ function addStyling() {
   document.head.appendChild(css);
 }
 
-// waitForElement(parent.document, "frame[name='left']").then((navFrame) => {
-//   generateIframes(
-//     '#questions_container',
-//     'live',
-//     'Eval Subforms',
-//     navFrame.contentWindow.document
-//   ).then(() => {
-//     addHeaderScriptToAll();
-//     addHeaderFuncToAll();
-//     setFrameHeightEvents();
-//     hideSubforms(
-//       parent.document.querySelector("frame[name='left']").contentDocument,
-//       'Eval Subforms',
-//       false
-//     );
-//     setHref(
-//       parent.document.querySelector("frame[name='left']").contentDocument,
-//       'TIC EVAL',
-//       false
-//     );
-//     setLinks(
-//       parent.document.querySelector("frame[name='left']").contentDocument,
-//       'Eval Subforms'
-//     );
-//     createSubmitButtons();
-//     hideSubCompletes();
-//     addStyling();
-//     deployInlineValidation();
-//   });
-// });
+waitForElement(parent.document, "frame[name='left']").then((navFrame) => {
+  generateIframes(
+    '#questions_container',
+    'live',
+    'START WIP-QMHP',
+    navFrame.contentWindow.document
+  ).then(() => {
+    addHeaderScriptToAll();
+    addHeaderFuncToAll();
+    setFrameHeightEvents();
+    hideSubforms(
+      parent.document.querySelector("frame[name='left']").contentDocument,
+      'START WIP-QMHP',
+      false
+    );
+    setHref(
+      parent.document.querySelector("frame[name='left']").contentDocument,
+      '_WIP-QMHP',
+      false
+    );
+    setLinks(
+      parent.document.querySelector("frame[name='left']").contentDocument,
+      'START WIPO-QMHP'
+    );
+    createSubmitButtons();
+    hideSubCompletes();
+    addStyling();
+    deployInlineValidation();
+  });
+});
