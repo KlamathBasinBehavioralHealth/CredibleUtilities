@@ -15,4 +15,4 @@ $('document').ready(function () {
   });
 });
 
-document.addEventListener('DOMContentLoaded', () => {linkValueToExtFrame(parent.document, 'pcl5Score', '#ticEvaluation', '#pcl5Score');  });
+document.addEventListener('DOMContentLoaded', () => {linkValueToExtFrame(parent.document, 'pcl5Score', '.frame', '#pcl5Score');  });

@@ -20,4 +20,4 @@ $(document).ready(function () {
   $('tr').has('div[class=question]').find('input').click(countQuestions);
 });
 
-document.addEventListener('DOMContentLoaded', () => {linkValueToExtFrame(parent.document, 'aceScore', '#ticEvaluation', '#aceScore');  });
+document.addEventListener('DOMContentLoaded', () => {linkValueToExtFrame(parent.document, 'aceScore', '.frame', '#aceScore');  });

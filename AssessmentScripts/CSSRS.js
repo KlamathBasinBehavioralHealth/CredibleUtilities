@@ -185,4 +185,4 @@ $('document').ready(function () {
   $('tr').has('div[class=cssrsQ]').find('input').change(calculateCSSRS);
 });
 
-document.addEventListener('DOMContentLoaded', () => {linkValueToExtFrame(parent.document, 'cssrsScore', '#ticEvaluation', '#cssrsScore');  });
+document.addEventListener('DOMContentLoaded', () => {linkValueToExtFrame(parent.document, 'cssrsScore', '.frame', '#cssrsScore');  });
