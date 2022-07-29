@@ -25,7 +25,6 @@ async function generateIframes(
   env = 'test',
   folderText = '',
   documentContext = document,
-  testRefList = sudRefList
 ) {
   const parentEl = document.querySelector(parent);
   const parentFirst = parentEl.firstChild;
