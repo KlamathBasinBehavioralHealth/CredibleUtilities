@@ -770,6 +770,18 @@ function createSubmitButtons() {
   };
 }
 
+/* Catch any complete buttons where the subforms don't have submit button functionality */
+function hideSubCompletes(){
+	const frames = document.querySelectorAll('.frame');
+	frames.forEach(frame => {
+        const oldComplete = frame.contentWindow.document.querySelector('input[name=\'Complete\']');
+        oldComplete.id = 'oldComplete';
+        oldComplete.hidden = true;
+        frame.contentWindow.document.querySelector('#input').setexit.value = 1;
+        frame.contentWindow.onbeforeunload = (e) => {console.log(`${frame.id} submitted`)};
+	});
+}
+
 /*  */
 function addStyling() {
   const css = document.createElement('style');
