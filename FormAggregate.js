@@ -662,7 +662,7 @@ waitForElement(parent.document, "frame[name='left']").then((navFrame) => {
   generateIframes(
     '#questions_container',
     'live',
-    'START WIP-QMHP',
+    'SUD/DUII Subforms',
     navFrame.contentWindow.document
   ).then(() => {
     addHeaderScriptToAll();
@@ -670,17 +670,17 @@ waitForElement(parent.document, "frame[name='left']").then((navFrame) => {
     setFrameHeightEvents();
     hideSubforms(
       parent.document.querySelector("frame[name='left']").contentDocument,
-      'START WIP-QMHP',
+      'SUD/DUII Subforms',
       false
     );
     setHref(
       parent.document.querySelector("frame[name='left']").contentDocument,
-      '_WIP-QMHP',
+      'SUD iframe inject test',
       false
     );
     setLinks(
       parent.document.querySelector("frame[name='left']").contentDocument,
-      'START WIPO-QMHP'
+      'SUD/DUII Subforms'
     );
     createSubmitButtons();
     hideSubCompletes();
