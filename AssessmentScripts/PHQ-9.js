@@ -59,4 +59,4 @@ $('document').ready(function () {
   $('tr').has('div[class=phq9Q]').find('select').change(checkPositiveScreening);
 });
 
-document.addEventListener('DOMContentLoaded', () => {linkValueToExtFrame(parent.document, 'phq9Score', '#ticEvaluation', '#phq9Score');  });
+document.addEventListener('DOMContentLoaded', () => {linkValueToExtFrame(parent.document, 'phq9Score', '.frame', '#phq9Score');  });

@@ -15,4 +15,4 @@ $('document').ready(function () {
   });
 });
 
-document.addEventListener('DOMContentLoaded', () => {linkValueToExtFrame(parent.document, 'gad7Score', '#ticEvaluation', '#gad7Score');  });
+document.addEventListener('DOMContentLoaded', () => {linkValueToExtFrame(parent.document, 'gad7Score', '.frame', '#gad7Score');  });
