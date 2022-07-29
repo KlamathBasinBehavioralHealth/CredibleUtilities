@@ -23,5 +23,3 @@ function linkValueToExtFrame(context, variable, frameSelector, targetSelector){
         }
     }
 }
-
-window.addEventListener('DOMContentLoaded', () => { createSubmitButtons(); linkValueToExtFrame(parent.document, 'cssrsScore', '#ticEvaluation', '#cssrsScore');  });
