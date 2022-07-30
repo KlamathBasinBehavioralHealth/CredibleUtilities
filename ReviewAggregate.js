@@ -1,3 +1,6 @@
+const form = 'TIC Review';
+const subForm = 'TIC Review Subforms';
+
 let refList = {};
 function findLinkFromText(text, documentContext, resultIndex = 0) {
   const elements = Array.from(documentContext.getElementsByTagName('a'));
@@ -625,12 +628,12 @@ async function submitFrames() {
   });
   setHref(
     parent.document.querySelector("frame[name='left']").contentDocument,
-    'TIC EVAL',
+    form,
     true
   );
   hideSubforms(
     parent.document.querySelector("frame[name='left']").contentDocument,
-    'Eval Subforms',
+    subform,
     true
   );
   return Promise.all(promises);
@@ -730,9 +733,6 @@ function addStyling() {
   css.textContent = `body{ width: 98vw; } /* IFRAMES */ .frameContainer{ width: 98vw; height: auto; margin-left: -2.75em; overflow-y: hidden; } .frame{ border: none; width: 100%; height: 100vh; overflow-y: hidden; } /* SUBMIT BUTTONS */ #buttonWrapper{ width: 100vw; max-width: 100%; margin-top: 2em; } #buttonContainer{ width: 25%; margin: 0px 37.5% 0px calc(37.5% - 30px); display: flex; flex-direction: row; column-gap: 1.5em; } #saveProgress, #complete{ margin: 0; width: 8.25em !important; font-size: 0.8em !important; } @media screen and (max-width: 800px){ #buttonContainer{ flex-direction: column; row-gap: 1.25em; } }`;
   document.head.appendChild(css);
 }
-
-const form = 'TIC Review';
-const subForm = 'TIC Review Subforms';
 
 waitForElement(parent.document, "frame[name='left']").then((navFrame) => {
   generateIframes(

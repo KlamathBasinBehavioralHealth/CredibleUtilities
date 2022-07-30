@@ -1,3 +1,6 @@
+const form = 'QMHP Service Note';
+const subForm = 'QMHP Subforms';
+
 const sudRefList = {
   initialInformation:
     'https://www.cbh3.crediblebh.com/webforms/questions.asp?category_id=132855',
@@ -649,12 +652,12 @@ async function submitFrames() {
   });
   setHref(
     parent.document.querySelector("frame[name='left']").contentDocument,
-    'TIC EVAL',
+    form,
     true
   );
   hideSubforms(
     parent.document.querySelector("frame[name='left']").contentDocument,
-    'Eval Subforms',
+    subForm,
     true
   );
   return Promise.all(promises);
@@ -759,7 +762,7 @@ waitForElement(parent.document, "frame[name='left']").then((navFrame) => {
   generateIframes(
     '#questions_container',
     'live',
-    'QMHP Subforms',
+    subForm,
     navFrame.contentWindow.document
   ).then(() => {
     addHeaderScriptToAll();
@@ -767,17 +770,17 @@ waitForElement(parent.document, "frame[name='left']").then((navFrame) => {
     setFrameHeightEvents();
     hideSubforms(
       parent.document.querySelector("frame[name='left']").contentDocument,
-      'QMHP Subforms',
+      subForm,
       false
     );
     setHref(
       parent.document.querySelector("frame[name='left']").contentDocument,
-      'QMHP Service Note',
+      form,
       false
     );
     setLinks(
       parent.document.querySelector("frame[name='left']").contentDocument,
-      'QMHP Subforms'
+      subForm
     );
     createSubmitButtons();
     hideSubCompletes();
