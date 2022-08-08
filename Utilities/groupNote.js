@@ -1,10 +1,20 @@
-let env = 'test';
+let env = 'live';
 let groupTest = false;
 function checkGroup(){
-    if(parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('select') != null){
-        const clientCount = parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('select').options.length - 1;
-        if (clientCount > 1){
-            return true;
+    if (frameElement != null && !frameElement.classList.contains('frame')){
+        if(parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('select') != null){
+            const clientCount = parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('select').options.length - 1;
+            if (clientCount > 1){
+                return true;
+            }
+        }
+    }
+    else{
+        if(parent.parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('select') != null){
+            const clientCount = parent.parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('select').options.length - 1;
+            if (clientCount > 1){
+                return true;
+            }
         }
     }
     return false
@@ -24,7 +34,7 @@ function isGroup(environment){
 
 function removeMdd(environment){
     if (isGroup(environment)){
-        document.querySelectorAll('#mddDx, #phq9, #cssrs').forEach(indivItem => {
+        document.querySelectorAll('#mddDx, #phq9Score, #cssrsScore').forEach(indivItem => {
             indivItem.closest('table').closest('tr').remove();
         });
     }
