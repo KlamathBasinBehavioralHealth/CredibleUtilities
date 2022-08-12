@@ -633,7 +633,7 @@ async function submitFrames() {
   );
   hideSubforms(
     parent.document.querySelector("frame[name='left']").contentDocument,
-    subform,
+    subForm,
     true
   );
   return Promise.all(promises);

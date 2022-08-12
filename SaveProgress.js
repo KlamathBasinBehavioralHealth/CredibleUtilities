@@ -246,9 +246,6 @@ async function submitFrames(){
         }
     });
 
-    setHref(parent.document.querySelector('frame[name=\'left\']').contentDocument, 'TIC EVAL', true);
-    hideSubforms(parent.document.querySelector('frame[name=\'left\']').contentDocument, 'Eval Subforms', true);
-
     return Promise.all(promises);
 }
 
