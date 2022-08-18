@@ -1,4 +1,4 @@
-const form = 'TIC EVAL';
+const mainForm = 'TIC EVALUATION';
 const subForm = 'Eval Subforms';
 
 const sudRefList = {
@@ -775,7 +775,7 @@ waitForElement(parent.document, "frame[name='left']").then((navFrame) => {
     );
     setHref(
       parent.document.querySelector("frame[name='left']").contentDocument,
-      form,
+      mainForm,
       false
     );
     setLinks(
