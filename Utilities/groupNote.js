@@ -34,7 +34,7 @@ function isGroup(environment){
 
 function removeMdd(environment){
     if (isGroup(environment)){
-        document.querySelectorAll('#mddDx, #phq9Score, #cssrsScore').forEach(indivItem => {
+        document.querySelectorAll('#mddDx, #phq9Score, #cssrsScore, .groupHide').forEach(indivItem => {
             indivItem.closest('table').closest('tr').remove();
         });
     }
