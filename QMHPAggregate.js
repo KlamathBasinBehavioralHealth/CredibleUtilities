@@ -1,4 +1,4 @@
-const form = 'QMHP Service Note';
+const mainForm = 'QMHP SERVICE NOTE';
 const subForm = 'QMHP Subforms';
 
 const sudRefList = {
@@ -652,7 +652,7 @@ async function submitFrames() {
   });
   setHref(
     parent.document.querySelector("frame[name='left']").contentDocument,
-    form,
+    mainForm,
     true
   );
   hideSubforms(
@@ -775,7 +775,7 @@ waitForElement(parent.document, "frame[name='left']").then((navFrame) => {
     );
     setHref(
       parent.document.querySelector("frame[name='left']").contentDocument,
-      form,
+      mainForm,
       false
     );
     setLinks(

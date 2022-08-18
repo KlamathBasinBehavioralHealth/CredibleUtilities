@@ -652,12 +652,12 @@ async function submitFrames() {
   });
   setHref(
     parent.document.querySelector("frame[name='left']").contentDocument,
-    'TIC EVAL',
+    mainForm,
     true
   );
   hideSubforms(
     parent.document.querySelector("frame[name='left']").contentDocument,
-    'Eval Subforms',
+    subForm,
     true
   );
   return Promise.all(promises);
