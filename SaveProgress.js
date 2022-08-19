@@ -108,11 +108,6 @@ function validation() {
                     errorMsg(font);
                     isValid = false;
                 }
-                else if (inputElements[0].type = 'checkbox' && !inputElements[0].checked){
-                    errorMsg(font);
-                    isValid = false;
-                    inputElements[0].type = 'checkbox';
-                }
             }
             else if (inputElements.length > 1){
                 let noneSelected = true;
