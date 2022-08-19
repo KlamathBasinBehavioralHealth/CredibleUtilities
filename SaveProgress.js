@@ -111,6 +111,7 @@ function validation() {
                 else if (inputElements[0].type = 'checkbox' && !inputElements[0].checked){
                     errorMsg(font);
                     isValid = false;
+                    inputElements[0].type = 'checkbox';
                 }
             }
             else if (inputElements.length > 1){
