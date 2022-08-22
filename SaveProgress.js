@@ -8,9 +8,14 @@ function errorMsg(element){
     }
     err.style.color = 'red';
     let inputElements = [];
+    let allRequired = false;
     if (element.closest('tr') != null && element.closest('tr').querySelector('div[questionSelector]') != null){
-        const selector = element.closest('tr').querySelector('div[questionSelector]').getAttribute('questionSelector');
+        const labelElement = element.closest('tr').querySelector('div[questionSelector]');
+        const selector = labelElement.getAttribute('questionSelector');
         inputElements = [...element.closest('body').querySelectorAll(selector)].map(x => x.closest('tr').querySelector('input, select, textarea'));
+        if (labelElement.hasAttribute('allRequired')){
+            allRequired = true;
+        }
     }
     else if (element.closest('table') != null){
         inputElements = element.closest('table').querySelectorAll('input, select, textarea')
@@ -50,19 +55,25 @@ function errorMsg(element){
         inputElements.forEach(inp => {
             inp.closest('tr').onclick = (e) => {
                 let noneSelected = true;
+                let selectedCount = 0;
                 inputElements.forEach(elem => {
                     if (elem.type == 'radio' || elem.type == 'checkbox'){
                     if (elem.checked){
                             noneSelected = false;
+                            selectedCount += 1;
                         }
                     }
                     else{
                         if (elem.value != ''){
                             noneSelected = false;
+                            selectedCount += 1;
                         }
                     }
                 });
-                if(noneSelected){
+                if (allRequired && inputElements.length != selectedCount){
+                    errorMsg(element);
+                }
+                else if(noneSelected){
                     errorMsg(element);
                 }
                 else{
@@ -91,9 +102,14 @@ function validation() {
     if (document.querySelectorAll('font[color=\'red\'], .redAsterisk').length > 0){
         document.querySelectorAll('font[color=\'red\'], .redAsterisk').forEach(font => {
             let inputElements;
+            let allRequired = false;
             if (font.closest('tr').querySelector('div[questionSelector]') != null){
-                const selector = font.closest('tr').querySelector('div[questionSelector]').getAttribute('questionSelector');
+                const labelElement = font.closest('tr').querySelector('div[questionSelector]');
+                const selector = labelElement.getAttribute('questionSelector');
                 inputElements = [...document.querySelectorAll(selector)].map(x => x.closest('tr').querySelector('input, select, textarea'));
+                if (labelElement.hasAttribute('allRequired')){
+                    allRequired = true;
+                }
             }
             else{
                 inputElements = font.closest('table').querySelectorAll('input, select, textarea');
@@ -111,21 +127,32 @@ function validation() {
             }
             else if (inputElements.length > 1){
                 let noneSelected = true;
+                let selectedCount = 0;
                 inputElements.forEach(elem => {
                     if (elem.type == 'radio' || elem.type == 'checkbox'){
                         if (elem.checked){
                             noneSelected = false;
+                            selectedCount += 1;
                         }
                     }
                     else{
                         if (elem.value != ''){
                             noneSelected = false;
+                            selectedCount += 1;
                         }
                     }
                 });
-                if (noneSelected && font.offsetParent != null){
-                    errorMsg(font);
-                    isValid = false;
+                if (allRequired){
+                    if (inputElements.length != selectedCount && font.offsetParent != null){
+                        errorMsg(font);
+                        isValid = false;
+                    }
+                }
+                else{
+                    if (noneSelected && font.offsetParent != null){
+                        errorMsg(font);
+                        isValid = false;
+                    }
                 }
             }
         });
@@ -136,9 +163,14 @@ function validation() {
                 if (frame.contentWindow.document.querySelectorAll('font[color=\'red\'], .redAsterisk').length > 0){
                     frame.contentWindow.document.querySelectorAll('font[color=\'red\'], .redAsterisk').forEach(font => {
                         let inputElements;
+                        let allRequired = false;
                         if (font.closest('tr').querySelector('div[questionSelector]') != null){
-                            const selector = font.closest('tr').querySelector('div[questionSelector]').getAttribute('questionSelector');
+                            const labelElement = font.closest('tr').querySelector('div[questionSelector]');
+                            const selector = labelElement.getAttribute('questionSelector');
                             inputElements = [...frame.contentWindow.document.querySelectorAll(selector)].map(x => x.closest('tr').querySelector('input, select, textarea'));
+                            if (labelElement.hasAttribute('allRequired')){
+                                allRequired = true;
+                            }
                         }
                         else{
                             inputElements = font.closest('table').querySelectorAll('input, select, textarea');
@@ -164,25 +196,40 @@ function validation() {
                         }
                         else if (inputElements.length > 1){
                             let noneSelected = true;
+                            let selectedCount = 0;
                             inputElements.forEach(elem => {
                                 if (elem.type == 'radio' || elem.type == 'checkbox'){
                                     if (elem.checked){
                                         noneSelected = false;
+                                        selectedCount += 1;
                                     }
                                 }
                                 else{
                                     if (elem.value != ''){
                                         noneSelected = false;
+                                        selectedCount += 1;
                                     }
                                 }
                             });
-                            if (noneSelected && (font.offsetParent != null || frame.contentWindow.userChange == true)){
-                                errorMsg(font);
-                                isValid = false;
-                                if (frame.contentWindow.document.querySelector('#questions_container').hidden){
-                                    frame.contentWindow.document.querySelector('.toolHead').click();
+                            if (allRequired){
+                                if (inputElements.length != selectedCount && (font.offsetParent != null || frame.contentWindow.userChange == true)){
+                                    errorMsg(font);
+                                    isValid = false;
+                                    if (frame.contentWindow.document.querySelector('#questions_container').hidden){
+                                        frame.contentWindow.document.querySelector('.toolHead').click();
+                                    }
+                                    frame.style.height = idealFrameHeight(frame);
                                 }
-                                frame.style.height = idealFrameHeight(frame);
+                            }
+                            else{
+                                if (noneSelected && (font.offsetParent != null || frame.contentWindow.userChange == true)){
+                                    errorMsg(font);
+                                    isValid = false;
+                                    if (frame.contentWindow.document.querySelector('#questions_container').hidden){
+                                        frame.contentWindow.document.querySelector('.toolHead').click();
+                                    }
+                                    frame.style.height = idealFrameHeight(frame);
+                                }
                             }
                         }
                     });
