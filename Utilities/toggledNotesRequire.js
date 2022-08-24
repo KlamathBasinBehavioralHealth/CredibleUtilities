@@ -59,4 +59,4 @@ function deployNoteRequirement(selector, singleTextArea){
     });
 }
 
-setTimeout(() => {deployNoteRequirement('.intervention', false)}, 1000);
+setTimeout(() => {deployNoteRequirement('.requiredNote', false)}, 1000);
