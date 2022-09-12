@@ -1,7 +1,6 @@
 //New require function
 function requireField (target, condition) { 
 	$('tr').find(target).next().remove();  
-  document.querySelector(target).nextElementSibling.remove();
 	if(condition) { 
 		$('tr').has(target).find('input').prop('required', true); 
 		$('tr').has(target).find('select').prop('required', true); 
