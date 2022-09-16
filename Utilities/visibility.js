@@ -10,21 +10,18 @@ function requireField (target, condition) {
 		$('tr').has(target).find('input').prop('required', false); 
 		$('tr').has(target).find('select').prop('required', false); 
 	} 
+  
 }
 
 //New hide show function
 function visibility(hideShow, target, require = false){
   if(hideShow == 'show'){
-    $(target).closest('table')?.parent().parent().show();
-    $(target).closest('table')?.parent().parent().each(function (){
-      $(this).nextAll('tr:has(img[height=15]):first').show();
-    });
+    $(target).closest('table')?.closest('tr').show();
+    $(target).closest('table')?.closest('tr').nextAll('tr:has(img[src$=\'spacer.gif\']):first').show();
   }
   else if(hideShow == 'hide'){
-    $(target).closest('table')?.parent().parent().hide();
-    $(target).closest('table')?.parent().parent().each(function (){
-      $(this).nextAll('tr:has(img[height=15]):first').hide();
-    });
+    $(target).closest('table')?.closest('tr').hide();
+    $(target).closest('table')?.closest('tr').nextAll('tr:has(img[src$=\'spacer.gif\']):first').hide();
   }
   
   if(require == true){
