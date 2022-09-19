@@ -16,12 +16,26 @@ function requireField (target, condition) {
 //New hide show function
 function visibility(hideShow, target, require = false){
   if(hideShow == 'show'){
-    $(target).closest('table')?.closest('tr').show();
-    $(target).closest('table')?.closest('tr').nextAll('tr:has(img[src$=\'spacer.gif\']):first').show();
+    $(target).closest('table').closest('tr').each(function (){
+      $(this).show();
+      if($(this).next().find('textarea').length){
+          $(this).next().show();
+      }
+      else{
+          $(this).next().show();
+      }
+    });
   }
   else if(hideShow == 'hide'){
-    $(target).closest('table')?.closest('tr').hide();
-    $(target).closest('table')?.closest('tr').nextAll('tr:has(img[src$=\'spacer.gif\']):first').hide();
+    $(target).closest('table').closest('tr').each(function (){
+      $(this).hide();
+      if($(this).next().find('textarea').length){
+          $(this).next().hide();
+      }
+      else{
+          $(this).next().hide();
+      }
+    }); 
   }
   
   if(require == true){
