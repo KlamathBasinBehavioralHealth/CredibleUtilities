@@ -15,8 +15,11 @@ function requireField (target, condition) {
 
 //New hide show function
 function visibility(hideShow, target, require = false){
+  
   if(hideShow == 'show'){
     $(target).closest('table').closest('tr').each(function (){
+      let id = $(this).find('*[id*=q_]').attr('id').slice(2);
+      console.log(`Found id: ${id}.`);
       $(this).show();
       if($(this).next().find('textarea').length){
           $(this).next().show();
@@ -28,6 +31,8 @@ function visibility(hideShow, target, require = false){
   }
   else if(hideShow == 'hide'){
     $(target).closest('table').closest('tr').each(function (){
+      let id = $(this).find('*[id*=q_]').attr('id').slice(2);
+      console.log(`Found id: ${id}.`);
       $(this).hide();
       if($(this).next().find('textarea').length){
           $(this).next().hide();
