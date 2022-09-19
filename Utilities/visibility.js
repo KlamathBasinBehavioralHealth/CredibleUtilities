@@ -18,27 +18,41 @@ function visibility(hideShow, target, require = false){
   
   if(hideShow == 'show'){
     $(target).closest('table').closest('tr').each(function (){
-      let id = $(this).find('*[id*=q_]').attr('id').slice(2);
-      console.log(`Found id: ${id}.`);
       $(this).show();
-      if($(this).next().find('textarea').length){
-          $(this).next().show();
+      let id;
+      try{
+        id = $(this).find('*[id*=q_]').attr('id').slice(2);
+        console.log(`Found id: ${id}.`);
+        $('.div' + id).closest('tr').show();
       }
-      else{
-          $(this).next().next().show();
+      catch(error){
+        console.log(error);
+        if($(this).next().find('textarea').length){
+            $(this).next().next().show();
+        }
+        else{
+            $(this).next().show();
+        }
       }
     });
   }
   else if(hideShow == 'hide'){
     $(target).closest('table').closest('tr').each(function (){
-      let id = $(this).find('*[id*=q_]').attr('id').slice(2);
-      console.log(`Found id: ${id}.`);
       $(this).hide();
-      if($(this).next().find('textarea').length){
-          $(this).next().hide();
+      let id;
+      try{
+        id = $(this).find('*[id*=q_]').attr('id').slice(2);
+        console.log(`Found id: ${id}.`);
+        $('.div' + id).closest('tr').hide();
       }
-      else{
-          $(this).next().next().hide();
+      catch(error){
+        console.log(error);
+        if($(this).next().find('textarea').length){
+            $(this).next().next().hide();
+        }
+        else{
+            $(this).next().hide();
+        }
       }
     }); 
   }
