@@ -23,7 +23,15 @@ function visibility(hideShow, target, require = false){
       try{
         id = $(this).find('*[id*=q_]').attr('id').slice(2);
         console.log(`Found id: ${id}.`);
-        $('.div' + id).closest('tr').show();
+        if($('.div' + id)?.length){
+          $('.div' + id).closest('tr').show();
+        }
+        if($(this).next().find('textarea').length){
+            $(this).next().next().show();
+        }
+        else{
+            $(this).next().show();
+        }
       }
       catch(error){
         console.log(error);
@@ -43,7 +51,15 @@ function visibility(hideShow, target, require = false){
       try{
         id = $(this).find('*[id*=q_]').attr('id').slice(2);
         console.log(`Found id: ${id}.`);
-        $('.div' + id).closest('tr').hide();
+        if($('.div' + id)?.length){
+          $('.div' + id).closest('tr').hide();
+        }
+        if($(this).next().find('textarea').length){
+            $(this).next().next().hide();
+        }
+        else{
+            $(this).next().hide();
+        }
       }
       catch(error){
         console.log(error);
