@@ -22,7 +22,7 @@ function visibility(hideShow, target, require = false){
           $(this).next().show();
       }
       else{
-          $(this).next().show();
+          $(this).next().next().show();
       }
     });
   }
@@ -33,7 +33,7 @@ function visibility(hideShow, target, require = false){
           $(this).next().hide();
       }
       else{
-          $(this).next().hide();
+          $(this).next().next().hide();
       }
     }); 
   }
