@@ -24,15 +24,13 @@ function checkAge(){
 }
 
 function checkNA(){
+  if(clientAge >= 6  && clientAge != ' '){
+    visibility('show', '.dla20Q', true);
+    visibility('show', '#dla20A', false);
+  }
   if($('#dla20NA').closest('table').find('input').prop('checked')){
     visibility('hide', '.dla20Q', false);
     visibility('hide', '#dla20A', false);
-  }
-  else{
-    if(clientAge >= 6  && clientAge != ' '){
-      visibility('show', '.dla20Q', true);
-      visibility('show', '#dla20A', false);
-    }
   }
 }
 
