@@ -98,7 +98,12 @@ $('document').ready(function () {
     }
   }, 100);
 
-  checkNA();
+  var checkDLA20NAExist = setInterval(function () {
+    if ($('#dla20NA').closest('table').find('input').length) {
+      clearInterval(checkDLA20NAExist);
+      checkNA();
+    }
+  }, 100);
 
   $('#dla20NA').closest('table').find('input').change(checkNA);
   $('tr').has('div[class=dla20Q]').find('select').change(calculateDLA20);
