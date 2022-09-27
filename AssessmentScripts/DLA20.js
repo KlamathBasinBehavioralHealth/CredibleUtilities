@@ -29,7 +29,7 @@ function checkNA(){
     visibility('hide', '#dla20A', false);
   }
   else{
-    if(clientAge >= 6){
+    if(clientAge >= 6  && clientAge != ' '){
       visibility('show', '.dla20Q', true);
       visibility('show', '#dla20A', false);
     }
@@ -96,7 +96,6 @@ $('document').ready(function () {
   checkNA();
 
   $('#dla20NA').closest('table').find('input').change(checkNA);
-  $('#dla20NA').closest('table').find('input').mouseleave(checkNA);
   $('tr').has('div[class=dla20Q]').find('select').change(calculateDLA20);
   $('tr').has('div[class=dla20Q]').find('select').click(calculateDLA20);
 });
