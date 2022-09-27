@@ -31,6 +31,7 @@ function checkNA(){
   if($('#dla20NA').closest('table').find('input').prop('checked')){
     visibility('hide', '.dla20Q', false);
     visibility('hide', '#dla20A', false);
+    $('.dla20Q').closest('table').find('select').val('');
   }
 }
 
@@ -39,40 +40,46 @@ function questionCountError(element) {
   err.className = 'errMsg';
   err.innerHTML = 'At least 13 questions must be answered';
   err.style.color = 'red';
-  if (dla20QuestionCount >= 13) {
-    element.style.border = 'none';
-    if (element.parentElement.querySelector('.errMsg') != null) {
-      element.parentElement.querySelector('.errMsg').remove();
-    }
-  } else {
-    element.style.border = '2px solid red';
-    element.style.borderRadius = '0.25em';
-    if (element.parentElement.querySelector('.errMsg') == null) {
-      element.parentElement.appendChild(err);
+  if((clientAge >= 6 || clientAge == ' ') && $('#dla20NA').closest('table').find('input').prop('checked') == false){
+    if (dla20QuestionCount >= 13) {
+      element.style.border = 'none';
+      if (element.parentElement.querySelector('.errMsg') != null) {
+        element.parentElement.querySelector('.errMsg').remove();
+      }
+    } else {
+      element.style.border = '2px solid red';
+      element.style.borderRadius = '0.25em';
+      if (element.parentElement.querySelector('.errMsg') == null) {
+        element.parentElement.appendChild(err);
+      }
     }
   }
 }
+
 function calculateDLA20() {
   var scoreTotal = 0;
   dla20QuestionCount = 0;
-  $('tr')
-    .has('div[class=dla20Q]')
-    .find('select')
-    .each(function () {
-      console.log(parseInt($(this).find('option:selected').html()));
-      if (
-        !isNaN(parseInt($(this).find('option:selected').html())) &&
-        $(this).find('option:selected').html() != 'Did Not Answer'
-      ) {
-        scoreTotal =
-          scoreTotal + parseInt($(this).find('option:selected').html());
-        dla20QuestionCount++;
-        questionCountError(document.querySelector('#questions_container'));
-      } else if ($(this).find('option:selected').html() == 'Did Not Answer') {
-      } else {
-      }
-    });
-  dla20Score = (scoreTotal / dla20QuestionCount).toFixed(2);
+  dla20Score = 'N/A';
+  if((clientAge >= 6 || clientAge == ' ') && $('#dla20NA').closest('table').find('input').prop('checked') == false){
+    $('tr')
+      .has('div[class=dla20Q]')
+      .find('select')
+      .each(function () {
+        console.log(parseInt($(this).find('option:selected').html()));
+        if (
+          !isNaN(parseInt($(this).find('option:selected').html())) &&
+          $(this).find('option:selected').html() != 'Did Not Answer'
+        ) {
+          scoreTotal =
+            scoreTotal + parseInt($(this).find('option:selected').html());
+          dla20QuestionCount++;
+          questionCountError(document.querySelector('#questions_container'));
+        } else if ($(this).find('option:selected').html() == 'Did Not Answer') {
+        } else {
+        }
+      });
+    dla20Score = (scoreTotal / dla20QuestionCount).toFixed(2);
+  }
   $('tr').has('div[id=dla20A]').find('input').val(dla20Score);
 }
 
