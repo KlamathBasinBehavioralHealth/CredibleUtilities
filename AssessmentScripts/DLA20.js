@@ -1,5 +1,24 @@
+let clientAge = null;
 var dla20QuestionCount = 0;
 var dla20Score = 0;
+
+function checkAge(){
+  try{
+    clientAge = $('tr').has('div[id=dla20ClientAge]').find('font').text();
+    console.log(clientAge);
+  } catch(error){
+    console.log(error);
+    clientAge = 18;
+  }
+
+  if(clientAge < 6){
+    visibility('hide', '.dla20Q', false);
+    visibility('hide', '#dla20A', false);
+  }
+
+  visibility('hide', '#dla20ClientAge');
+}
+
 function questionCountError(element) {
   const err = document.createElement('p');
   err.className = 'errMsg';
@@ -41,7 +60,14 @@ function calculateDLA20() {
   dla20Score = (scoreTotal / dla20QuestionCount).toFixed(2);
   $('tr').has('div[id=dla20A]').find('input').val(dla20Score);
 }
+
 $('document').ready(function () {
+  var checkAgeExist = setInterval(function () {
+    if ($('tr').has('div[id=dla20ClientAge]').find('font').text().length) {
+      clearInterval(checkAgeExist);
+      checkAge();
+    }
+  }, 100);
   var checkDLA20Exist = setInterval(function () {
     if ($('tr').has('div[class=dla20Q]').find('select').length) {
       clearInterval(checkDLA20Exist);
