@@ -96,6 +96,7 @@ $('document').ready(function () {
   checkNA();
 
   $('#dla20NA').closest('table').find('input').change(checkNA);
+  $('#dla20NA').closest('table').find('input').mouseleave(checkNA);
   $('tr').has('div[class=dla20Q]').find('select').change(calculateDLA20);
   $('tr').has('div[class=dla20Q]').find('select').click(calculateDLA20);
 });
