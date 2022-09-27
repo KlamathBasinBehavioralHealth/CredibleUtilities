@@ -24,7 +24,7 @@ function checkAge(){
 }
 
 function checkNA(){
-  if(clientAge >= 6  && clientAge != ' '){
+  if(clientAge >= 6 || clientAge == ' '){
     visibility('show', '.dla20Q', true);
     visibility('show', '#dla20A', false);
   }
