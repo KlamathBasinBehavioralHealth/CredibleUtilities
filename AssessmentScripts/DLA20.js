@@ -11,12 +11,29 @@ function checkAge(){
     clientAge = 18;
   }
 
-  if(clientAge < 6){
+  if(clientAge < 6  && clientAge != ' '){
     visibility('hide', '.dla20Q', false);
     visibility('hide', '#dla20A', false);
   }
+  else{
+    visibility('show', '.dla20Q', true);
+    visibility('show', '#dla20A', false);
+  }
 
   visibility('hide', '#dla20ClientAge');
+}
+
+function checkNA(){
+  if($('#dla20NA').closest('table').find('input').prop('checked')){
+    visibility('hide', '.dla20Q', false);
+    visibility('hide', '#dla20A', false);
+  }
+  else{
+    if(clientAge >= 6){
+      visibility('show', '.dla20Q', true);
+      visibility('show', '#dla20A', false);
+    }
+  }
 }
 
 function questionCountError(element) {
@@ -75,6 +92,10 @@ $('document').ready(function () {
       calculateDLA20();
     }
   }, 100);
+
+  checkNA();
+
+  $('#dla20NA').closest('table').find('input').change(checkNA);
   $('tr').has('div[class=dla20Q]').find('select').change(calculateDLA20);
   $('tr').has('div[class=dla20Q]').find('select').click(calculateDLA20);
 });
