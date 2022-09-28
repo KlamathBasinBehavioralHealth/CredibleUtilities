@@ -37,6 +37,7 @@ function checkNA(){
     visibility('hide', '#dla20A', false);
     $('.dla20Q').closest('table').find('select').val('');
   }
+  calculateDLA20();
 }
 
 function questionCountError(element) {
@@ -112,7 +113,6 @@ $('document').ready(function () {
   $('#dla20NA').closest('table').find('input').change(checkNA);
   $('tr').has('div[class=dla20Q]').find('select').change(calculateDLA20);
   $('tr').has('div[class=dla20Q]').find('select').click(calculateDLA20);
-  $('#complete').click(calculateDLA20);
 });
 
 document.addEventListener('DOMContentLoaded', () => {linkValueToExtFrame(parent.document, 'dla20Score', '.frame', '#dla20Score');});
