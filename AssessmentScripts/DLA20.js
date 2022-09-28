@@ -14,9 +14,9 @@ function checkAge(){
 
   $('#dla20NA').closest('table').find('input').css('pointer-events', 'auto');
   $('#dla20NA').closest('table').find('input').attr('tabindex', naTabIndex);
-  $('#dla20NA').closest('table').find('input').attr('title', '');
-  $('#dla20NA').closest('table').find('input').tooltip('disable');
-  
+  $('#dla20NA').closest('table').attr('title', '');
+  $('#dla20NA').closest('table').tooltip('disable');
+
   if(clientAge < 6  && clientAge != ' '){
     visibility('hide', '.dla20Q', false);
     visibility('hide', '#dla20A', false);
@@ -25,8 +25,8 @@ function checkAge(){
       $('#dla20NA').closest('table').find('input').trigger('click');
       $('#dla20NA').closest('table').find('input').css('pointer-events', 'none');
       $('#dla20NA').closest('table').find('input').attr('tabindex', -1);
-      $('#dla20NA').closest('table').find('input').attr('title', 'Client is under the age of 6.');
-      $('#dla20NA').closest('table').find('input').tooltip();
+      $('#dla20NA').closest('table').attr('title', 'Client is under the age of 6.');
+      $('#dla20NA').closest('table').tooltip();
     }
   }
   else{
