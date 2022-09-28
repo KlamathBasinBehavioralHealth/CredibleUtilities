@@ -2,7 +2,6 @@ let clientAge = null;
 var dla20QuestionCount = 0;
 var dla20Score = 0;
 const naTabIndex = 0;
-$.widget.bridge('uitooltip', $.ui.tooltip);
 
 function checkAge(){
   try{
@@ -12,7 +11,12 @@ function checkAge(){
     console.log(error);
     clientAge = 18;
   }
-
+  try{
+    $.widget.bridge('uitooltip', $.ui.tooltip);
+  }catch(error){
+    console.log(error);
+  }
+  
   $('#dla20NA').closest('table').find('input').css('pointer-events', 'auto');
   $('#dla20NA').closest('table').find('input').attr('tabindex', naTabIndex);
   $('#dla20NA').closest('table').attr('title', '');
