@@ -14,9 +14,14 @@ function checkAge(){
   if(clientAge < 6  && clientAge != ' '){
     visibility('hide', '.dla20Q', false);
     visibility('hide', '#dla20A', false);
-    
+    $('#dla20NA').closest('table').find('input').css('pointer-events', 'auto');
+    $('#dla20NA').closest('table').find('input').attr('title', '');
+    $('#dla20NA').closest('table').find('input').tooltip('disable');
     if($('#dla20NA').closest('table').find('input').prop('checked') == false){
       $('#dla20NA').closest('table').find('input').trigger('click');
+      $('#dla20NA').closest('table').find('input').css('pointer-events', 'none');
+      $('#dla20NA').closest('table').find('input').attr('title', 'Client is under the age of 6.');
+      $('#dla20NA').closest('table').find('input').tooltip();
     }
   }
   else{
