@@ -16,7 +16,7 @@ function checkAge(){
   $('#dla20NA').closest('table').find('input').attr('tabindex', naTabIndex);
   $('#dla20NA').closest('tr').attr('title', '');
   $('#dla20NA').closest('tr').attr('data-toggle', '');
-  $('#dla20NA').closest('tr').tooltip('disabled');
+  $('#dla20NA').closest('tr').tooltip();
 
   if(clientAge < 6  && clientAge != ' '){
     visibility('hide', '.dla20Q', false);
