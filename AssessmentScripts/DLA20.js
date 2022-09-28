@@ -14,13 +14,14 @@ function checkAge(){
   if(clientAge < 6  && clientAge != ' '){
     visibility('hide', '.dla20Q', false);
     visibility('hide', '#dla20A', false);
+    
+    if($('#dla20NA').closest('table').find('input').prop('checked') == false){
+      $('#dla20NA').closest('table').find('input').trigger('click');
+    }
   }
   else{
     visibility('show', '.dla20Q', true);
     visibility('show', '#dla20A', false);
-    if($('#dla20NA').closest('table').find('input').prop('checked') == false){
-      $('#dla20NA').closest('table').find('input').trigger('click');
-    }
   }
 
   visibility('hide', '#dla20ClientAge');
