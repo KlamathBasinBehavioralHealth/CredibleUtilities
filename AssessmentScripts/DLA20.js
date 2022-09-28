@@ -16,6 +16,7 @@ function checkAge(){
   $('#dla20NA').closest('table').find('input').attr('tabindex', naTabIndex);
   $('#dla20NA').closest('table').attr('title', '');
   $('#dla20NA').closest('table').attr('data-toggle', '');
+  $('#dla20NA').closest('table').tooltip('disable');
 
   if(clientAge < 6  && clientAge != ' '){
     visibility('hide', '.dla20Q', false);
@@ -27,6 +28,7 @@ function checkAge(){
       $('#dla20NA').closest('table').find('input').attr('tabindex', -1);
       $('#dla20NA').closest('table').attr('title', 'Client is under the age of 6.');
       $('#dla20NA').closest('table').attr('data-toggle', 'tooltip');
+      $('#dla20NA').closest('table').tooltip();
     }
   }
   else{
