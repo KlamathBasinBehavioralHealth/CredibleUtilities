@@ -11,16 +11,11 @@ function checkAge(){
     console.log(error);
     clientAge = 18;
   }
-  try{
-    $.widget.bridge('uitooltip', $.ui.tooltip);
-  }catch(error){
-    console.log(error);
-  }
   
   $('#dla20NA').closest('table').find('input').css('pointer-events', 'auto');
   $('#dla20NA').closest('table').find('input').attr('tabindex', naTabIndex);
   $('#dla20NA').closest('table').attr('title', '');
-  $('#dla20NA').closest('table').uitooltip('disable');
+  $('#dla20NA').closest('table').attr('data-toggle', '');
 
   if(clientAge < 6  && clientAge != ' '){
     visibility('hide', '.dla20Q', false);
@@ -31,7 +26,7 @@ function checkAge(){
       $('#dla20NA').closest('table').find('input').css('pointer-events', 'none');
       $('#dla20NA').closest('table').find('input').attr('tabindex', -1);
       $('#dla20NA').closest('table').attr('title', 'Client is under the age of 6.');
-      $('#dla20NA').closest('table').uitooltip({content:'Client is under the age of 6.'});
+      $('#dla20NA').closest('table').attr('data-toggle', 'tooltip');
     }
   }
   else{
