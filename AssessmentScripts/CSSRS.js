@@ -16,6 +16,11 @@ function initializeCSSRS() {
         .find('select')
         .attr('style', 'pointer-events:none');
       $('tr').has('div[id=urgency]').find('select').attr('tabindex', -1);
+      $('tr')
+        .has('div[id==motsUrgency]')
+        .find('select')
+        .attr('style', 'pointer-events:none');
+      $('tr').has('div[id=motsUrgency]').find('select').attr('tabindex', -1);
       calculateCSSRS();
       cssrsWorkflow();
     }
@@ -35,10 +40,12 @@ function checkSRA() {
     hideShow('show', 'cssrsQ1', true);
     hideShow('show', 'cssrsQ2', true);
     hideShow('show', 'urgency', false);
+    hideShow('hide', 'motsUrgency', true);
   } else {
     hideShow('hide', 'cssrsQ1', true);
     hideShow('hide', 'cssrsQ2', true);
     hideShow('hide', 'urgency', true);
+    hideShow('hide', 'motsUrgency', true);
     $('tr')
       .has('div[id=cssrsQ1], div[id=cssrsQ2]')
       .find('input')
@@ -112,6 +119,18 @@ function calculateCSSRS() {
           })
           .val()
       );
+    $('tr')
+      .has('div[id=motsUrgency]')
+      .find('select')
+      .val(
+        $('tr')
+          .has('div[id=motsUrgency]')
+          .find('option')
+          .filter(function () {
+            return $(this).html() == 'Emergent (Immediate access)';
+          })
+          .val()
+      );
     cssrsScore = 'Emergent (Immediate access)';
   } else if (
     $('tr')
@@ -129,6 +148,18 @@ function calculateCSSRS() {
       .val(
         $('tr')
           .has('div[id=urgency]')
+          .find('option')
+          .filter(function () {
+            return $(this).html() == 'Urgent (Access within 24 business hours)';
+          })
+          .val()
+      );
+    $('tr')
+      .has('div[id=motsUrgency]')
+      .find('select')
+      .val(
+        $('tr')
+          .has('div[id=motsUrgency]')
           .find('option')
           .filter(function () {
             return $(this).html() == 'Urgent (Access within 24 business hours)';
@@ -154,6 +185,18 @@ function calculateCSSRS() {
           })
           .val()
       );
+    $('tr')
+      .has('div[id=motsUrgency]')
+      .find('select')
+      .val(
+        $('tr')
+          .has('div[id=motsUrgency]')
+          .find('option')
+          .filter(function () {
+            return $(this).html() == 'Routine (Access within 10 business days)';
+          })
+          .val()
+      );
     cssrsScore = 'Routine (Access within 10 business days)';
   }
   if (
@@ -166,6 +209,18 @@ function calculateCSSRS() {
       .val(
         $('tr')
           .has('div[id=urgency]')
+          .find('option')
+          .filter(function () {
+            return $(this).html() == '';
+          })
+          .val()
+      );
+    $('tr')
+      .has('div[id=motsUrgency]')
+      .find('select')
+      .val(
+        $('tr')
+          .has('div[id=motsUrgency]')
           .find('option')
           .filter(function () {
             return $(this).html() == '';
