@@ -229,7 +229,7 @@ function calculateCSSRS() {
 }
 
 $('document').ready(function () {
-  visibility('hide', '#mostUrgency');
+  visibility('hide', '#motsUrgency');
   visibility('hide', '#adminUseLabel');
   initializeCSSRS();
   $('tr').has('div[id=sra]').find('select').change(checkSRA);
