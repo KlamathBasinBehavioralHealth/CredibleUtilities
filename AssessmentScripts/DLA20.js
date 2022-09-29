@@ -14,8 +14,9 @@ function checkAge(){
   
   $('#dla20NA').closest('table').find('input').css('pointer-events', 'auto');
   $('#dla20NA').closest('table').find('input').attr('tabindex', naTabIndex);
-  $('#dla20NA').closest('tr').attr('title', '');
-  $('#dla20NA').closest('tr').addClass('naTT');
+  if($('#dla20NA').closest('table').find('input').closest('div').attr('class') == 'naTT'){
+    $('#dla20NA').closest('table').find('input').unwrap();
+  }
   $('.naTT').tooltip();
 
   if(clientAge < 6  && clientAge != ' '){
@@ -26,8 +27,7 @@ function checkAge(){
       $('#dla20NA').closest('table').find('input').trigger('click');
       $('#dla20NA').closest('table').find('input').css('pointer-events', 'none');
       $('#dla20NA').closest('table').find('input').attr('tabindex', -1);
-      $('#dla20NA').closest('tr').attr('title', 'Client is under the age of 6.');
-      $('#dla20NA').closest('tr').addClass('naTT');
+      $('#dla20NA').closest('table').find('input').wrap('<div class=\'naTT\' title=\'Client is under the age of 6.\'></div>');
       $('.naTT').tooltip();
     }
   }
