@@ -40,12 +40,10 @@ function checkSRA() {
     hideShow('show', 'cssrsQ1', true);
     hideShow('show', 'cssrsQ2', true);
     hideShow('show', 'urgency', false);
-    hideShow('hide', 'motsUrgency', true);
   } else {
     hideShow('hide', 'cssrsQ1', true);
     hideShow('hide', 'cssrsQ2', true);
     hideShow('hide', 'urgency', true);
-    hideShow('hide', 'motsUrgency', true);
     $('tr')
       .has('div[id=cssrsQ1], div[id=cssrsQ2]')
       .find('input')
@@ -231,7 +229,8 @@ function calculateCSSRS() {
 }
 
 $('document').ready(function () {
-
+  visibility('hide', '#mostUrgency');
+  visibility('hide', '#adminUseLabel');
   initializeCSSRS();
   $('tr').has('div[id=sra]').find('select').change(checkSRA);
   $('tr')
