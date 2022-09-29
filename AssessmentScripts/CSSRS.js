@@ -17,7 +17,7 @@ function initializeCSSRS() {
         .attr('style', 'pointer-events:none');
       $('tr').has('div[id=urgency]').find('select').attr('tabindex', -1);
       $('tr')
-        .has('div[id==motsUrgency]')
+        .has('div[id=motsUrgency]')
         .find('select')
         .attr('style', 'pointer-events:none');
       $('tr').has('div[id=motsUrgency]').find('select').attr('tabindex', -1);
@@ -231,6 +231,7 @@ function calculateCSSRS() {
 }
 
 $('document').ready(function () {
+
   initializeCSSRS();
   $('tr').has('div[id=sra]').find('select').change(checkSRA);
   $('tr')
