@@ -39,6 +39,7 @@ function checkAge(){
   }
 
   visibility('hide', '#dla20ClientAge');
+  $('document').find('table').trigger('click');
 }
 
 function checkNA(){
