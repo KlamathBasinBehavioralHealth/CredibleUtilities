@@ -103,6 +103,7 @@ function calculateDLA20() {
 }
 
 $('document').ready(function () {
+  visibility('hide', '#dla20NA');
   var checkAgeExist = setInterval(function () {
     if ($('tr').has('div[id=dla20ClientAge]').find('font').text().length) {
       clearInterval(checkAgeExist);
