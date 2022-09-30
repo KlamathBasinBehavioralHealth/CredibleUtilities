@@ -40,6 +40,7 @@ function checkAge(){
 
   visibility('hide', '#dla20ClientAge');
   $('document').find('table').trigger('click');
+  linkValueToExtFrame(parent.document, 'dla20Score', '.frame', '#dla20Score');
 }
 
 function checkNA(){
