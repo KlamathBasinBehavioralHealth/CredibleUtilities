@@ -12,6 +12,7 @@ function checkAge(){
     clientAge = 18;
   }
   
+  visibility('hide', '#dla20NA');
   $('#dla20NA').closest('table').find('input').css('pointer-events', 'auto');
   $('#dla20NA').closest('table').find('input').attr('tabindex', naTabIndex);
   if($('#dla20NA').closest('table').find('input').closest('div').attr('class') == 'naTT'){
@@ -20,6 +21,7 @@ function checkAge(){
   $('.naTT').tooltip();
 
   if(clientAge < 6  && clientAge != ' '){
+    visibility('show', '#dla20NA');
     visibility('hide', '.dla20Q', false);
     visibility('hide', '#dla20A', false);
     
