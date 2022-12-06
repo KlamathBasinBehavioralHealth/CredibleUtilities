@@ -25,6 +25,9 @@ function clientPresentCheck(){
     hideShow("hide", 'clientQuestion', true);
     toggleExtraSpace('.clientQuestion', true);
     hideShow('show','objectivesAddressed', true);
+    if(programID == '95'){
+      hideShow('show','txPlanUpdate', true);
+    }
     if(document.querySelector('#objectivesAddressed') != null){
       document.querySelector('#objectivesAddressed').closest('table').closest('tr').hidden = false;
     }
@@ -32,9 +35,6 @@ function clientPresentCheck(){
     if (document.querySelector('#skillsTraining') != null){
       document.querySelector('#skillsTraining').closest('tr').hidden = true;
     }
-  }
-  if(programID == '95'){
-    hideShow('show','txPlanUpdate', true);
   }
 }
 window.addEventListener('DOMContentLoaded', () => { 
