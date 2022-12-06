@@ -25,7 +25,7 @@ function clientPresentCheck(){
     hideShow("hide", 'clientQuestion', true);
     toggleExtraSpace('.clientQuestion', true);
     hideShow('show','objectivesAddressed', true);
-    if(programID == '95'){
+    if(programID == '95' || programID == '111'){
       hideShow('show','txPlanUpdate', true);
     }
     if(document.querySelector('#objectivesAddressed') != null){
