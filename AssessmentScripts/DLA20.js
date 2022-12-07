@@ -98,7 +98,12 @@ function calculateDLA20() {
     dla20Score = (scoreTotal / dla20QuestionCount).toFixed(2);
   }
   $('tr').has('div[id=dla20A]').find('input').val(dla20Score);
-  setExtFrameValue(parent.document, dla20Score, '.frame', '#dla20Score');
+  try{
+    setExtFrameValue(parent.document, dla20Score, '.frame', '#dla20Score');
+  }catch (error){
+    console.log(error);
+  }
+  
 }
 
 $('document').ready(function () {
