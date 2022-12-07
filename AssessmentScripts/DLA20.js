@@ -128,4 +128,10 @@ $('document').ready(function () {
   $('tr').has('div[class=dla20Q]').find('select').click(calculateDLA20);
 });
 
-document.addEventListener('DOMContentLoaded', () => {linkValueToExtFrame(parent.document, 'dla20Score', '.frame', '#dla20Score');});
+document.addEventListener('DOMContentLoaded', () => {
+  try{
+    linkValueToExtFrame(parent.document, 'dla20Score', '.frame', '#dla20Score');
+  }catch(error){
+    console.log(error);
+  }
+});
