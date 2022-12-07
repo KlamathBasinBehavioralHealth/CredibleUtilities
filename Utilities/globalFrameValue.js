@@ -1,25 +1,41 @@
 function getGlobalFrameValue(context, frameSelector, valueVariable){
-    const frame = context.querySelector(frameSelector);
-    return frame.contentWindow[valueVariable];
+    try{
+        const frame = context.querySelector(frameSelector);
+    return frame.contentWindow[valueVariable];    
+    }catch(error){
+        console.log(error);
+    }
 }
 
 function setGlobalFrameValue(context, frameSelector, valueVariable, value){
-    const frame = context.querySelector(frameSelector);
+    try{
+        const frame = context.querySelector(frameSelector);
     frame.contentWindow[valueVariable] = value;
+    }catch(error){
+        console.log(error);
+    }
 }
 
 function setExtFrameValue(context, value, frameSelector, targetSelector){
-    const frame = context.querySelector(frameSelector);
+    try{
+        const frame = context.querySelector(frameSelector);
     const element = frame.contentDocument.querySelector(targetSelector);
     const elemInput = element.closest('table').querySelector('input, select');
 
     elemInput.value = value;
+    }catch(error){
+        console.log(error);
+    } 
 }
 
 function linkValueToExtFrame(context, variable, frameSelector, targetSelector){
     if (frameElement != null && frameElement.classList.contains('frame')){
         document.querySelector('table').onclick = () => {
-            setExtFrameValue(context, window[variable], frameSelector, targetSelector);
+            try{
+                setExtFrameValue(context, window[variable], frameSelector, targetSelector);
+            }catch(error){
+                console.log(error);
+            }
         }
     }
 }
