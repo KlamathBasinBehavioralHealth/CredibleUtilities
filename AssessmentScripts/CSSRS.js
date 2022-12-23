@@ -39,13 +39,15 @@ function checkSRA() {
   ) {
     hideShow('show', 'cssrsQ1', true);
     hideShow('show', 'cssrsQ2', true);
+    hideShow('show', 'cssrsQ6', true);
     hideShow('show', 'urgency', false);
   } else {
     hideShow('hide', 'cssrsQ1', true);
     hideShow('hide', 'cssrsQ2', true);
+    hideShow('hide', 'cssrsQ6', true);
     hideShow('hide', 'urgency', true);
     $('tr')
-      .has('div[id=cssrsQ1], div[id=cssrsQ2]')
+      .has('div[id=cssrsQ1], div[id=cssrsQ2], div[id=cssrsQ6]')
       .find('input')
       .prop('checked', false);
     cssrsWorkflow();
@@ -56,15 +58,14 @@ function cssrsWorkflow() {
   hideShow('hide', 'cssrsQ3', true);
   hideShow('hide', 'cssrsQ4', true);
   hideShow('hide', 'cssrsQ5', true);
-  hideShow('hide', 'cssrsQ6', true);
   if (
     !$('tr')
-      .has('div[id=cssrsQ1], div[id=cssrsQ2]')
+      .has('div[id=cssrsQ2]')
       .find("tr:contains('Yes')")
       .find('input:even:checked').length
   ) {
     $('tr')
-      .has('div[id=cssrsQ3], div[id=cssrsQ4], div[id=cssrsQ5], div[id=cssrsQ6]')
+      .has('div[id=cssrsQ3], div[id=cssrsQ4], div[id=cssrsQ5]')
       .find('input')
       .prop('checked', false);
   }
@@ -81,12 +82,11 @@ function cssrsWorkflow() {
   }
   if (
     $('tr')
-      .has('div[id=cssrsQ1], div[id=cssrsQ2]')
+      .has('div[id=cssrsQ2]')
       .find("tr:contains('Yes')")
       .find('input:even:checked').length
   ) {
     hideShow('show', 'cssrsQ3', true);
-    hideShow('show', 'cssrsQ6', true);
   }
   if (
     $('tr')
@@ -99,9 +99,69 @@ function cssrsWorkflow() {
   }
 }
 function calculateCSSRS() {
-  if (
+  if( $('tr')
+      .has('div[id=cssrsQ6]')
+      .find("tr:contains('Within the last three months')")
+      .find('input:even:checked').length){
+        $('tr')
+          .has('div[id=urgency]')
+          .find('select')
+          .val(
+            $('tr')
+              .has('div[id=urgency]')
+              .find('option')
+              .filter(function () {
+                return $(this).html() == 'Emergent (Immediate access)';
+              })
+              .val()
+          );
+        $('tr')
+          .has('div[id=motsUrgency]')
+          .find('select')
+          .val(
+            $('tr')
+              .has('div[id=motsUrgency]')
+              .find('option')
+              .filter(function () {
+                return $(this).html() == 'Emergent (Immediate access)';
+              })
+              .val()
+          );
+        cssrsScore = 'Emergent (Immediate access)';
+  }
+  else if( $('tr')
+      .has('div[id=cssrsQ6]')
+      .find("tr:contains('Yes')")
+      .find('input:even:checked').length){
+        $('tr')
+          .has('div[id=urgency]')
+          .find('select')
+          .val(
+            $('tr')
+              .has('div[id=urgency]')
+              .find('option')
+              .filter(function () {
+                return $(this).html() == 'Urgent (Access within 24 business hours)';
+              })
+              .val()
+          );
+        $('tr')
+          .has('div[id=motsUrgency]')
+          .find('select')
+          .val(
+            $('tr')
+              .has('div[id=motsUrgency]')
+              .find('option')
+              .filter(function () {
+                return $(this).html() == 'Urgent (Access within 24 business hours)';
+              })
+              .val()
+          );
+        cssrsScore = 'Urgent (Access within 24 business hours)';
+  }
+  else if (
     $('tr')
-      .has('div[id=cssrsQ4], div[id=cssrsQ5], div[id=cssrsQ6]')
+      .has('div[id=cssrsQ4], div[id=cssrsQ5]')
       .find("tr:contains('Yes')")
       .find('input:even:checked').length
   ) {
@@ -136,7 +196,7 @@ function calculateCSSRS() {
       .find("tr:contains('Yes')")
       .find('input:even:checked').length &&
     !$('tr')
-      .has('div[id=cssrsQ4], div[id=cssrsQ5], div[id=cssrsQ6]')
+      .has('div[id=cssrsQ4], div[id=cssrsQ5]')
       .find("tr:contains('Yes')")
       .find('input:even:checked').length
   ) {
@@ -167,7 +227,7 @@ function calculateCSSRS() {
     cssrsScore = 'Urgent (Access within 24 business hours)';
   } else if (
     !$('tr')
-      .has('div[id=cssrsQ3], div[id=cssrsQ4], div[id=cssrsQ5], div[id=cssrsQ6]')
+      .has('div[id=cssrsQ3], div[id=cssrsQ4], div[id=cssrsQ5]')
       .find("tr:contains('Yes')")
       .find('input:even:checked').length
   ) {
