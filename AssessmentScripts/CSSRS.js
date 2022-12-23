@@ -199,6 +199,42 @@ function calculateCSSRS() {
         );
       cssrsScore = 'Routine (Access within 10 business days)';
     }          
+  }else{
+    if(
+      !$('tr')
+        .has('div[id=cssrsQ2]')
+        .find("tr:contains('Yes')")
+        .find('input:even:checked').length &&
+      !$('tr')
+        .has('div[id=cssrsQ2]')
+        .find("tr:contains('No')")
+        .find('input:even:checked').length)
+    {
+      $('tr')
+        .has('div[id=urgency]')
+        .find('select')
+        .val(
+          $('tr')
+            .has('div[id=urgency]')
+            .find('option')
+            .filter(function () {
+              return $(this).html() == '';
+            })
+            .val()
+        );
+      $('tr')
+        .has('div[id=motsUrgency]')
+        .find('select')
+        .val(
+          $('tr')
+            .has('div[id=motsUrgency]')
+            .find('option')
+            .filter(function () {
+              return $(this).html() == '';
+            })
+            .val()
+        );
+    }
   }
 }
 
