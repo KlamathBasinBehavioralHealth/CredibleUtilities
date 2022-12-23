@@ -161,8 +161,7 @@ function calculateCSSRS() {
           .val()
       );
     cssrsScore = 'Urgent (Access within 24 business hours)';
-  }
-  else if( 
+  }else if( 
     $('tr')
       .has('div[id=cssrsQ6]')
       .find("tr:contains('No')")
@@ -171,10 +170,6 @@ function calculateCSSRS() {
     if(
       $('tr')
         .has('div[id=cssrsQ2]')
-        .find("tr:contains('No')")
-        .find('input:even:checked').length &&  
-      $('tr')
-        .has('div[id=cssrsQ6]')
         .find("tr:contains('No')")
         .find('input:even:checked').length)
     {
@@ -189,7 +184,7 @@ function calculateCSSRS() {
               return $(this).html() == 'Routine (Access within 10 business days)';
             })
             .val()
-      );
+        );
       $('tr')
         .has('div[id=motsUrgency]')
         .find('select')
@@ -201,7 +196,7 @@ function calculateCSSRS() {
               return $(this).html() == 'Routine (Access within 10 business days)';
             })
             .val()
-      );
+        );
       cssrsScore = 'Routine (Access within 10 business days)';
     }          
   }
