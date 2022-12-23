@@ -252,6 +252,7 @@ $('document').ready(function () {
     .find('input')
     .mouseleave(cssrsWorkflow);
   $('tr').has('div[class=cssrsQ]').find('input').change(calculateCSSRS);
+  $('tr').has('div[class=cssrsQ]').find('input').mouseleave(calculateCSSRS);
 });
 
 document.addEventListener('DOMContentLoaded', () => {linkValueToExtFrame(parent.document, 'cssrsScore', '.frame', '#cssrsScore');  });
