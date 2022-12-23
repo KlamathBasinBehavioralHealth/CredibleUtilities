@@ -37,11 +37,13 @@ function checkSRA() {
       })
       .val()
   ){
+    hideShow('show', 'cssrsLabel', false);
     hideShow('show', 'cssrsQ1', true);
     hideShow('show', 'cssrsQ2', true);
     hideShow('show', 'cssrsQ6', true);
     hideShow('show', 'urgency', false);
   }else{
+    hideShow('hide', 'cssrsLabel', true);
     hideShow('hide', 'cssrsQ1', true);
     hideShow('hide', 'cssrsQ2', true);
     hideShow('hide', 'cssrsQ6', true);
