@@ -168,9 +168,9 @@ function calculateCSSRS() {
       .find('input:even:checked').length)
   {
     if(
-      $('tr')
+      !$('tr')
         .has('div[id=cssrsQ2]')
-        .find("tr:contains('No')")
+        .find("tr:contains('Yes')")
         .find('input:even:checked').length)
     {
       $('tr')
@@ -198,7 +198,7 @@ function calculateCSSRS() {
             .val()
         );
       cssrsScore = 'Routine (Access within 10 business days)';
-    }          
+    }        
   }else{
     if(
       !$('tr')
