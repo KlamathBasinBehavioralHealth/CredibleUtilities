@@ -198,7 +198,14 @@ function calculateCSSRS() {
     !$('tr')
       .has('div[id=cssrsQ4], div[id=cssrsQ5]')
       .find("tr:contains('Yes')")
+      .find('input:even:checked').length && !$('tr')
+      .has('div[id=cssrsQ6]')
+      .find("tr:contains('Within the last three months')")
+      .find('input:even:checked').length && !$('tr')
+      .has('div[id=cssrsQ6]')
+      .find("tr:contains('Yes')")
       .find('input:even:checked').length
+      
   ) {
     $('tr')
       .has('div[id=urgency]')
@@ -229,6 +236,12 @@ function calculateCSSRS() {
     !$('tr')
       .has('div[id=cssrsQ3], div[id=cssrsQ4], div[id=cssrsQ5]')
       .find("tr:contains('Yes')")
+      .find('input:even:checked').length && !$('tr')
+      .has('div[id=cssrsQ6]')
+      .find("tr:contains('Within the last three months')")
+      .find('input:even:checked').length && !$('tr')
+      .has('div[id=cssrsQ6]')
+      .find("tr:contains('Yes')")
       .find('input:even:checked').length
   ) {
     $('tr')
@@ -258,7 +271,7 @@ function calculateCSSRS() {
     cssrsScore = 'Routine (Access within 10 business days)';
   }
   if (
-    !$('tr').has('div[id=cssrsQ1], div[id=cssrsQ2]').find('input:checked')
+    !$('tr').has('div[id=cssrsQ1], div[id=cssrsQ2], div[id=cssrsQ6]').find('input:checked')
       .length
   ) {
     $('tr')
