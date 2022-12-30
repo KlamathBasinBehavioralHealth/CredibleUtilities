@@ -240,12 +240,12 @@ function calculateCSSRS() {
       .has('div[id=cssrsQ4]')
       .find('tr:contains(\'Yes\')')
       .eq(1)
-      .find('input:checked') || 
+      .find('input:checked').length || 
       $('tr')
       .has('div[id=cssrsQ5]')
       .find('tr:contains(\'Yes\')')
       .eq(1)
-      .find('input:checked')){
+      .find('input:checked').length){
         setUrgency('emergent');        
     }
     else{
@@ -253,7 +253,7 @@ function calculateCSSRS() {
         .has('div[id=cssrsQ3]')
         .find('tr:contains(\'Yes\')')
         .eq(1)
-        .find('input:checked')){
+        .find('input:checked').length){
           setUrgency('urgent');        
       }
       else{
