@@ -104,7 +104,7 @@ function calculateCSSRS() {
   if( 
     $('tr')
       .has('div[id=cssrsQ6]')
-      .find("tr:contains('Within the last three months')")
+      .find("tr:contains('Yes, within the last three months')")
       .eq(1)
       .find('input:checked').length)
   {
@@ -136,7 +136,7 @@ function calculateCSSRS() {
   }else if( 
     $('tr')
       .has('div[id=cssrsQ6]')
-      .find("tr:contains('Yes')")
+      .find("tr:contains('Yes, but not within the last three months')")
       .eq(1)
       .find('input:checked').length)
   {
