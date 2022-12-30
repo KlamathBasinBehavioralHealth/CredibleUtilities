@@ -102,7 +102,7 @@ function cssrsWorkflow() {
 }
 
 function setUrgency(urgency){
-  switch urgency{
+  switch (urgency){
     case 'routine':
       $('tr')
       .has('div[id=urgency]')
