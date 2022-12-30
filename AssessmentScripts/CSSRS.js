@@ -236,25 +236,7 @@ function calculateCSSRS() {
       .eq(1)
       .find('input:checked').length)
   {
-    setUrgency('routine');
-
-    if($('tr')
-      .has('div[id=cssrsQ3]')
-      .find('tr:contains(\'Yes\')')
-      .find('input:checked')){
-        setUrgency('urgent');        
-    } 
-
-    if($('tr')
-      .has('div[id=cssrsQ4]')
-      .find('tr:contains(\'Yes\')')
-      .find('input:checked') || 
-      $('tr')
-      .has('div[id=cssrsQ5]')
-      .find('tr:contains(\'Yes\')')
-      .find('input:checked') ){
-        setUrgency('emergent');        
-    }       
+    setUrgency('routine');      
   }else{
     if(
       !$('tr')
