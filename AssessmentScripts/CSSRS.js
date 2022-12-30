@@ -228,7 +228,20 @@ function calculateCSSRS() {
       .eq(1)
       .find('input:checked').length)
   {
-    setUrgency('urgent');
+    if($('tr')
+      .has('div[id=cssrsQ4]')
+      .find('tr:contains(\'Yes\')')
+      .eq(1)
+      .find('input:checked').length || 
+      $('tr')
+      .has('div[id=cssrsQ5]')
+      .find('tr:contains(\'Yes\')')
+      .eq(1)
+      .find('input:checked').length){
+        setUrgency('emergent');        
+    }else{
+      setUrgency('urgent');
+    }
   }else if( 
     $('tr')
       .has('div[id=cssrsQ6]')
@@ -247,16 +260,14 @@ function calculateCSSRS() {
       .eq(1)
       .find('input:checked').length){
         setUrgency('emergent');        
-    }
-    else{
+    }else{
       if($('tr')
         .has('div[id=cssrsQ3]')
         .find('tr:contains(\'Yes\')')
         .eq(1)
         .find('input:checked').length){
           setUrgency('urgent');        
-      }
-      else{
+      }else{
         setUrgency('routine');
       }
     } 
