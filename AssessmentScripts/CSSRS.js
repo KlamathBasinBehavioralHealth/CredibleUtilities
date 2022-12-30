@@ -236,7 +236,14 @@ function calculateCSSRS() {
       .eq(1)
       .find('input:checked').length)
   {
-    setUrgency('routine');      
+    setUrgency('routine');
+    
+    if($('tr')
+      .has('div[id=cssrsQ3]')
+      .find('tr:contains(\'Yes\')')
+      .find('input:checked')){
+        setUrgency('urgent');        
+    }
   }else{
     if(
       !$('tr')
