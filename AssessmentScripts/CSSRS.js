@@ -59,15 +59,16 @@ function checkSRA() {
 function cssrsWorkflow() {
   hideShow('hide', 'cssrsQ3', true);
   hideShow('hide', 'cssrsQ4', true);
-  hideShow('hide', 'cssrsQ5', true);
+  hideShow('hide', 'cssrsQ5a', true);
+  hideShow('hide', 'cssrsQ5b', true);
   if(
     !$('tr')
       .has('div[id=cssrsQ2]')
       .find('tr:contains(\'Yes\')')
-      .find('input:even:checked').length)
+      .find('input:checked').length)
   {
     $('tr')
-      .has('div[id=cssrsQ3], div[id=cssrsQ4], div[id=cssrsQ5]')
+      .has('div[id=cssrsQ3], div[id=cssrsQ4], div[id=cssrsQ5a], div[id=cssrsQ5b]')
       .find('input')
       .prop('checked', false);
   }
@@ -75,10 +76,10 @@ function cssrsWorkflow() {
     !$('tr')
       .has('div[id=cssrsQ3]')
       .find('tr:contains(\'Yes\')')
-      .find('input:even:checked').length)
+      .find('input:checked').length)
   {
     $('tr')
-      .has('div[id=cssrsQ4], div[id=cssrsQ5]')
+      .has('div[id=cssrsQ4], div[id=cssrsQ5a]')
       .find('input')
       .prop('checked', false);
   }
@@ -86,7 +87,7 @@ function cssrsWorkflow() {
     $('tr')
       .has('div[id=cssrsQ2]')
       .find('tr:contains(\'Yes\')')
-      .find('input:even:checked').length)
+      .find('input:checked').length)
   {
     hideShow('show', 'cssrsQ3', true);
   }
@@ -94,10 +95,18 @@ function cssrsWorkflow() {
     $('tr')
       .has('div[id=cssrsQ3]')
       .find('tr:contains(\'Yes\')')
-      .find('input:even:checked').length)
+      .find('input:checked').length)
   {
     hideShow('show', 'cssrsQ4', true);
-    hideShow('show', 'cssrsQ5', true);
+    hideShow('show', 'cssrsQ5a', true);
+  }
+  if (
+    $('tr')
+      .has('div[id=cssrsQ5a]')
+      .find('tr:contains(\'Yes\')')
+      .find('input:checked').length)
+  {
+    hideShow('show', 'cssrsQ5b', true);
   }
 }
 
@@ -216,16 +225,20 @@ function calculateCSSRS() {
   if( 
     $('tr')
       .has('div[id=cssrsQ6]')
-      .find('tr:contains(\'Yes, within the last three months\')')
-      .eq(1)
+      .find('tr')
+      .filter(function(){
+        return $(this).text() === 'Yes, within the last three months';    
+      })
       .find('input:checked').length)
   {
     setUrgency('emergent');
   }else if( 
     $('tr')
       .has('div[id=cssrsQ6]')
-      .find('tr:contains(\'Yes, but not within the last three months\')')
-      .eq(1)
+      .find('tr')
+      .filter(function(){
+        return $(this).text() === 'Yes';    
+      })
       .find('input:checked').length)
   {
     if($('tr')
@@ -234,7 +247,7 @@ function calculateCSSRS() {
       .eq(1)
       .find('input:checked').length || 
       $('tr')
-      .has('div[id=cssrsQ5]')
+      .has('div[id=cssrsQ5b]')
       .find('tr:contains(\'Yes\')')
       .eq(1)
       .find('input:checked').length){
@@ -245,8 +258,10 @@ function calculateCSSRS() {
   }else if( 
     $('tr')
       .has('div[id=cssrsQ6]')
-      .find('tr:contains(\'No\')')
-      .eq(1)
+      .find('tr')
+      .filter(function(){
+        return $(this).text() === 'No';    
+      })
       .find('input:checked').length)
   {
     if($('tr')
@@ -255,7 +270,7 @@ function calculateCSSRS() {
       .eq(1)
       .find('input:checked').length || 
       $('tr')
-      .has('div[id=cssrsQ5]')
+      .has('div[id=cssrsQ5b]')
       .find('tr:contains(\'Yes\')')
       .eq(1)
       .find('input:checked').length){
