@@ -308,11 +308,11 @@ $('document').ready(function () {
   initializeCSSRS();
   $('tr').has('div[id=sra]').find('select').change(checkSRA);
   $('tr')
-    .has('div[id=cssrsQ1], div[id=cssrsQ2], div[id=cssrsQ3], div[id=cssrsQ6]')
+    .has('div[id=cssrsQ1], div[id=cssrsQ2], div[id=cssrsQ3], div[id=cssrsQ5a], div[id=cssrsQ6]')
     .find('input')
     .change(cssrsWorkflow);
   $('tr')
-    .has('div[id=cssrsQ1], div[id=cssrsQ2], div[id=cssrsQ3], div[id=cssrsQ6]')
+    .has('div[id=cssrsQ1], div[id=cssrsQ2], div[id=cssrsQ3], div[id=cssrsQ5a], div[id=cssrsQ6]')
     .find('input')
     .mouseleave(cssrsWorkflow);
   $('tr').has('div[class=cssrsQ]').find('input').change(calculateCSSRS);
