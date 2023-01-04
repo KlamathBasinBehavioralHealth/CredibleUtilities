@@ -65,7 +65,7 @@ function cssrsWorkflow() {
     !$('tr')
       .has('div[id=cssrsQ2]')
       .find('tr:contains(\'Yes\')')
-      .find('input:checked').length)
+      .find('input:even:checked').length)
   {
     $('tr')
       .has('div[id=cssrsQ3], div[id=cssrsQ4], div[id=cssrsQ5a], div[id=cssrsQ5b]')
@@ -76,7 +76,7 @@ function cssrsWorkflow() {
     !$('tr')
       .has('div[id=cssrsQ3]')
       .find('tr:contains(\'Yes\')')
-      .find('input:checked').length)
+      .find('input:even:checked').length)
   {
     $('tr')
       .has('div[id=cssrsQ4], div[id=cssrsQ5a]')
@@ -87,7 +87,7 @@ function cssrsWorkflow() {
     $('tr')
       .has('div[id=cssrsQ2]')
       .find('tr:contains(\'Yes\')')
-      .find('input:checked').length)
+      .find('input:even:checked').length)
   {
     hideShow('show', 'cssrsQ3', true);
   }
@@ -95,7 +95,7 @@ function cssrsWorkflow() {
     $('tr')
       .has('div[id=cssrsQ3]')
       .find('tr:contains(\'Yes\')')
-      .find('input:checked').length)
+      .find('input:even:checked').length)
   {
     hideShow('show', 'cssrsQ4', true);
     hideShow('show', 'cssrsQ5a', true);
@@ -104,7 +104,7 @@ function cssrsWorkflow() {
     $('tr')
       .has('div[id=cssrsQ5a]')
       .find('tr:contains(\'Yes\')')
-      .find('input:checked').length)
+      .find('input:even:checked').length)
   {
     hideShow('show', 'cssrsQ5b', true);
   }
