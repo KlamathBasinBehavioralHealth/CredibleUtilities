@@ -36,9 +36,10 @@ function plusButtonToggle(target){
   if(buttonTarget.closest('table').querySelector('input').value == '+'){
     buttonTarget.closest('table').querySelector('input').value = '-';
     try{
+      visibility('show', `#${buttonTarget.getAttribute('targets')}`, true);
       visibility('show', `.${buttonTarget.getAttribute('targets')}`, true);
       visibility('show', `#${buttonTarget.getAttribute('optionalTargets')}`, false);
-      console.log('It\'s a plus!');
+      visibility('show', `.${buttonTarget.getAttribute('optionalTargets')}`, false);
     }catch(error){
       console.log(error);
     }
@@ -46,9 +47,10 @@ function plusButtonToggle(target){
   else if(buttonTarget.closest('table').querySelector('input').value == '-'){
     buttonTarget.closest('table').querySelector('input').value = '+';
     try{
+      visibility('hide', `#${buttonTarget.getAttribute('targets')}`, false);
       visibility('hide', `.${buttonTarget.getAttribute('targets')}`, false);
       visibility('hide', `#${buttonTarget.getAttribute('optionalTargets')}`, false);
-      console.log('It\'s a minus!');
+      visibility('hide', `.${buttonTarget.getAttribute('optionalTargets')}`, false);
     }catch(error){
       console.log(error);
     }
