@@ -6,6 +6,8 @@ function plusButtonInitialize(){
       buttons[count].closest('table').querySelector('input').value = '+';
       try{
         visibility('hide', `.${buttons[count].getAttribute('targets')}`, false);
+        visibility('hide', `#${buttons[count].getAttribute('targets')}`, false);
+        visibility('hide', `.${buttons[count].getAttribute('optionalTargets')}`, false);
         visibility('hide', `#${buttons[count].getAttribute('optionalTargets')}`, false);
       }catch(error){
         console.log(error);
@@ -15,6 +17,8 @@ function plusButtonInitialize(){
       buttons[count].closest('table').querySelector('input').value = '-';
       try{
         visibility('show', `.${buttons[count].getAttribute('targets')}`, true);
+        visibility('show', `#${buttons[count].getAttribute('targets')}`, true);
+        visibility('show', `.${buttons[count].getAttribute('optionalTargets')}`, false);
         visibility('show', `#${buttons[count].getAttribute('optionalTargets')}`, false);
       }catch(error){
         console.log(error);
@@ -36,10 +40,10 @@ function plusButtonToggle(target){
   if(buttonTarget.closest('table').querySelector('input').value == '+'){
     buttonTarget.closest('table').querySelector('input').value = '-';
     try{
-      visibility('show', `#${buttonTarget.getAttribute('targets')}`, true);
       visibility('show', `.${buttonTarget.getAttribute('targets')}`, true);
-      visibility('show', `#${buttonTarget.getAttribute('optionalTargets')}`, false);
+      visibility('show', `#${buttonTarget.getAttribute('targets')}`, true);
       visibility('show', `.${buttonTarget.getAttribute('optionalTargets')}`, false);
+      visibility('show', `#${buttonTarget.getAttribute('optionalTargets')}`, false);
     }catch(error){
       console.log(error);
     }
@@ -47,10 +51,10 @@ function plusButtonToggle(target){
   else if(buttonTarget.closest('table').querySelector('input').value == '-'){
     buttonTarget.closest('table').querySelector('input').value = '+';
     try{
-      visibility('hide', `#${buttonTarget.getAttribute('targets')}`, false);
       visibility('hide', `.${buttonTarget.getAttribute('targets')}`, false);
-      visibility('hide', `#${buttonTarget.getAttribute('optionalTargets')}`, false);
+      visibility('hide', `#${buttonTarget.getAttribute('targets')}`, false);
       visibility('hide', `.${buttonTarget.getAttribute('optionalTargets')}`, false);
+      visibility('hide', `#${buttonTarget.getAttribute('optionalTargets')}`, false);
     }catch(error){
       console.log(error);
     }
