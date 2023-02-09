@@ -5,10 +5,26 @@ function plusButtonInitialize(){
     if(buttons[count].closest('table').querySelector('input').style.backgroundColor == 'rgb(255, 255, 255)' || buttons[count].closest('table').querySelector('input').style.backgroundColor == 'white'){
       buttons[count].closest('table').querySelector('input').value = '+';
       try{
-        visibility('hide', `.${buttons[count].getAttribute('targets')}`, false);
-        visibility('hide', `#${buttons[count].getAttribute('targets')}`, false);
-        visibility('hide', `.${buttons[count].getAttribute('optionalTargets')}`, false);
-        visibility('hide', `#${buttons[count].getAttribute('optionalTargets')}`, false);
+        try{
+          visibility('hide', `.${buttons[count].getAttribute('targets')}`, false);
+        }catch(e){
+          console.log(e);
+        }
+        try{  
+          visibility('hide', `#${buttons[count].getAttribute('targets')}`, false);
+        }catch(e){
+          console.log(e);
+        }
+        try{
+          visibility('hide', `.${buttons[count].getAttribute('optionalTargets')}`, false);
+        }catch(e){
+          console.log(e);
+        }
+        try{
+          visibility('hide', `#${buttons[count].getAttribute('optionalTargets')}`, false);
+        }catch(e){
+          console.log(e);
+        }
       }catch(error){
         console.log(error);
       }
@@ -16,10 +32,26 @@ function plusButtonInitialize(){
     else if(buttons[count].closest('table').querySelector('input').style.backgroundColor == 'rgb(204, 204, 204)'){
       buttons[count].closest('table').querySelector('input').value = '-';
       try{
-        visibility('show', `.${buttons[count].getAttribute('targets')}`, true);
-        visibility('show', `#${buttons[count].getAttribute('targets')}`, true);
-        visibility('show', `.${buttons[count].getAttribute('optionalTargets')}`, false);
-        visibility('show', `#${buttons[count].getAttribute('optionalTargets')}`, false);
+        try{
+          visibility('show', `.${buttons[count].getAttribute('targets')}`, true);
+        }catch(e){
+          console.log(e);
+        }
+        try{
+          visibility('show', `#${buttons[count].getAttribute('targets')}`, true);
+        }catch(e){
+          console.log(e);
+        }
+        try{
+          visibility('show', `.${buttons[count].getAttribute('optionalTargets')}`, false);
+        }catch(e){
+          console.log(e);
+        }
+        try{
+          visibility('show', `#${buttons[count].getAttribute('optionalTargets')}`, false);
+        }catch(e){
+          console.log(e);
+        }
       }catch(error){
         console.log(error);
       }
@@ -40,10 +72,26 @@ function plusButtonToggle(target){
   if(buttonTarget.closest('table').querySelector('input').value == '+'){
     buttonTarget.closest('table').querySelector('input').value = '-';
     try{
-      visibility('show', `.${buttonTarget.getAttribute('targets')}`, true);
-      visibility('show', `#${buttonTarget.getAttribute('targets')}`, true);
-      visibility('show', `.${buttonTarget.getAttribute('optionalTargets')}`, false);
-      visibility('show', `#${buttonTarget.getAttribute('optionalTargets')}`, false);
+      try{
+        visibility('show', `.${buttonTarget.getAttribute('targets')}`, true);
+      }catch(e){
+        console.log(e);
+      }
+      try{
+        visibility('show', `#${buttonTarget.getAttribute('targets')}`, true);
+      }catch(e){
+        console.log(e);
+      }
+      try{
+        visibility('show', `.${buttonTarget.getAttribute('optionalTargets')}`, false);
+      }catch(e){
+        console.log(e);
+      }
+      try{
+        visibility('show', `#${buttonTarget.getAttribute('optionalTargets')}`, false);
+      }catch(e){
+        console.log(e);
+      }
     }catch(error){
       console.log(error);
     }
@@ -51,10 +99,26 @@ function plusButtonToggle(target){
   else if(buttonTarget.closest('table').querySelector('input').value == '-'){
     buttonTarget.closest('table').querySelector('input').value = '+';
     try{
-      visibility('hide', `.${buttonTarget.getAttribute('targets')}`, false);
-      visibility('hide', `#${buttonTarget.getAttribute('targets')}`, false);
-      visibility('hide', `.${buttonTarget.getAttribute('optionalTargets')}`, false);
-      visibility('hide', `#${buttonTarget.getAttribute('optionalTargets')}`, false);
+      try{
+        visibility('hide', `.${buttonTarget.getAttribute('targets')}`, false);
+      }catch(e){
+        console.log(e);
+      }
+      try{
+        visibility('hide', `#${buttonTarget.getAttribute('targets')}`, false);
+      }catch(e){
+        console.log(e);
+      }
+      try{
+        visibility('hide', `.${buttonTarget.getAttribute('optionalTargets')}`, false);
+      }catch(e){
+        console.log(e);
+      }
+      try{
+        visibility('hide', `#${buttonTarget.getAttribute('optionalTargets')}`, false);
+      }catch(e){
+        console.log(e);
+      } 
     }catch(error){
       console.log(error);
     }
