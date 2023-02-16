@@ -185,7 +185,7 @@ function validation() {
                                 }
                                 frame.style.height = idealFrameHeight(frame);
                             }
-                            else if (inputElements[0].value == '' && (inputElements[0].offsetParent != null || frame.contentWindow.userChangeuserChange == true )){
+                            else if (inputElements[0].value == '' && (inputElements[0].offsetParent != null || frame.contentWindow.userChange == true )){
                                 errorMsg(font);
                                 isValid = false;
                                 if (frame.contentWindow.document.querySelector('#questions_container').hidden){
