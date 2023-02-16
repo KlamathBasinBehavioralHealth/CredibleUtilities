@@ -120,7 +120,7 @@ function validation() {
                     errorMsg(font);
                     isValid = false;
                 }
-                else if (inputElements[0].value == '' && (inputElements[0].offsetParent != null || frame.contentWindow.userChange == true )){
+                else if (inputElements[0].value == '' && (inputElements[0].offsetParent != null || userChange == true )){
                     errorMsg(font);
                     isValid = false;
                 }
