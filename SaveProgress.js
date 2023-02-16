@@ -23,27 +23,29 @@ function errorMsg(element){
     inputElements = [...inputElements].filter(x => x.type != 'button');
     if (inputElements.length == 1){
         const elem = inputElements[0];
-        elem.style.border = '2px solid red';
-        elem.style.borderRadius = '0.25em';
-        elem.onchange = (e) => {
-            if (inputElements.length == 1){
-                if (e.target.value != '' || e.target.getAttribute('data-value') != ''){
-                    e.target.style.border = '1px solid #8f8f9d';
-                    if (e.target.closest('table').querySelector('.errMsg') != null){
-                        e.target.closest('table').querySelector('.errMsg').remove();
-                        errCount -= 1;
+        if(elem.value == ''){
+            elem.style.border = '2px solid red';
+            elem.style.borderRadius = '0.25em';
+            elem.onchange = (e) => {
+                if (inputElements.length == 1){
+                    if (e.target.value != '' || e.target.getAttribute('data-value') != ''){
+                        e.target.style.border = '1px solid #8f8f9d';
+                        if (e.target.closest('table').querySelector('.errMsg') != null){
+                            e.target.closest('table').querySelector('.errMsg').remove();
+                            errCount -= 1;
+                        }
+                    }
+                    else{
+                        errorMsg(element);
                     }
                 }
-                else{
-                    errorMsg(element);
+            };
+            if (inputElements[inputElements.length - 1].closest('table').querySelector('.errMsg') == null){
+                inputElements[inputElements.length - 1].closest('table').appendChild(err);
+                errCount += 1;
+                if (errCount == 1){
+                    inputElements[0].focus();
                 }
-            }
-        };
-        if (inputElements[inputElements.length - 1].closest('table').querySelector('.errMsg') == null){
-            inputElements[inputElements.length - 1].closest('table').appendChild(err);
-            errCount += 1;
-            if (errCount == 1){
-                inputElements[0].focus();
             }
         }
     }
