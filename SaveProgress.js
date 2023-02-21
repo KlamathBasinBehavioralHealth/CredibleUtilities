@@ -44,10 +44,10 @@ function errorMsg(element){
         const target = elem;
         const observer = new MutationObserver((mutationsList, observer) =>{
             if (inputElements.length == 1){
-                if (e.target.value != '' || e.target.getAttribute('data-value') != ''){
-                    e.target.style.border = '1px solid #8f8f9d';
-                    if (e.target.closest('table').querySelector('.errMsg') != null){
-                        e.target.closest('table').querySelector('.errMsg').remove();
+                if (target.value != '' || target.getAttribute('data-value') != ''){
+                    target.style.border = '1px solid #8f8f9d';
+                    if (target.closest('table').querySelector('.errMsg') != null){
+                        target.closest('table').querySelector('.errMsg').remove();
                         errCount -= 1;
                     }
                 }
