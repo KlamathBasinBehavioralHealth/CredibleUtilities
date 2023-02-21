@@ -1,3 +1,5 @@
+const { config } = require('dotenv');
+
 let errCount = 0;
 
 function errorMsg(element){
@@ -18,34 +20,52 @@ function errorMsg(element){
         }
     }
     else if (element.closest('table') != null){
-        inputElements = element.closest('table').querySelectorAll('input, select, textarea')
+        inputElements = element.closest('table').querySelectorAll('input, select, textarea');
     }
     inputElements = [...inputElements].filter(x => x.type != 'button');
     if (inputElements.length == 1){
         const elem = inputElements[0];
-        if(elem.value == ''){
-            elem.style.border = '2px solid red';
-            elem.style.borderRadius = '0.25em';
-            elem.onchange = (e) => {
-                if (inputElements.length == 1){
-                    if (e.target.value != '' || e.target.getAttribute('data-value') != ''){
-                        e.target.style.border = '1px solid #8f8f9d';
-                        if (e.target.closest('table').querySelector('.errMsg') != null){
-                            e.target.closest('table').querySelector('.errMsg').remove();
-                            errCount -= 1;
-                        }
-                    }
-                    else{
-                        errorMsg(element);
+
+        elem.style.border = '2px solid red';
+        elem.style.borderRadius = '0.25em';
+        elem.onchange = (e) => {
+            if (inputElements.length == 1){
+                if (e.target.value != '' || e.target.getAttribute('data-value') != ''){
+                    e.target.style.border = '1px solid #8f8f9d';
+                    if (e.target.closest('table').querySelector('.errMsg') != null){
+                        e.target.closest('table').querySelector('.errMsg').remove();
+                        errCount -= 1;
                     }
                 }
-            };
-            if (inputElements[inputElements.length - 1].closest('table').querySelector('.errMsg') == null){
-                inputElements[inputElements.length - 1].closest('table').appendChild(err);
-                errCount += 1;
-                if (errCount == 1){
-                    inputElements[0].focus();
+                else{
+                    errorMsg(element);
                 }
+            }
+        };
+
+        const target = elem;
+        const observer = new MutationObserver((mutationsList, observer) =>{
+            if (inputElements.length == 1){
+                if (e.target.value != '' || e.target.getAttribute('data-value') != ''){
+                    e.target.style.border = '1px solid #8f8f9d';
+                    if (e.target.closest('table').querySelector('.errMsg') != null){
+                        e.target.closest('table').querySelector('.errMsg').remove();
+                        errCount -= 1;
+                    }
+                }
+                else{
+                    errorMsg(element);
+                }
+            }
+        });
+        const config = {attributes: true, childList: true, subtree: true};
+        observer.observe(target, config);
+
+        if (inputElements[inputElements.length - 1].closest('table').querySelector('.errMsg') == null){
+            inputElements[inputElements.length - 1].closest('table').appendChild(err);
+            errCount += 1;
+            if (errCount == 1){
+                inputElements[0].focus();
             }
         }
     }
@@ -122,7 +142,7 @@ function validation() {
                     errorMsg(font);
                     isValid = false;
                 }
-                else if (inputElements[0].value == '' && (inputElements[0].offsetParent != null)){
+                else if (inputElements[0].value == '' && (inputElements[0].offsetParent != null || userChange == true)){
                     errorMsg(font);
                     isValid = false;
                 }
