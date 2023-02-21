@@ -1,5 +1,3 @@
-const { config } = require('dotenv');
-
 let errCount = 0;
 
 function errorMsg(element){
