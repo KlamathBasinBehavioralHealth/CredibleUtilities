@@ -41,23 +41,20 @@ function errorMsg(element){
             }
         };
 
-        const target = elem;
         const observer = new MutationObserver((mutationsList, observer) =>{
-            if (inputElements.length == 1){
-                if (target.value != '' || target.getAttribute('data-value') != ''){
-                    target.style.border = '1px solid #8f8f9d';
-                    if (target.closest('table').querySelector('.errMsg') != null){
-                        target.closest('table').querySelector('.errMsg').remove();
-                        errCount -= 1;
-                    }
+            if (elem.value != '' || elem.getAttribute('data-value') != ''){
+                elem.style.border = '1px solid #8f8f9d';
+                if (elem.closest('table').querySelector('.errMsg') != null){
+                    elem.closest('table').querySelector('.errMsg').remove();
+                    errCount -= 1;
                 }
-                else{
-                    errorMsg(element);
-                }
+            }
+            else{
+                errorMsg(element);
             }
         });
         const config = {attributes: true, childList: true, subtree: true};
-        observer.observe(target, config);
+        observer.observe(elem, config);
 
         if (inputElements[inputElements.length - 1].closest('table').querySelector('.errMsg') == null){
             inputElements[inputElements.length - 1].closest('table').appendChild(err);
