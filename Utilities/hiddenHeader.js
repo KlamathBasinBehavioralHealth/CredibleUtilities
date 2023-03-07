@@ -10,34 +10,38 @@ function headerButtons(state = 'hide'){
 }
 
 function hiddenHeadeSetDrivers(){
-  [...document.querySelectorAll('.hiddenHeader')].map((header) => {
+    [...document.querySelectorAll('.hiddenHeader')].map((header) => {
     console.log(document.querySelector(`#${header.getAttribute('driver')}`).closest('tbody').querySelector('input, select'));
     
     let element = document.querySelector(`#${header.getAttribute('driver')}`).closest('tbody').querySelector('input, select');
     
-    if(element.checked){
+    if(element.tagName == 'INPUT'){
+        if(element.checked){
       hideShowHiddenHeader('show', header);
     }
     else if(!element.checked){
-      hideShowHiddenHeader('hide', header);
+        hideShowHiddenHeader('hide', header);
+
+        element.addEventListener('change', (event) => {
+            if(element.checked){
+                hideShowHiddenHeader('show', header);
+            }
+            else if(!element.checked){
+                hideShowHiddenHeader('hide', header);
+            }
+        });
+        element.addEventListener('mouseleave', (event) => {
+            if(element.checked){
+                hideShowHiddenHeader('show', header);
+            }
+            else if(!element.checked){
+                hideShowHiddenHeader('hide', header);
+            }
+        });
     }
-    
-    element.addEventListener('change', (event) => {
-      if(element.checked){
-        hideShowHiddenHeader('show', header);
-      }
-      else if(!element.checked){
-        hideShowHiddenHeader('hide', header);
-      }
-    });
-    element.addEventListener('mouseleave', (event) => {
-      if(element.checked){
-        hideShowHiddenHeader('show', header);
-      }
-      else if(!element.checked){
-        hideShowHiddenHeader('hide', header);
-      }
-    });
+    }else if(element.tagName == 'SELECT'){
+
+    }
   });
 }
 
