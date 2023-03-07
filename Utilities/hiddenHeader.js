@@ -54,7 +54,7 @@ function hideShowHiddenHeader(hideShow = 'hide', header){
   }
 }
 
-window.addEventListener((event) =>{
+window.addEventListener('load', (event) =>{
   headerButtons();
   hiddenHeadeSetDrivers();
   console.log('Window onload event.');
