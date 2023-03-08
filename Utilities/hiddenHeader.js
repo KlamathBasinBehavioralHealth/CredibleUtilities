@@ -13,6 +13,7 @@ function hiddenHeadeSetDrivers(){
     [...document.querySelectorAll('.hiddenHeader')].map((header) => {
     
         [...document.querySelector('#labelID').getAttribute('driver').split(' ')].map((driver) => {
+            console.log(driver);
             let element = document.querySelector(`#${driver}`).closest('tbody').querySelector('input, select');
             
             if(element.tagName == 'INPUT'){
