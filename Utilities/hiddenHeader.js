@@ -13,37 +13,35 @@ function hiddenHeadeSetDrivers(){
     [...document.querySelectorAll('.hiddenHeader')].map((header) => {
     
         [...document.querySelector('#labelID').getAttribute('driver').split(' ')].map((driver) => {
-            let elements = [...document.querySelector(`#${driver}`).closest('tbody').querySelector('input, select')];
+            let element = document.querySelector(`#${driver}`).closest('tbody').querySelector('input, select');
             
-            elements.map((element) => {
-                if(element.tagName == 'INPUT'){
+            if(element.tagName == 'INPUT'){
+                if(element.checked){
+            hideShowHiddenHeader('show', header);
+            }
+            else if(!element.checked){
+                hideShowHiddenHeader('hide', header);
+
+                element.addEventListener('change', (event) => {
                     if(element.checked){
-                hideShowHiddenHeader('show', header);
-                }
-                else if(!element.checked){
-                    hideShowHiddenHeader('hide', header);
+                        hideShowHiddenHeader('show', header);
+                    }
+                    else if(!element.checked){
+                        hideShowHiddenHeader('hide', header);
+                    }
+                });
+                element.addEventListener('mouseleave', (event) => {
+                    if(element.checked){
+                        hideShowHiddenHeader('show', header);
+                    }
+                    else if(!element.checked){
+                        hideShowHiddenHeader('hide', header);
+                    }
+                });
+            }
+            }else if(element.tagName == 'SELECT'){
 
-                    element.addEventListener('change', (event) => {
-                        if(element.checked){
-                            hideShowHiddenHeader('show', header);
-                        }
-                        else if(!element.checked){
-                            hideShowHiddenHeader('hide', header);
-                        }
-                    });
-                    element.addEventListener('mouseleave', (event) => {
-                        if(element.checked){
-                            hideShowHiddenHeader('show', header);
-                        }
-                        else if(!element.checked){
-                            hideShowHiddenHeader('hide', header);
-                        }
-                    });
-                }
-                }else if(element.tagName == 'SELECT'){
-
-                }
-            });
+            } 
         }); 
   });
 }
