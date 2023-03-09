@@ -45,9 +45,9 @@ function hiddenHeadeSetDrivers(){
         element.addEventListener('change', (event) => {
           let isChecked = false;
           inputDriverArray.forEach(input => {
-              if(input.checked){
-                  isChecked = true;
-              }
+            if(input.checked){
+                isChecked = true;
+            }
           });
           if(isChecked){
             hideShowHiddenHeader('show', header);
@@ -60,9 +60,9 @@ function hiddenHeadeSetDrivers(){
         element.addEventListener('mouseleave', (event) => {
           let isChecked = false;
           inputDriverArray.forEach(input => {
-              if(input.checked){
-                  isChecked = true;
-              }
+            if(input.checked){
+                isChecked = true;
+            }
           });
           if(isChecked){
             hideShowHiddenHeader('show', header);
@@ -72,9 +72,61 @@ function hiddenHeadeSetDrivers(){
           }
         });
       });
+      inputDriverArray.forEach(input => {
+        if(input.checked){
+            isChecked = true;
+        }
+      });
+      if(isChecked){
+        hideShowHiddenHeader('show', header);
+      }
+      else{
+        hideShowHiddenHeader('hide', header);
+      }
     }
     else if(buttonMode == false || buttonMode == 'false'){
+      inputDriverArray.map((element) => {
+        element.addEventListener('change', (event) => {
+          let isChecked = false;
+          inputDriverArray.forEach(input => {
+            if(input.checked){
+                isChecked = true;
+            }
+          });
+          if(isChecked){
+            hideShowHiddenHeader('hide', header);
+          }
+          else{
+            hideShowHiddenHeader('show', header);
+          }
+        });
 
+        element.addEventListener('mouseleave', (event) => {
+          let isChecked = false;
+          inputDriverArray.forEach(input => {
+            if(input.checked){
+                isChecked = true;
+            }
+          });
+          if(isChecked){
+            hideShowHiddenHeader('hide', header);
+          }
+          else{
+            hideShowHiddenHeader('show', header);
+          }
+        });
+      });
+      inputDriverArray.forEach(input => {
+        if(input.checked){
+            isChecked = true;
+        }
+      });
+      if(isChecked){
+        hideShowHiddenHeader('hide', header);
+      }
+      else{
+        hideShowHiddenHeader('show', header);
+      }
     }
   });
 }
