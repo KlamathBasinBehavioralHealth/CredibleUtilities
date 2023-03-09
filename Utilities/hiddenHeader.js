@@ -43,7 +43,7 @@ function hiddenHeadeSetDrivers(){
     console.log(inputDriverArray);
     console.log(selectDriverArray);
 
-    testArray = inputDriverArray;
+    testArray = selectDriverArray;
 
     if(buttonMode == true || buttonMode == 'true'){
       inputDriverArray.map((element) => {
@@ -140,9 +140,7 @@ function hiddenHeadeSetDrivers(){
   });
 }
 
-function hideShowHiddenHeader(hideShow = 'hide', header){
-  console.log(header.closest('tbody').querySelector('.hiddenHeaderButton').closest('tbody').querySelector('input'));
-  
+function hideShowHiddenHeader(hideShow = 'hide', header){  
   if(hideShow == 'hide'){
     header.closest('tbody').querySelector('.hiddenHeaderButton').closest('tbody').querySelector('input').checked = false;
     visibility('hide', '.hiddenHeader');
