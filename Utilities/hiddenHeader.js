@@ -31,14 +31,14 @@ function hiddenHeadeSetDrivers(){
                         hideShowHiddenHeader('hide', header);
                     }
                 });
-                element.addEventListener('mouseleave', (event) => {
+                /*element.addEventListener('mouseleave', (event) => {
                     if(element.checked){
                         hideShowHiddenHeader('show', header);
                     }
                     else if(!element.checked){
                         hideShowHiddenHeader('hide', header);
                     }
-                });
+                });*/
             }
             }else if(element.tagName == 'SELECT'){
 
