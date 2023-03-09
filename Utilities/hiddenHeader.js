@@ -10,56 +10,55 @@ function headerButtons(state = 'hide'){
 }
 
 function hiddenHeadeSetDrivers(){
-    [...document.querySelectorAll('.hiddenHeader')].map((header) => {
-        let inputDriverArray = [];
-        let selectDriverArray = [];
-        let conditionArray = [] ;
+  [...document.querySelectorAll('.hiddenHeader')].map((header) => {
+    let inputDriverArray = [];
+    let selectDriverArray = [];
+    let conditionArray = [] ;
 
-        [...document.querySelector('#labelID').getAttribute('showCondition').split(' ')].map((condition) => {
-          conditionArray.push(condition);
-        });
+    [...document.querySelector('#labelID').getAttribute('showCondition').split(' ')].map((condition) => {
+      conditionArray.push(condition);
+    });
 
-        console.log(conditionArray);
+    console.log(conditionArray);
 
-        [...document.querySelector('#labelID').getAttribute('driver').split(' ')].map((driver) => {
-            let element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
-            if(element.tagName == 'INPUT'){
-              inputDriverArray.push(element);
-            }else if(element.tagName == 'SELECT'){
-              selectDriverArray.push(element);
-            }
-            
-            /* if(element.tagName == 'INPUT'){
-                if(element.checked){
+    [...document.querySelector('#labelID').getAttribute('driver').split(' ')].map((driver) => {
+        let element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
+        if(element.tagName == 'INPUT'){
+          inputDriverArray.push(element);
+        }else if(element.tagName == 'SELECT'){
+          selectDriverArray.push(element);
+        }
+    }); 
+
+    console.log(inputDriverArray);
+    console.log(selectDriverArray);
+
+    if(element.tagName == 'INPUT'){
+      if(element.checked){
+        hideShowHiddenHeader('show', header);
+      }else if(!element.checked){
+        hideShowHiddenHeader('hide', header);
+
+        element.addEventListener('change', (event) => {
+          if(element.checked){
             hideShowHiddenHeader('show', header);
-            }
-            else if(!element.checked){
-                hideShowHiddenHeader('hide', header);
+          }
+          else if(!element.checked){
+            hideShowHiddenHeader('hide', header);
+          }
+        });
+        element.addEventListener('mouseleave', (event) => {
+          if(element.checked){
+            hideShowHiddenHeader('show', header);
+          }
+          else if(!element.checked){
+            hideShowHiddenHeader('hide', header);
+          }
+        });
+      }
+    }else if(element.tagName == 'SELECT'){
 
-                element.addEventListener('change', (event) => {
-                    if(element.checked){
-                        hideShowHiddenHeader('show', header);
-                    }
-                    else if(!element.checked){
-                        hideShowHiddenHeader('hide', header);
-                    }
-                });
-                element.addEventListener('mouseleave', (event) => {
-                    if(element.checked){
-                        hideShowHiddenHeader('show', header);
-                    }
-                    else if(!element.checked){
-                        hideShowHiddenHeader('hide', header);
-                    }
-                });
-            }
-            }else if(element.tagName == 'SELECT'){
-
-            }*/ 
-        }); 
-
-        console.log(inputDriverArray);
-        console.log(selectDriverArray);
+    }
   });
 }
 
