@@ -43,7 +43,33 @@ function hiddenHeadeSetDrivers(){
     if(buttonMode == true || buttonMode == 'true'){
       inputDriverArray.map((element) => {
         element.addEventListener('change', (event) => {
+          let isChecked = false;
+          inputDriverArray.forEach(input => {
+              if(input.checked){
+                  isChecked = true;
+              }
+          });
+          if(isChecked){
+            hideShowHiddenHeader('show', header);
+          }
+          else{
+            hideShowHiddenHeader('hide', header);
+          }
+        });
 
+        element.addEventListener('mouseleave', (event) => {
+          let isChecked = false;
+          inputDriverArray.forEach(input => {
+              if(input.checked){
+                  isChecked = true;
+              }
+          });
+          if(isChecked){
+            hideShowHiddenHeader('show', header);
+          }
+          else{
+            hideShowHiddenHeader('hide', header);
+          }
         });
       });
     }
