@@ -27,12 +27,17 @@ function hiddenHeadeSetDrivers(){
     console.log(conditionArray);
 
     [...document.querySelector('#labelID').getAttribute('driver').split(' ')].map((driver) => {
-        let element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
+      let element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
+      try{
         if(element.tagName == 'INPUT'){
           inputDriverArray.push(element);
-        }else if(element.tagName == 'SELECT'){
+        }
+      }catch(error){
+        element = document.querySelector(`#${driver}`).closest('tbody').querySelector('input, select');
+        if(element.tagName == 'SELECT'){
           selectDriverArray.push(element);
         }
+      }
     }); 
 
     console.log(inputDriverArray);
@@ -146,6 +151,10 @@ function hideShowHiddenHeader(hideShow = 'hide', header){
     header.closest('tbody').querySelector('.hiddenHeaderButton').closest('tbody').querySelector('input').checked = true;
     visibility('show', '.hiddenHeader');
   }
+}
+
+function getOptionValue(select, optionText){
+
 }
 
 window.addEventListener('load', (event) =>{
