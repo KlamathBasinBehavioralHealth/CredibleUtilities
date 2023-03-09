@@ -14,6 +14,9 @@ function hiddenHeadeSetDrivers(){
     let inputDriverArray = [];
     let selectDriverArray = [];
     let conditionArray = [] ;
+    let buttonMode = document.querySelector('#labelID').getAttribute('buttonMode');
+
+    console.log(buttonMode);
 
     [...document.querySelector('#labelID').getAttribute('showCondition').split(' ')].map((condition) => {
       conditionArray.push(condition);
@@ -33,32 +36,7 @@ function hiddenHeadeSetDrivers(){
     console.log(inputDriverArray);
     console.log(selectDriverArray);
 
-    if(element.tagName == 'INPUT'){
-      if(element.checked){
-        hideShowHiddenHeader('show', header);
-      }else if(!element.checked){
-        hideShowHiddenHeader('hide', header);
-
-        element.addEventListener('change', (event) => {
-          if(element.checked){
-            hideShowHiddenHeader('show', header);
-          }
-          else if(!element.checked){
-            hideShowHiddenHeader('hide', header);
-          }
-        });
-        element.addEventListener('mouseleave', (event) => {
-          if(element.checked){
-            hideShowHiddenHeader('show', header);
-          }
-          else if(!element.checked){
-            hideShowHiddenHeader('hide', header);
-          }
-        });
-      }
-    }else if(element.tagName == 'SELECT'){
-
-    }
+    
   });
 }
 
