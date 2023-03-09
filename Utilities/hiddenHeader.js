@@ -14,7 +14,7 @@ function hiddenHeadeSetDrivers(){
     
         [...document.querySelector('#labelID').getAttribute('driver').split(' ')].map((driver) => {
             console.log(driver);
-            let element = document.querySelector(`#${driver}`).closest('tbody').querySelector('input, select');
+            let element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
             
             if(element.tagName == 'INPUT'){
                 if(element.checked){
