@@ -9,6 +9,8 @@ function headerButtons(state = 'hide'){
   });
 }
 
+let testArray = [];
+
 function hiddenHeadeSetDrivers(){
   [...document.querySelectorAll('.hiddenHeader')].map((header) => {
     let inputDriverArray = [];
@@ -36,7 +38,18 @@ function hiddenHeadeSetDrivers(){
     console.log(inputDriverArray);
     console.log(selectDriverArray);
 
-    
+    testArray = inputDriverArray;
+
+    if(buttonMode == true || buttonMode == 'true'){
+      inputDriverArray.map((element) => {
+        element.addEventListener('change', (event) => {
+
+        });
+      });
+    }
+    else if(buttonMode == false || buttonMode == 'false'){
+
+    }
   });
 }
 
