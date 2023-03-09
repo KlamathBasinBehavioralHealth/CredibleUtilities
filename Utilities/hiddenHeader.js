@@ -72,6 +72,8 @@ function hiddenHeadeSetDrivers(){
           }
         });
       });
+
+      let isChecked = false;
       inputDriverArray.forEach(input => {
         if(input.checked){
             isChecked = true;
@@ -116,6 +118,8 @@ function hiddenHeadeSetDrivers(){
           }
         });
       });
+
+      let isChecked = false;
       inputDriverArray.forEach(input => {
         if(input.checked){
             isChecked = true;
