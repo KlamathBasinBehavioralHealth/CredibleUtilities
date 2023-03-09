@@ -12,12 +12,20 @@ function headerButtons(state = 'hide'){
 function hiddenHeadeSetDrivers(){
     [...document.querySelectorAll('.hiddenHeader')].map((header) => {
         let driverArray = [];
-        [...document.querySelector('#labelID').getAttribute('driver').split(' ')].map((driver) => {
-            console.log(driver);
+        let conditionArray = [] ;
+
+        [...document.querySelector('#labelID').getAttribute('showCondition').split(' ')].map((condition) => {
+          conditionArray.push(condition);
+        });
+
+        console.log(conditionArray);
+
+        [...document.querySelector('#labelID').getAttribute('driver').split(' ')].map((driver) => 
             let element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
             
             driverArray.push(element);
 
+            
             /* if(element.tagName == 'INPUT'){
                 if(element.checked){
             hideShowHiddenHeader('show', header);
