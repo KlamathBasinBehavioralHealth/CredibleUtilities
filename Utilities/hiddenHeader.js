@@ -11,7 +11,8 @@ function headerButtons(state = 'hide'){
 
 function hiddenHeadeSetDrivers(){
     [...document.querySelectorAll('.hiddenHeader')].map((header) => {
-        let driverArray = [];
+        let inputDriverArray = [];
+        let selectDriverArray = [];
         let conditionArray = [] ;
 
         [...document.querySelector('#labelID').getAttribute('showCondition').split(' ')].map((condition) => {
@@ -22,9 +23,11 @@ function hiddenHeadeSetDrivers(){
 
         [...document.querySelector('#labelID').getAttribute('driver').split(' ')].map((driver) => {
             let element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
-            
-            driverArray.push(element);
-
+            if(element.tagName == 'INPUT'){
+              inputDriverArray.push(element);
+            }else if(element.tagName == 'SELECT'){
+              selectDriverArray.push(element);
+            }
             
             /* if(element.tagName == 'INPUT'){
                 if(element.checked){
@@ -55,7 +58,8 @@ function hiddenHeadeSetDrivers(){
             }*/ 
         }); 
 
-        console.log(driverArray);
+        console.log(inputDriverArray);
+        console.log(selectDriverArray);
   });
 }
 
