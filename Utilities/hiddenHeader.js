@@ -20,7 +20,7 @@ function hiddenHeadeSetDrivers(){
 
         console.log(conditionArray);
 
-        [...document.querySelector('#labelID').getAttribute('driver').split(' ')].map((driver) => 
+        [...document.querySelector('#labelID').getAttribute('driver').split(' ')].map((driver) => {
             let element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
             
             driverArray.push(element);
