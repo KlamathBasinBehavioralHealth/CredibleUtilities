@@ -68,14 +68,14 @@ function checkConditions(mode, inputs, selects, conditions, header){
 
 function hiddenHeadeSetDrivers(){
   [...document.querySelectorAll('.hiddenHeader')].map((header) => {
-    let buttonMode = document.querySelector('#labelID').getAttribute('buttonMode');
+    let mode = document.querySelector('#labelID').getAttribute('mode');
     let inputDriverArray = [];
     let selectDriverArray = [];
     let conditionArray = [] ;
 
-    console.log(buttonMode);
+    console.log(mode);
 
-    [...document.querySelector('#labelID').getAttribute('showCondition').split(' ')].map((condition) => {
+    [...document.querySelector('#labelID').getAttribute('condition').split(' ')].map((condition) => {
       conditionArray.push(condition);
     });
 
@@ -100,23 +100,23 @@ function hiddenHeadeSetDrivers(){
 
     inputDriverArray.map((element) => {
       element.addEventListener('change', (event) => {
-        checkConditions(buttonMode, inputDriverArray, selectDriverArray, conditionArray, header);
+        checkConditions(mode, inputDriverArray, selectDriverArray, conditionArray, header);
       });
       element.addEventListener('mouseleave', (event) => {
-        checkConditions(buttonMode, inputDriverArray, selectDriverArray, conditionArray, header);
+        checkConditions(mode, inputDriverArray, selectDriverArray, conditionArray, header);
       });
     });
 
     selectDriverArray.map((element) => {
       element.addEventListener('change', (event) => {
-        checkConditions(buttonMode, inputDriverArray, selectDriverArray, conditionArray, header);
+        checkConditions(mode, inputDriverArray, selectDriverArray, conditionArray, header);
       });
       element.addEventListener('mouseleave', (event) => {
-        checkConditions(buttonMode, inputDriverArray, selectDriverArray, conditionArray, header);
+        checkConditions(mode, inputDriverArray, selectDriverArray, conditionArray, header);
       });
     });
    
-    checkConditions(buttonMode, inputDriverArray, selectDriverArray, conditionArray, header);
+    checkConditions(mode, inputDriverArray, selectDriverArray, conditionArray, header);
   });
 }
 
