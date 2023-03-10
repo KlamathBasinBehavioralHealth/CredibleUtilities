@@ -9,9 +9,31 @@ function headerButtons(state = 'hide'){
   });
 }
 
+function getOptionValue(select, optionText){
+  let found = false;
+  let value = undefined;
+  [...select.querySelectorAll('option')].map((option) => {
+      console.log(option.innerText);
+      if(option.innerText == optionText){
+          found = true;
+          value = option.value;
+      }
+  });
+  return value;
+}
+
 function checkConditions(mode, inputs, selects, conditions, header){
   let isChecked = false;
   let isSelected = false;
+  let conditionValues = [];
+
+  selects.forEach(select => {
+    conditions.forEach(condition => {
+      if(getOptionValue(select, condition)){
+        conditionValues.push(getOptionValue(select, condition));
+      }
+    });
+  });
   
   inputs.forEach(input => {
     if(input.checked){
@@ -20,7 +42,7 @@ function checkConditions(mode, inputs, selects, conditions, header){
   });
   
   selects.forEach(input => {
-    if([...conditions].includes(input.value)){
+    if([...conditionValues].includes(input.value)){
         isSelected = true;
     }
   });
@@ -57,10 +79,6 @@ function hiddenHeadeSetDrivers(){
       conditionArray.push(condition);
     });
 
-    console.log(header);
-    console.log(buttonMode);
-    console.log(inputDriverArray);
-    console.log(selectDriverArray);
     console.log(conditionArray);
 
     [...document.querySelector('#labelID').getAttribute('driver').split(' ')].map((driver) => {
@@ -111,19 +129,6 @@ function hideShowHiddenHeader(hideShow = 'hide', header){
     header.closest('tbody').querySelector('.hiddenHeaderButton').closest('tbody').querySelector('input').checked = true;
     visibility('show', '.hiddenHeader');
   }
-}
-
-function getOptionValue(select, optionText){
-  let found = false;
-  let value = undefined;
-  [...select.querySelectorAll('option')].map((option) => {
-      console.log(option.innerText);
-      if(option.innerText == optionText){
-          found = true;
-          value = option.value;
-      }
-  });
-  return value;
 }
 
 window.addEventListener('load', (event) =>{
