@@ -11,6 +11,42 @@ function headerButtons(state = 'hide'){
 
 let testArray = [];
 
+function checkConditions(mode, inputs, selects, conditions, header){
+  //Determine condition
+  let isChecked = false;
+  let isSelected = false;
+  
+  inputs.forEach(input => {
+    if(input.checked){
+        isChecked = true;
+    }
+  });
+  
+  selects.forEach(input => {
+    if([...conditions].includes(input.value)){
+        isSelected = true;
+    }
+  });
+
+  if(isChecked || isSelected){
+    if(mode){
+      hideShowHiddenHeader('show', header);
+      return true;
+    }else{
+      hideShowHiddenHeader('hide', header);
+      return false;
+    }
+  }else{
+    if(mode){
+      hideShowHiddenHeader('hide', header);
+      return false;
+    }else{
+      hideShowHiddenHeader('show', header);
+      return true;
+    }
+  }
+}
+
 function hiddenHeadeSetDrivers(){
   [...document.querySelectorAll('.hiddenHeader')].map((header) => {
     let inputDriverArray = [];
@@ -43,100 +79,25 @@ function hiddenHeadeSetDrivers(){
     console.log(inputDriverArray);
     console.log(selectDriverArray);
 
-    testArray = selectDriverArray;
-
-    if(buttonMode == true || buttonMode == 'true'){
-      inputDriverArray.map((element) => {
-        element.addEventListener('change', (event) => {
-          let isChecked = false;
-          inputDriverArray.forEach(input => {
-            if(input.checked){
-                isChecked = true;
-            }
-          });
-          if(isChecked){
-            hideShowHiddenHeader('show', header);
-          }
-          else{
-            hideShowHiddenHeader('hide', header);
-          }
-        });
-
-        element.addEventListener('mouseleave', (event) => {
-          let isChecked = false;
-          inputDriverArray.forEach(input => {
-            if(input.checked){
-                isChecked = true;
-            }
-          });
-          if(isChecked){
-            hideShowHiddenHeader('show', header);
-          }
-          else{
-            hideShowHiddenHeader('hide', header);
-          }
-        });
+    inputDriverArray.map((element) => {
+      element.addEventListener('change', (event) => {
+        checkConditions(buttonMode, inputDriverArray, selectDriverArray, conditionArray, header);
       });
-
-      let isChecked = false;
-      inputDriverArray.forEach(input => {
-        if(input.checked){
-            isChecked = true;
-        }
+      element.addEventListener('mouseleave', (event) => {
+        checkConditions(buttonMode, inputDriverArray, selectDriverArray, conditionArray, header);
       });
-      if(isChecked){
-        hideShowHiddenHeader('show', header);
-      }
-      else{
-        hideShowHiddenHeader('hide', header);
-      }
-    }
-    else if(buttonMode == false || buttonMode == 'false'){
-      inputDriverArray.map((element) => {
-        element.addEventListener('change', (event) => {
-          let isChecked = false;
-          inputDriverArray.forEach(input => {
-            if(input.checked){
-                isChecked = true;
-            }
-          });
-          if(isChecked){
-            hideShowHiddenHeader('hide', header);
-          }
-          else{
-            hideShowHiddenHeader('show', header);
-          }
-        });
+    });
 
-        element.addEventListener('mouseleave', (event) => {
-          let isChecked = false;
-          inputDriverArray.forEach(input => {
-            if(input.checked){
-                isChecked = true;
-            }
-          });
-          if(isChecked){
-            hideShowHiddenHeader('hide', header);
-          }
-          else{
-            hideShowHiddenHeader('show', header);
-          }
-        });
+    selectDriverArray.map((element) => {
+      element.addEventListener('change', (event) => {
+        checkConditions(buttonMode, inputDriverArray, selectDriverArray, conditionArray, header);
       });
-
-      let isChecked = false;
-      inputDriverArray.forEach(input => {
-        if(input.checked){
-            isChecked = true;
-        }
+      element.addEventListener('mouseleave', (event) => {
+        checkConditions(buttonMode, inputDriverArray, selectDriverArray, conditionArray, header);
       });
-      if(isChecked){
-        hideShowHiddenHeader('hide', header);
-      }
-      else{
-        hideShowHiddenHeader('show', header);
-      }
-    }
+    });
+   
+    checkConditions(buttonMode, inputDriverArray, selectDriverArray, conditionArray, header);
   });
 }
 
