@@ -9,10 +9,7 @@ function headerButtons(state = 'hide'){
   });
 }
 
-let testArray = [];
-
 function checkConditions(mode, inputs, selects, conditions, header){
-  //Determine condition
   let isChecked = false;
   let isSelected = false;
   
@@ -29,18 +26,18 @@ function checkConditions(mode, inputs, selects, conditions, header){
   });
 
   if(isChecked || isSelected){
-    if(mode){
+    if(mode == 'showOnTrue'){
       hideShowHiddenHeader('show', header);
       return true;
-    }else{
+    }else if (mode == 'hideOnTrue'){
       hideShowHiddenHeader('hide', header);
       return false;
     }
   }else{
-    if(mode){
+    if(mode == 'showOnTrue'){
       hideShowHiddenHeader('hide', header);
       return false;
-    }else{
+    }else if (mode == 'hideOnTrue'){
       hideShowHiddenHeader('show', header);
       return true;
     }
@@ -49,10 +46,10 @@ function checkConditions(mode, inputs, selects, conditions, header){
 
 function hiddenHeadeSetDrivers(){
   [...document.querySelectorAll('.hiddenHeader')].map((header) => {
+    let buttonMode = document.querySelector('#labelID').getAttribute('buttonMode');
     let inputDriverArray = [];
     let selectDriverArray = [];
     let conditionArray = [] ;
-    let buttonMode = document.querySelector('#labelID').getAttribute('buttonMode');
 
     console.log(buttonMode);
 
@@ -60,6 +57,10 @@ function hiddenHeadeSetDrivers(){
       conditionArray.push(condition);
     });
 
+    console.log(header);
+    console.log(buttonMode);
+    console.log(inputDriverArray);
+    console.log(selectDriverArray);
     console.log(conditionArray);
 
     [...document.querySelector('#labelID').getAttribute('driver').split(' ')].map((driver) => {
