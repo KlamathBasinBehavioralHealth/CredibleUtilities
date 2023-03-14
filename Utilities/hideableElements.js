@@ -22,7 +22,7 @@ function getOptionValue(select, optionText){
   return value;
 }
 
-function checkConditions(mode, inputs, selects, conditions, header){
+function checkConditionsHeader(mode, inputs, selects, conditions, header){
   let isChecked = false;
   let isSelected = false;
   let conditionValues = [];
@@ -66,20 +66,16 @@ function checkConditions(mode, inputs, selects, conditions, header){
   }
 }
 
-function hiddenHeadeSetDrivers(){
+function hideableHeaderSetDrivers(){
   [...document.querySelectorAll('.hiddenHeader')].map((header) => {
     let mode = document.querySelector('#labelID').getAttribute('mode');
     let inputDriverArray = [];
     let selectDriverArray = [];
     let conditionArray = [] ;
 
-    console.log(mode);
-
     [...document.querySelector('#labelID').getAttribute('condition').split(' ')].map((condition) => {
       conditionArray.push(condition);
     });
-
-    console.log(conditionArray);
 
     [...document.querySelector('#labelID').getAttribute('driver').split(' ')].map((driver) => {
       let element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
@@ -95,44 +91,143 @@ function hiddenHeadeSetDrivers(){
       }
     }); 
 
-    console.log(inputDriverArray);
-    console.log(selectDriverArray);
-
     inputDriverArray.map((element) => {
       element.addEventListener('change', (event) => {
-        checkConditions(mode, inputDriverArray, selectDriverArray, conditionArray, header);
+        checkConditionsHeader(mode, inputDriverArray, selectDriverArray, conditionArray, header);
       });
       element.addEventListener('mouseleave', (event) => {
-        checkConditions(mode, inputDriverArray, selectDriverArray, conditionArray, header);
+        checkConditionsHeader(mode, inputDriverArray, selectDriverArray, conditionArray, header);
       });
     });
 
     selectDriverArray.map((element) => {
       element.addEventListener('change', (event) => {
-        checkConditions(mode, inputDriverArray, selectDriverArray, conditionArray, header);
+        checkConditionsHeader(mode, inputDriverArray, selectDriverArray, conditionArray, header);
       });
       element.addEventListener('mouseleave', (event) => {
-        checkConditions(mode, inputDriverArray, selectDriverArray, conditionArray, header);
+        checkConditionsHeader(mode, inputDriverArray, selectDriverArray, conditionArray, header);
       });
     });
    
-    checkConditions(mode, inputDriverArray, selectDriverArray, conditionArray, header);
+    checkConditionsHeader(mode, inputDriverArray, selectDriverArray, conditionArray, header);
   });
 }
 
 function hideShowHiddenHeader(hideShow = 'hide', header){  
   if(hideShow == 'hide'){
     header.closest('tbody').querySelector('.hiddenHeaderButton').closest('tbody').querySelector('input').checked = false;
-    visibility('hide', '.hiddenHeader');
+    visibility('hide', header);
   }
   else if(hideShow == 'show'){
     header.closest('tbody').querySelector('.hiddenHeaderButton').closest('tbody').querySelector('input').checked = true;
-    visibility('show', '.hiddenHeader');
+    visibility('show', header);
+  }
+}
+
+function checkConditionsQuestion(mode, requireOnShow, inputs, selects, conditions, question){
+  let isChecked = false;
+  let isSelected = false;
+  let conditionValues = [];
+
+  selects.forEach(select => {
+    conditions.forEach(condition => {
+      if(getOptionValue(select, condition)){
+        conditionValues.push(getOptionValue(select, condition));
+      }
+    });
+  });
+  
+  inputs.forEach(input => {
+    if(input.checked){
+        isChecked = true;
+    }
+  });
+  
+  selects.forEach(input => {
+    if([...conditionValues].includes(input.value)){
+        isSelected = true;
+    }
+  });
+
+  if(isChecked || isSelected){
+    if(mode == 'showOnTrue'){
+      hideShowHideableQuestion('show', question, requireOnShow);
+      return true;
+    }else if (mode == 'hideOnTrue'){
+      hideShowHideableQuestion('hide', question, requireOnShow);
+      return false;
+    }
+  }else{
+    if(mode == 'showOnTrue'){
+      hideShowHideableQuestion('hide', question, requireOnShow);
+      return false;
+    }else if (mode == 'hideOnTrue'){
+      hideShowHideableQuestion('show', question, requireOnShow);
+      return true;
+    }
+  }
+}
+
+function hideableQuestionSetDrivers(){
+  [...document.querySelectorAll('.hiddenHeader')].map((header) => {
+    let mode = document.querySelector('#questionID').getAttribute('mode');
+    let requireOnShow = document.querySelector('#questionID').getAttribute('requireOnShow');
+    let inputDriverArray = [];
+    let selectDriverArray = [];
+    let conditionArray = [] ;
+
+    [...document.querySelector('#questionID').getAttribute('condition').split(' ')].map((condition) => {
+      conditionArray.push(condition);
+    });
+
+    [...document.querySelector('#questionID').getAttribute('driver').split(' ')].map((driver) => {
+      let element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
+      try{
+        if(element.tagName == 'INPUT'){
+          inputDriverArray.push(element);
+        }
+      }catch(error){
+        element = document.querySelector(`#${driver}`).closest('tbody').querySelector('input, select');
+        if(element.tagName == 'SELECT'){
+          selectDriverArray.push(element);
+        }
+      }
+    }); 
+
+    inputDriverArray.map((element) => {
+      element.addEventListener('change', (event) => {
+        checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, header);
+      });
+      element.addEventListener('mouseleave', (event) => {
+        checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, header);
+      });
+    });
+
+    selectDriverArray.map((element) => {
+      element.addEventListener('change', (event) => {
+        checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, header);
+      });
+      element.addEventListener('mouseleave', (event) => {
+        checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, header);
+      });
+    });
+   
+    checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, header);
+  });
+}
+
+function hideShowHideableQuestion(hideShow = 'hide', question, requireOnShow = false){  
+  if(hideShow == 'hide'){
+    visibility('hide', question, requireOnShow);
+  }
+  else if(hideShow == 'show'){
+    visibility('show', question, requireOnShow);
   }
 }
 
 window.addEventListener('load', (event) =>{
   headerButtons();
-  hiddenHeadeSetDrivers();
+  hideableHeaderSetDrivers();
+  hideableQuestionSetDrivers();
   console.log('Window onload event.');
 });
