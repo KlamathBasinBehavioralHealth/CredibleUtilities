@@ -196,23 +196,23 @@ function hideableQuestionSetDrivers(){
 
     inputDriverArray.map((element) => {
       element.addEventListener('change', (event) => {
-        checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, header);
+        checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, question);
       });
       element.addEventListener('mouseleave', (event) => {
-        checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, header);
+        checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, question);
       });
     });
 
     selectDriverArray.map((element) => {
       element.addEventListener('change', (event) => {
-        checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, header);
+        checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, question);
       });
       element.addEventListener('mouseleave', (event) => {
-        checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, header);
+        checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, question);
       });
     });
    
-    checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, header);
+    checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, question);
   });
 }
 
