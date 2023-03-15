@@ -1,10 +1,10 @@
 function headerButtons(state = 'hide'){
-  [...document.querySelectorAll('.hiddenHeader')].map((header) => {
+  [...document.querySelectorAll('.hideableHeader')].map((header) => {
     if(state == 'hide'){
-      header.closest('tbody').querySelector('.hiddenHeaderButton').closest('table').style.display = 'none';
+      header.closest('tbody').querySelector('.hideableHeaderButton').closest('table').style.display = 'none';
     }
     else if(state == 'show'){
-      header.closest('tbody').querySelector('.hiddenHeaderButton').closest('table').style.display = 'block';
+      header.closest('tbody').querySelector('.hideableHeaderButton').closest('table').style.display = 'block';
     }
   });
 }
