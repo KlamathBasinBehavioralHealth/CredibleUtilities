@@ -67,17 +67,17 @@ function checkConditionsHeader(mode, inputs, selects, conditions, header){
 }
 
 function hideableHeaderSetDrivers(){
-  [...document.querySelectorAll('.hiddenHeader')].map((header) => {
-    let mode = document.querySelector('#labelID').getAttribute('mode');
+  [...document.querySelectorAll('.hideableHeader')].map((header) => {
+    let mode = document.querySelector(header).getAttribute('mode');
     let inputDriverArray = [];
     let selectDriverArray = [];
     let conditionArray = [] ;
 
-    [...document.querySelector('#labelID').getAttribute('condition').split(' ')].map((condition) => {
+    [...document.querySelector(header).getAttribute('condition').split(' ')].map((condition) => {
       conditionArray.push(condition);
     });
 
-    [...document.querySelector('#labelID').getAttribute('driver').split(' ')].map((driver) => {
+    [...document.querySelector(header).getAttribute('driver').split(' ')].map((driver) => {
       let element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
       try{
         if(element.tagName == 'INPUT'){
@@ -169,18 +169,18 @@ function checkConditionsQuestion(mode, requireOnShow, inputs, selects, condition
 }
 
 function hideableQuestionSetDrivers(){
-  [...document.querySelectorAll('.hiddenHeader')].map((header) => {
-    let mode = document.querySelector('#questionID').getAttribute('mode');
-    let requireOnShow = document.querySelector('#questionID').getAttribute('requireOnShow');
+  [...document.querySelectorAll('.hideableQuestion')].map((question) => {
+    let mode = document.querySelector(question).getAttribute('mode');
+    let requireOnShow = document.querySelector(question).getAttribute('requireOnShow');
     let inputDriverArray = [];
     let selectDriverArray = [];
     let conditionArray = [] ;
 
-    [...document.querySelector('#questionID').getAttribute('condition').split(' ')].map((condition) => {
+    [...document.querySelector(question).getAttribute('condition').split(' ')].map((condition) => {
       conditionArray.push(condition);
     });
 
-    [...document.querySelector('#questionID').getAttribute('driver').split(' ')].map((driver) => {
+    [...document.querySelector(question).getAttribute('driver').split(' ')].map((driver) => {
       let element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
       try{
         if(element.tagName == 'INPUT'){
