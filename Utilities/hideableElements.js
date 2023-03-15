@@ -49,18 +49,18 @@ function checkConditionsHeader(mode, inputs, selects, conditions, header){
 
   if(isChecked || isSelected){
     if(mode == 'showOnTrue'){
-      hideShowHiddenHeader('show', header);
+      hideShowHideableHeader('show', header);
       return true;
     }else if (mode == 'hideOnTrue'){
-      hideShowHiddenHeader('hide', header);
+      hideShowHideableHeader('hide', header);
       return false;
     }
   }else{
     if(mode == 'showOnTrue'){
-      hideShowHiddenHeader('hide', header);
+      hideShowHideableHeader('hide', header);
       return false;
     }else if (mode == 'hideOnTrue'){
-      hideShowHiddenHeader('show', header);
+      hideShowHideableHeader('show', header);
       return true;
     }
   }
@@ -113,13 +113,13 @@ function hideableHeaderSetDrivers(){
   });
 }
 
-function hideShowHiddenHeader(hideShow = 'hide', header){  
+function hideShowHideableHeader(hideShow = 'hide', header){  
   if(hideShow == 'hide'){
-    header.closest('tbody').querySelector('.hiddenHeaderButton').closest('tbody').querySelector('input').checked = false;
+    header.closest('tbody').querySelector('.hideableHeaderButton').closest('tbody').querySelector('input').checked = false;
     visibility('hide', header);
   }
   else if(hideShow == 'show'){
-    header.closest('tbody').querySelector('.hiddenHeaderButton').closest('tbody').querySelector('input').checked = true;
+    header.closest('tbody').querySelector('.hideableHeaderButton').closest('tbody').querySelector('input').checked = true;
     visibility('show', header);
   }
 }
