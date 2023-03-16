@@ -1,3 +1,16 @@
+if(typeof visibilty != 'function'){
+  window.include = function (file){
+    var script = document.createElement('script');
+    script.src = file;
+    script.type = 'text/javascript';
+    script.defer = true;
+      
+    document.getElementsByTagName('head').item(0).appendChild(script);
+  }
+
+  include('https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js');
+}
+
 function headerButtons(state = 'hide'){
   [...document.querySelectorAll('.hideableHeader')].map((header) => {
     if(state == 'hide'){
