@@ -86,7 +86,7 @@ function hideableHeaderSetDrivers(){
     let selectDriverArray = [];
     let conditionArray = [] ;
 
-    [...header.getAttribute('condition').split(' ')].map((condition) => {
+    [...header.getAttribute('condition').split(';')].map((condition) => {
       conditionArray.push(condition);
     });
 
@@ -189,7 +189,7 @@ function hideableQuestionSetDrivers(){
     let selectDriverArray = [];
     let conditionArray = [] ;
 
-    [...question.getAttribute('condition').split(' ')].map((condition) => {
+    [...question.getAttribute('condition').split(';')].map((condition) => {
       conditionArray.push(condition);
     });
 
