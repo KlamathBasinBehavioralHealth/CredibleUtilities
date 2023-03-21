@@ -184,7 +184,7 @@ function checkConditionsQuestion(mode, requireOnShow, inputs, selects, condition
 function hideableQuestionSetDrivers(){
   [...document.querySelectorAll('.hideableQuestion')].map((question) => {
     let mode = question.getAttribute('mode');
-    let requireOnShow = question.getAttribute('requireOnShow');
+    let requireOnShow = JSON.parse(question.getAttribute('requireOnShow'));
     let inputDriverArray = [];
     let selectDriverArray = [];
     let conditionArray = [] ;
