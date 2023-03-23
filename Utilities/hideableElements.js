@@ -238,9 +238,38 @@ function hideShowHideableQuestion(hideShow = 'hide', question, requireOnShow = f
   }
 }
 
+function requireTextareas(){
+  [...document.querySelectorAll('.requireTextarea')].map(element => {
+    try{
+      let input = element.closest('table').querySelector('input, select')
+      let textarea = element.closest('table').closest('tr').nextElementSibling.querySelector('textarea');
+
+      input.addEventListener('change', event => {
+        if(window.getComputedStyle(textarea.closest('table')).display == 'table'){
+          textarea.required = true;
+        }else if(window.getComputedStyle(textarea.closest('table')).display == 'none'){
+          textarea.required = false;
+        }
+        console.log('Change event.');
+      });
+      input.addEventListener('mouseleave', event => {
+        if(window.getComputedStyle(textarea.closest('table')).display == 'table'){
+          textarea.required = true;
+        }else if(window.getComputedStyle(textarea.closest('table')).display == 'none'){
+          textarea.required = false;
+        }
+        console.log('Mouseleave event.');
+      });
+    }catch(error){
+      console.log(error);
+    }
+  });
+}
+
 window.addEventListener('load', (event) =>{
   headerButtons();
   hideableHeaderSetDrivers();
   hideableQuestionSetDrivers();
+  requireTextareas();
   console.log('Window onload event.');
 });
