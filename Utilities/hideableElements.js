@@ -263,6 +263,16 @@ function requireTextareas(){
     }catch(error){
       console.log(error);
     }
+
+    try{
+      if(window.getComputedStyle(textarea.closest('table')).display == 'table'){
+        textarea.required = true;
+      }else if(window.getComputedStyle(textarea.closest('table')).display == 'none'){
+        textarea.required = false;
+      }
+    }catch(error){
+      console.log(error);
+    }
   });
 }
 
