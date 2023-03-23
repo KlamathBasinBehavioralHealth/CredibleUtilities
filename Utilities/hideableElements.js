@@ -167,12 +167,12 @@ function checkConditionsQuestion(mode, requireOnShow, inputs, selects, condition
       hideShowHideableQuestion('show', question, requireOnShow);
       return true;
     }else if (mode == 'hideOnTrue'){
-      hideShowHideableQuestion('hide', question, requireOnShow);
+      hideShowHideableQuestion('hide', question);
       return false;
     }
   }else{
     if(mode == 'showOnTrue'){
-      hideShowHideableQuestion('hide', question, requireOnShow);
+      hideShowHideableQuestion('hide', question);
       return false;
     }else if (mode == 'hideOnTrue'){
       hideShowHideableQuestion('show', question, requireOnShow);
