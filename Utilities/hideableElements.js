@@ -11,6 +11,27 @@ if(typeof visibilty != 'function'){
   include('https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js');
 }
 
+if(typeof checkRedAsterisk != 'function'){
+  function checkRedAsterisk(target){
+    if(target?.nextSibling?.className == 'redAsterisk'){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+}
+
+if(typeof createRedAsterisk != 'function'){
+  function createRedAsterisk(){
+    let redAsterisk = document.createElement('div');
+        redAsterisk.className = 'redAsterisk';
+        redAsterisk.style = 'color:red; display:inline;';
+        redAsterisk.innerText = '*';
+    return redAsterisk;
+  } 
+}
+
 function headerButtons(state = 'hide'){
   [...document.querySelectorAll('.hideableHeader')].map((header) => {
     if(state == 'hide'){
@@ -245,16 +266,24 @@ function requireTextareas(){
       let textarea = element.closest('table').closest('tr').nextElementSibling.querySelector('textarea');
 
       input.addEventListener('change', event => {
+        if(checkRedAsterisk(textarea)){
+          textarea.nextSibling.remove();
+        }
         if(window.getComputedStyle(textarea.closest('table')).display == 'table'){
           textarea.required = true;
+          textarea.after(createRedAsterisk());
         }else if(window.getComputedStyle(textarea.closest('table')).display == 'none'){
           textarea.required = false;
         }
         console.log('Change event.');
       });
       input.addEventListener('mouseleave', event => {
+        if(checkRedAsterisk(textarea)){
+          textarea.nextSibling.remove();
+        }
         if(window.getComputedStyle(textarea.closest('table')).display == 'table'){
           textarea.required = true;
+          textarea.after(createRedAsterisk());
         }else if(window.getComputedStyle(textarea.closest('table')).display == 'none'){
           textarea.required = false;
         }
