@@ -2,7 +2,7 @@ let visitType;
 let data; 
 let tempVisitID; 
 let currentIntervention;
-let parsedString;
+let parsedString; 
 
 if(typeof visibilty === 'undefined'){
   var script = document.createElement('script');
