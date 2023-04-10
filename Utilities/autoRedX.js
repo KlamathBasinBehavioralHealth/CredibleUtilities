@@ -148,7 +148,7 @@ function checkScope(){
 }
 
 function reviewRedX(){
-  if(checkScope){
+  if(checkScope()){
     removeRedX();
     addRedX('OUT OF SCOPE - AUTO');
   }
