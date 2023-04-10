@@ -4,33 +4,19 @@ let tempVisitID;
 let currentIntervention;
 let parsedString;
 
-if(typeof visibilty != 'function'){
-    window.include = function (file){
-      var script = document.createElement('script');
-      script.src = file;
-      script.type = 'text/javascript';
-      script.defer = true;
-        
-      document.getElementsByTagName('head').item(0).appendChild(script);
-    }
-  
-    include('https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js');
+if(typeof visibilty === 'undefined'){
+  var script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js';
+  document.head.appendChild(script);
 }
 
-if(typeof xlm2js != 'function'){
-    window.include = function (file){
-      var script = document.createElement('script');
-      script.src = file;
-      script.type = 'text/javascript';
-      script.defer = true;
-        
-      document.getElementsByTagName('head').item(0).appendChild(script);
-    }
-  
-    include('https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/x2js.js');
+if(typeof xlm2js === 'undefined'){
+  var script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/x2js.js';
+  document.head.appendChild(script);
 }
 
-if(typeof waitForElementInterval != 'function'){
+if(typeof waitForElementInterval === 'undefined'){
   function waitForElementInterval (target, interval = 500){   
     return new Promise((resolve) => {     
       let currentInterval = setInterval(function(){         
@@ -124,12 +110,12 @@ function checkInterventions(){
 
 $('document').ready(function(){ 
   getVisitType(); 
+  checkInterventions();      
+  $('#serviceProvided').closest('table').find('input').change(checkInterventions);
 });  
 
 $('document').ready(function (){   
   visibility('hide', '.adminUse');   
-  checkInterventions();      
-  $('#serviceProvided').closest('table').find('input').change(checkInterventions);
   reviewRedX();
   document.querySelector('#withinTxPlan').closest('table').querySelector('select').addEventListener('change', reviewRedX);
   document.querySelector('[name=Complete]').addEventListener('click', reviewRedX);
