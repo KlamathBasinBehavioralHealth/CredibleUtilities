@@ -4,13 +4,13 @@ let tempVisitID;
 let currentIntervention;
 let parsedString; 
 
-if(typeof visibilty === 'undefined'){
+if(typeof visibility === 'undefined'){
   var script = document.createElement('script');
   script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js';
   document.head.appendChild(script);
 }
 
-if(typeof xlm2js === 'undefined'){
+if(typeof declarex2js === 'undefined'){
   var script = document.createElement('script');
   script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/x2js.js';
   document.head.appendChild(script);
