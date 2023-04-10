@@ -2,19 +2,27 @@ let env = 'live';
 let groupTest = false;
 function checkGroup(){
     if (frameElement != null && !frameElement.classList.contains('frame')){
-        if(parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('select') != null){
-            const clientCount = parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('select').options.length - 1;
-            if (clientCount > 1){
-                return true;
+        try{
+            if(parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('select') != null){
+                const clientCount = parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('select').options.length - 1;
+                if (clientCount > 1){
+                    return true;
+                }
             }
+        }catch(error){
+            console.log(error);
         }
     }
     else{
-        if(parent.parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('select') != null){
-            const clientCount = parent.parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('select').options.length - 1;
-            if (clientCount > 1){
-                return true;
+        try{
+            if(parent.parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('select') != null){
+                const clientCount = parent.parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('select').options.length - 1;
+                if (clientCount > 1){
+                    return true;
+                }
             }
+        }catch(error){
+            console.log(error);
         }
     }
     return false
