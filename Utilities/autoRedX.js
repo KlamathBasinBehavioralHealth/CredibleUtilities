@@ -4,29 +4,31 @@ let tempVisitID;
 let currentIntervention;
 let parsedString; 
 
-if(typeof visibility === 'undefined'){
-  var script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js';
-  document.head.appendChild(script);
-}
+async function addResources(){
+  if(typeof visibility === 'undefined'){
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js';
+    document.head.appendChild(script);
+  }
 
-if(typeof declarex2js === 'undefined'){
-  var script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/x2js.js';
-  document.head.appendChild(script);
-}
+  if(typeof declarex2js === 'undefined'){
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/x2js.js';
+    document.head.appendChild(script);
+  }
 
-if(typeof waitForElementInterval === 'undefined'){
-  function waitForElementInterval (target, interval = 500){   
-    return new Promise((resolve) => {     
-      let currentInterval = setInterval(function(){         
-        if(target?.length){           
-          clearInterval(currentInterval);           
-          resolve(`${target} exists.`);         
-        }     
-      }, interval);   
-    }); 
-  }  
+  if(typeof waitForElementInterval === 'undefined'){
+    function waitForElementInterval (target, interval = 500){   
+      return new Promise((resolve) => {     
+        let currentInterval = setInterval(function(){         
+          if(target?.length){           
+            clearInterval(currentInterval);           
+            resolve(`${target} exists.`);         
+          }     
+        }, interval);   
+      }); 
+    }  
+  }
 }
 
 async function getVisitType(){   
@@ -108,13 +110,14 @@ function checkInterventions(){
   } 
 }  
 
-$('document').ready(function(){ 
+/* $('document').ready(function(){ 
   getVisitType(); 
   checkInterventions();      
   $('#serviceProvided').closest('table').find('input').change(checkInterventions);
-});  
+});   */
 
-$('document').ready(function (){   
+$('document').ready(async function (){   
+  await addResources();
   visibility('hide', '.adminUse');   
   reviewRedX();
   document.querySelector('#withinTxPlan').closest('table').querySelector('select').addEventListener('change', reviewRedX);
