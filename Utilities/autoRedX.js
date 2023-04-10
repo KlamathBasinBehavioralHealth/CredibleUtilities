@@ -116,8 +116,9 @@ function checkInterventions(){
   $('#serviceProvided').closest('table').find('input').change(checkInterventions);
 });   */
 
-$('document').ready(async function (){   
+document.addEventListener('load', async () => {
   await addResources();
+  console.log('Resources loaded.');
   visibility('hide', '.adminUse');   
   reviewRedX();
   document.querySelector('#withinTxPlan').closest('table').querySelector('select').addEventListener('change', reviewRedX);
