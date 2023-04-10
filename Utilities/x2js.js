@@ -27,6 +27,10 @@
 	* Overall the serialization/deserializaton code is "best effort" and not foolproof.
 */
 
+function declarex2js(){
+    
+}
+
 // Module definition pattern used is returnExports from https://github.com/umdjs/umd
 (function (root, factory) {
 	"use strict";
