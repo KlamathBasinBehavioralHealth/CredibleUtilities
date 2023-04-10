@@ -92,33 +92,30 @@ function checkInterventions(){
   }    
   
   try{
-    switch(visitType){     
-      case 'Care Navigation':       
-        removeRedX();       
+    switch(visitType){  
+      removeRedX();   
+      case 'Care Navigation':             
         if(!$('#serviceProvided').closest('table').find('#careNavigation').closest('tr').find('input').prop('checked')){         
           addRedX(`Service type was set as Care Navigation, but Care Navigation was not checked under Interventions Provided. Service documented as ${currentIntervention}.`);       
         }     
         break;     
-      case 'Case Management':       
-        removeRedX();       
+      case 'Case Management':              
         if(!$('#serviceProvided').closest('table').find('#caseManagement').closest('tr').find('input').prop('checked')){         
           addRedX(`Service type was set as Case Management, but Case Management was not checked under Interventions Provided. Service documented as ${currentIntervention}.`);       
         }     
         break;     
-      case 'Skills Training':       
-        removeRedX();       
+      case 'Skills Training':              
         if(!$('#serviceProvided').closest('table').find('#skillsTraining').closest('tr').find('input').prop('checked')){         
           addRedX(`Service type was set as Skills Training, but Skills Training was not checked under Interventions Provided. Service documented as ${currentIntervention}.`);       
         }    
         break;     
-      case 'Test WIP':       
-        removeRedX();       
+      case 'Test WIP':            
         if(!$('#serviceProvided').closest('table').find('#skillsTraining').closest('tr').find('input').prop('checked')){         
           addRedX(`Service type was set as Test WIP, but Skills Training was not checked under Interventions Provided. Service documented as ${currentIntervention}.`);       
         }     
         break;     
       default:       
-        removeRedX();   
+           
     }
   }catch(error){
     console.log(error);
@@ -132,15 +129,30 @@ $('document').ready(function(){
 $('document').ready(function (){   
   visibility('hide', '.adminUse');   
   checkInterventions();      
-  $('#serviceProvided').closest('table').find('input').change(checkInterventions); 
+  $('#serviceProvided').closest('table').find('input').change(checkInterventions);
+  reviewRedX();
+  document.querySelector('#withinTxPlan').closest('table').querySelector('select').addEventListener('change', reviewRedX);
+  document.querySelector('[name=Complete]').addEventListener('click', reviewRedX);
 });
 
-async function checkScope(){
+function checkScope(){
   let target = [...document.querySelector('#withinTxPlan').closest('table').querySelectorAll('option')].filter(element => element.innerText.includes('No'))[0].value;
   if(document.querySelector('#withinTxPlan').closest('table').querySelector('select').value == target){
     console.log('Out of scope.');
+    return true;
   }
   else{
     console.log('Not out of scope.');
+    return false;
+  }
+}
+
+function reviewRedX(){
+  if(checkScope){
+    removeRedX();
+    addRedX('OUT OF SCOPE - AUTO');
+  }
+  else{
+    removeRedX();
   }
 }
