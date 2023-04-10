@@ -92,8 +92,8 @@ function checkInterventions(){
   }    
   
   try{
-    switch(visitType){  
-      removeRedX();   
+    removeRedX();
+    switch(visitType){     
       case 'Care Navigation':             
         if(!$('#serviceProvided').closest('table').find('#careNavigation').closest('tr').find('input').prop('checked')){         
           addRedX(`Service type was set as Care Navigation, but Care Navigation was not checked under Interventions Provided. Service documented as ${currentIntervention}.`);       
