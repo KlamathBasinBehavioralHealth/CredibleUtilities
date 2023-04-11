@@ -6,9 +6,7 @@ let parsedString;
 
 async function addResources(){
   if(typeof visibility === 'undefined'){
-    let script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js';
-    document.head.appendChild(script);
+    import {requireField, visibility} from 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js';
   }
 
   if(typeof declarex2js === 'undefined'){
@@ -18,16 +16,9 @@ async function addResources(){
   }
 
   if(typeof waitForElementInterval === 'undefined'){
-    function waitForElementInterval (target, interval = 500){   
-      return new Promise((resolve) => {     
-        let currentInterval = setInterval(function(){         
-          if(target?.length){           
-            clearInterval(currentInterval);           
-            resolve(`${target} exists.`);         
-          }     
-        }, interval);   
-      }); 
-    }  
+    let script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/waitForElementInterval.js';
+    document.head.appendChild(script);
   }
 }
 
