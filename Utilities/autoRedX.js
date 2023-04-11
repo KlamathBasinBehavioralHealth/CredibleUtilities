@@ -3,9 +3,9 @@ let data;
 let tempVisitID; 
 let currentIntervention;
 let parsedString; 
-
+import visibility from 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js';
 async function addResources(){
-  const visibility = require('https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js');
+  
 
   if(typeof declarex2js === 'undefined'){
     let script = document.createElement('script');
