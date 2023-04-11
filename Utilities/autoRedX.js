@@ -4,6 +4,19 @@ let tempVisitID;
 let currentIntervention;
 let parsedString; 
 
+if(typeof waitForElementInterval === 'undefined'){
+  function waitForElementInterval (target, interval = 500){
+    return new Promise((resolve) => {
+      let currentInterval = setInterval(function(){
+        if(target?.length){
+          clearInterval(currentInterval);
+          resolve(`${target} exists.`);
+        }
+      }, interval);
+    });
+  }
+}
+
 function addResources(){
   return new Promise(resolve => {
     if(typeof visibility === 'undefined'){
@@ -18,11 +31,6 @@ function addResources(){
       document.head.appendChild(script);
     }
 
-    if(typeof waitForElementInterval === 'undefined'){
-      let script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/waitForElementInterval.js';
-      document.head.appendChild(script);
-    }
     resolve('Resolved.');
   });
 }
