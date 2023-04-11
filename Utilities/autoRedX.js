@@ -35,6 +35,60 @@ function addResources(){
   });
 }
 
+function addRedX(note){   
+  $('#approval').closest('table').find('input').val('0');   
+  $('#redX').closest('table').find('input').val('1');   
+  $('#redXNote').closest('table').find('input').val(note); 
+}  
+
+function removeRedX(){   
+  $('#approval').closest('table').find('input').val('');   
+  $('#redX').closest('table').find('input').val('');   
+  $('#redXNote').closest('table').find('input').val('');  
+}  
+
+function checkScope(){
+  let target = [...document.querySelector('#withinTxPlan').closest('table').querySelectorAll('option')].filter(element => element.innerText.includes('No'))[0].value;
+  if(document.querySelector('#withinTxPlan').closest('table').querySelector('select').value == target){
+    console.log('Out of scope.');
+    return true;
+  }
+  else{
+    console.log('Not out of scope.');
+    return false;
+  }
+}
+
+function reviewRedX(){
+  if(checkScope()){
+    removeRedX();
+    addRedX('OUT OF SCOPE - AUTO');
+  }
+  else{
+    removeRedX();
+  }
+}
+
+async function startUp(){
+  await addResources();
+  console.log('Resources loaded.');
+  await waitForElementInterval('document.querySelector(\'script[src=https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js]\')');
+  setTimeout(() => {
+    visibility('hide', '.adminUse');
+    reviewRedX();
+    document.querySelector('#withinTxPlan').closest('table').querySelector('select').addEventListener('change', reviewRedX);
+    document.querySelector('[name=Complete]').addEventListener('click', reviewRedX);
+  }, 100);
+}
+
+startUp();
+
+/* $('document').ready(function(){ 
+  getVisitType(); 
+  checkInterventions();      
+  $('#serviceProvided').closest('table').find('input').change(checkInterventions);
+});   */
+
 async function getVisitType(){   
   $('#automationMessage').closest('table').find('input').prop('checked', false); 
   try {      
@@ -61,18 +115,6 @@ async function getVisitType(){
     $('#automationMessage').closest('table').find('input').prop('checked', true); 
   } 
 }
-
-function addRedX(note){   
-  $('#approval').closest('table').find('input').val('0');   
-  $('#redX').closest('table').find('input').val('1');   
-  $('#redXNote').closest('table').find('input').val(note); 
-}  
-
-function removeRedX(){   
-  $('#approval').closest('table').find('input').val('');   
-  $('#redX').closest('table').find('input').val('');   
-  $('#redXNote').closest('table').find('input').val('');  
-}  
 
 function checkInterventions(){   
   if($('#serviceProvided').closest('table').find('#careNavigation').closest('tr').find('input').prop('checked')){     
@@ -112,46 +154,4 @@ function checkInterventions(){
   }catch(error){
     console.log(error);
   } 
-}  
-
-/* $('document').ready(function(){ 
-  getVisitType(); 
-  checkInterventions();      
-  $('#serviceProvided').closest('table').find('input').change(checkInterventions);
-});   */
-
-async function startUp(){
-  await addResources();
-  console.log('Resources loaded.');
-  await waitForElementInterval('document.querySelector(\'script[src=https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js]\')');
-  setTimeout(() => {
-    visibility('hide', '.adminUse');
-    reviewRedX();
-    document.querySelector('#withinTxPlan').closest('table').querySelector('select').addEventListener('change', reviewRedX);
-    document.querySelector('[name=Complete]').addEventListener('click', reviewRedX);
-  }, 100);
-}
-
-startUp();
-
-function checkScope(){
-  let target = [...document.querySelector('#withinTxPlan').closest('table').querySelectorAll('option')].filter(element => element.innerText.includes('No'))[0].value;
-  if(document.querySelector('#withinTxPlan').closest('table').querySelector('select').value == target){
-    console.log('Out of scope.');
-    return true;
-  }
-  else{
-    console.log('Not out of scope.');
-    return false;
-  }
-}
-
-function reviewRedX(){
-  if(checkScope()){
-    removeRedX();
-    addRedX('OUT OF SCOPE - AUTO');
-  }
-  else{
-    removeRedX();
-  }
 }
