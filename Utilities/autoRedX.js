@@ -113,7 +113,7 @@ async function startUp(){
   await addResources();
   console.log('Resources loaded.');
 
-  visibility.visibility('hide', '.adminUse');   
+  visibility('hide', '.adminUse');   
   reviewRedX();
   document.querySelector('#withinTxPlan').closest('table').querySelector('select').addEventListener('change', reviewRedX);
   document.querySelector('[name=Complete]').addEventListener('click', reviewRedX);
