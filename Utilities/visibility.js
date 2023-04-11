@@ -1,5 +1,5 @@
 //New require function
-export function requireField (target, condition) { 
+function requireField (target, condition) { 
 	$('tr').find(target).next().remove();  
 	if(condition) { 
 		$('tr').has(target).find('input').prop('required', true); 
@@ -13,7 +13,7 @@ export function requireField (target, condition) {
 }
 
 //New hide show function
-export function visibility(hideShow, target, require = false){
+function visibility(hideShow, target, require = false){
   
   if(hideShow == 'show'){
     $(target).closest('table').closest('tr').each(function (){
