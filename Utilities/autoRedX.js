@@ -4,24 +4,27 @@ let tempVisitID;
 let currentIntervention;
 let parsedString; 
 
-async function addResources(){
-  if(typeof visibility === 'undefined'){
-    let script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js';
-    document.head.appendChild(script);
-  }
+function addResources(){
+  return new Promise(resolve => {
+    if(typeof visibility === 'undefined'){
+      let script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js';
+      document.head.appendChild(script);
+    }
 
-  if(typeof X2JS === 'undefined'){
-    let script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/x2js.js';
-    document.head.appendChild(script);
-  }
+    if(typeof X2JS === 'undefined'){
+      let script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/x2js.js';
+      document.head.appendChild(script);
+    }
 
-  if(typeof waitForElementInterval === 'undefined'){
-    let script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/waitForElementInterval.js';
-    document.head.appendChild(script);
-  }
+    if(typeof waitForElementInterval === 'undefined'){
+      let script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/waitForElementInterval.js';
+      document.head.appendChild(script);
+    }
+    resolve('Resolved.');
+  });
 }
 
 async function getVisitType(){   
