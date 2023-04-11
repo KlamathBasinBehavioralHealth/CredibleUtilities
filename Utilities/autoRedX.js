@@ -78,7 +78,7 @@ async function startUp(){
     reviewRedX();
     document.querySelector('#withinTxPlan').closest('table').querySelector('select').addEventListener('change', reviewRedX);
     document.querySelector('[name=Complete]').addEventListener('click', reviewRedX);
-  }, 100);
+  }, 500);
 }
 
 startUp();
