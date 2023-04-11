@@ -6,13 +6,13 @@ let parsedString;
 
 async function addResources(){
   if(typeof visibility === 'undefined'){
-    var script = document.createElement('script');
+    let script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js';
     document.head.appendChild(script);
   }
 
   if(typeof declarex2js === 'undefined'){
-    var script = document.createElement('script');
+    let script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/x2js.js';
     document.head.appendChild(script);
   }
