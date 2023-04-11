@@ -115,15 +115,15 @@ function checkInterventions(){
 async function startUp(){
   await addResources();
   console.log('Resources loaded.');
+  document.addEventListener('DOMConentLoaded', function(){
+    visibility('hide', '.adminUse');
+    reviewRedX();
+    document.querySelector('#withinTxPlan').closest('table').querySelector('select').addEventListener('change', reviewRedX);
+    document.querySelector('[name=Complete]').addEventListener('click', reviewRedX);
+  });
 }
 
-document.addEventListener('DOMConentLoaded', async function(){
-  startUp();
-  visibility('hide', '.adminUse');
-  reviewRedX();
-  document.querySelector('#withinTxPlan').closest('table').querySelector('select').addEventListener('change', reviewRedX);
-  document.querySelector('[name=Complete]').addEventListener('click', reviewRedX);
-});
+startUp();
 
 function checkScope(){
   let target = [...document.querySelector('#withinTxPlan').closest('table').querySelectorAll('option')].filter(element => element.innerText.includes('No'))[0].value;
