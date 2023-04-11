@@ -124,12 +124,12 @@ async function startUp(){
   await addResources();
   console.log('Resources loaded.');
   await waitForElementInterval('document.querySelector(\'script[src=https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js]\')');
-  document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
     visibility('hide', '.adminUse');
     reviewRedX();
     document.querySelector('#withinTxPlan').closest('table').querySelector('select').addEventListener('change', reviewRedX);
     document.querySelector('[name=Complete]').addEventListener('click', reviewRedX);
-  });
+  }, 100);
 }
 
 startUp();
