@@ -3,9 +3,13 @@ let data;
 let tempVisitID; 
 let currentIntervention;
 let parsedString; 
-import ('https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js');
+
 async function addResources(){
-  
+  if(typeof visibility === 'undefined'){
+    let script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js';
+    document.head.appendChild(script);
+  }
 
   if(typeof declarex2js === 'undefined'){
     let script = document.createElement('script');
