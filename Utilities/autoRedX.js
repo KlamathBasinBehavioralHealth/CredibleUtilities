@@ -120,12 +120,10 @@ async function startUp(){
   await addResources();
   console.log('Resources loaded.');
 
-  document.addEventListener('load', () => {
-    visibility('hide', '.adminUse');   
-    reviewRedX();
-    document.querySelector('#withinTxPlan').closest('table').querySelector('select').addEventListener('change', reviewRedX);
-    document.querySelector('[name=Complete]').addEventListener('click', reviewRedX);
-  });
+  visibility('hide', '.adminUse');   
+  reviewRedX();
+  document.querySelector('#withinTxPlan').closest('table').querySelector('select').addEventListener('change', reviewRedX);
+  document.querySelector('[name=Complete]').addEventListener('click', reviewRedX);
 }
 
 startUp();
