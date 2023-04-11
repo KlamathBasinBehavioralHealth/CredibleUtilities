@@ -124,7 +124,7 @@ async function startUp(){
   await addResources();
   console.log('Resources loaded.');
   await waitForElementInterval('document.querySelector(\'script[src=https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js]\')');
-  document.addEventListener('load', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     visibility('hide', '.adminUse');
     reviewRedX();
     document.querySelector('#withinTxPlan').closest('table').querySelector('select').addEventListener('change', reviewRedX);
