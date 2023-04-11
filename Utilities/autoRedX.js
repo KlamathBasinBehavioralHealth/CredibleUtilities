@@ -115,7 +115,7 @@ function checkInterventions(){
 async function startUp(){
   await addResources();
   console.log('Resources loaded.');
-  document.addEventListener('DOMConentLoaded', function(){
+  document.addEventListener('DOMContentLoaded', function(){
     visibility('hide', '.adminUse');
     reviewRedX();
     document.querySelector('#withinTxPlan').closest('table').querySelector('select').addEventListener('change', reviewRedX);
