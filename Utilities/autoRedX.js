@@ -3,13 +3,9 @@ let data;
 let tempVisitID; 
 let currentIntervention;
 let parsedString; 
-import {requireField, visibility} from 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js'; 
-
-
+import {requireField, visibility} from 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities@1185ff2/Utilities/visibility.js'; 
 
 async function addResources(){
-  
-
   if(typeof declarex2js === 'undefined'){
     let script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/x2js.js';
