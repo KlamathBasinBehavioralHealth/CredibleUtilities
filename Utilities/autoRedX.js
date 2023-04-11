@@ -117,7 +117,7 @@ async function startUp(){
   console.log('Resources loaded.');
 }
 
-document.addEventListener('DOMConentLoaded'. async function(){
+document.addEventListener('DOMConentLoaded', async function(){
   startUp();
   visibility('hide', '.adminUse');
   reviewRedX();
