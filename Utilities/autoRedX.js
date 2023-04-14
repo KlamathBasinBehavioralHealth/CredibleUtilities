@@ -48,14 +48,18 @@ function removeRedX(){
 }  
 
 function checkScope(){
-  let target = [...document.querySelector('#withinTxPlan').closest('table').querySelectorAll('option')].filter(element => element.innerText.includes('No'))[0].value;
-  if(document.querySelector('#withinTxPlan').closest('table').querySelector('select').value == target){
-    console.log('Out of scope.');
-    return true;
-  }
-  else{
-    console.log('Not out of scope.');
-    return false;
+  try{
+      let target = [...document.querySelector('#withinTxPlan').closest('table').querySelectorAll('option')].filter(element => element.innerText.includes('No'))[0].value;
+    if(document.querySelector('#withinTxPlan').closest('table').querySelector('select').value == target){
+      console.log('Out of scope.');
+      return true;
+    }
+    else{
+      console.log('Not out of scope.');
+      return false;
+    }
+  }catch(error){
+    console.log(error);
   }
 }
 
