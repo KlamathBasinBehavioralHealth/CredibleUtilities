@@ -78,7 +78,7 @@ function checkConditionsHeader(mode, texts, inputs, selects, conditions = null, 
         isText = true;
       }      
     }else if(textMode == 'specific'){
-      if(conditions != null){
+      if(conditions != null || conditions != ''){
         if([...conditions].includes(text.value)){
           isText = true;
         }
@@ -204,7 +204,7 @@ function checkConditionsQuestion(mode, requireOnShow, texts, inputs, selects, co
         isText = true;
       }      
     }else if(textMode == 'specific'){
-      if(conditions != null){
+      if(conditions != null || conditions != ''){
         if([...conditions].includes(text.value)){
           isText = true;
         }
