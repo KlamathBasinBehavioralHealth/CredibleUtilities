@@ -122,6 +122,7 @@ function checkConditionsHeader(mode, texts, inputs, selects, conditions = null, 
 function hideableHeaderSetDrivers(){
   [...document.querySelectorAll('.hideableHeader')].map((header) => {
     let mode = header.getAttribute('mode');
+    let textDriverArray = [];
     let inputDriverArray = [];
     let selectDriverArray = [];
     let conditionArray = [] ;
@@ -134,7 +135,11 @@ function hideableHeaderSetDrivers(){
       let element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
       try{
         if(element.tagName == 'INPUT'){
-          inputDriverArray.push(element);
+          if(element.type){
+            textDriverArray.push(element);
+          }else{
+            inputDriverArray.push(element);
+          }
         }
       }catch(error){
         element = document.querySelector(`#${driver}`).closest('tbody').querySelector('input, select');
@@ -247,7 +252,7 @@ function hideableQuestionSetDrivers(){
     let textDriverArray = [];
     let inputDriverArray = [];
     let selectDriverArray = [];
-    let conditionArray = [] ;
+    let conditionArray = [];
 
     [...question.getAttribute('condition').split(';')].map((condition) => {
       conditionArray.push(condition);
@@ -257,7 +262,7 @@ function hideableQuestionSetDrivers(){
       let element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
       try{
         if(element.tagName == 'INPUT'){
-          if(){
+          if(element.type){
             textDriverArray.push(element);
           }else{
             inputDriverArray.push(element);
