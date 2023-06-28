@@ -125,7 +125,7 @@ function hideableHeaderSetDrivers(){
       }
     }); 
 
-    inputDriverArray.map((element) => {
+    /* inputDriverArray.map((element) => {
       element.addEventListener('change', (event) => {
         checkConditionsHeader(mode, inputDriverArray, selectDriverArray, conditionArray, header);
       });
@@ -141,7 +141,11 @@ function hideableHeaderSetDrivers(){
       element.addEventListener('mouseleave', (event) => {
         checkConditionsHeader(mode, inputDriverArray, selectDriverArray, conditionArray, header);
       });
-    });
+    }); */
+
+    setInterval(() => {
+      checkConditionsHeader(mode, inputDriverArray, selectDriverArray, conditionArray, header);
+    }, intervalTime);
    
     checkConditionsHeader(mode, inputDriverArray, selectDriverArray, conditionArray, header);
   });
@@ -228,7 +232,7 @@ function hideableQuestionSetDrivers(){
       }
     }); 
 
-    inputDriverArray.map((element) => {
+    /* inputDriverArray.map((element) => {
       element.addEventListener('change', (event) => {
         checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, question);
       });
@@ -244,10 +248,10 @@ function hideableQuestionSetDrivers(){
       element.addEventListener('mouseleave', (event) => {
         checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, question);
       });
-    });
+    }); */
     setInterval(() => {
       checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, question);
-    }, 500);
+    }, intervalTime);
    
     checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, question);
   });
@@ -268,7 +272,7 @@ function requireTextareas(){
       let input = element.closest('table').querySelector('input, select')
       let textarea = element.closest('table').closest('tr').nextElementSibling.querySelector('textarea');
 
-      input.addEventListener('change', event => {
+      /* input.addEventListener('change', event => {
         if(checkRedAsterisk(textarea)){
           textarea.nextSibling.remove();
         }
@@ -291,7 +295,18 @@ function requireTextareas(){
           textarea.required = false;
         }
         console.log('Mouseleave event.');
-      });
+      }); */
+      setInterval(() => {
+        if(checkRedAsterisk(textarea)){
+          textarea.nextSibling.remove();
+        }
+        if(window.getComputedStyle(textarea.closest('table')).display == 'table'){
+          textarea.required = true;
+          textarea.after(createRedAsterisk());
+        }else if(window.getComputedStyle(textarea.closest('table')).display == 'none'){
+          textarea.required = false;
+        }
+      }, intervalTime);
     }catch(error){
       console.log(error);
     }
