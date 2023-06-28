@@ -1,3 +1,5 @@
+const intervalTime = 250;
+
 if(typeof visibilty != 'function'){
   window.include = function (file){
     var script = document.createElement('script');
