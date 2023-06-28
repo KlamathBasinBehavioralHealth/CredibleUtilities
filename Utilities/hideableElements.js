@@ -245,6 +245,9 @@ function hideableQuestionSetDrivers(){
         checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, question);
       });
     });
+    setInterval(() => {
+      checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, question);
+    }, 500);
    
     checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, question);
   });
