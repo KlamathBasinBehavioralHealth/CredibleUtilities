@@ -125,7 +125,7 @@ function hideableHeaderSetDrivers(){
       let textMode = header.getAttribute('textMode');
     }catch(error){
       console.log(error);
-      textMode = '';
+      let textMode = '';
     }
     let inputDriverArray = [];
     let selectDriverArray = [];
@@ -258,7 +258,7 @@ function hideableQuestionSetDrivers(){
       let textMode = question.getAttribute('textMode');
     }catch(error){
       console.log(error);
-      textMode = '';
+      let textMode = '';
     }
     let requireOnShow = JSON.parse(question.getAttribute('requireOnShow'));
     let inputDriverArray = [];
