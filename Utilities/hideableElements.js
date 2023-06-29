@@ -90,7 +90,7 @@ function checkConditionsHeader(mode, textMode, inputs, selects, texts, condition
           isSelected = true;
         }
       }else if(textMode == 'any'){
-        if(text != null || text != ''){
+        if(text){
           isSelected = true;
         }
       }
@@ -231,7 +231,7 @@ function checkConditionsQuestion(mode, textMode, requireOnShow, inputs, selects,
           isSelected = true;
         }
       }else if(textMode == 'any'){
-        if(text != null || text != ''){
+        if(text){
           isSelected = true;
         }
       }
@@ -301,7 +301,7 @@ function hideableQuestionSetDrivers(){
           selectDriverArray.push(element);
         }
       }
-    }); 
+    });
 
     /* inputDriverArray.map((element) => {
       element.addEventListener('change', (event) => {
