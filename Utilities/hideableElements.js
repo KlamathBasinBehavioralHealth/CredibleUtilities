@@ -61,6 +61,7 @@ function getOptionValue(select, optionText){
 function checkConditionsHeader(mode, textMode, inputs, selects, texts, conditions, header){
   let isChecked = false;
   let isSelected = false;
+  let isTexted = false;
   let conditionValues = [];
 
   selects.forEach(select => {
@@ -84,23 +85,19 @@ function checkConditionsHeader(mode, textMode, inputs, selects, texts, condition
   });
 
   texts.forEach(text => {
-    try{
-      if(textMode == 'match'){
-        if([...conditions].includes(text.value)){
-          isSelected = true;
-        }
+    if(textMode == 'match'){
+      if([...conditions].includes(text.value)){
+        isTexted = true;
       }
-      if(textMode == 'any'){
-        if(text){
-          isSelected = true;
-        }
+    }
+    if(textMode == 'any'){
+      if(text){
+        isTexted = true;
       }
-    }catch(error){
-      console.log(error);
     }
   });
 
-  if(isChecked || isSelected){
+  if(isChecked || isSelected || isTexted){
     if(mode == 'showOnTrue'){
       hideShowHideableHeader('show', header);
       return true;
@@ -203,6 +200,7 @@ function hideShowHideableHeader(hideShow = 'hide', header){
 function checkConditionsQuestion(mode, textMode, requireOnShow, inputs, selects, texts, conditions, question){
   let isChecked = false;
   let isSelected = false;
+  let isTexted = false;
   let conditionValues = [];
 
   selects.forEach(select => {
@@ -226,23 +224,19 @@ function checkConditionsQuestion(mode, textMode, requireOnShow, inputs, selects,
   });
 
   texts.forEach(text => {
-    try{
-      if(textMode == 'match'){
-        if([...conditions].includes(text.value)){
-          isSelected = true;
-        }
+    if(textMode == 'match'){
+      if([...conditions].includes(text.value)){
+        isTexted = true;
       }
-      if(textMode == 'any'){
-        if(text){
-          isSelected = true;
-        }
+    }
+    if(textMode == 'any'){
+      if(text){
+        isTexted = true;
       }
-    }catch(error){
-      console.log(error);
     }
   });
 
-  if(isChecked || isSelected){
+  if(isChecked || isSelected || isTexted){
     if(mode == 'showOnTrue'){
       hideShowHideableQuestion('show', question, requireOnShow);
       return true;
