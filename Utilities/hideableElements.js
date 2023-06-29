@@ -317,7 +317,7 @@ function hideableQuestionSetDrivers(){
       });
     }); */
     setInterval(() => {
-      checkConditionsQuestion(mode, textMode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, textDriverArray, question);
+      checkConditionsQuestion(mode, textMode, requireOnShow, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, question);
     }, intervalTime);
    
     checkConditionsQuestion(mode, textMode, requireOnShow, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, question);
