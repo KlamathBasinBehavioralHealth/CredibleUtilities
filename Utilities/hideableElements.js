@@ -130,9 +130,13 @@ function hideableHeaderSetDrivers(){
     let textDriverArray = [];
     let conditionArray = [] ;
 
-    [...header.getAttribute('condition').split(';')].map((condition) => {
-      conditionArray.push(condition);
-    });
+    try{
+      [...header.getAttribute('condition').split(';')].map((condition) => {
+        conditionArray.push(condition);
+      });
+    }catch(error){
+      console.log(error);
+    }
 
     [...header.getAttribute('driver').split(' ')].map((driver) => {
       let element = null;
@@ -270,9 +274,13 @@ function hideableQuestionSetDrivers(){
     let textDriverArray = [];
     let conditionArray = [] ;
 
-    [...question.getAttribute('condition').split(';')].map((condition) => {
-      conditionArray.push(condition);
-    });
+    try{
+      [...question.getAttribute('condition').split(';')].map((condition) => {
+        conditionArray.push(condition);
+      });
+    }catch(error){
+      console.log(error);
+    }
 
     [...question.getAttribute('driver').split(' ')].map((driver) => {
       let element = null;
