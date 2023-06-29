@@ -91,7 +91,7 @@ function checkConditionsHeader(mode, textMode, inputs, selects, texts, condition
       }
     }
     if(textMode == 'any'){
-      if(text){
+      if(text.value){
         isTexted = true;
       }
     }
@@ -230,7 +230,7 @@ function checkConditionsQuestion(mode, textMode, requireOnShow, inputs, selects,
       }
     }
     if(textMode == 'any'){
-      if(text){
+      if(text.value){
         isTexted = true;
       }
     }
