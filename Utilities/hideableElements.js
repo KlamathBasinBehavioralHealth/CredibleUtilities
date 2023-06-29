@@ -121,11 +121,11 @@ function checkConditionsHeader(mode, textMode, inputs, selects, texts, condition
 function hideableHeaderSetDrivers(){
   [...document.querySelectorAll('.hideableHeader')].map((header) => {
     let mode = header.getAttribute('mode');
+    let textMode = '';
     try{
-      let textMode = header.getAttribute('textMode');
+      textMode = header.getAttribute('textMode');
     }catch(error){
       console.log(error);
-      let textMode = '';
     }
     let inputDriverArray = [];
     let selectDriverArray = [];
@@ -254,11 +254,11 @@ function checkConditionsQuestion(mode, textMode, requireOnShow, inputs, selects,
 function hideableQuestionSetDrivers(){
   [...document.querySelectorAll('.hideableQuestion')].map((question) => {
     let mode = question.getAttribute('mode');
+    let textMode = '';
     try{
-      let textMode = question.getAttribute('textMode');
+      textMode = question.getAttribute('textMode');
     }catch(error){
       console.log(error);
-      let textMode = '';
     }
     let requireOnShow = JSON.parse(question.getAttribute('requireOnShow'));
     let inputDriverArray = [];
