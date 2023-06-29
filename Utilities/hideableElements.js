@@ -89,7 +89,8 @@ function checkConditionsHeader(mode, textMode, inputs, selects, texts, condition
         if([...conditions].includes(text.value)){
           isSelected = true;
         }
-      }else if(textMode == 'any'){
+      }
+      if(textMode == 'any'){
         if(text){
           isSelected = true;
         }
@@ -230,7 +231,8 @@ function checkConditionsQuestion(mode, textMode, requireOnShow, inputs, selects,
         if([...conditions].includes(text.value)){
           isSelected = true;
         }
-      }else if(textMode == 'any'){
+      }
+      if(textMode == 'any'){
         if(text){
           isSelected = true;
         }
