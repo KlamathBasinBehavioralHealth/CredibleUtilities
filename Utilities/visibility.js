@@ -21,7 +21,7 @@ function visibility(hideShow, target, require = false){
       let id;
       try{
         id = $(this).find('*[id*=q_]').attr('id').slice(2);
-        console.log(`Found id: ${id}.`);
+        //console.log(`Found id: ${id}.`);
         if($('.div' + id)?.length){
           $('.div' + id).closest('tr').show();
         }
@@ -49,7 +49,7 @@ function visibility(hideShow, target, require = false){
       let id;
       try{
         id = $(this).find('*[id*=q_]').attr('id').slice(2);
-        console.log(`Found id: ${id}.`);
+        //console.log(`Found id: ${id}.`);
         if($('.div' + id)?.length){
           $('.div' + id).closest('tr').hide();
         }
