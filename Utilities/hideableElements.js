@@ -137,7 +137,15 @@ function hideableHeaderSetDrivers(){
     });
 
     [...header.getAttribute('driver').split(' ')].map((driver) => {
-      let element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
+      let element = null;
+      if(document.querySelector(`#${driver}`).closest('tr').querySelector('input, select')){
+        element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
+      }
+
+      if(document.querySelector(`#${driver}`).closest('table').querySelector('input, select')){
+        element = document.querySelector(`#${driver}`).closest('table').querySelector('input, select');
+      }
+      document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
       try{
         if(element.tagName == 'INPUT'){
           if(element.type == 'checkbox' || element.type == 'radio'){
@@ -271,7 +279,14 @@ function hideableQuestionSetDrivers(){
     });
 
     [...question.getAttribute('driver').split(' ')].map((driver) => {
-      let element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
+      let element = null;
+      if(document.querySelector(`#${driver}`).closest('tr').querySelector('input, select')){
+        element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
+      }
+
+      if(document.querySelector(`#${driver}`).closest('table').querySelector('input, select')){
+        element = document.querySelector(`#${driver}`).closest('table').querySelector('input, select');
+      }
       try{
         if(element.tagName == 'INPUT'){
           if(element.type == 'checkbox' || element.type == 'radio'){
