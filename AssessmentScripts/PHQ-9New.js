@@ -21,11 +21,20 @@ try{
   console.log(error);
   age = 0;
 }
+function checkAge(){
+  visibility('hide', '.phq9AdultQ', false);
+  visibility('hide', '.phq9AdolescentQ', false);
+  if(age > 18){
+    visibility('show', '.phq9AdultQ', true);
+  }else{
+    visibility('show', '.phq9AdolescentQ', true);
+  }
+}
 
 let phq9Score;
 function calculatePHQ9() {
   phq9Score = 0;
-  if(age < 18){
+  if(age > 18){
     $('tr')
       .has('div[class=phq9AdultQ]')
       .find('select')
@@ -70,18 +79,19 @@ function calculatePHQ9() {
 }
 function checkPHQ9() {
   calculatePHQ9();
-  hideShow('hide', 'phq9Q10', true);
+  visibility('hide', '#phq9Q10', false);
   if (phq9Score > 0) {
-    hideShow('show', 'phq9Q10', true);
+    visibility('show', '#phq9Q10', true);
   }
 }
 function checkPositiveScreening() {
-  hideShow('hide', 'positiveScreening');
+  visibility('hide', 'positiveScreening', false);
   if (phq9Score >= 9) {
-    hideShow('show', 'positiveScreening');
+    visibility('show', 'positiveScreening', true);
   }
 }
 $('document').ready(function () {
+  checkAge();
   var checkPHQ9Exist = setInterval(function () {
     if ($('tr').has('div[id=phq9A]').find('select').length) {
       clearInterval(checkPHQ9Exist);
