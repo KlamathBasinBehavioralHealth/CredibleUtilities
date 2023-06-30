@@ -12,16 +12,17 @@ if(typeof visibilty != 'function'){
 }
 
 let age;
-try{
-  age = $('tr').has('div[id=clientAge]').find('font').text();
-  if(isNaN(age)){
+
+function checkAge(){
+  try{
+    age = $('tr').has('div[id=clientAge]').find('font').text();
+    if(isNaN(age)){
+      age = 0;
+    }
+  }catch(error){
+    console.log(error);
     age = 0;
   }
-}catch(error){
-  console.log(error);
-  age = 0;
-}
-function checkAge(){
   visibility('hide', '.phq9AdultQ', false);
   visibility('hide', '.phq9AdolescentQ', false);
   if(age > 18){
@@ -91,6 +92,12 @@ function checkPositiveScreening() {
   }
 }
 $('document').ready(function () {
+  let checkAgeExist = setInterval(() =>{
+    if (document.querySelector('#clientAge')?.closest('table').querySelector('font')) {
+      clearInterval(checkAgeExist);
+      checkAge();
+    }
+  }, 100);
   checkAge();
   var checkPHQ9Exist = setInterval(function () {
     if ($('tr').has('div[id=phq9A]').find('select').length) {
