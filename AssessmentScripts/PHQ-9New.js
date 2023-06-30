@@ -16,7 +16,7 @@ let age;
 function checkAge(){
   try{
     age = parseInt($('tr').has('div[id=clientAge]').find('font').text());
-    if(isNaN(age))){
+    if(isNaN(age)){
       age = 0;
     }
   }catch(error){
