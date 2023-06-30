@@ -14,7 +14,7 @@ if(typeof visibilty != 'function'){
 let age;
 try{
   age = $('tr').has('div[id=clientAge]').find('font').text();
-  if(!isNumeric(age)){
+  if(isNaN(age)){
     age = 0;
   }
 }catch(error){
