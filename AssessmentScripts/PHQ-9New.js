@@ -1,4 +1,4 @@
-const defaultAge = 11;
+const defaultAge = 18;
 if(typeof visibilty != 'function'){
   window.include = function (file){
     var script = document.createElement('script');
