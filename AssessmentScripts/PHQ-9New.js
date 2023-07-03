@@ -26,10 +26,13 @@ function checkAge(){
   }
   visibility('hide', '.phq9AdultQ', false);
   visibility('hide', '.phq9AdolescentQ', false);
+  visibility('hide', '.phq9Q', false);
   if(age >= 18){
     visibility('show', '.phq9AdultQ', true);
-  }else if(age < 18 && age <= 11){
+    visibility('show', '.phq9Q', true);
+  }else if(age < 18 && age >= 11){
     visibility('show', '.phq9AdolescentQ', true);
+    visibility('show', '.phq9Q', true);
   }
 }
 
@@ -47,7 +50,7 @@ function calculatePHQ9() {
         }
       });
   }
-  if(age < 18){
+  if(age < 18 && age >= 11){
     $('tr')
       .has('div[class=phq9AdolescentQ]')
       .find('select')
