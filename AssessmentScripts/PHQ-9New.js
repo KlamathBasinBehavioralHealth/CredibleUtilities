@@ -128,6 +128,10 @@ async function setup(){
   $('tr').has('div[id=phq9Perform]').find('input').change(checkPHQ9);
   $('tr').has('div[class=phq9Q]').find('select').change(checkPHQ9);
   $('tr').has('div[class=phq9Q]').find('select').change(checkPositiveScreening);
+  $('tr').has('div[class=phq9AdultQ]').find('select').change(checkPHQ9);
+  $('tr').has('div[class=phq9AdultQ]').find('select').change(checkPositiveScreening);
+  $('tr').has('div[class=phq9AdolescentQ]').find('select').change(checkPHQ9);
+  $('tr').has('div[class=phq9AdolescentQ]').find('select').change(checkPositiveScreening);
 }
 
 $('document').ready(function () {
