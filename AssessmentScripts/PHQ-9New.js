@@ -27,12 +27,15 @@ function checkAge(){
   visibility('hide', '.phq9AdultQ', false);
   visibility('hide', '.phq9AdolescentQ', false);
   visibility('hide', '.phq9Q', false);
+  visibility('hide', '#phq9A', false);
   if(age >= 18){
     visibility('show', '.phq9AdultQ', true);
     visibility('show', '.phq9Q', true);
+    visibility('show', '#phq9A', false);
   }else if(age < 18 && age >= 11){
     visibility('show', '.phq9AdolescentQ', true);
     visibility('show', '.phq9Q', true);
+    visibility('show', '#phq9A', false);
   }
 }
 
