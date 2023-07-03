@@ -88,9 +88,9 @@ function checkPHQ9() {
   }
 }
 function checkPositiveScreening() {
-  visibility('hide', 'positiveScreening', false);
+  visibility('hide', '#positiveScreening', false);
   if (phq9Score >= 9) {
-    visibility('show', 'positiveScreening', true);
+    visibility('show', '#positiveScreening', true);
   }
 }
 
