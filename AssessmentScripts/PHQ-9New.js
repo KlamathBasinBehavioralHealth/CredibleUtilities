@@ -28,7 +28,7 @@ function checkAge(){
   visibility('hide', '.phq9AdolescentQ', false);
   if(age >= 18){
     visibility('show', '.phq9AdultQ', true);
-  }else{
+  }else if(age < 18 && age <= 11){
     visibility('show', '.phq9AdolescentQ', true);
   }
 }
