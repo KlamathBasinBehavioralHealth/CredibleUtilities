@@ -1,3 +1,4 @@
+const defaultAge = 18;
 if(typeof visibilty != 'function'){
   window.include = function (file){
     var script = document.createElement('script');
@@ -17,11 +18,11 @@ function checkAge(){
   try{
     age = parseInt($('tr').has('div[id=clientAge]').find('font').text());
     if(isNaN(age)){
-      age = 0;
+      age = defaultAge;
     }
   }catch(error){
     console.log(error);
-    age = 0;
+    age = defaultAge;
   }
   visibility('hide', '.phq9AdultQ', false);
   visibility('hide', '.phq9AdolescentQ', false);
