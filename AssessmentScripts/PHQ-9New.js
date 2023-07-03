@@ -25,7 +25,7 @@ function checkAge(){
   }
   visibility('hide', '.phq9AdultQ', false);
   visibility('hide', '.phq9AdolescentQ', false);
-  if(age > 18){
+  if(age >= 18){
     visibility('show', '.phq9AdultQ', true);
   }else{
     visibility('show', '.phq9AdolescentQ', true);
@@ -35,7 +35,7 @@ function checkAge(){
 let phq9Score;
 function calculatePHQ9() {
   phq9Score = 0;
-  if(age > 18){
+  if(age >= 18){
     $('tr')
       .has('div[class=phq9AdultQ]')
       .find('select')
@@ -45,7 +45,8 @@ function calculatePHQ9() {
             phq9Score + parseInt($(this).find('option:selected').html());
         }
       });
-  }else{
+  }
+  if(age < 18){
     $('tr')
       .has('div[class=phq9AdolescentQ]')
       .find('select')
@@ -121,4 +122,8 @@ $('document').ready(function () {
   $('tr').has('div[class=phq9Q]').find('select').change(checkPositiveScreening);
 });
 
-document.addEventListener('DOMContentLoaded', () => {linkValueToExtFrame(parent.document, 'phq9Score', '.frame', '#phq9Score');  });
+try{
+  document.addEventListener('DOMContentLoaded', () => {linkValueToExtFrame(parent.document, 'phq9Score', '.frame', '#phq9Score');  });
+}catch(error){
+  console.log(error);
+}
