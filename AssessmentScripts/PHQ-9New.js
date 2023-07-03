@@ -92,7 +92,15 @@ function checkPositiveScreening() {
     visibility('show', 'positiveScreening', true);
   }
 }
-$('document').ready(function () {
+
+function delay(ms){
+  return new Promise(resolve => setTimeout(resolve,ms));
+}
+
+async function setup(){
+  while(typeof visibility !== 'function'){
+    await delay(100);
+  }
   let checkAgeExist = setInterval(() =>{
     if (document.querySelector('#clientAge')?.closest('table').querySelector('font')) {
       clearInterval(checkAgeExist);
@@ -120,6 +128,10 @@ $('document').ready(function () {
   $('tr').has('div[id=phq9Perform]').find('input').change(checkPHQ9);
   $('tr').has('div[class=phq9Q]').find('select').change(checkPHQ9);
   $('tr').has('div[class=phq9Q]').find('select').change(checkPositiveScreening);
+}
+
+$('document').ready(function () {
+  setup();  
 });
 
 try{
