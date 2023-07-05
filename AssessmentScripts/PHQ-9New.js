@@ -29,6 +29,12 @@ function checkAge(){
   visibility('hide', '.phq9AdolescentQ', false);
   visibility('hide', '.phq9Q', false);
   visibility('hide', '#phq9A', false);
+  visibility('hide', '#clientAge', false);
+  try{
+    document.querySelector('#underEleven').remove();
+  }catch(error){
+      console.log(error);
+  }
   if(age >= 18){
     visibility('show', '.phq9Label', false);
     visibility('show', '.phq9AdultQ', true);
@@ -39,6 +45,11 @@ function checkAge(){
     visibility('show', '.phq9AdolescentQ', true);
     visibility('show', '.phq9Q', true);
     visibility('show', '#phq9A', false);
+  }else{
+    let underEleven = document.createElement('div');
+    underEleven.setAttribute('id', 'underEleven');
+    underEleven.innerText = 'Client is under the age of 11. PHQ-9 not necessary.';
+    document.querySelector('#clientAge').closest('table').parentNode.parentNode.nextSibling.after(underEleven);
   }
 }
 
