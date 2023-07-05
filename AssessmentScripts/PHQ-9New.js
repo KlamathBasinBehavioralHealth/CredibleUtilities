@@ -53,7 +53,7 @@ function checkAge(){
   }
 }
 
-let phq9Score;
+var phq9Score;
 function calculatePHQ9() {
   phq9Score = 0;
   if(age >= 18){
