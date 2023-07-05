@@ -153,6 +153,11 @@ async function setup(){
   $('tr').has('div[class=phq9AdultQ]').find('select').change(checkPositiveScreening);
   $('tr').has('div[class=phq9AdolescentQ]').find('select').change(checkPHQ9);
   $('tr').has('div[class=phq9AdolescentQ]').find('select').change(checkPositiveScreening);
+  try{
+    linkValueToExtFrame(parent.document, 'phq9Score', '.frame', '#phq9Score');
+  }catch(error){
+    console.log(error);
+  }
 }
 
 $('document').ready(function () {
