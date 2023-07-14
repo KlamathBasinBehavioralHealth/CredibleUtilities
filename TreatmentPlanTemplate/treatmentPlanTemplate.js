@@ -149,7 +149,7 @@ async function lookForBlankTxPlan(){
     [...txBody.querySelectorAll('.entry')].forEach((element) => {
       element.addEventListener('click', (event) => {
         let checkToComplete = false;
-        let parent = event.target.parentNode.parentNode;
+        
         if(parent.className = 'lineDiv'){
           checkToComplete = true;
         }
@@ -157,12 +157,10 @@ async function lookForBlankTxPlan(){
         var userInput = prompt(`${event.target.innerText}:`);
     
         if(userInput !== null){
-          if(userInput !== null){
             replaceWithText(`${userInput}`, event.target.parentNode);
-          }
-          if(checkToComplete){
+        }
+        if(checkToComplete){
             completeLine(parent);
-          }
         }
       });
     });
