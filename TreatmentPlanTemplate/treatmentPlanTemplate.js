@@ -73,6 +73,14 @@ async function lookForBlankTxPlan(){
   let txModule = document.querySelector('#txPlanModule').contentDocument.querySelector('[name=\'ctl00$cph$txtGoals\']');
   await waitForElementInterval(txModule);
   console.log('Tx plan module detected.');
+  await waitForElementInterval(txModule.closest('tr').querySelector('iframe').contentDocument.querySelector('body'));
+  setTimeout(() => {
+    try{
+        console.log(txModule.closest('tr').querySelector('iframe').contentDocument.querySelector('body').innerText);
+    }catch(error){
+        console.log(error);
+    }
+  }, 500);
   let txBody = txModule.closest('tr').querySelector('iframe').contentDocument.querySelector('body');
   try{    
     if(!txBody.innerText){
