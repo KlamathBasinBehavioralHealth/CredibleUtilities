@@ -145,6 +145,19 @@ async function lookForBlankTxPlan(){
         }
       });
     });
+
+    [...txBody.querySelectorAll('.entry')].forEach((element) => {
+      element.addEventListener('click', (event) => {
+        var userInput = prompt(`${event.target.innerText}`);
+        
+        if(userInput !== null){
+          
+          if(userInput !== null){
+            replaceWithText(`${userInput}`, event.target.parentNode);
+          }
+        }
+      });
+    });
     
     [...txBody.querySelectorAll('.clearLine')].forEach((element) => {
       element.addEventListener('click', (event) => {
