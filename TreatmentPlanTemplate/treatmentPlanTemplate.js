@@ -54,7 +54,7 @@ function cleanUp(html){
 }
 
 function completeLine(target){
-  if(!target.querySelector('.buttons, .numbers')){
+  if(!target.querySelector('.buttons, .numbers, .entry')){
     try{
         target.querySelector('.clearLine').remove();
     }catch(error){
@@ -176,7 +176,7 @@ async function lookForBlankTxPlan(){
   }
   
   document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').addEventListener('click', (event) => {
-    if(txBody.querySelector('.buttons, .numbers')){
+    if(txBody.querySelector('.buttons, .numbers, .entry')){
       console.log('Do it.');
       event.preventDefault();
       alert('Please complete all fields or delete service lines that are not use via the X button.');
