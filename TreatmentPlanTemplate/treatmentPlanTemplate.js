@@ -143,11 +143,8 @@ async function lookForBlankTxPlan(){
           }
           
           if(userInput !== null){
-            if(event.target.innerText === 'Click to Enter Number of Days'){
-              replaceWithText(` ${number}`, event.target.parentNode);
-            }else{
-              replaceWithText(`${number}`, event.target.parentNode);
-            }
+            replaceWithText(`${number}`, event.target.parentNode);
+            
             if(checkToComplete){
               completeLine(parent);
             }
@@ -167,10 +164,11 @@ async function lookForBlankTxPlan(){
         var userInput = prompt(`${event.target.innerText}:`);
     ``
         if(userInput !== null){
-            replaceWithText(`${userInput}`, event.target.parentNode);
-        }
-        if(checkToComplete){
+          replaceWithText(`${userInput}`, event.target.parentNode);
+
+          if(checkToComplete){
             completeLine(parent);
+          }
         }
       });
     });
