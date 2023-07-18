@@ -131,14 +131,14 @@ async function lookForBlankTxPlan(){
           checkToComplete = true;
         }
         
-        var userInput = prompt("Enter a number:");
+        var userInput = prompt('Enter a number:');
         
         var number = parseInt(userInput);
         
         if(userInput !== null){
           while(isNaN(number) && userInput !== null){
-            alert("Number was not entered.");
-            userInput = prompt("Enter a number:");
+            alert('Number was not entered.');
+            userInput = prompt('Enter a number:');
             number = parseInt(userInput);
           }
           
@@ -156,7 +156,7 @@ async function lookForBlankTxPlan(){
     [...txBody.querySelectorAll('.entry')].forEach((element) => {
       element.addEventListener('click', (event) => {
         let checkToComplete = false;
-        
+        let parent = event.target.parentNode.parentNode;
         if(parent.className = 'lineDiv'){
           checkToComplete = true;
         }
@@ -164,10 +164,16 @@ async function lookForBlankTxPlan(){
         var userInput = prompt(`${event.target.innerText}:`);
     ``
         if(userInput !== null){
-          replaceWithText(`${userInput}`, event.target.parentNode);
+          while(userInput === '' && userInput !== null){
+            alert('Nothing entered.');
+            userInput = prompt(`${event.target.innerText}:`);
+          }
+          if(userInput !== null){
+            replaceWithText(`${userInput}`, event.target.parentNode);
 
-          if(checkToComplete){
-            completeLine(parent);
+            if(checkToComplete){
+              completeLine(parent);
+            }
           }
         }
       });
