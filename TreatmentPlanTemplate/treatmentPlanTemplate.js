@@ -87,9 +87,15 @@ async function lookForBlankTxPlan(){
       console.log('Here lies a blank Tx plan.');
       
       try{
-        ctl00_cph_txtStartDate
+        let today = new Date();
+        let formattedToday = `${today.getMonth() < 10 ? '0' : ''}${today.getMonth() + 1}/${today.getDate() < 10 ? '0' : ''}${today.getDate()}/${today.getFullYear()}`;
+        let nextYear = new Date();
+        nextYear.setDate(today.getDate() + 365);
+        let formattedNextYear = `${nextYear.getMonth() < 10 ? '0' : ''}${nextYear.getMonth() + 1}/${nextYear.getDate() < 10 ? '0' : ''}${nextYear.getDate()}/${nextYear.getFullYear()}`;
 
-        ctl00_cph_txtEndDate
+        document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_txtStartDate').value = formattedToday;
+
+        document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_txtEndDate').value = formattedNextYear;
 
         document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_ddlCategory').value = 
           [...document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_ddlCategory').querySelectorAll('option')].filter((option) => {
