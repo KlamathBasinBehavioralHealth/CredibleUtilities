@@ -86,7 +86,13 @@ async function lookForBlankTxPlan(){
     if(!txBody.innerText){
       console.log('Here lies a blank Tx plan.');
       
-      let program = parent.parent.document.querySelector('#left').contentDocument.querySelector('#programId').value;
+      let program;
+      try{
+        program = parent.parent.document.querySelector('#left').contentDocument.querySelector('#programId').value;
+      }catch(error){
+        program = 'Ah beans';
+      }
+        
       console.log(program);
 
       if(program != '96'){
