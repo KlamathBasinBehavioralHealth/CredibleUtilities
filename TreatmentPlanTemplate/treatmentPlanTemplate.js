@@ -93,10 +93,10 @@ async function lookForBlankTxPlan(){
         program = 'Ah beans';
       }
         
-      console.log(program);
+      console.log(program); 
 
       if(program != '96'){
-        try{
+        try{ 
           let today = new Date();
           let formattedToday = `${today.getMonth() < 10 ? '0' : ''}${today.getMonth() + 1}/${today.getDate() < 10 ? '0' : ''}${today.getDate()}/${today.getFullYear()}`;
           let nextYear = new Date();
