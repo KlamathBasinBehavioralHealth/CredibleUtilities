@@ -86,26 +86,31 @@ async function lookForBlankTxPlan(){
     if(!txBody.innerText){
       console.log('Here lies a blank Tx plan.');
       
-      try{
-        let today = new Date();
-        let formattedToday = `${today.getMonth() < 10 ? '0' : ''}${today.getMonth() + 1}/${today.getDate() < 10 ? '0' : ''}${today.getDate()}/${today.getFullYear()}`;
-        let nextYear = new Date();
-        nextYear.setDate(today.getDate() + 365);
-        let formattedNextYear = `${nextYear.getMonth() < 10 ? '0' : ''}${nextYear.getMonth() + 1}/${nextYear.getDate() < 10 ? '0' : ''}${nextYear.getDate()}/${nextYear.getFullYear()}`;
+      let program = parent.parent.document.querySelector('#left').contentDocument.querySelector('#programId').value;
+      console.log(program);
 
-        document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_txtStartDate').value = formattedToday;
+      if(program != '96'){
+        try{
+          let today = new Date();
+          let formattedToday = `${today.getMonth() < 10 ? '0' : ''}${today.getMonth() + 1}/${today.getDate() < 10 ? '0' : ''}${today.getDate()}/${today.getFullYear()}`;
+          let nextYear = new Date();
+          nextYear.setDate(today.getDate() + 365);
+          let formattedNextYear = `${nextYear.getMonth() < 10 ? '0' : ''}${nextYear.getMonth() + 1}/${nextYear.getDate() < 10 ? '0' : ''}${nextYear.getDate()}/${nextYear.getFullYear()}`;
 
-        document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_txtEndDate').value = formattedNextYear;
+          document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_txtStartDate').value = formattedToday;
 
-        document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_ddlCategory').value = 
-          [...document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_ddlCategory').querySelectorAll('option')].filter((option) => {
-            return option.innerText == 'Treatment Plan';
-          })[0].value;
-      }catch(error){
-        console.log(error);  
+          document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_txtEndDate').value = formattedNextYear;
+
+          document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_ddlCategory').value = 
+            [...document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_ddlCategory').querySelectorAll('option')].filter((option) => {
+              return option.innerText == 'Treatment Plan';
+            })[0].value;
+        }catch(error){
+          console.log(error);  
+        }
+        
+        txBody.innerHTML = templateBlock;
       }
-      
-      txBody.innerHTML = templateBlock;
     }
     
     [...txBody.querySelectorAll('.buttons')].forEach((element) => {
