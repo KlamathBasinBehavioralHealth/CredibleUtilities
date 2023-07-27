@@ -155,6 +155,8 @@ function hideableHeaderSetDrivers(){
           }else{
             textDriverArray.push(element);
           }
+        }else if(element.tagName == 'SELECT'){
+          selectDriverArray.push(element);
         }
       }catch(error){
         element = document.querySelector(`#${driver}`).closest('tbody').querySelector('input, select');
@@ -298,6 +300,8 @@ function hideableQuestionSetDrivers(){
           }else{
             textDriverArray.push(element);
           }
+        }else if(element.tagName == 'SELECT'){
+          selectDriverArray.push(element);
         }
       }catch(error){
         element = document.querySelector(`#${driver}`).closest('tbody').querySelector('input, select');
