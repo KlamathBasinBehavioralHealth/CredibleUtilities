@@ -49,7 +49,7 @@ function getOptionValue(select, optionText){
   let found = false;
   let value = undefined;
   [...select.querySelectorAll('option')].map((option) => {
-      console.log(option.innerText);
+      //console.log(option.innerText);
       if(option.innerText == optionText){
           found = true;
           value = option.value;
