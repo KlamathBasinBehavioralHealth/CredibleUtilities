@@ -71,6 +71,8 @@ function clearLine(button){
   button.parentNode.remove();
 }
 
+let program;
+
 async function lookForBlankTxPlan(){
   let txModule = document.querySelector('#txPlanModule').contentDocument.querySelector('[name=\'ctl00$cph$txtGoals\']');
   await waitForElementInterval(txModule);
@@ -88,17 +90,19 @@ async function lookForBlankTxPlan(){
     if(!txBody.innerText){
       console.log('Here lies a blank Tx plan.');
       
-      let program;
       try{
         program = parent.parent.document.querySelector('#left').contentDocument.querySelector('#programId').value;
       }catch(error){
         program = 'Ah beans';
       }
-        
-      console.log(program); 
 
-      if(program != '96'){
-        if(program == '117'){
+      let dayTreatment = '96';
+      let crisis = '117';
+      let crisisAssessment = 'Crisis Assessment & Plan';
+      console.log('Why can\'t you be normal?!!!');
+
+      if(program != dayTreatment){
+        if(program == crisis || document.querySelector('h1').innerText == crisisAssessment){
           try{
             let today = new Date();
             let formattedToday = `${today.getMonth() < 10 ? '0' : ''}${today.getMonth() + 1}/${today.getDate() < 10 ? '0' : ''}${today.getDate()}/${today.getFullYear()}`;
