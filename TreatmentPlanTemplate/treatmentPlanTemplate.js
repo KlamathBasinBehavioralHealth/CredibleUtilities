@@ -99,7 +99,6 @@ async function lookForBlankTxPlan(){
       let dayTreatment = '96';
       let crisis = '117';
       let crisisAssessment = 'Crisis Assessment & Plan';
-      console.log('Why can\'t you be normal?!!!');
 
       if(program != dayTreatment){
         if(program == crisis || document.querySelector('h1').innerText == crisisAssessment){
