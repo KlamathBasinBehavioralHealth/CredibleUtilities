@@ -392,7 +392,7 @@ function createSubmitButtons(){
     const buttonWrapper = oldComplete.parentElement;
     buttonWrapper.id = 'buttonWrapper';
     buttonWrapper.style.position = 'sticky';
-    buttomWrapper.style.bottom = '0px';
+    buttonWrapper.style.bottom = '0px';
 
     if ((frameElement != null && !frameElement.classList.contains('frame')) || getURLQueryStringParameter('formbuilder') == '1'){
         buttonWrapper.insertBefore(buttonContainer, oldComplete);
