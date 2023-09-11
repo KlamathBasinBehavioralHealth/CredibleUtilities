@@ -248,10 +248,14 @@ function templateValidator(event){
   }
 }
 
-function overrideTemplateValidator(){
-  document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').removeEventListener('click', templateValidator);
+function overrideTemplateValidator(event){
+  document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').removeEventListener('click', (event) => {
+    templateValidator(event);
+  });
 }
 
-function restoreTemplateValidator(){
-  document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').addEventListener('click', templateValidator);
+function restoreTemplateValidator(event){
+  document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').addEventListener('click', (event) => {
+    templateValidator(event);
+  });
 }
