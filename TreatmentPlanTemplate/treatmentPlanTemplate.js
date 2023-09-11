@@ -262,7 +262,5 @@ function overrideTemplateValidator(){
 }
 
 function restoreTemplateValidator(){
-  document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').addEventListener('click', (event) => {
-    templateValidator(event);
-  });
+  document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').addEventListener('click', templateValidator);
 }
