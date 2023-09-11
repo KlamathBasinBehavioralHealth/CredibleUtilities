@@ -323,7 +323,15 @@ async function deleteFrames(){
     return  Promise.all(promises);
 }
 
-function formSubmit(){
+async function forceTemplateSubmit(){
+    try{
+        overrideTemplateValidator();
+    }catch(error){
+
+    }
+}
+
+async function formSubmit(){
     if (document.querySelectorAll('.frame').length > 0){
         unrequireAll().then(() => {
             submitFrames().then(() => {
