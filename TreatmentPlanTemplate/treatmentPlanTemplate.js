@@ -91,6 +91,7 @@ async function lookForBlankTxPlan(){
     }
   }, 500);
   let txBody = txModule.closest('tr').querySelector('iframe').contentDocument.querySelector('body');
+  
   try{    
     if(!txBody.innerText){
       console.log('Here lies a blank Tx plan.');
@@ -234,20 +235,19 @@ async function lookForBlankTxPlan(){
     console.log(error);
   }
 
-  document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').addEventListener('click', (event) => {
+  /*document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').addEventListener('click', (event) => {
     if(txBody.querySelector('.buttons, .numbers, .entry')){
-      console.log('Do it.');
       event.preventDefault();
       alert('Please complete all fields or delete service lines that are not use via the X button.');
     }else{
       console.log('This is empty!');
     }
-  });
+  });*/
+  restoreTemplateValidator();
 }
 
 function templateValidator(event){
-  if(txBody.querySelector('.buttons, .numbers, .entry')){
-    console.log('Do it.');
+  if(document.querySelector('#txPlanModule').contentDocument.querySelector('[name=\'ctl00$cph$txtGoals\']').closest('tr').querySelector('iframe').contentDocument.querySelector('body').querySelector('.buttons, .numbers, .entry')){
     event.preventDefault();
     alert('Please complete all fields or delete service lines that are not use via the X button.');
   }else{
@@ -255,13 +255,13 @@ function templateValidator(event){
   }
 }
 
-function overrideTemplateValidator(event){
+function overrideTemplateValidator(){
   document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').removeEventListener('click', (event) => {
     templateValidator(event);
   });
 }
 
-function restoreTemplateValidator(event){
+function restoreTemplateValidator(){
   document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').addEventListener('click', (event) => {
     templateValidator(event);
   });
