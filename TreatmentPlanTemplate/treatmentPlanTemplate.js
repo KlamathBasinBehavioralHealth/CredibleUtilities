@@ -234,13 +234,24 @@ async function lookForBlankTxPlan(){
     console.log(error);
   }
   
-  document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').addEventListener('click', (event) => {
-    if(txBody.querySelector('.buttons, .numbers, .entry')){
-      console.log('Do it.');
-      event.preventDefault();
-      alert('Please complete all fields or delete service lines that are not use via the X button.');
-    }else{
-      console.log('This is empty!');
-    }
-  });
+
+  restoreTemplateValidator();
+}
+
+function templateValidator(event){
+  if(txBody.querySelector('.buttons, .numbers, .entry')){
+    console.log('Do it.');
+    event.preventDefault();
+    alert('Please complete all fields or delete service lines that are not use via the X button.');
+  }else{
+    console.log('This is empty!');
+  }
+}
+
+function overrideTemplateValidator(){
+  document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').removeEventListener('click', templateValidator);
+}
+
+function restoreTemplateValidator(){
+  document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').addEventListener('click', templateValidator);
 }
