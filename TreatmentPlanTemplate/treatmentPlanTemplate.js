@@ -233,9 +233,16 @@ async function lookForBlankTxPlan(){
   catch(error){
     console.log(error);
   }
-  
 
-  restoreTemplateValidator();
+  document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').addEventListener('click', (event) => {
+    if(txBody.querySelector('.buttons, .numbers, .entry')){
+      console.log('Do it.');
+      event.preventDefault();
+      alert('Please complete all fields or delete service lines that are not use via the X button.');
+    }else{
+      console.log('This is empty!');
+    }
+  });
 }
 
 function templateValidator(event){
