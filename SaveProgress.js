@@ -323,12 +323,47 @@ async function deleteFrames(){
     return  Promise.all(promises);
 }
 
-async function forceTemplateSubmit(){
-    try{
-        overrideTemplateValidator();
-    }catch(error){
-
+if(typeof waitForElementInterval !== 'function'){
+    function waitForElementInterval (target, maxAttempts = null, interval = 500){
+      return new Promise((resolve, reject) => {
+        let currentAttempt = 0;
+        let currentInterval = setInterval(function(){
+          try{
+            if(target !== null && target !== undefined){
+              clearInterval(currentInterval);
+              return resolve(target);
+            }else{
+              if(maxAttempts !== null && maxAttempts !== undefined){
+                console.log(`Attempt ${currentAttempt + 1} out of ${maxAttempts}.`);
+                if(currentAttempt >= maxAttempts - 1){
+                  clearInterval(currentInterval);
+                  return reject('Not found.');
+                }
+                else{
+                  currentAttempt++;
+                }
+              }
+            }
+          }catch(error){
+            console.log(error);
+          }
+        }, interval);
+      });
     }
+}
+
+async function forceTemplateSubmit(){
+    return new Promise((resolve, reject) => {
+        try{
+            overrideTemplateValidator();
+            document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').click();
+            await waitForElementInterval(document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnNewTX2'));
+            return resolve('Found it');
+        }catch(error){
+            console.log(error);
+            return reject('Doom');
+        }
+    });
 }
 
 async function formSubmit(){
