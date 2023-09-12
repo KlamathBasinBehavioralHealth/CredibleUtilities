@@ -356,7 +356,7 @@ async function forceTemplateSubmit(){
     return new Promise(async (resolve, reject) => {
         try{
             overrideTemplateValidator();
-            document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').click();
+            document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnSave').click();
             await waitForElementInterval(document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnNewTX2'));
             return resolve('Found it');
         }catch(error){
