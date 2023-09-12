@@ -306,6 +306,13 @@ async function submitFrames(){
     const frames = document.querySelectorAll('.frame');
     const promises = [...frames].map((frame) => {
         if (frame.contentWindow.userChange){
+            try{
+                await forceTemplateSubmit().catch(error){
+                    console.log(error);
+                }
+            }catch(error){
+                console.log(error);
+            }
             return new Promise((resolve, reject) => { frame.contentWindow.document.querySelector('#oldComplete').click(); frame.onload = resolve; })
         }
     });
@@ -378,6 +385,13 @@ async function formSubmit(){
     }
     else{
         unrequireAll(document).then(() => {
+            try{
+                await forceTemplateSubmit().catch(error){
+                    console.log(error);
+                }
+            }catch(error){
+                console.log(error);
+            }
             document.querySelector('#oldComplete').click();
         });
     }
