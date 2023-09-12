@@ -304,15 +304,11 @@ async function unrequireAll(){
 
 async function submitFrames(){
     const frames = document.querySelectorAll('.frame');
-    const promises = [...frames].map((frame) => {
+    const promises = [...frames].map(async (frame) => {
         if (frame.contentWindow.userChange){
-            try{
-                await forceTemplateSubmit().catch(error){
-                    console.log(error);
-                }
-            }catch(error){
+            await forceTemplateSubmit().catch((error) => {
                 console.log(error);
-            }
+            });
             return new Promise((resolve, reject) => { frame.contentWindow.document.querySelector('#oldComplete').click(); frame.onload = resolve; })
         }
     });
@@ -384,14 +380,10 @@ async function formSubmit(){
         });
     }
     else{
-        unrequireAll(document).then(() => {
-            try{
-                await forceTemplateSubmit().catch(error){
-                    console.log(error);
-                }
-            }catch(error){
+        unrequireAll(document).then(async () => {
+            await forceTemplateSubmit().catch((error) => {
                 console.log(error);
-            }
+            });
             document.querySelector('#oldComplete').click();
         });
     }
