@@ -353,7 +353,7 @@ if(typeof waitForElementInterval !== 'function'){
 }
 
 async function forceTemplateSubmit(){
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         try{
             overrideTemplateValidator();
             document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').click();
