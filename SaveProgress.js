@@ -358,10 +358,10 @@ async function forceTemplateSubmit(){
             overrideTemplateValidator();
             document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnSave').click();
             await waitForElementInterval(document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnNewTX2'));
-            return resolve('Found it');
+            resolve('Found it');
         }catch(error){
             console.log(error);
-            return reject('Doom');
+            reject('Doom');
         }
     });
 }
