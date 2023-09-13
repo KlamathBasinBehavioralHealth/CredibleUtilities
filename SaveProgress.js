@@ -326,8 +326,8 @@ async function deleteFrames(){
     return  Promise.all(promises);
 }
 
-if(typeof waitForElementInterval !== 'function'){
-    function waitForElementInterval (target, maxAttempts = null, interval = 500){
+if(typeof waitForElementSaveProgress !== 'function'){
+    function waitForElementSaveProgress (target, maxAttempts = null, interval = 500){
       return new Promise((resolve, reject) => {
         let currentAttempt = 0;
         let currentInterval = setInterval(function(){
@@ -360,7 +360,7 @@ async function forceTemplateSubmit(){
         try{
             overrideTemplateValidator();
             document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnSave').click();
-            await waitForElementInterval(document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnNewTX2'));
+            await waitForElementSaveProgress(document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnNewTX2'));
             resolve('Found it');
         }catch(error){
             console.log(error);
@@ -380,10 +380,10 @@ async function formSubmit(){
         });
     }
     else{
+        await forceTemplateSubmit().catch((error) => {
+            console.log(error);
+        });
         unrequireAll(document).then(async () => {
-            await forceTemplateSubmit().catch((error) => {
-                console.log(error);
-            });
             document.querySelector('#oldComplete').click();
         });
     }
