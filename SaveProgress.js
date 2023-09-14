@@ -329,7 +329,6 @@ async function deleteFrames(){
 if(typeof waitForIt !== 'function'){
     function waitForIt (target){
         return new Promise((resolve) => {
-            let currentAttempt = 0;
             
             if(target !== null && target !== undefined){
                 console.log(target);
