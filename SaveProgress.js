@@ -326,33 +326,30 @@ async function deleteFrames(){
     return  Promise.all(promises);
 }
 
-if(typeof waitForElementSaveProgress !== 'function'){
-    function waitForElementSaveProgress (target, maxAttempts = null, interval = 500){
-      return new Promise((resolve, reject) => {
-        let currentAttempt = 0;
-        let currentInterval = setInterval(function(){
-          try{
+if(typeof waitForIt !== 'function'){
+    function waitForIt (target){
+        return new Promise((resolve) => {
+            let currentAttempt = 0;
+            
             if(target !== null && target !== undefined){
-              clearInterval(currentInterval);
-              return resolve(target);
-            }else{
-              if(maxAttempts !== null && maxAttempts !== undefined){
-                console.log(`Attempt ${currentAttempt + 1} out of ${maxAttempts}.`);
-                if(currentAttempt >= maxAttempts - 1){
-                  clearInterval(currentInterval);
-                  return reject('Not found.');
-                }
-                else{
-                  currentAttempt++;
-                }
-              }
+                console.log(target);
+                return resolve(target);
             }
-          }catch(error){
-            console.log(error);
-          }
-        }, interval);
-      });
-    }
+            
+            const observer = new MutationObserver(mutations => {
+                if (target !== null && target !== undefined) {
+                    observer.disconnect();
+                    console.log(target);
+                    resolve(target);
+                }
+            });
+
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        }
+    }  
 }
 
 async function forceTemplateSubmit(){
@@ -360,7 +357,7 @@ async function forceTemplateSubmit(){
         try{
             overrideTemplateValidator();
             document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnSave').click();
-            await waitForElementSaveProgress(document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnNewTX2'));
+            await waitForIt(document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnNewTX2'));
             resolve('Found it');
         }catch(error){
             console.log(error);
