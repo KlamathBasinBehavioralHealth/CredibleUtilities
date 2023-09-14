@@ -348,7 +348,7 @@ if(typeof waitForIt !== 'function'){
                 childList: true,
                 subtree: true
             });
-        }
+        });
     }  
 }
 
