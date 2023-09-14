@@ -357,8 +357,10 @@ async function forceTemplateSubmit(){
         try{
             overrideTemplateValidator();
             document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnSave').click();
-            await waitForIt(document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnNewTX2'));
-            resolve('Found it');
+            document.querySelector('#txPlanModule').addEventListener('load',async () => {
+                await waitForIt(document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnNewTX2'));
+                return resolve('Found it');
+            });
         }catch(error){
             console.log(error);
             reject('Doom');
