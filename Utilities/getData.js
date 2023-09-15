@@ -53,6 +53,6 @@ async function dataTime(){
     }
 }
 
-document.addEventListener('load', () => {
+document.addEventListener('DOMContentLoaded', () => {
     dataTime();
 });
