@@ -35,3 +35,21 @@ function getData(url) {
     }
   });
 }
+
+async function dataTime(){
+    let recentVisitId = undefined;
+    let result = await getData(url);
+    try{
+        recentVisitId = result.documentElement.querySelector('clientvisit_id').innerHTML;
+    }catch(error){
+        console.log(error);
+    }
+
+    if(recentVisitId !== undefined){
+        console.log('Found something.');
+    }
+}
+
+document.addEventListener('load', () => {
+    dataTime();
+});
