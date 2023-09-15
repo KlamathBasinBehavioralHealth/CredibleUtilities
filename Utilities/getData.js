@@ -36,8 +36,10 @@ function getData(url) {
   });
 }
 
+let recentVisitId = undefined;
+
 async function dataTime(){
-    let recentVisitId = undefined;
+    
     let result = await getData(url);
     try{
         recentVisitId = result.documentElement.querySelector('clientvisit_id').innerHTML;
