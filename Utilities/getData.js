@@ -48,6 +48,9 @@ async function dataTime(){
     if(recentVisitId !== undefined){
         console.log('Found something.');
     }
+    else{
+        console.log('It\'s empty.');
+    }
 }
 
 document.addEventListener('load', () => {
