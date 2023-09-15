@@ -5,22 +5,25 @@ const connectionString =
 let url = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=${connectionString}&start_date=&end_date=&custom_param1=${clientID}&custom_param2=${visitTypeID}&custom_param3=`;
 
 function getData(url) {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     try {
-      fetch(url)
-        .then((response) => response.text())
-        .then((xmlString) => {
-          const parser = new DOMParser();
-          xmlString = xmlString.replaceAll(/<string\b[^>]*>(?:.*?)|<\/string>|<\/string>|&lt;\/?Table&gt;|\n/g, '').replaceAll(/\s+/g, ' ').replaceAll('&lt;', '<').replaceAll('&gt;', '>');
-          let xmlResult = parser.parseFromString(xmlString, "application/xml");
-          
-          resolve(xmlResult);
-        })
-        .catch((error) => {
-          console.log(error);
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+          return resolve("Could not fetch data.");
+        }
 
-          resolve("Could not fetch data.");
-        });
+        const xmlString = await response.text();
+    
+        const parser = new DOMParser();
+        const cleanedXmlString = xmlString.replaceAll(/<string\b[^>]*>(?:.*?)|<\/string>|<\/string>|&lt;\/?Table&gt;|\n/g, '')
+            .replaceAll(/\s+/g, ' ')
+            .replaceAll('&lt;', '<')
+            .replaceAll('&gt;', '>');
+        
+        const xmlResult = parser.parseFromString(cleanedXmlString, "application/xml");
+
+        return resolve(xmlResult);
     } catch (error) {
       console.log(error);
 
