@@ -2,10 +2,10 @@ let clientID = '200079';
 let divID = 'getTest2';
 const connectionString =
   "LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0fJzvVosuMbg2B!gMCUWTrE";
-let url = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=${connectionString}&start_date=&end_date=&custom_param1=${clientID}&custom_param2=${visitTypeID}&custom_param3=`;
+let url = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=${connectionString}&start_date=&end_date=&custom_param1=${clientID}&custom_param2=${divID}&custom_param3=`;
 
 function setURL(newConnectionString, newClientID, newDivID){
-    url = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=${newConnectionString}&start_date=&end_date=&custom_param1=${newClientID}&custom_param2=${newVisitTypeID}&custom_param3=`;
+    url = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=${newConnectionString}&start_date=&end_date=&custom_param1=${newClientID}&custom_param2=${newDivID}&custom_param3=`;
 }
 
 function getData(url) {
