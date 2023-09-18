@@ -1,10 +1,10 @@
 let clientID = '200079';
-let visitTypeID = '922';
+let divID = 'getTest2';
 const connectionString =
-  "LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eo6Xujb93cLI0fLowwDKI2";
+  "LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0fJzvVosuMbg2B!gMCUWTrE";
 let url = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=${connectionString}&start_date=&end_date=&custom_param1=${clientID}&custom_param2=${visitTypeID}&custom_param3=`;
 
-function setURL(newConnectionString, newClientID, newVisitTypeID){
+function setURL(newConnectionString, newClientID, newDivID){
     url = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=${newConnectionString}&start_date=&end_date=&custom_param1=${newClientID}&custom_param2=${newVisitTypeID}&custom_param3=`;
 }
 
@@ -36,13 +36,13 @@ function getData(url) {
   });
 }
 
-let recentVisitId = undefined;
+let anotherOne = undefined;
 
-async function dataTime(){
+async function getAnswer(){
     
     let result = await getData(url);
     try{
-        recentVisitId = result.documentElement.querySelector('clientvisit_id').innerHTML;
+        anotherOne = result;
     }catch(error){
         console.log(error);
     }
@@ -56,5 +56,5 @@ async function dataTime(){
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    dataTime();
+  getAnswer();
 });
