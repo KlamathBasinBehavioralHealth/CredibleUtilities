@@ -84,7 +84,7 @@ async function loadMostRecentQuestion(clientID, divID){
             if(answerID !== '0'){
               optionValue = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('option')].filter((option) => {
                 return option.innerText === answer;
-              })[0].value;
+              })[0]?.value;
             }else{
               optionValue = answer;
             }
