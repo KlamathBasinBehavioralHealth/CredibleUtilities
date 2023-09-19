@@ -46,13 +46,6 @@ async function getAnswer(){
     }catch(error){
         console.log(error);
     }
-
-    if(recentVisitId !== undefined){
-        console.log('Found something.');
-    }
-    else{
-        console.log('It\'s empty.');
-    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
