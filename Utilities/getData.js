@@ -56,8 +56,9 @@ async function loadMostRecentQuestion(clientID, divID){
   setURL(connectionString, clientID, divID);
   try{
       let result = await getData(url);
-      [...result.documentElement.querySelectorAll('answer')].forEach((answer) => {
-        console.log(answer);
+      let questionType = result.documentElement.querySelector('question_format').innerHTML;
+      [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+        console.log(table);
       });;
   }catch(error){
     console.log(error);
