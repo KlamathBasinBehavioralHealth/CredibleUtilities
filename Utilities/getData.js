@@ -52,10 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
   getAnswer();
 });
 
+let thing = undefined;
+
 async function loadMostRecentQuestion(clientID, divID){
   setURL(connectionString, clientID, divID);
   try{
       let result = await getData(url);
+      thing = result;
       let questionType = result.documentElement.querySelector('question_format').innerHTML;
       [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
         console.log(table);
