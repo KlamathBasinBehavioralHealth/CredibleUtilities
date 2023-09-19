@@ -61,7 +61,10 @@ async function loadMostRecentQuestion(clientID, divID){
       thing = result;
       let questionType = result.documentElement.querySelector('question_format').innerHTML;
       [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
-        console.log(table);
+        let answer = table.querySelector('answer').innerHTML;
+        [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
+          return element.innerHTML.includes(answer);
+        })[0].querySelector('input').checked = true;
       });;
   }catch(error){
     console.log(error);
