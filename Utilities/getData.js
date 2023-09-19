@@ -20,7 +20,7 @@ function getData(url) {
         const xmlString = await response.text();
     
         const parser = new DOMParser();
-        const cleanedXmlString = xmlString.replaceAll(/<string\b[^>]*>(?:.*?)|<\/string>|<\/string>|&lt;\/?Table&gt;|\n/g, '')
+        const cleanedXmlString = xmlString.replaceAll(/<string\b[^>]*>(?:.*?)|<\/string>|<\/string>|/*&lt;\/?Table&gt;|*/\n/g, '')
             .replaceAll(/\s+/g, ' ')
             .replaceAll('&lt;', '<')
             .replaceAll('&gt;', '>');
