@@ -79,7 +79,7 @@ async function loadMostRecentQuestion(clientID, divID){
         case 'DD':
           [...thing.documentElement.querySelectorAll('Table')].forEach((table) => {
             let answer = table.querySelector('answer').innerHTML;
-            let answerID = table.querySelector('answer').innerHTML;
+            let answerID = table.querySelector('answer_id').innerHTML;
             let optionValue = undefined;
             if(answerID !== '0'){
               optionValue = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('option')].filter((option) => {
