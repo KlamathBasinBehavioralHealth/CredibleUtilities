@@ -1,7 +1,7 @@
 let clientID = '200079';
 let divID = 'getTest2';
 const connectionString =
-  "LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0fJzvVosuMbg2B!gMCUWTrE";
+  "LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eo6Xujb93cLI0fLowwDKI2";
 let url = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=${connectionString}&start_date=&end_date=&custom_param1=${clientID}&custom_param2=${divID}&custom_param3=`;
 
 function setURL(newConnectionString, newClientID, newDivID){
@@ -58,3 +58,16 @@ async function getAnswer(){
 document.addEventListener('DOMContentLoaded', () => {
   getAnswer();
 });
+
+async function loadMostRecentQuestion(clientID, divID){
+  setURL(connectionString, clientID, divID);
+  try{
+      let result = await getData(url);
+      [...result.documentElement.querySelectorAll('answer')].forEach((answer) => {
+        console.log(answer);
+      });;
+  }catch(error){
+    console.log(error);
+  }
+    
+}
