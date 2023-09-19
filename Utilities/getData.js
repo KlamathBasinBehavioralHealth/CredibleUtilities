@@ -60,12 +60,44 @@ async function loadMostRecentQuestion(clientID, divID){
       let result = await getData(url);
       thing = result;
       let questionType = result.documentElement.querySelector('question_format').innerHTML;
-      [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
-        let answer = table.querySelector('answer').innerHTML;
-        [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
-          return element.innerHTML.includes(answer);
-        })[0].querySelector('input').checked = true;
-      });;
+      let answerIDType = result.documentElement.querySelector('answer_id').innerHTML;
+      switch(questionType){
+        case 'CB':
+          [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+            let answer = table.querySelector('answer').innerHTML;
+            [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
+              return element.innerHTML.includes(answer);
+            })[0].querySelector('input').checked = true;
+          });
+        break;
+        case 'TXT':
+          [...thing.documentElement.querySelectorAll('Table')].forEach((table) => {
+            let answer = table.querySelector('answer').innerHTML;
+            document.querySelector(`#${divID}`).closest('table').querySelector('input').value = answer;
+          });
+        break;
+        case 'DD':
+          [...thing.documentElement.querySelectorAll('Table')].forEach((table) => {
+            let answer = table.querySelector('answer').innerHTML;
+            let answerID = table.querySelector('answer').innerHTML;
+            let optionValue = undefined;
+            if(answerID === '0'){
+              optionValue = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('option')].filter((option) => {
+                return option.innerText === answer;
+              })[0].value;
+            }else{
+              optionValue = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('option')].filter((option) => {
+                return option.value === answer;
+              })[0].value;
+            }
+            document.querySelector(`#${divID}`).closest('table').querySelector('select').value = optionValue;
+          });
+        break;
+        default:
+
+      }
+
+      
   }catch(error){
     console.log(error);
   }
