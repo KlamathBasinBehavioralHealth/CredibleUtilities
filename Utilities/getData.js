@@ -86,9 +86,7 @@ async function loadMostRecentQuestion(clientID, divID){
                 return option.innerText === answer;
               })[0].value;
             }else{
-              optionValue = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('option')].filter((option) => {
-                return option.value === answer;
-              })[0].value;
+              optionValue = answer;
             }
             document.querySelector(`#${divID}`).closest('table').querySelector('select').value = optionValue;
           });
