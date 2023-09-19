@@ -91,7 +91,7 @@ async function loadMostRecentAnswer(clientID, divID){
   }
 }
 
-function loadMostRecentQuestions(){
+function loadMostRecentQuestions(clientID){
   document.querySelectorAll('.loadPreviousAnswer').forEach((question) => {
     let divID = question.getAttribute('id');
     loadMostRecentAnswer(clientID, divID);
@@ -100,5 +100,5 @@ function loadMostRecentQuestions(){
 
 document.addEventListener('DOMContentLoaded', () => {
   let clientID = getClientID();
-  loadMostRecentQuestions();
+  loadMostRecentQuestions(clientID);
 });
