@@ -57,6 +57,7 @@ async function loadMostRecentAnswer(clientID, divID){
     let timeDate = result.documentElement.querySelector('rev_timein').innerHTML;
     switch(questionType){
       case 'CB':
+      case 'RB':
         [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
           let answer = table.querySelector('answer').innerHTML;
           [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
@@ -83,14 +84,6 @@ async function loadMostRecentAnswer(clientID, divID){
             optionValue = answer;
           }
           document.querySelector(`#${divID}`).closest('table').querySelector('select').value = optionValue;
-        });
-      break;
-      case 'RB':
-        [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
-          let answer = table.querySelector('answer').innerHTML;
-          [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
-            return element.innerHTML.includes(answer);
-          })[0].querySelector('input').checked = true;
         });
       break;
       case 'CAL':
