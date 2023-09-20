@@ -91,11 +91,15 @@ async function loadMostRecentAnswer(clientID, divID){
         try{
           let answer = result.documentElement.querySelector('answer').innerHTML;
           if(answer){
-            document.querySelector(`#${divID}`).closest('table').querySelector('input').checked = true;
+            if(!document.querySelector(`#${divID}`).closest('table').querySelector('input').checked){
+              document.querySelector(`#${divID}`).closest('table').querySelector('input').click();
+            }
           }
         }catch(error){
           console.log(error);
-          document.querySelector(`#${divID}`).closest('table').querySelector('input').checked = false;
+          if(document.querySelector(`#${divID}`).closest('table').querySelector('input').checked){
+            document.querySelector(`#${divID}`).closest('table').querySelector('input').click();
+          }
         }
       break;
       case 'PB':
