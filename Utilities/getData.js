@@ -53,6 +53,8 @@ async function loadMostRecentAnswer(clientID, divID){
     thing = result;
     let questionType = result.documentElement.querySelector('question_format').innerHTML;
     let answerIDType = result.documentElement.querySelector('answer_id').innerHTML;
+    let visitType = result.documentElement.querySelector('visittype').innerHTML;
+    let timeDate = result.documentElement.querySelector('rev_timein').innerHTML;
     switch(questionType){
       case 'CB':
         [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
@@ -82,6 +84,23 @@ async function loadMostRecentAnswer(clientID, divID){
           }
           document.querySelector(`#${divID}`).closest('table').querySelector('select').value = optionValue;
         });
+      break;
+      case 'RB':
+        [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+          let answer = table.querySelector('answer').innerHTML;
+          [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
+            return element.innerHTML.includes(answer);
+          })[0].querySelector('input').checked = true;
+        });
+      break;
+      case 'CAL':
+
+      break;
+      case 'NLC':
+
+      break;
+      case 'PB':
+
       break;
       default:
         console.log('WHO AM I?!!!');
