@@ -67,13 +67,13 @@ async function loadMostRecentAnswer(clientID, divID){
       break;
       case 'CAL':
       case 'TXT':
-        [...thing.documentElement.querySelectorAll('Table')].forEach((table) => {
+        [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
           let answer = table.querySelector('answer').innerHTML;
           document.querySelector(`#${divID}`).closest('table').querySelector('input').value = answer;
         });
       break;
       case 'DD':
-        [...thing.documentElement.querySelectorAll('Table')].forEach((table) => {
+        [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
           let answer = table.querySelector('answer').innerHTML;
           let answerID = table.querySelector('answer_id').innerHTML;
           let optionValue = undefined;
@@ -89,7 +89,7 @@ async function loadMostRecentAnswer(clientID, divID){
       break;
       case 'NLC':
         try{
-          let answer = table.querySelector('answer').innerHTML;
+          let answer = result.documentElement.querySelector('answer').innerHTML;
           if(answer){
             document.querySelector(`#${divID}`).closest('table').querySelector('input').checked = true;
           }
