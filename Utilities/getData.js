@@ -88,7 +88,15 @@ async function loadMostRecentAnswer(clientID, divID){
         });
       break;
       case 'NLC':
-
+        try{
+          let answer = table.querySelector('answer').innerHTML;
+          if(answer){
+            document.querySelector(`#${divID}`).closest('table').querySelector('input').checked = true;
+          }
+        }catch(error){
+          console.log(error);
+          document.querySelector(`#${divID}`).closest('table').querySelector('input').checked = false;
+        }
       break;
       case 'PB':
 
