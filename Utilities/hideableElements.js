@@ -58,7 +58,7 @@ function getOptionValue(select, optionText){
 }
 
 function checkConditionsHeader(mode, textMode, inputs, selects, texts, conditions, header){
-  tru{
+  try{
     let isChecked = false;
     let isSelected = false;
     let isTexted = false;
