@@ -49,7 +49,6 @@ function getOptionValue(select, optionText){
   let found = false;
   let value = undefined;
   [...select.querySelectorAll('option')].map((option) => {
-      //console.log(option.innerText);
       if(option.innerText == optionText){
           found = true;
           value = option.value;
@@ -59,137 +58,127 @@ function getOptionValue(select, optionText){
 }
 
 function checkConditionsHeader(mode, textMode, inputs, selects, texts, conditions, header){
-  let isChecked = false;
-  let isSelected = false;
-  let isTexted = false;
-  let conditionValues = [];
+  tru{
+    let isChecked = false;
+    let isSelected = false;
+    let isTexted = false;
+    let conditionValues = [];
 
-  selects.forEach(select => {
-    conditions.forEach(condition => {
-      if(getOptionValue(select, condition)){
-        conditionValues.push(getOptionValue(select, condition));
+    selects.forEach(select => {
+      conditions.forEach(condition => {
+        if(getOptionValue(select, condition)){
+          conditionValues.push(getOptionValue(select, condition));
+        }
+      });
+    });
+    
+    inputs.forEach(input => {
+      if(input.checked){
+          isChecked = true;
       }
     });
-  });
-  
-  inputs.forEach(input => {
-    if(input.checked){
-        isChecked = true;
-    }
-  });
-  
-  selects.forEach(input => {
-    if([...conditionValues].includes(input.value)){
-        isSelected = true;
-    }
-  });
+    
+    selects.forEach(input => {
+      if([...conditionValues].includes(input.value)){
+          isSelected = true;
+      }
+    });
 
-  texts.forEach(text => {
-    if(textMode == 'match'){
-      if([...conditions].includes(text.value)){
-        isTexted = true;
+    texts.forEach(text => {
+      if(textMode == 'match'){
+        if([...conditions].includes(text.value)){
+          isTexted = true;
+        }
+      }
+      if(textMode == 'any'){
+        if(text.value){
+          isTexted = true;
+        }
+      }
+    });
+
+    if(isChecked || isSelected || isTexted){
+      if(mode == 'showOnTrue'){
+        hideShowHideableHeader('show', header);
+        return true;
+      }else if (mode == 'hideOnTrue'){
+        hideShowHideableHeader('hide', header);
+        return false;
+      }
+    }else{
+      if(mode == 'showOnTrue'){
+        hideShowHideableHeader('hide', header);
+        return false;
+      }else if (mode == 'hideOnTrue'){
+        hideShowHideableHeader('show', header);
+        return true;
       }
     }
-    if(textMode == 'any'){
-      if(text.value){
-        isTexted = true;
-      }
-    }
-  });
-
-  if(isChecked || isSelected || isTexted){
-    if(mode == 'showOnTrue'){
-      hideShowHideableHeader('show', header);
-      return true;
-    }else if (mode == 'hideOnTrue'){
-      hideShowHideableHeader('hide', header);
-      return false;
-    }
-  }else{
-    if(mode == 'showOnTrue'){
-      hideShowHideableHeader('hide', header);
-      return false;
-    }else if (mode == 'hideOnTrue'){
-      hideShowHideableHeader('show', header);
-      return true;
-    }
-  }
+  }catch(error){
+    console.log(error);
+  }  
 }
 
 function hideableHeaderSetDrivers(){
-  [...document.querySelectorAll('.hideableHeader')].map((header) => {
-    let mode = header.getAttribute('mode');
-    let textMode = '';
-    try{
-      textMode = header.getAttribute('textMode');
-    }catch(error){
-      console.log(error);
-    }
-    let inputDriverArray = [];
-    let selectDriverArray = [];
-    let textDriverArray = [];
-    let conditionArray = [] ;
-
-    try{
-      [...header.getAttribute('condition').split(';')].map((condition) => {
-        conditionArray.push(condition);
-      });
-    }catch(error){
-      console.log(error);
-    }
-
-    [...header.getAttribute('driver').split(' ')].map((driver) => {
-      let element = null;
-      if(document.querySelector(`#${driver}`).closest('tr').querySelector('input, select')){
-        element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
-      }else{
-        if(document.querySelector(`#${driver}`).closest('table').querySelector('input, select')){
-          element = document.querySelector(`#${driver}`).closest('table').querySelector('input, select');
-        }
-      }      
-      document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
+  try{
+    [...document.querySelectorAll('.hideableHeader')].map((header) => {
+      let mode = header.getAttribute('mode');
+      let textMode = '';
       try{
-        if(element.tagName == 'INPUT'){
-          if(element.type == 'checkbox' || element.type == 'radio'){
-            inputDriverArray.push(element);
-          }else{
-            textDriverArray.push(element);
-          }
-        }else if(element.tagName == 'SELECT'){
-          selectDriverArray.push(element);
-        }
+        textMode = header.getAttribute('textMode');
       }catch(error){
-        element = document.querySelector(`#${driver}`).closest('tbody').querySelector('input, select');
-        if(element.tagName == 'SELECT'){
-          selectDriverArray.push(element);
-        }
+        console.log(error);
       }
-    }); 
+      let inputDriverArray = [];
+      let selectDriverArray = [];
+      let textDriverArray = [];
+      let conditionArray = [] ;
 
-    /* inputDriverArray.map((element) => {
-      element.addEventListener('change', (event) => {
-        checkConditionsHeader(mode, inputDriverArray, selectDriverArray, conditionArray, header);
-      });
-      element.addEventListener('mouseleave', (event) => {
-        checkConditionsHeader(mode, inputDriverArray, selectDriverArray, conditionArray, header);
-      });
-    });
+      try{
+        [...header.getAttribute('condition').split(';')].map((condition) => {
+          conditionArray.push(condition);
+        });
+      }catch(error){
+        console.log(error);
+      }
 
-    selectDriverArray.map((element) => {
-      element.addEventListener('change', (event) => {
-        checkConditionsHeader(mode, inputDriverArray, selectDriverArray, conditionArray, header);
+      [...header.getAttribute('driver').split(' ')].map((driver) => {
+        let element = null;
+        if(document.querySelector(`#${driver}`).closest('tr').querySelector('input, select')){
+          element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
+        }else{
+          if(document.querySelector(`#${driver}`).closest('table').querySelector('input, select')){
+            element = document.querySelector(`#${driver}`).closest('table').querySelector('input, select');
+          }
+        }      
+        document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
+        try{
+          if(element.tagName == 'INPUT'){
+            if(element.type == 'checkbox' || element.type == 'radio'){
+              inputDriverArray.push(element);
+            }else{
+              textDriverArray.push(element);
+            }
+          }else if(element.tagName == 'SELECT'){
+            selectDriverArray.push(element);
+          }
+        }catch(error){
+          element = document.querySelector(`#${driver}`).closest('tbody').querySelector('input, select');
+          if(element.tagName == 'SELECT'){
+            selectDriverArray.push(element);
+          }
+        }
       });
-      element.addEventListener('mouseleave', (event) => {
-        checkConditionsHeader(mode, inputDriverArray, selectDriverArray, conditionArray, header);
-      });
-    }); */
 
-    setInterval(() => {
+      setInterval(() => {
+        checkConditionsHeader(mode, textMode, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, header);
+      }, intervalTime);
+    
       checkConditionsHeader(mode, textMode, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, header);
-    }, intervalTime);
-   
-    checkConditionsHeader(mode, textMode, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, header);
-  });
+    });
+  }catch(error){
+    console.log(error);
+  }  
 }
 
 function hideShowHideableHeader(hideShow = 'hide', header){  
@@ -204,136 +193,127 @@ function hideShowHideableHeader(hideShow = 'hide', header){
 }
 
 function checkConditionsQuestion(mode, textMode, requireOnShow, inputs, selects, texts, conditions, question){
-  let isChecked = false;
-  let isSelected = false;
-  let isTexted = false;
-  let conditionValues = [];
+  try{
+    let isChecked = false;
+    let isSelected = false;
+    let isTexted = false;
+    let conditionValues = [];
 
-  selects.forEach(select => {
-    conditions.forEach(condition => {
-      if(getOptionValue(select, condition)){
-        conditionValues.push(getOptionValue(select, condition));
+    selects.forEach(select => {
+      conditions.forEach(condition => {
+        if(getOptionValue(select, condition)){
+          conditionValues.push(getOptionValue(select, condition));
+        }
+      });
+    });
+    
+    inputs.forEach(input => {
+      if(input.checked){
+          isChecked = true;
       }
     });
-  });
-  
-  inputs.forEach(input => {
-    if(input.checked){
-        isChecked = true;
-    }
-  });
-  
-  selects.forEach(input => {
-    if([...conditionValues].includes(input.value)){
-        isSelected = true;
-    }
-  });
+    
+    selects.forEach(input => {
+      if([...conditionValues].includes(input.value)){
+          isSelected = true;
+      }
+    });
 
-  texts.forEach(text => {
-    if(textMode == 'match'){
-      if([...conditions].includes(text.value)){
-        isTexted = true;
+    texts.forEach(text => {
+      if(textMode == 'match'){
+        if([...conditions].includes(text.value)){
+          isTexted = true;
+        }
+      }
+      if(textMode == 'any'){
+        if(text.value){
+          isTexted = true;
+        }
+      }
+    });
+
+    if(isChecked || isSelected || isTexted){
+      if(mode == 'showOnTrue'){
+        hideShowHideableQuestion('show', question, requireOnShow);
+        return true;
+      }else if (mode == 'hideOnTrue'){
+        hideShowHideableQuestion('hide', question);
+        return false;
+      }
+    }else{
+      if(mode == 'showOnTrue'){
+        hideShowHideableQuestion('hide', question);
+        return false;
+      }else if (mode == 'hideOnTrue'){
+        hideShowHideableQuestion('show', question, requireOnShow);
+        return true;
       }
     }
-    if(textMode == 'any'){
-      if(text.value){
-        isTexted = true;
-      }
-    }
-  });
-
-  if(isChecked || isSelected || isTexted){
-    if(mode == 'showOnTrue'){
-      hideShowHideableQuestion('show', question, requireOnShow);
-      return true;
-    }else if (mode == 'hideOnTrue'){
-      hideShowHideableQuestion('hide', question);
-      return false;
-    }
-  }else{
-    if(mode == 'showOnTrue'){
-      hideShowHideableQuestion('hide', question);
-      return false;
-    }else if (mode == 'hideOnTrue'){
-      hideShowHideableQuestion('show', question, requireOnShow);
-      return true;
-    }
+  }catch(error){
+    console.log(error);
   }
 }
 
 function hideableQuestionSetDrivers(){
-  [...document.querySelectorAll('.hideableQuestion')].map((question) => {
-    let mode = question.getAttribute('mode');
-    let textMode = '';
-    try{
-      textMode = question.getAttribute('textMode');
-    }catch(error){
-      console.log(error);
-    }
-    let requireOnShow = JSON.parse(question.getAttribute('requireOnShow'));
-    let inputDriverArray = [];
-    let selectDriverArray = [];
-    let textDriverArray = [];
-    let conditionArray = [] ;
-
-    try{
-      [...question.getAttribute('condition').split(';')].map((condition) => {
-        conditionArray.push(condition);
-      });
-    }catch(error){
-      console.log(error);
-    }
-
-    [...question.getAttribute('driver').split(' ')].map((driver) => {
-      let element = null;
-      if(document.querySelector(`#${driver}`).closest('tr').querySelector('input, select')){
-        element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
-      }else{
-        if(document.querySelector(`#${driver}`).closest('table').querySelector('input, select')){
-          element = document.querySelector(`#${driver}`).closest('table').querySelector('input, select');
-        }
-      } 
+  try{
+    [...document.querySelectorAll('.hideableQuestion')].map((question) => {
+      let mode = question.getAttribute('mode');
+      let textMode = '';
       try{
-        if(element.tagName == 'INPUT'){
-          if(element.type == 'checkbox' || element.type == 'radio'){
-            inputDriverArray.push(element);
-          }else{
-            textDriverArray.push(element);
-          }
-        }else if(element.tagName == 'SELECT'){
-          selectDriverArray.push(element);
-        }
+        textMode = question.getAttribute('textMode');
       }catch(error){
-        element = document.querySelector(`#${driver}`).closest('tbody').querySelector('input, select');
-        if(element.tagName == 'SELECT'){
-          selectDriverArray.push(element);
-        }
+        console.log(error);
       }
-    });
+      let requireOnShow = JSON.parse(question.getAttribute('requireOnShow'));
+      let inputDriverArray = [];
+      let selectDriverArray = [];
+      let textDriverArray = [];
+      let conditionArray = [] ;
 
-    /* inputDriverArray.map((element) => {
-      element.addEventListener('change', (event) => {
-        checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, question);
-      });
-      element.addEventListener('mouseleave', (event) => {
-        checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, question);
-      });
-    });
+      try{
+        [...question.getAttribute('condition').split(';')].map((condition) => {
+          conditionArray.push(condition);
+        });
+      }catch(error){
+        console.log(error);
+      }
 
-    selectDriverArray.map((element) => {
-      element.addEventListener('change', (event) => {
-        checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, question);
+      [...question.getAttribute('driver').split(' ')].map((driver) => {
+        let element = null;
+        if(document.querySelector(`#${driver}`).closest('tr').querySelector('input, select')){
+          element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
+        }else{
+          if(document.querySelector(`#${driver}`).closest('table').querySelector('input, select')){
+            element = document.querySelector(`#${driver}`).closest('table').querySelector('input, select');
+          }
+        } 
+        try{
+          if(element.tagName == 'INPUT'){
+            if(element.type == 'checkbox' || element.type == 'radio'){
+              inputDriverArray.push(element);
+            }else{
+              textDriverArray.push(element);
+            }
+          }else if(element.tagName == 'SELECT'){
+            selectDriverArray.push(element);
+          }
+        }catch(error){
+          element = document.querySelector(`#${driver}`).closest('tbody').querySelector('input, select');
+          if(element.tagName == 'SELECT'){
+            selectDriverArray.push(element);
+          }
+        }
       });
-      element.addEventListener('mouseleave', (event) => {
-        checkConditionsQuestion(mode, requireOnShow, inputDriverArray, selectDriverArray, conditionArray, question);
-      });
-    }); */
-    setInterval(() => {
+
+      setInterval(() => {
+        checkConditionsQuestion(mode, textMode, requireOnShow, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, question);
+      }, intervalTime);
+    
       checkConditionsQuestion(mode, textMode, requireOnShow, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, question);
-    }, intervalTime);
-   
-    checkConditionsQuestion(mode, textMode, requireOnShow, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, question);
-  });
+    });
+  }catch(error){
+    console.log(error);
+  }
 }
 
 function hideShowHideableQuestion(hideShow = 'hide', question, requireOnShow = false){  
@@ -351,30 +331,6 @@ function requireTextareas(){
       let input = element.closest('table').querySelector('input, select')
       let textarea = element.closest('table').closest('tr').nextElementSibling.querySelector('textarea');
 
-      /* input.addEventListener('change', event => {
-        if(checkRedAsterisk(textarea)){
-          textarea.nextSibling.remove();
-        }
-        if(window.getComputedStyle(textarea.closest('table')).display == 'table'){
-          textarea.required = true;
-          textarea.after(createRedAsterisk());
-        }else if(window.getComputedStyle(textarea.closest('table')).display == 'none'){
-          textarea.required = false;
-        }
-        console.log('Change event.');
-      });
-      input.addEventListener('mouseleave', event => {
-        if(checkRedAsterisk(textarea)){
-          textarea.nextSibling.remove();
-        }
-        if(window.getComputedStyle(textarea.closest('table')).display == 'table'){
-          textarea.required = true;
-          textarea.after(createRedAsterisk());
-        }else if(window.getComputedStyle(textarea.closest('table')).display == 'none'){
-          textarea.required = false;
-        }
-        console.log('Mouseleave event.');
-      }); */
       setInterval(() => {
         if(checkRedAsterisk(textarea)){
           textarea.nextSibling.remove();
