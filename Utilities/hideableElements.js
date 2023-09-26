@@ -358,10 +358,17 @@ function requireTextareas(){
   });
 }
 
+function loadHide(){
+  [...document.querySelectorAll('.hideOnLoad')].forEach((element) => {
+      visibility('hide', element);    
+  });
+}
+
 window.addEventListener('load', (event) =>{
   headerButtons();
   hideableHeaderSetDrivers();
   hideableQuestionSetDrivers();
   requireTextareas();
-  console.log('Window onload event.');
+  loadHide();
+  console.log('Hideable elements load event.');
 });
