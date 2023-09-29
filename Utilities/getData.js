@@ -104,7 +104,17 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode){
         }
       break;
       case 'PB':
-
+        try{
+          let answer = result.documentElement.querySelector('answer').innerHTML;
+          let target = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('input:not([type=hidden])')].filter((input) => {
+            return input.value == answer;
+          })[0];
+          if(target.style.backgroundColor == 'white' || target.style.backgroundColor == 'rgb(255, 255, 255)'){
+            target.click();
+          }
+        }catch(error){
+          console.log(error);
+        }
       break;
       default:
         console.log('WHO AM I?!!!');
