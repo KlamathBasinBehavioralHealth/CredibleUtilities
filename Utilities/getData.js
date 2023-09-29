@@ -1,8 +1,9 @@
 const connectionString =
   "LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eo6Xujb93cLI0fLowwDKI2";
+const defaultMode = 'visit';
 
-function setURL(newConnectionString, newClientID, newDivID){
-    url = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=${newConnectionString}&start_date=&end_date=&custom_param1=${newClientID}&custom_param2=${newDivID}&custom_param3=`;
+function setURL(newConnectionString, newClientID, newDivID, newMode = defaultMode){
+    url = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=${newConnectionString}&start_date=&end_date=&custom_param1=${newClientID}&custom_param2=${newDivID}&custom_param3=${newMode}`;
 }
 
 function getClientID(){
@@ -46,8 +47,8 @@ function getData(url) {
 
 let thing = undefined;
 
-async function loadMostRecentAnswer(clientID, divID){
-  setURL(connectionString, clientID, divID);
+async function loadMostRecentAnswer(clientID, divID, mode = defaultMode){
+  setURL(connectionString, clientID, divID, mode);
   try{
     let result = await getData(url);
     thing = result;
@@ -116,7 +117,14 @@ async function loadMostRecentAnswer(clientID, divID){
 function loadMostRecentQuestions(clientID){
   document.querySelectorAll('.loadPreviousAnswer').forEach((question) => {
     let divID = question.getAttribute('id');
-    loadMostRecentAnswer(clientID, divID);
+    let mode = undefined; 
+    try{
+      mode = question.getAttribute('mode');
+    }catch(error){
+      mode = defaultMode;
+    }
+
+    loadMostRecentAnswer(clientID, divID, mode);
   });
 }
 
