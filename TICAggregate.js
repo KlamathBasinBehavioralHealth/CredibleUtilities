@@ -718,6 +718,9 @@ async function forceTemplateSubmit(){
 
 async function formSubmit() {
   if (document.querySelectorAll('.frame').length > 0) {
+    await forceTemplateSubmit().catch((error) => {
+      console.log(error);
+    });
     unrequireAll().then(() => {
       submitFrames().then(() => {
         deleteFrames().then(() => {
