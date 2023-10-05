@@ -112,10 +112,10 @@ async function lookForBlankTxPlan(){
         if(program == crisis || document.querySelector('h1').innerText == crisisAssessment){
           try{
             let today = new Date();
-            let formattedToday = `${today.getMonth() < 10 ? '0' : ''}${today.getMonth() + 1}/${today.getDate() < 10 ? '0' : ''}${today.getDate()}/${today.getFullYear()}`;
+            let formattedToday = `${today.getMonth() < 9 ? '0' : ''}${today.getMonth() + 1}/${today.getDate() < 10 ? '0' : ''}${today.getDate()}/${today.getFullYear()}`;
             let nextYear = new Date();
             nextYear.setDate(today.getDate() + 30);
-            let formattedNextYear = `${nextYear.getMonth() < 10 ? '0' : ''}${nextYear.getMonth() + 1}/${nextYear.getDate() < 10 ? '0' : ''}${nextYear.getDate()}/${nextYear.getFullYear()}`;
+            let formattedNextYear = `${nextYear.getMonth() < 9 ? '0' : ''}${nextYear.getMonth() + 1}/${nextYear.getDate() < 10 ? '0' : ''}${nextYear.getDate()}/${nextYear.getFullYear()}`;
 
             document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_txtStartDate').value = formattedToday;
 
