@@ -647,49 +647,31 @@ async function deleteFrames() {
   return Promise.all(promises);
 }
 
-if(typeof waitForIt !== 'function'){
-  function waitForIt (target){
-      return new Promise((resolve) => {
-          
-          if(target !== null && target !== undefined){
-              console.log(target);
-              return resolve(target);
-          }
-          
-          const observer = new MutationObserver(mutations => {
-              if (target !== null && target !== undefined) {
-                  observer.disconnect();
-                  console.log(target);
-                  resolve(target);
-              }
-          });
-
-          observer.observe(document.body, {
-              childList: true,
-              subtree: true
-          });
-      });
-  }  
+function overrideTemplateValidatorAggregate(){
+  document.querySelector('#assessment').contentDocument.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').replaceWith(document.querySelector('#assessment').contentDocument.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').cloneNode(true));
 }
 
 async function forceTemplateSubmit(){
   return new Promise(async (resolve, reject) => {
       try{
-          overrideTemplateValidator();
-          document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnSave').click();
-          document.querySelector('#txPlanModule').addEventListener('load',async () => {
-              await waitForIt(document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnNewTX2'));
-              return resolve('Found it');
-          });
+        overrideTemplateValidatorAggregate();
+        document.querySelector('#assessment').contentDocument.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnSave').click();
+        document.querySelector('#assessment').contentDocument.querySelector('#txPlanModule').addEventListener('load',async () => {
+            await waitForIt(document.querySelector('#assessment').contentDocument.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnNewTX2'));
+            return resolve('Found it');
+        });
       }catch(error){
-          console.log(error);
-          reject('Doom');
+        console.log(error);
+        reject('Doom');
       }
   });
 }
 
 async function formSubmit() {
   if (document.querySelectorAll('.frame').length > 0) {
+    await forceTemplateSubmit().catch((error) => {
+      console.log(error);
+    });
     unrequireAll().then(() => {
       submitFrames().then(() => {
         deleteFrames().then(() => {
@@ -697,7 +679,7 @@ async function formSubmit() {
         });
       });
     });
-  } else {
+  }else{
     await forceTemplateSubmit().catch((error) => {
       console.log(error);
     });
