@@ -700,9 +700,9 @@ async function forceTemplateSubmit(){
   return new Promise(async (resolve, reject) => {
       try{
           overrideTemplateValidator();
-          document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnSave').click();
-          document.querySelector('#txPlanModule').addEventListener('load',async () => {
-              await waitForIt(document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnNewTX2'));
+          document.querySelector('#assessment').contentDocument.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnSave').click();
+          document.querySelector('#assessment').contentDocument.querySelector('#txPlanModule').addEventListener('load',async () => {
+              await waitForIt(document.querySelector('#assessment').contentDocument.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnNewTX2'));
               return resolve('Found it');
           });
       }catch(error){
