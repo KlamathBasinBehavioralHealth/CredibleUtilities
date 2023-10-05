@@ -697,11 +697,7 @@ if(typeof waitForIt !== 'function'){
 }
 
 function overrideTemplateValidatorAggregate(){
-  document.querySelector('#assessment').contentDocument.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').removeEventListener('click', templateValidator);
-}
-
-function templateValidator(){
-  
+  document.querySelector('#assessment').contentDocument.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').replaceWith(document.querySelector('#assessment').contentDocument.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').cloneNode(true));
 }
 
 async function forceTemplateSubmit(){
