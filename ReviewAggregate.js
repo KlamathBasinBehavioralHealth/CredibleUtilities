@@ -646,7 +646,49 @@ async function deleteFrames() {
   });
   return Promise.all(promises);
 }
-function formSubmit() {
+
+if(typeof waitForIt !== 'function'){
+  function waitForIt (target){
+      return new Promise((resolve) => {
+          
+          if(target !== null && target !== undefined){
+              console.log(target);
+              return resolve(target);
+          }
+          
+          const observer = new MutationObserver(mutations => {
+              if (target !== null && target !== undefined) {
+                  observer.disconnect();
+                  console.log(target);
+                  resolve(target);
+              }
+          });
+
+          observer.observe(document.body, {
+              childList: true,
+              subtree: true
+          });
+      });
+  }  
+}
+
+async function forceTemplateSubmit(){
+  return new Promise(async (resolve, reject) => {
+      try{
+          overrideTemplateValidator();
+          document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnSave').click();
+          document.querySelector('#txPlanModule').addEventListener('load',async () => {
+              await waitForIt(document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnNewTX2'));
+              return resolve('Found it');
+          });
+      }catch(error){
+          console.log(error);
+          reject('Doom');
+      }
+  });
+}
+
+async function formSubmit() {
   if (document.querySelectorAll('.frame').length > 0) {
     unrequireAll().then(() => {
       submitFrames().then(() => {
@@ -656,8 +698,11 @@ function formSubmit() {
       });
     });
   } else {
-    unrequireAll(document).then(() => {
-      document.querySelector('#oldComplete').click();
+    await forceTemplateSubmit().catch((error) => {
+      console.log(error);
+    });
+    unrequireAll(document).then(async () => {
+        document.querySelector('#oldComplete').click();
     });
   }
 }
