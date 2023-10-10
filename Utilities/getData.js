@@ -13,11 +13,15 @@ function getClientID(){
   }catch(error){
     console.log(error);    
   }
-  try{
-    clientID = parent.document.querySelector('frame[id=left]').contentDocument.querySelector('#client_id').value;
-  }catch(error){
-    console.log(error);
+  
+  if(clientID == undefined){
+    try{
+      clientID = parent.document.querySelector('frame[id=left]').contentDocument.querySelector('#client_id').value;
+    }catch(error){
+      console.log(error);
+    }
   }
+
   if(clientID == undefined){
     clientID = '200079';
   }
