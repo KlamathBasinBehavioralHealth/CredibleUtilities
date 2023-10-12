@@ -82,6 +82,9 @@ async function startUp(){
     visibility('hide', '.adminUse');
     reviewRedX();
     document.querySelector('#withinTxPlan').closest('table').querySelector('select').addEventListener('change', reviewRedX);
+    [...document.querySelector('#serviceProvided').closest('table').querySelectorAll('input')].forEach((input) => {
+      input.addEventListener('change', reviewRedX);    
+    });
     document.querySelector('[name=Complete]').addEventListener('click', reviewRedX);
   }, 500);
 }
