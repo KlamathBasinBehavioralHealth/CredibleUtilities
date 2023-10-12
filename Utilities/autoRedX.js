@@ -1,8 +1,9 @@
 let visitType; 
 let data; 
-let tempVisitID; 
+let tempVisitID;
 let currentIntervention;
 let parsedString; 
+let result;
 
 if(typeof waitForElementInterval === 'undefined'){
   function waitForElementInterval (target, interval = 500){
@@ -49,8 +50,8 @@ function removeRedX(){
 
 function checkScope(){
   try{
-      let target = [...document.querySelector('#withinTxPlan').closest('table').querySelectorAll('option')].filter(element => element.innerText.includes('No'))[0].value;
-    if(document.querySelector('#withinTxPlan').closest('table').querySelector('select').value == target){
+    let target = [...document.querySelector('#withinTxPlan').closest('table').querySelectorAll('option')].filter(element => element.innerText.includes('No'))[0].value;
+    if(document.querySelector('#withinTxPlan').closest('table').querySelector('select').value == target && $('#serviceProvided').closest('table').find('#careNavigation').closest('tr').find('input').prop('checked')){
       console.log('Out of scope.');
       return true;
     }
@@ -87,35 +88,38 @@ async function startUp(){
 
 startUp();
 
-/* $('document').ready(function(){ 
-  getVisitType(); 
-  checkInterventions();      
-  $('#serviceProvided').closest('table').find('input').change(checkInterventions);
-});   */
+function getData(url) {
+  return new Promise((resolve, reject) => {
+    try {
+      fetch(url)
+        .then((response) => response.text())
+        .then((xmlString) => {
+          const parser = new DOMParser();
+          xmlString = xmlString.replaceAll(/<string\b[^>]*>(?:.*?)|<\/string>|<\/string>|&lt;\/?Table&gt;|\n/g, '').replaceAll(/\s+/g, ' ').replaceAll('&lt;', '<').replaceAll('&gt;', '>');
+          let xmlResult = parser.parseFromString(xmlString, "application/xml");
+          resolve(xmlResult);
+        })
+        .catch((error) => {
+          console.log(error);
+
+          resolve("Could not fetch data.");
+        });
+    } catch (error) {
+      console.log(error);
+
+      resolve("Could not fetch data.");
+    }
+  });
+}
 
 async function getVisitType(){   
   $('#automationMessage').closest('table').find('input').prop('checked', false); 
+  tempVisitID = window.parent.document.querySelector('frame[name=left]').contentDocument.querySelector('#visitId').value;
   try {      
-    await waitForElementInterval(window.parent[0].$('input[id=visitId]').val());     
-    tempVisitID = window.parent[0].$('input[id=visitId]').val();     
-    data = $.getJSON(`https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eaKmY5yrn8bybVnZc2VMjJ&start_date=&end_date=&custom_param1=${tempVisitID}&custom_param2=&custom_param3=`);
-    try{
-        parsedString = data.responseText.replace('<string xmlns="https://www.crediblebh.com/">', '').replace('</string>', '');
-        parsedString = parsedString.replaceAll('&lt;', '<').replaceAll('&gt;', '>').replaceAll('<Table>', '').replaceAll('</Table>', '').replaceAll('\\"', '"').replaceAll('\r', '').replaceAll('\n', '');
-      let xmlJS = new X2JS();
-      let convertedJSON = xmlJS.xml2js(parsedString);
-      visitType = convertedJSON.NewDataSet.visittype;
-    }catch(error){
-      console.log(error);
-      visitType = 'Test';
-    }
+    result = await getData(url);
+    visitType = result.documentElement.querySelector('visittype').innerHTML;
   }catch(error){  
     console.log(error); 
-    try{
-      console.log(data.status);
-    }catch(error){
-      console.log(error);
-    }
     $('#automationMessage').closest('table').find('input').prop('checked', true); 
   } 
 }
