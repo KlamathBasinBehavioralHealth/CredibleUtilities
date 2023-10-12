@@ -51,7 +51,7 @@ function removeRedX(){
 function checkScope(){
   try{
     let target = [...document.querySelector('#withinTxPlan').closest('table').querySelectorAll('option')].filter(element => element.innerText.includes('No'))[0].value;
-    if(document.querySelector('#withinTxPlan').closest('table').querySelector('select').value == target && $('#serviceProvided').closest('table').find('#careNavigation').closest('tr').find('input').prop('checked')){
+    if(document.querySelector('#withinTxPlan').closest('table').querySelector('select').value == target && !$('#serviceProvided').closest('table').find('#careNavigation').closest('tr').find('input').prop('checked')){
       console.log('Out of scope.');
       return true;
     }
