@@ -213,7 +213,7 @@ async function loadTempVisitAnswer(tempVisitID, divID){
       case 'RB':
         [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
           let answer = table.querySelector('answer').innerHTML;
-          answer = scrubAnwser(answer);
+          answer = scrubAnswer(answer);
           answer = extractInnerText(answer);
           [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
             return element.innerHTML.includes(answer);
