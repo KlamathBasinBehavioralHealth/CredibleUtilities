@@ -167,7 +167,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode){
 function scrubAnswer(answer){
   var entityRegex = /&amp;lt;|&lt;|&amp;gt;|&gt;|&amp;\/|&\//g;
 
-  var result = inputString.replace(entityRegex, function (match) {
+  var result = answer.replace(entityRegex, function (match) {
     switch (match) {
       case "&amp;lt;":
         return "<";
