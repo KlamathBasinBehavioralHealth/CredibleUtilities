@@ -192,7 +192,7 @@ function scrubAnswer(answer){
 function extractInnerText(string){
   var tempDiv = document.createElement('div');
   
-  tempDiv.innerHTML = htmlString;
+  tempDiv.innerHTML = string;
 
   var innerText = tempDiv.innerText;
 
