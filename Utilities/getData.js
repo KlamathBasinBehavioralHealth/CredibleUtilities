@@ -1,17 +1,21 @@
 const connectionString =
   "LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eo6Xujb93cLI0fLowwDKI2";
 
-  const defaultMode = 'visit';
+const defaultMode = 'visit';
 
-  function setURL(newConnectionString, newClientID, newDivID, newMode = defaultMode){
+let url = undefined;
+
+function setURL(newConnectionString, newClientID, newDivID, newMode = defaultMode){
   url = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=${newConnectionString}&start_date=&end_date=&custom_param1=${newClientID}&custom_param2=${newDivID}&custom_param3=${newMode}`;
 }
 
 const connectionString2 =
   "oCvUCZJCI!ExsUFMSM3US3ODuss0!MTmamK3bps9-Rt1a6C1KwvBUgHwlwVgSYJo";
 
+let url2 = undefined;
+
 function setURL2(newConnectionString, newTempVisitID, newDivID){
-  url = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=${newConnectionString}&start_date=&end_date=&custom_param1=${newTempVisitID}&custom_param2=${newDivID}&custom_param3=`;
+  url2 = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=${newConnectionString}&start_date=&end_date=&custom_param1=${newTempVisitID}&custom_param2=${newDivID}&custom_param3=`;
 }
 
 function getClientID(){
@@ -163,7 +167,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode){
 async function loadTempVisitAnswer(tempVisitID, divID){
   setURL(connectionString2, tempVisitID, divID);
   try{
-    let result = await getData(url);
+    let result = await getData(url2);
     thing = result;
     let questionType = result.documentElement.querySelector('question_format').innerHTML;
     
