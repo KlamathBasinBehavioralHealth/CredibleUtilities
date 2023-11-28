@@ -165,7 +165,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode){
 }
 
 async function loadTempVisitAnswer(tempVisitID, divID){
-  setURL(connectionString2, tempVisitID, divID);
+  setURL2(connectionString2, tempVisitID, divID);
   try{
     let result = await getData(url2);
     thing = result;
