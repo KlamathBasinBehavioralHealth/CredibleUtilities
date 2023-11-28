@@ -164,6 +164,43 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode){
   }
 }
 
+function scrubAnswer(answer){
+  var entityRegex = /&amp;lt;|&lt;|&amp;gt;|&gt;|&amp;\/|&\//g;
+
+  var result = inputString.replace(entityRegex, function (match) {
+    switch (match) {
+      case "&amp;lt;":
+        return "<";
+      case "&lt;":
+        return "<";
+      case "&amp;gt;":
+        return ">";
+      case "&gt;":
+        return ">";
+      case "&amp;/":
+        return "/";
+      case "&/":
+        return "/";
+      default:
+        return match;
+    }
+  });
+
+  return result;
+}
+
+function extractInnerText(string){
+  var tempDiv = document.createElement('div');
+  
+  tempDiv.innerHTML = htmlString;
+
+  var innerText = tempDiv.innerText;
+
+  tempDiv.remove();
+
+  return innerText;
+}
+
 async function loadTempVisitAnswer(tempVisitID, divID){
   setURL2(connectionString2, tempVisitID, divID);
   try{
@@ -176,6 +213,8 @@ async function loadTempVisitAnswer(tempVisitID, divID){
       case 'RB':
         [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
           let answer = table.querySelector('answer').innerHTML;
+          answer = scrubAnwser(answer);
+          answer = extractInnerText(answer);
           [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
             return element.innerHTML.includes(answer);
           })[0].querySelector('input').checked = true;
