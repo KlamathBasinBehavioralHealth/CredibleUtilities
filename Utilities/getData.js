@@ -10,7 +10,7 @@ function setURL(newConnectionString, newClientID, newDivID, newMode = defaultMod
 }
 
 const connectionString2 =
-  "oCvUCZJCI!ExsUFMSM3US3ODuss0!MTmamK3bps9-Rt1a6C1KwvBUgHwlwVgSYJo";
+  "LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0e3B61Hq5F3g0xNL8B0Lbul";
 
 let url2 = undefined;
 
