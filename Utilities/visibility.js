@@ -79,3 +79,9 @@ function visibility(hideShow, target, require = false){
     requireField(target, false);
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.defaultHidden').forEach((element) => {
+    visibility('hide', element, false);
+  });
+});
