@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     [...document.querySelectorAll('.defaultDropDown')].forEach((div) => {
         try{
             let select = div.closest('table').querySelector('select');
-            let condition = div.getAttribute('defaultCondition');
+            let condition = div.getAttribute('defaultAnswer');
             defaultDropDown(select, condition);
         }catch(error){
             console.log(error);
