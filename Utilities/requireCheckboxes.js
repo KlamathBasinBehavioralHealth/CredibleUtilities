@@ -31,7 +31,7 @@ function isChecked(question){
         if(!isChecked(element)){
           validated = false;
           unmarkedQuestionID = markUnansweredQuestion(element, 'mark');
-          document.querySelector(`#${newID}`).scrollIntoView();
+          document.querySelector(`#${unmarkedQuestionID}`).scrollIntoView();
         }
       });
       
