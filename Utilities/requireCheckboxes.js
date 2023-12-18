@@ -15,6 +15,7 @@ function isChecked(question){
       newDiv.setAttribute('id', newID);
       newDiv.innerText = `Please select at least one option for '${question.innerText}'.`;
       newDiv.style.color = 'red';
+      question.closest('table').closest('tr').after(newDiv);
     }else if(mode === 'unmark'){
       document.querySelector(`#${newID}`)?.remove();
     }
