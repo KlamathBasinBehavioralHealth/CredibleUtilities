@@ -131,11 +131,7 @@ async function lookForBlankTxPlan(){
             console.log(error);  
           }
           
-          if(document.querySelector('.sudForm')){
-            txBody.innerHTML = sudTemplateBlock;
-          }else{
-            txBody.innerHTML = templateBlock;
-          }
+          txBody.innerHTML = crisisTemplateBlock;
         }
         else{
           try{ 
@@ -157,7 +153,11 @@ async function lookForBlankTxPlan(){
             console.log(error);  
           }
           
-          txBody.innerHTML = templateBlock;
+          if(document.querySelector('.sudForm')){
+            txBody.innerHTML = sudTemplateBlock;
+          }else{
+            txBody.innerHTML = templateBlock;
+          }
         }
       }
     }
