@@ -37,17 +37,17 @@ function checkSRA() {
       })
       .val()
   ){
-    hideShow('show', 'cssrsLabel', false);
-    hideShow('show', 'cssrsQ1', true);
-    hideShow('show', 'cssrsQ2', true);
-    hideShow('show', 'cssrsQ6', true);
-    hideShow('show', 'urgency', false);
+    visibility('show', '#cssrsLabel', false);
+    visibility('show', '#cssrsQ1', true);
+    visibility('show', '#cssrsQ2', true);
+    visibility('show', '#cssrsQ6', true);
+    visibility('show', '#urgency', false);
   }else{
-    hideShow('hide', 'cssrsLabel', true);
-    hideShow('hide', 'cssrsQ1', true);
-    hideShow('hide', 'cssrsQ2', true);
-    hideShow('hide', 'cssrsQ6', true);
-    hideShow('hide', 'urgency', true);
+    visibility('hide', '#cssrsLabel', true);
+    visibility('hide', '#cssrsQ1', true);
+    visibility('hide', '#cssrsQ2', true);
+    visibility('hide', '#cssrsQ6', true);
+    visibility('hide', '#urgency', true);
     $('tr')
       .has('div[id=cssrsQ1], div[id=cssrsQ2], div[id=cssrsQ6]')
       .find('input')
@@ -57,10 +57,10 @@ function checkSRA() {
   }
 }
 function cssrsWorkflow() {
-  hideShow('hide', 'cssrsQ3', true);
-  hideShow('hide', 'cssrsQ4', true);
-  hideShow('hide', 'cssrsQ5a', true);
-  hideShow('hide', 'cssrsQ5b', true);
+  visibility('hide', '#cssrsQ3', true);
+  visibility('hide', '#cssrsQ4', true);
+  visibility('hide', '#cssrsQ5a', true);
+  visibility('hide', '#cssrsQ5b', true);
   if(
     !$('tr')
       .has('div[id=cssrsQ2]')
@@ -89,7 +89,7 @@ function cssrsWorkflow() {
       .find('tr:contains(\'Yes\')')
       .find('input:even:checked').length)
   {
-    hideShow('show', 'cssrsQ3', true);
+    visibility('show', '#cssrsQ3', true);
   }
   if (
     $('tr')
@@ -97,8 +97,8 @@ function cssrsWorkflow() {
       .find('tr:contains(\'Yes\')')
       .find('input:even:checked').length)
   {
-    hideShow('show', 'cssrsQ4', true);
-    hideShow('show', 'cssrsQ5a', true);
+    visibility('show', '#cssrsQ4', true);
+    visibility('show', '#cssrsQ5a', true);
   }
   if (
     $('tr')
@@ -106,7 +106,7 @@ function cssrsWorkflow() {
       .find('tr:contains(\'Yes\')')
       .find('input:even:checked').length)
   {
-    hideShow('show', 'cssrsQ5b', true);
+    visibility('show', '#cssrsQ5b', true);
   }
 }
 
