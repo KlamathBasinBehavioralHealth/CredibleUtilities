@@ -37,13 +37,13 @@ function checkSRA() {
       })
       .val()
   ){
-    visibility('show', '#cssrsLabel');
+    visibility('show', '.cssrsLabel');
     visibility('show', '#cssrsQ1', true);
     visibility('show', '#cssrsQ2', true);
     visibility('show', '#cssrsQ6', true);
     visibility('show', '#urgency');
   }else{
-    visibility('hide', '#cssrsLabel');
+    visibility('hide', '.cssrsLabel');
     visibility('hide', '#cssrsQ1');
     visibility('hide', '#cssrsQ2');
     visibility('hide', '#cssrsQ6');
