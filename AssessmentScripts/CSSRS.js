@@ -37,17 +37,17 @@ function checkSRA() {
       })
       .val()
   ){
-    visibility('show', '#cssrsLabel', false);
+    visibility('show', '#cssrsLabel');
     visibility('show', '#cssrsQ1', true);
     visibility('show', '#cssrsQ2', true);
     visibility('show', '#cssrsQ6', true);
-    visibility('show', '#urgency', false);
+    visibility('show', '#urgency');
   }else{
-    visibility('hide', '#cssrsLabel', true);
-    visibility('hide', '#cssrsQ1', true);
-    visibility('hide', '#cssrsQ2', true);
-    visibility('hide', '#cssrsQ6', true);
-    visibility('hide', '#urgency', true);
+    visibility('hide', '#cssrsLabel');
+    visibility('hide', '#cssrsQ1');
+    visibility('hide', '#cssrsQ2');
+    visibility('hide', '#cssrsQ6');
+    visibility('hide', '#urgency');
     $('tr')
       .has('div[id=cssrsQ1], div[id=cssrsQ2], div[id=cssrsQ6]')
       .find('input')
@@ -57,10 +57,10 @@ function checkSRA() {
   }
 }
 function cssrsWorkflow() {
-  visibility('hide', '#cssrsQ3', true);
-  visibility('hide', '#cssrsQ4', true);
-  visibility('hide', '#cssrsQ5a', true);
-  visibility('hide', '#cssrsQ5b', true);
+  visibility('hide', '#cssrsQ3');
+  visibility('hide', '#cssrsQ4');
+  visibility('hide', '#cssrsQ5a');
+  visibility('hide', '#cssrsQ5b');
   if(
     !$('tr')
       .has('div[id=cssrsQ2]')
@@ -319,136 +319,8 @@ $('document').ready(function () {
   $('tr').has('div[class=cssrsQ]').find('input').mouseleave(calculateCSSRS);
 });
 
-document.addEventListener('DOMContentLoaded', () => {linkValueToExtFrame(parent.document, 'cssrsScore', '.frame', '#cssrsScore');  });
-
-
-/*
-
-else if(
-      $('tr')
-        .has('div[id=cssrsQ4], div[id=cssrsQ5]')
-        .find('tr:contains('Yes')')
-        .find('input:even:checked').length) 
-    {
-      $('tr')
-        .has('div[id=urgency]')
-        .find('select')
-        .val(
-          $('tr')
-            .has('div[id=urgency]')
-            .find('option')
-            .filter(function () {
-              return $(this).html() == 'Emergent (Immediate access)';
-            })
-            .val()
-        );
-      $('tr')
-        .has('div[id=motsUrgency]')
-        .find('select')
-        .val(
-          $('tr')
-            .has('div[id=motsUrgency]')
-            .find('option')
-            .filter(function () {
-              return $(this).html() == 'Emergent (Immediate access)';
-            })
-            .val()
-        );
-      cssrsScore = 'Emergent (Immediate access)';
-    } else if(
-      $('tr')
-        .has('div[id=cssrsQ3]')
-        .find('tr:contains('Yes')')
-        .find('input:even:checked').length &&
-      !$('tr')
-        .has('div[id=cssrsQ4], div[id=cssrsQ5]')
-        .find('tr:contains('Yes')')
-        .find('input:even:checked').length)
-      {
-        $('tr')
-          .has('div[id=urgency]')
-          .find('select')
-          .val(
-            $('tr')
-              .has('div[id=urgency]')
-              .find('option')
-              .filter(function () {
-                return $(this).html() == 'Urgent (Access within 24 business hours)';
-              })
-              .val()
-          );
-        $('tr')
-          .has('div[id=motsUrgency]')
-          .find('select')
-          .val(
-            $('tr')
-              .has('div[id=motsUrgency]')
-              .find('option')
-              .filter(function () {
-                return $(this).html() == 'Urgent (Access within 24 business hours)';
-              })
-              .val()
-          );
-        cssrsScore = 'Urgent (Access within 24 business hours)';
-      } else if (
-        !$('tr')
-          .has('div[id=cssrsQ3], div[id=cssrsQ4], div[id=cssrsQ5]')
-          .find('tr:contains('Yes')')
-          .find('input:even:checked').length) 
-      {
-        $('tr')
-          .has('div[id=urgency]')
-          .find('select')
-          .val(
-            $('tr')
-              .has('div[id=urgency]')
-              .find('option')
-              .filter(function () {
-                return $(this).html() == 'Routine (Access within 10 business days)';
-              })
-              .val()
-          );
-        $('tr')
-          .has('div[id=motsUrgency]')
-          .find('select')
-          .val(
-            $('tr')
-              .has('div[id=motsUrgency]')
-              .find('option')
-              .filter(function () {
-                return $(this).html() == 'Routine (Access within 10 business days)';
-              })
-              .val()
-          );
-        cssrsScore = 'Routine (Access within 10 business days)';
-      }
-      if (
-        !$('tr').has('div[id=cssrsQ1], div[id=cssrsQ2], div[id=cssrsQ6]').find('input:checked')
-          .length)
-      {
-        $('tr')
-          .has('div[id=urgency]')
-          .find('select')
-          .val(
-            $('tr')
-              .has('div[id=urgency]')
-              .find('option')
-              .filter(function () {
-                return $(this).html() == '';
-              })
-              .val()
-          );
-        $('tr')
-          .has('div[id=motsUrgency]')
-          .find('select')
-          .val(
-            $('tr')
-              .has('div[id=motsUrgency]')
-              .find('option')
-              .filter(function () {
-                return $(this).html() == '';
-              })
-              .val()
-          );
-      }
-*/
+try{
+  document.addEventListener('DOMContentLoaded', () => {linkValueToExtFrame(parent.document, 'cssrsScore', '.frame', '#cssrsScore');  });
+}catch(error){
+  console.log(error);
+}
