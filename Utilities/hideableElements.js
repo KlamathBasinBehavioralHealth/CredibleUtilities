@@ -327,10 +327,11 @@ function hideShowHideableQuestion(hideShow = 'hide', question, requireOnShow = f
 
 function requireTextareas(){
   [...document.querySelectorAll('.requireTextarea')].map(element => {
+    let textarea = undefined;
     try{
       let input = element.closest('table').querySelector('input, select');
       try{
-        let textarea = element.closest('table').closest('tr').nextElementSibling.querySelector('textarea');
+        textarea = element.closest('table').closest('tr').nextElementSibling.querySelector('textarea');
       }catch(error){
         console.log('Where the text area at?');
         console.log('error');
