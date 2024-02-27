@@ -278,9 +278,11 @@ function hideableQuestionSetDrivers(){
         console.log(error);
       }
 
+      let element = null;
+      
       try{
         [...question.getAttribute('driver')?.split(' ')].map((driver) => {
-          let element = null;
+          element = null;
           if(document.querySelector(`#${driver}`)?.closest('tr').querySelector('input, select')){
             element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
           }else{
@@ -304,13 +306,12 @@ function hideableQuestionSetDrivers(){
           selectDriverArray.push(element);
         }
       }catch(error){
-        element = document.querySelector(`#${driver}`).closest('tbody').querySelector('input, select');
+        element = document.querySelector(`#${driver}`)?.closest('tbody').querySelector('input, select');
         if(element.tagName == 'SELECT'){
           selectDriverArray.push(element);
         }
       }
     
-
       setInterval(() => {
         checkConditionsQuestion(mode, textMode, requireOnShow, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, question);
       }, intervalTime);
