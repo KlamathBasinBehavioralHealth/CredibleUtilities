@@ -288,27 +288,28 @@ function hideableQuestionSetDrivers(){
               element = document.querySelector(`#${driver}`)?.closest('table').querySelector('input, select');
             }
           } 
-        }catch(error){
-          console.log(error);
-        }
+        });
+      }catch(error){
+        console.log(error);
+      }
       
-        try{
-          if(element.tagName == 'INPUT'){
-            if(element.type == 'checkbox' || element.type == 'radio'){
-              inputDriverArray.push(element);
-            }else{
-              textDriverArray.push(element);
-            }
-          }else if(element.tagName == 'SELECT'){
-            selectDriverArray.push(element);
+      try{
+        if(element.tagName == 'INPUT'){
+          if(element.type == 'checkbox' || element.type == 'radio'){
+            inputDriverArray.push(element);
+          }else{
+            textDriverArray.push(element);
           }
-        }catch(error){
-          element = document.querySelector(`#${driver}`).closest('tbody').querySelector('input, select');
-          if(element.tagName == 'SELECT'){
-            selectDriverArray.push(element);
-          }
+        }else if(element.tagName == 'SELECT'){
+          selectDriverArray.push(element);
         }
-      });
+      }catch(error){
+        element = document.querySelector(`#${driver}`).closest('tbody').querySelector('input, select');
+        if(element.tagName == 'SELECT'){
+          selectDriverArray.push(element);
+        }
+      }
+    
 
       setInterval(() => {
         checkConditionsQuestion(mode, textMode, requireOnShow, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, question);
