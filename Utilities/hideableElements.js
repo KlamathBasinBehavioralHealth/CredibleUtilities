@@ -278,15 +278,20 @@ function hideableQuestionSetDrivers(){
         console.log(error);
       }
 
-      [...question.getAttribute('driver').split(' ')].map((driver) => {
-        let element = null;
-        if(document.querySelector(`#${driver}`).closest('tr').querySelector('input, select')){
-          element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
-        }else{
-          if(document.querySelector(`#${driver}`).closest('table').querySelector('input, select')){
-            element = document.querySelector(`#${driver}`).closest('table').querySelector('input, select');
-          }
-        } 
+      try{
+        [...question.getAttribute('driver')?.split(' ')].map((driver) => {
+          let element = null;
+          if(document.querySelector(`#${driver}`)?.closest('tr').querySelector('input, select')){
+            element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
+          }else{
+            if(document.querySelector(`#${driver}`)?.closest('table').querySelector('input, select')){
+              element = document.querySelector(`#${driver}`)?.closest('table').querySelector('input, select');
+            }
+          } 
+        }catch(error){
+          console.log(error);
+        }
+      
         try{
           if(element.tagName == 'INPUT'){
             if(element.type == 'checkbox' || element.type == 'radio'){
