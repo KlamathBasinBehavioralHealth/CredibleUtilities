@@ -290,26 +290,25 @@ function hideableQuestionSetDrivers(){
               element = document.querySelector(`#${driver}`)?.closest('table').querySelector('input, select');
             }
           } 
+          try{
+            if(element.tagName == 'INPUT'){
+              if(element.type == 'checkbox' || element.type == 'radio'){
+                inputDriverArray.push(element);
+              }else{
+                textDriverArray.push(element);
+              }
+            }else if(element.tagName == 'SELECT'){
+              selectDriverArray.push(element);
+            }
+          }catch(error){
+            element = document.querySelector(`#${driver}`)?.closest('tbody').querySelector('input, select');
+            if(element.tagName == 'SELECT'){
+              selectDriverArray.push(element);
+            }
+          }
         });
       }catch(error){
         console.log(error);
-      }
-      
-      try{
-        if(element.tagName == 'INPUT'){
-          if(element.type == 'checkbox' || element.type == 'radio'){
-            inputDriverArray.push(element);
-          }else{
-            textDriverArray.push(element);
-          }
-        }else if(element.tagName == 'SELECT'){
-          selectDriverArray.push(element);
-        }
-      }catch(error){
-        element = document.querySelector(`#${driver}`)?.closest('tbody').querySelector('input, select');
-        if(element.tagName == 'SELECT'){
-          selectDriverArray.push(element);
-        }
       }
     
       setInterval(() => {
