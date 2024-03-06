@@ -377,10 +377,12 @@ function loadHide(){
 }
 
 window.addEventListener('load', (event) =>{
-  headerButtons();
-  hideableHeaderSetDrivers();
-  hideableQuestionSetDrivers();
-  requireTextareas();
-  loadHide();
-  console.log('Hideable elements load event.');
+  if(document.querySelector('[name=Complete]')){
+    headerButtons();
+    hideableHeaderSetDrivers();
+    hideableQuestionSetDrivers();
+    requireTextareas();
+    loadHide();
+    console.log('Hideable elements load event.');
+  }
 });
