@@ -1,16 +1,18 @@
 const intervalTime = 250;
 
 if(typeof visibilty != 'function'){
-  window.include = function (file){
-    var script = document.createElement('script');
-    script.src = file;
-    script.type = 'text/javascript';
-    script.defer = true;
-      
-    document.getElementsByTagName('head').item(0).appendChild(script);
+  if(document.querySelector('[name=Complete]')){
+    window.include = function (file){
+      var script = document.createElement('script');
+      script.src = file;
+      script.type = 'text/javascript';
+      script.defer = true;
+        
+      document.getElementsByTagName('head').item(0).appendChild(script);
+    }
+  
+    include('https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities@21229c2/Utilities/visibility.js');
   }
-
-  include('https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities@21229c2/Utilities/visibility.js');
 }
 
 if(typeof checkRedAsterisk != 'function'){
