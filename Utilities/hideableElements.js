@@ -1,7 +1,7 @@
 const intervalTime = 250;
 
 if(document.querySelector('[name=Complete]')){
-  if(typeof visibilty != 'function'){
+  if(typeof visibility != 'function'){
     window.include = function (file){
       var script = document.createElement('script');
       script.src = file;
