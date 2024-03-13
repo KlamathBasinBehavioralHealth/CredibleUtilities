@@ -92,7 +92,9 @@ function visibility(hideShow, target, require = false){
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.defaultHidden').forEach((element) => {
-    visibility('hide', element, false);
-  });
+  if(document.querySelector('[name=Complete]')){
+	  document.querySelectorAll('.defaultHidden').forEach((element) => {
+	    visibility('hide', element, false);
+	  });
+  }
 });
