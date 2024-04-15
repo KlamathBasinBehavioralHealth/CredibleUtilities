@@ -138,7 +138,7 @@ async function lookForBlankTxPlan(){
             let today = new Date();
             let formattedToday = `${today.getMonth() < 9 ? '0' : ''}${today.getMonth() + 1}/${today.getDate() < 10 ? '0' : ''}${today.getDate()}/${today.getFullYear()}`;
             let nextYear = new Date();
-            nextYear.setDate(today.getDate() + 365);
+            nextYear.setDate(today.getDate() + 364);
             let formattedNextYear = `${nextYear.getMonth() < 9 ? '0' : ''}${nextYear.getMonth() + 1}/${nextYear.getDate() < 10 ? '0' : ''}${nextYear.getDate()}/${nextYear.getFullYear()}`;
 
             document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_txtStartDate').value = formattedToday;
