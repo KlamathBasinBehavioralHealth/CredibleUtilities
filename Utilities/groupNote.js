@@ -3,11 +3,8 @@ let groupTest = false;
 function checkGroup(){
     if (frameElement != null && !frameElement.classList.contains('frame')){
         try{
-            if(parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('select') != null){
-                const clientCount = parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('select').options.length - 1;
-                if (clientCount > 1){
-                    return true;
-                }
+            if(parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('#group_notes') != null){
+                return true;
             }
         }catch(error){
             console.log(error);
@@ -15,11 +12,8 @@ function checkGroup(){
     }
     else{
         try{
-            if(parent.parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('select') != null){
-                const clientCount = parent.parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('select').options.length - 1;
-                if (clientCount > 1){
-                    return true;
-                }
+            if(parent.parent.document.querySelector('frame[name=\'left\']').contentWindow.document.querySelector('#group_notes') != null){
+                return true;
             }
         }catch(error){
             console.log(error);
