@@ -349,10 +349,10 @@ function requireTextareas(){
         if(checkRedAsterisk(textarea)){
           textarea.nextSibling.remove();
         }
-        if(window.getComputedStyle(textarea.closest('table')).display == 'table'){
+        if(window.getComputedStyle(textarea?.closest('table')).display == 'table'){
           textarea.required = true;
           textarea.after(createRedAsterisk());
-        }else if(window.getComputedStyle(textarea.closest('table')).display == 'none'){
+        }else if(window.getComputedStyle(textarea?.closest('table')).display == 'none'){
           textarea.required = false;
         }
       }, intervalTime);
@@ -361,9 +361,9 @@ function requireTextareas(){
     }
 
     try{
-      if(window.getComputedStyle(textarea.closest('table')).display == 'table'){
+      if(window.getComputedStyle(textarea?.closest('table')).display == 'table'){
         textarea.required = true;
-      }else if(window.getComputedStyle(textarea.closest('table')).display == 'none'){
+      }else if(window.getComputedStyle(textarea?.closest('table')).display == 'none'){
         textarea.required = false;
       }
     }catch(error){
