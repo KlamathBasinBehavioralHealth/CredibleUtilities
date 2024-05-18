@@ -37,261 +37,130 @@ if(typeof createRedAsterisk != 'function'){
 }
 
 function headerButtons(state = 'hide'){
-  [...document.querySelectorAll('.hideableHeader')].map((header) => {
-    if(state == 'hide'){
-      header.closest('tbody').querySelector('.hideableHeaderButton').closest('table').style.display = 'none';
-    }
-    else if(state == 'show'){
-      header.closest('tbody').querySelector('.hideableHeaderButton').closest('table').style.display = 'block';
-    }
-  });
+  if(document.querySelector('[name=Complete]')){
+    [...document.querySelectorAll('.hideableHeader')].map((header) => {
+      if(state == 'hide'){
+        header.closest('tbody').querySelector('.hideableHeaderButton').closest('table').style.display = 'none';
+      }
+      else if(state == 'show'){
+        header.closest('tbody').querySelector('.hideableHeaderButton').closest('table').style.display = 'block';
+      }
+    });
+  }
 }
 
 function getOptionValue(select, optionText){
-  let found = false;
-  let value = undefined;
-  [...select.querySelectorAll('option')].map((option) => {
-      if(option.innerText == optionText){
-          found = true;
-          value = option.value;
-      }
-  });
-  return value;
+  if(document.querySelector('[name=Complete]')){
+    let found = false;
+    let value = undefined;
+    [...select.querySelectorAll('option')].map((option) => {
+        if(option.innerText == optionText){
+            found = true;
+            value = option.value;
+        }
+    });
+    return value;
+  }
 }
 
 function checkConditionsHeader(mode, textMode, inputs, selects, texts, conditions, header){
-  try{
-    let isChecked = false;
-    let isSelected = false;
-    let isTexted = false;
-    let conditionValues = [];
-
-    selects.forEach(select => {
-      conditions.forEach(condition => {
-        if(getOptionValue(select, condition)){
-          conditionValues.push(getOptionValue(select, condition));
+  if(document.querySelector('[name=Complete]')){
+    try{
+      let isChecked = false;
+      let isSelected = false;
+      let isTexted = false;
+      let conditionValues = [];
+  
+      selects.forEach(select => {
+        conditions.forEach(condition => {
+          if(getOptionValue(select, condition)){
+            conditionValues.push(getOptionValue(select, condition));
+          }
+        });
+      });
+      
+      inputs.forEach(input => {
+        if(input.checked){
+            isChecked = true;
         }
       });
-    });
-    
-    inputs.forEach(input => {
-      if(input.checked){
-          isChecked = true;
-      }
-    });
-    
-    selects.forEach(input => {
-      if([...conditionValues].includes(input.value)){
-          isSelected = true;
-      }
-    });
-
-    texts.forEach(text => {
-      if(textMode == 'match'){
-        if([...conditions].includes(text.value)){
-          isTexted = true;
+      
+      selects.forEach(input => {
+        if([...conditionValues].includes(input.value)){
+            isSelected = true;
+        }
+      });
+  
+      texts.forEach(text => {
+        if(textMode == 'match'){
+          if([...conditions].includes(text.value)){
+            isTexted = true;
+          }
+        }
+        if(textMode == 'any'){
+          if(text.value){
+            isTexted = true;
+          }
+        }
+      });
+  
+      if(isChecked || isSelected || isTexted){
+        if(mode == 'showOnTrue'){
+          hideShowHideableHeader('show', header);
+          return true;
+        }else if (mode == 'hideOnTrue'){
+          hideShowHideableHeader('hide', header);
+          return false;
+        }
+      }else{
+        if(mode == 'showOnTrue'){
+          hideShowHideableHeader('hide', header);
+          return false;
+        }else if (mode == 'hideOnTrue'){
+          hideShowHideableHeader('show', header);
+          return true;
         }
       }
-      if(textMode == 'any'){
-        if(text.value){
-          isTexted = true;
-        }
-      }
-    });
-
-    if(isChecked || isSelected || isTexted){
-      if(mode == 'showOnTrue'){
-        hideShowHideableHeader('show', header);
-        return true;
-      }else if (mode == 'hideOnTrue'){
-        hideShowHideableHeader('hide', header);
-        return false;
-      }
-    }else{
-      if(mode == 'showOnTrue'){
-        hideShowHideableHeader('hide', header);
-        return false;
-      }else if (mode == 'hideOnTrue'){
-        hideShowHideableHeader('show', header);
-        return true;
-      }
-    }
-  }catch(error){
-    console.log(error);
-  }  
+    }catch(error){
+      console.log(error);
+    }  
+  }
 }
 
 function hideableHeaderSetDrivers(){
-  try{
-    [...document.querySelectorAll('.hideableHeader')].map((header) => {
-      let mode = header.getAttribute('mode');
-      let textMode = '';
-      try{
-        textMode = header.getAttribute('textMode');
-      }catch(error){
-        console.log(error);
-      }
-      let inputDriverArray = [];
-      let selectDriverArray = [];
-      let textDriverArray = [];
-      let conditionArray = [] ;
-
-      try{
-        [...header.getAttribute('condition').split(';')].map((condition) => {
-          conditionArray.push(condition);
-        });
-      }catch(error){
-        console.log(error);
-      }
-
-      [...header.getAttribute('driver').split(' ')].map((driver) => {
-        let element = null;
-        if(document.querySelector(`#${driver}`).closest('tr').querySelector('input, select')){
-          element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
-        }else{
-          if(document.querySelector(`#${driver}`).closest('table').querySelector('input, select')){
-            element = document.querySelector(`#${driver}`).closest('table').querySelector('input, select');
-          }
-        }      
-        document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
+  if(document.querySelector('[name=Complete]')){
+    try{
+      [...document.querySelectorAll('.hideableHeader')].map((header) => {
+        let mode = header.getAttribute('mode');
+        let textMode = '';
         try{
-          if(element.tagName == 'INPUT'){
-            if(element.type == 'checkbox' || element.type == 'radio'){
-              inputDriverArray.push(element);
-            }else{
-              textDriverArray.push(element);
-            }
-          }else if(element.tagName == 'SELECT'){
-            selectDriverArray.push(element);
-          }
+          textMode = header.getAttribute('textMode');
         }catch(error){
-          element = document.querySelector(`#${driver}`).closest('tbody').querySelector('input, select');
-          if(element.tagName == 'SELECT'){
-            selectDriverArray.push(element);
-          }
+          console.log(error);
         }
-      });
-
-      setInterval(() => {
-        checkConditionsHeader(mode, textMode, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, header);
-      }, intervalTime);
-    
-      checkConditionsHeader(mode, textMode, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, header);
-    });
-  }catch(error){
-    console.log(error);
-  }  
-}
-
-function hideShowHideableHeader(hideShow = 'hide', header){  
-  if(hideShow == 'hide'){
-    header.closest('tbody').querySelector('.hideableHeaderButton').closest('tbody').querySelector('input').checked = false;
-    visibility('hide', header);
-  }
-  else if(hideShow == 'show'){
-    header.closest('tbody').querySelector('.hideableHeaderButton').closest('tbody').querySelector('input').checked = true;
-    visibility('show', header);
-  }
-}
-
-function checkConditionsQuestion(mode, textMode, requireOnShow, inputs, selects, texts, conditions, question){
-  try{
-    let isChecked = false;
-    let isSelected = false;
-    let isTexted = false;
-    let conditionValues = [];
-
-    selects.forEach(select => {
-      conditions.forEach(condition => {
-        if(getOptionValue(select, condition)){
-          conditionValues.push(getOptionValue(select, condition));
+        let inputDriverArray = [];
+        let selectDriverArray = [];
+        let textDriverArray = [];
+        let conditionArray = [] ;
+  
+        try{
+          [...header.getAttribute('condition').split(';')].map((condition) => {
+            conditionArray.push(condition);
+          });
+        }catch(error){
+          console.log(error);
         }
-      });
-    });
-    
-    inputs.forEach(input => {
-      if(input.checked){
-          isChecked = true;
-      }
-    });
-    
-    selects.forEach(input => {
-      if([...conditionValues].includes(input.value)){
-          isSelected = true;
-      }
-    });
-
-    texts.forEach(text => {
-      if(textMode == 'match'){
-        if([...conditions].includes(text.value)){
-          isTexted = true;
-        }
-      }
-      if(textMode == 'any'){
-        if(text.value){
-          isTexted = true;
-        }
-      }
-    });
-
-    if(isChecked || isSelected || isTexted){
-      if(mode == 'showOnTrue'){
-        hideShowHideableQuestion('show', question, requireOnShow);
-        return true;
-      }else if (mode == 'hideOnTrue'){
-        hideShowHideableQuestion('hide', question);
-        return false;
-      }
-    }else{
-      if(mode == 'showOnTrue'){
-        hideShowHideableQuestion('hide', question);
-        return false;
-      }else if (mode == 'hideOnTrue'){
-        hideShowHideableQuestion('show', question, requireOnShow);
-        return true;
-      }
-    }
-  }catch(error){
-    console.log(error);
-  }
-}
-
-function hideableQuestionSetDrivers(){
-  try{
-    [...document.querySelectorAll('.hideableQuestion')].map((question) => {
-      let mode = question.getAttribute('mode');
-      let textMode = '';
-      try{
-        textMode = question.getAttribute('textMode');
-      }catch(error){
-        console.log(error);
-      }
-      let requireOnShow = JSON.parse(question.getAttribute('requireOnShow'));
-      let inputDriverArray = [];
-      let selectDriverArray = [];
-      let textDriverArray = [];
-      let conditionArray = [] ;
-
-      try{
-        [...question.getAttribute('condition').split(';')].map((condition) => {
-          conditionArray.push(condition);
-        });
-      }catch(error){
-        console.log(error);
-      }
-
-      let element = null;
-      
-      try{
-        [...question.getAttribute('driver')?.split(' ')].map((driver) => {
-          element = null;
-          if(document.querySelector(`#${driver}`)?.closest('tr').querySelector('input, select')){
+  
+        [...header.getAttribute('driver').split(' ')].map((driver) => {
+          let element = null;
+          if(document.querySelector(`#${driver}`).closest('tr').querySelector('input, select')){
             element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
           }else{
-            if(document.querySelector(`#${driver}`)?.closest('table').querySelector('input, select')){
-              element = document.querySelector(`#${driver}`)?.closest('table').querySelector('input, select');
+            if(document.querySelector(`#${driver}`).closest('table').querySelector('input, select')){
+              element = document.querySelector(`#${driver}`).closest('table').querySelector('input, select');
             }
-          } 
+          }      
+          document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
           try{
             if(element.tagName == 'INPUT'){
               if(element.type == 'checkbox' || element.type == 'radio'){
@@ -303,83 +172,234 @@ function hideableQuestionSetDrivers(){
               selectDriverArray.push(element);
             }
           }catch(error){
-            element = document.querySelector(`#${driver}`)?.closest('tbody').querySelector('input, select');
+            element = document.querySelector(`#${driver}`).closest('tbody').querySelector('input, select');
             if(element.tagName == 'SELECT'){
               selectDriverArray.push(element);
             }
           }
         });
-      }catch(error){
-        console.log(error);
-      }
-    
-      setInterval(() => {
-        checkConditionsQuestion(mode, textMode, requireOnShow, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, question);
-      }, intervalTime);
-    
-      checkConditionsQuestion(mode, textMode, requireOnShow, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, question);
-    });
-  }catch(error){
-    console.log(error);
+  
+        setInterval(() => {
+          checkConditionsHeader(mode, textMode, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, header);
+        }, intervalTime);
+      
+        checkConditionsHeader(mode, textMode, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, header);
+      });
+    }catch(error){
+      console.log(error);
+    }  
   }
 }
 
-function hideShowHideableQuestion(hideShow = 'hide', question, requireOnShow = false){  
-  if(hideShow == 'hide'){
-    visibility('hide', question, requireOnShow);
+function hideShowHideableHeader(hideShow = 'hide', header){  
+  if(document.querySelector('[name=Complete]')){
+    if(hideShow == 'hide'){
+      header.closest('tbody').querySelector('.hideableHeaderButton').closest('tbody').querySelector('input').checked = false;
+      visibility('hide', header);
+    }
+    else if(hideShow == 'show'){
+      header.closest('tbody').querySelector('.hideableHeaderButton').closest('tbody').querySelector('input').checked = true;
+      visibility('show', header);
+    }
   }
-  else if(hideShow == 'show'){
-    visibility('show', question, requireOnShow);
+}
+
+function checkConditionsQuestion(mode, textMode, requireOnShow, inputs, selects, texts, conditions, question){
+  if(document.querySelector('[name=Complete]')){
+    try{
+      let isChecked = false;
+      let isSelected = false;
+      let isTexted = false;
+      let conditionValues = [];
+  
+      selects.forEach(select => {
+        conditions.forEach(condition => {
+          if(getOptionValue(select, condition)){
+            conditionValues.push(getOptionValue(select, condition));
+          }
+        });
+      });
+      
+      inputs.forEach(input => {
+        if(input.checked){
+            isChecked = true;
+        }
+      });
+      
+      selects.forEach(input => {
+        if([...conditionValues].includes(input.value)){
+            isSelected = true;
+        }
+      });
+  
+      texts.forEach(text => {
+        if(textMode == 'match'){
+          if([...conditions].includes(text.value)){
+            isTexted = true;
+          }
+        }
+        if(textMode == 'any'){
+          if(text.value){
+            isTexted = true;
+          }
+        }
+      });
+  
+      if(isChecked || isSelected || isTexted){
+        if(mode == 'showOnTrue'){
+          hideShowHideableQuestion('show', question, requireOnShow);
+          return true;
+        }else if (mode == 'hideOnTrue'){
+          hideShowHideableQuestion('hide', question);
+          return false;
+        }
+      }else{
+        if(mode == 'showOnTrue'){
+          hideShowHideableQuestion('hide', question);
+          return false;
+        }else if (mode == 'hideOnTrue'){
+          hideShowHideableQuestion('show', question, requireOnShow);
+          return true;
+        }
+      }
+    }catch(error){
+      console.log(error);
+    }
+  }
+}
+
+function hideableQuestionSetDrivers(){
+  if(document.querySelector('[name=Complete]')){
+    try{
+      [...document.querySelectorAll('.hideableQuestion')].map((question) => {
+        let mode = question.getAttribute('mode');
+        let textMode = '';
+        try{
+          textMode = question.getAttribute('textMode');
+        }catch(error){
+          console.log(error);
+        }
+        let requireOnShow = JSON.parse(question.getAttribute('requireOnShow'));
+        let inputDriverArray = [];
+        let selectDriverArray = [];
+        let textDriverArray = [];
+        let conditionArray = [] ;
+  
+        try{
+          [...question.getAttribute('condition').split(';')].map((condition) => {
+            conditionArray.push(condition);
+          });
+        }catch(error){
+          console.log(error);
+        }
+  
+        let element = null;
+        
+        try{
+          [...question.getAttribute('driver')?.split(' ')].map((driver) => {
+            element = null;
+            if(document.querySelector(`#${driver}`)?.closest('tr').querySelector('input, select')){
+              element = document.querySelector(`#${driver}`).closest('tr').querySelector('input, select');
+            }else{
+              if(document.querySelector(`#${driver}`)?.closest('table').querySelector('input, select')){
+                element = document.querySelector(`#${driver}`)?.closest('table').querySelector('input, select');
+              }
+            } 
+            try{
+              if(element.tagName == 'INPUT'){
+                if(element.type == 'checkbox' || element.type == 'radio'){
+                  inputDriverArray.push(element);
+                }else{
+                  textDriverArray.push(element);
+                }
+              }else if(element.tagName == 'SELECT'){
+                selectDriverArray.push(element);
+              }
+            }catch(error){
+              element = document.querySelector(`#${driver}`)?.closest('tbody').querySelector('input, select');
+              if(element.tagName == 'SELECT'){
+                selectDriverArray.push(element);
+              }
+            }
+          });
+        }catch(error){
+          console.log(error);
+        }
+      
+        setInterval(() => {
+          checkConditionsQuestion(mode, textMode, requireOnShow, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, question);
+        }, intervalTime);
+      
+        checkConditionsQuestion(mode, textMode, requireOnShow, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, question);
+      });
+    }catch(error){
+      console.log(error);
+    }
+  }
+}
+
+function hideShowHideableQuestion(hideShow = 'hide', question, requireOnShow = false){ 
+  if(document.querySelector('[name=Complete]')){
+    if(hideShow == 'hide'){
+      visibility('hide', question, requireOnShow);
+    }
+    else if(hideShow == 'show'){
+      visibility('show', question, requireOnShow);
+    }
   }
 }
 
 function requireTextareas(){
-  [...document.querySelectorAll('.requireTextarea')].map(element => {
-    let textarea = undefined;
-    try{
-      let input = element.closest('table').querySelector('input, select');
+  if(document.querySelector('[name=Complete]')){
+    [...document.querySelectorAll('.requireTextarea')].map(element => {
+      let textarea = undefined;
       try{
-        textarea = element.closest('table').closest('tr').nextElementSibling.querySelector('textarea');
-      }catch(error){
-        console.log('Where the text area at?');
-        console.log('error');
-      }
-
-      setInterval(() => {
-        if(checkRedAsterisk(textarea)){
-          textarea.nextSibling.remove();
-        }
+        let input = element.closest('table').querySelector('input, select');
         try{
-          if(window.getComputedStyle(textarea.closest('table')).display == 'table'){
-            textarea.required = true;
-            textarea.after(createRedAsterisk());
-          }else if(window.getComputedStyle(textarea.closest('table')).display == 'none'){
-            textarea.required = false;
-          }
+          textarea = element.closest('table').closest('tr').nextElementSibling.querySelector('textarea');
         }catch(error){
-          console.log(error);
+          console.log('Where the text area at?');
+          console.log('error');
         }
-      }, intervalTime);
-    }catch(error){
-      console.log(error);
-    }
-
-    try{
-      if(window.getComputedStyle(textarea.closest('table')).display == 'table'){
-        textarea.required = true;
-      }else if(window.getComputedStyle(textarea.closest('table')).display == 'none'){
-        textarea.required = false;
+  
+        setInterval(() => {
+          if(checkRedAsterisk(textarea)){
+            textarea.nextSibling.remove();
+          }
+          try{
+            if(window.getComputedStyle(textarea.closest('table')).display == 'table'){
+              textarea.required = true;
+              textarea.after(createRedAsterisk());
+            }else if(window.getComputedStyle(textarea.closest('table')).display == 'none'){
+              textarea.required = false;
+            }
+          }catch(error){
+            console.log(error);
+          }
+        }, intervalTime);
+      }catch(error){
+        console.log(error);
       }
-    }catch(error){
-      console.log(error);
-    }
-  });
+  
+      try{
+        if(window.getComputedStyle(textarea.closest('table')).display == 'table'){
+          textarea.required = true;
+        }else if(window.getComputedStyle(textarea.closest('table')).display == 'none'){
+          textarea.required = false;
+        }
+      }catch(error){
+        console.log(error);
+      }
+    });
+  }
 }
 
 function loadHide(){
-  [...document.querySelectorAll('.hideOnLoad')].forEach((element) => {
-      visibility('hide', element);    
-  });
+  if(document.querySelector('[name=Complete]')){
+    [...document.querySelectorAll('.hideOnLoad')].forEach((element) => {
+        visibility('hide', element);    
+    });
+  }
 }
 
 window.addEventListener('load', (event) =>{
