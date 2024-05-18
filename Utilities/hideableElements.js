@@ -1,6 +1,6 @@
 const intervalTime = 250;
 
-/*document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   if(typeof visibility != 'function'){
     window.include = function (file){
       var script = document.createElement('script');
@@ -13,7 +13,7 @@ const intervalTime = 250;
   
     include('https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js');
   }
-});*/
+});
 
 if(typeof checkRedAsterisk != 'function'){
   function checkRedAsterisk(target){
