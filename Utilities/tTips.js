@@ -52,48 +52,52 @@ function addTTipRules(targetDocument){
   }
 
   function initTTips(targetDocument){
-    const tTips = targetDocument.querySelectorAll('.tTip');
+    if(document.querySelector('[name=Complete]')){
+        const tTips = targetDocument.querySelectorAll('.tTip');
+        
+        tTips.forEach((tTip) => {
+          const tTipContent = tTip.getAttribute('tTip');
+          let clonedTTip;  
+          const customTTip = targetDocument.createElement('div');
     
-    tTips.forEach((tTip) => {
-      const tTipContent = tTip.getAttribute('tTip');
-      let clonedTTip;  
-      const customTTip = targetDocument.createElement('div');
-
-      try{
-        if(tTipContent.startsWith('#')){
-            console.log(document.querySelector(`${tTipContent}`));
-            clonedTTip = document.querySelector(`${tTipContent}`).cloneNode(true);
-            clonedTTip.removeAttribute('id');
-            clonedTTip.removeAttribute('class');
-            clonedTTip.classList.add('tTipText');
-            clonedTTip.style.zIndex = '99';
-            tTip.appendChild(clonedTTip);
-        }
-        else{
+          try{
+            if(tTipContent.startsWith('#')){
+                console.log(document.querySelector(`${tTipContent}`));
+                clonedTTip = document.querySelector(`${tTipContent}`).cloneNode(true);
+                clonedTTip.removeAttribute('id');
+                clonedTTip.removeAttribute('class');
+                clonedTTip.classList.add('tTipText');
+                clonedTTip.style.zIndex = '99';
+                tTip.appendChild(clonedTTip);
+            }
+            else{
+                customTTip.innerHTML = tTipContent;
+                if(!tTip.innerHTML.includes(tTipContent)){
+                    customTTip.classList.add('tTipText');
+                    tTip.appendChild(customTTip);
+                }
+            }
+          }catch(error){
+            console.log(error);
             customTTip.innerHTML = tTipContent;
             if(!tTip.innerHTML.includes(tTipContent)){
                 customTTip.classList.add('tTipText');
                 tTip.appendChild(customTTip);
             }
-        }
-      }catch(error){
-        console.log(error);
-        customTTip.innerHTML = tTipContent;
-        if(!tTip.innerHTML.includes(tTipContent)){
-            customTTip.classList.add('tTipText');
-            tTip.appendChild(customTTip);
-        }
-      }
-    });
-
-    document.querySelectorAll('.externalTTip').forEach((tTip) => {
-        tTip.closest('table').closest('tr').style.display = 'none';
-        tTip.closest('table').closest('tr').nextSibling.style.display = 'none';
-    });
+          }
+        });
+    
+        document.querySelectorAll('.externalTTip').forEach((tTip) => {
+            tTip.closest('table').closest('tr').style.display = 'none';
+            tTip.closest('table').closest('tr').nextSibling.style.display = 'none';
+        });
+    }
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    console.log('tTips load event.');
-    addTTipRules(document);
-    initTTips(document);
+    if(document.querySelector('[name=Complete]')){
+        console.log('tTips load event.');
+        addTTipRules(document);
+        initTTips(document);
+    }
   });
