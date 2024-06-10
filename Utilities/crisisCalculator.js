@@ -32,6 +32,8 @@ let modifier2 = undefined;
 
 let inHospital = undefined;
 
+const stabilizationServices = ['CRC Admit', 'CRC Observation', 'CRD Discharge', 'Admin Note'];
+
 function checkHospital(){
   inHospital = [...document.querySelector('#crisisAtHospital').closest('table').querySelectorAll('input')].filter((input) => {
     return input.closest('tr').innerHTML.includes('Yes');
@@ -97,9 +99,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     tempVisitType = 'Test';
   }
 
-  console.log('Oreo');
+  if(stabilizationServices.includes(tempVisitType)){
+    isStabilization = true;
+  }
   
-  /*const crisisCalcUrl = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0fjxySud1NFWjBUhc9G4lfD&start_date=&end_date=&custom_param1=${cid}&custom_param2=${serviceTypeID}&custom_param3=`;
+  const crisisCalcUrl = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0fjxySud1NFWjBUhc9G4lfD&start_date=&end_date=&custom_param1=${cid}&custom_param2=${serviceTypeID}&custom_param3=`;
   let crisisCalcResult;
   
   try{
@@ -114,7 +118,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.querySelector('#crisisAtHospital').closest('table').querySelectorAll('input').forEach((input) => {
     input.addEventListener('change', checkHospital);
     input.addEventListener('mouseleave', checkHospital);
-  });*/
+  });
 });
 
 function calculateCodes(){
