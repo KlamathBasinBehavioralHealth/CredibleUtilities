@@ -16,7 +16,7 @@ try{
   console.log(error);
 }
 if(tvid == undefined){
-  tvid = '2506903s';
+  tvid = '2506903';
 }
 
 let programID = undefined;
