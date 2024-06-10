@@ -46,7 +46,7 @@ function checkHospital(){
 
 let tempVisitType = undefined;
 
-document.querySelector('DOMContentLoaded', async () => {
+document.querySelector('DOMContentLoaded', () => {
   console.log('Crisis Calculator Primary Load Function');
 
   cptCode = document.querySelector('#crisisAssessmentCPTCode').closest('table').querySelector('input');
@@ -91,7 +91,7 @@ document.querySelector('DOMContentLoaded', async () => {
   let checkStabilizationURL = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eaKmY5yrn8bybVnZc2VMjJ&start_date=&end_date=&custom_param1=${tempVisitID}&custom_param2=&custom_param3=`;
   let checkStabilizationResult;
 	
-  try{
+  /*try{
     checkStabilizationResult = await getData(checkStabilizationURL);
     tempVisitType = checkStabilizationResult.querySelector('visittype').innerHTML;
   }catch(error){
@@ -99,7 +99,7 @@ document.querySelector('DOMContentLoaded', async () => {
     tempVisitType = 'Test';
   }
   
-  /*const crisisCalcUrl = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0fjxySud1NFWjBUhc9G4lfD&start_date=&end_date=&custom_param1=${cid}&custom_param2=${serviceTypeID}&custom_param3=`;
+  const crisisCalcUrl = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0fjxySud1NFWjBUhc9G4lfD&start_date=&end_date=&custom_param1=${cid}&custom_param2=${serviceTypeID}&custom_param3=`;
   let crisisCalcResult;
   
   try{
