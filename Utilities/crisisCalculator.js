@@ -42,7 +42,7 @@ function checkHospital(){
 
 let tempVisitType = undefined;
 
-document.querySelector("DOMContentLoaded", () => {
+document.querySelector("DOMContentLoaded", async () => {
   console.log('Crisis Calculator Primary Load Function');
 
   cptCode = document.querySelector('#crisisAssessmentCPTCode').closest('table').querySelector('input');
