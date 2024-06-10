@@ -26,9 +26,9 @@ let isFollowUp = undefined;
 let isStabilization = undefined;
 let ogHT = undefined;
 
-let cptCode = document.querySelector('#crisisAssessmentCPTCode').closest('table').querySelector('input');
-let modifier1 = document.querySelector('#crisisAssessmentModifier1').closest('table').querySelector('input');
-let modifier2 = document.querySelector('#crisisAssessmentModifier2').closest('table').querySelector('input');
+let cptCode = undefined;
+let modifier1 = undefined;
+let modifier2 = undefined;
 
 let inHospital = undefined;
 
@@ -42,8 +42,12 @@ function checkHospital(){
 
 let tempVisitType = undefined;
 
-window.load = async () => {
+document.querySelector("DOMContentLoaded", () => {
   console.log('Crisis Calculator Primary Load Function');
+
+  cptCode = document.querySelector('#crisisAssessmentCPTCode').closest('table').querySelector('input');
+  modifier1 = document.querySelector('#crisisAssessmentModifier1').closest('table').querySelector('input');
+  modifier2 = document.querySelector('#crisisAssessmentModifier2').closest('table').querySelector('input');
 
   try{
     cid = (new URL(frameElement.src)).searchParams.get('client_id');
@@ -72,7 +76,7 @@ window.load = async () => {
       programID = 117; 
     } 
   } 
-  
+
   try{
     age = checkAge();
   }catch(error){
@@ -107,7 +111,7 @@ window.load = async () => {
     input.addEventListener('change', checkHospital);
     input.addEventListener('mouseleave', checkHospital);
   });*/
-};
+});
 
 function calculateCodes(){
   if(programID == crisisProgramID){
