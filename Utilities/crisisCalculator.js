@@ -1,7 +1,3 @@
-document.querySelector('DOMContentLoaded', () => {
-  console.log('Crisis Calculator First Load Function');
-});
-
 let cid = undefined;
 
 let tvid = undefined;
@@ -46,7 +42,7 @@ function checkHospital(){
 
 let tempVisitType = undefined;
 
-document.querySelector('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   console.log('Crisis Calculator Primary Load Function');
 
   cptCode = document.querySelector('#crisisAssessmentCPTCode').closest('table').querySelector('input');
