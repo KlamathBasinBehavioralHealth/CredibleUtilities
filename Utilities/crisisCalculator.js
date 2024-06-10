@@ -1,35 +1,9 @@
 let cid = undefined;
-try{
-  cid = (new URL(frameElement.src)).searchParams.get('client_id');
-}catch(error){
-  console.log(error);
-  cid = '200079';
-}
-if(cid == undefined){
-	cid = '200079';
-}
 
 let tvid = undefined;
-try{
-  tvid = parent.document.querySelector('frame[id=left]').contentDocument.querySelector('#visittemp_ids').value;
-}catch(error){
-  console.log(error);
-}
-if(tvid == undefined){
-  tvid = '2506903';
-}
 
 let programID = undefined;
-const crisisProgramID = 117;
-
-try{ 
-  programID = window.parent.parent[0].$('input[id=programId]').val(); 
-}
-catch{ 
-  if(programID == undefined){ 
-    programID = 117; 
-  } 
-}  
+const crisisProgramID = 117; 
 
 let serviceTypeID = '1036';
 
@@ -46,13 +20,6 @@ function checkAge(){
     document.querySelector('#clientAge').closest('table').querySelector('font').innerText = '18';
   }
   return tempAge;
-}
-
-try{
-  age = checkAge();
-}catch(error){
-  console.log(error);
-  age = defaultAge;
 }
 
 let isFollowUp = undefined;
@@ -77,6 +44,42 @@ let tempVisitType = undefined;
 
 window.load = async () => {
   console.log('Crisis Calculator Primary Load Function');
+
+  try{
+    cid = (new URL(frameElement.src)).searchParams.get('client_id');
+  }catch(error){
+    console.log(error);
+    cid = '200079';
+  }
+  if(cid == undefined){
+    cid = '200079';
+  }
+
+  try{
+    tvid = parent.document.querySelector('frame[id=left]').contentDocument.querySelector('#visittemp_ids').value;
+  }catch(error){
+    console.log(error);
+  }
+  if(tvid == undefined){
+    tvid = '2506903';
+  }
+
+  try{ 
+    programID = window.parent.parent[0].$('input[id=programId]').val(); 
+  }
+  catch{ 
+    if(programID == undefined){ 
+      programID = 117; 
+    } 
+  } 
+  
+  try{
+    age = checkAge();
+  }catch(error){
+    console.log(error);
+    age = defaultAge;
+  }
+
   let checkStabilizationURL = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eaKmY5yrn8bybVnZc2VMjJ&start_date=&end_date=&custom_param1=${tempVisitID}&custom_param2=&custom_param3=`;
   let checkStabilizationResult;
 	
