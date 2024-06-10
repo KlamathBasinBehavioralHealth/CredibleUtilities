@@ -1,4 +1,4 @@
-document.querySelector('DOMContentLoaded', async () => {
+document.querySelector('DOMContentLoaded', () => {
   console.log('Crisis Calculator First Load Function');
 });
 
