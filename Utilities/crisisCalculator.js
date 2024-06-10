@@ -1,17 +1,24 @@
 let cid = undefined;
 try{
-  cid = getClientID();
+  cid = (new URL(frameElement.src)).searchParams.get('client_id');
 }catch(error){
   console.log(error);
   cid = '200079';
 }
-let tempVisitID = undefined;
+if(cid == undefined){
+	cid = '200079';
+}
+
+let tvid = undefined;
 try{
-  tempVisitID = getTempVisitID();
+  tvid = parent.document.querySelector('frame[id=left]').contentDocument.querySelector('#visittemp_ids').value;
 }catch(error){
   console.log(error);
-  tempVisitID = '';
 }
+if(tvid == undefined){
+  tvid = '2506903s';
+}
+
 let programID = undefined;
 const crisisProgramID = 117;
 
@@ -32,12 +39,12 @@ let defaultAge = 18;
 function checkAge(){
   let tempAge = undefined;
   if($('tr').has('div[id=clientAge]').find('input')?.val() != ''){
-		tempAge = parseInt($('tr').has('div[id=clientAge]').find('font').text(), 10);
-	}
-	if(!$.isNumeric(tempAge)){
-		tempAge = defaultAge;
+    tempAge = parseInt($('tr').has('div[id=clientAge]').find('font').text(), 10);
+  }
+  if(!$.isNumeric(tempAge)){
+    tempAge = defaultAge;
     document.querySelector('#clientAge').closest('table').querySelector('font').innerText = '18';
-	}
+  }
   return tempAge;
 }
 
@@ -69,7 +76,6 @@ function checkHospital(){
 let tempVisitType = undefined;
 
 document.addEventListener('DOMContentLoaded', async () => {
-  tempVisitID = '2506903';
   
   let checkStabilizationURL = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eaKmY5yrn8bybVnZc2VMjJ&start_date=&end_date=&custom_param1=${tempVisitID}&custom_param2=&custom_param3=`;
   
@@ -81,7 +87,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     tempVisitType = 'Test';
   }
   
-  const crisisCalcUrl = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0fjxySud1NFWjBUhc9G4lfD&start_date=&end_date=&custom_param1=${cid}&custom_param2=${serviceTypeID}&custom_param3=`;
+  /*const crisisCalcUrl = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0fjxySud1NFWjBUhc9G4lfD&start_date=&end_date=&custom_param1=${cid}&custom_param2=${serviceTypeID}&custom_param3=`;
   
   try{
     let crisisCalcResult = await getData(crisisCalcUrl);
@@ -95,7 +101,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.querySelector('#crisisAtHospital').closest('table').querySelectorAll('input').forEach((input) => {
     input.addEventListener('change', checkHospital);
     input.addEventListener('mouseleave', checkHospital);
-  });
+  });*/
 });
 
 function calculateCodes(){
