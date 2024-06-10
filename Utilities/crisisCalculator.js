@@ -78,9 +78,10 @@ let tempVisitType = undefined;
 document.addEventListener('DOMContentLoaded', async () => {
   
   let checkStabilizationURL = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eaKmY5yrn8bybVnZc2VMjJ&start_date=&end_date=&custom_param1=${tempVisitID}&custom_param2=&custom_param3=`;
-  
+  let checkStabilizationResult;
+	
   try{
-    let checkStabilizationResult = await getData(checkStabilizationURL);
+    checkStabilizationResult = await getData(checkStabilizationURL);
     tempVisitType = checkStabilizationResult.querySelector('visittype').innerHTML;
   }catch(error){
     console.log(error);
@@ -88,9 +89,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
   
   /*const crisisCalcUrl = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0fjxySud1NFWjBUhc9G4lfD&start_date=&end_date=&custom_param1=${cid}&custom_param2=${serviceTypeID}&custom_param3=`;
+  let crisisCalcResult;
   
   try{
-    let crisisCalcResult = await getData(crisisCalcUrl);
+    crisisCalcResult = await getData(crisisCalcUrl);
     isFollowUp = parseInt(crisisCalcResult.querySelector('within_72_hours').innerHTML);
     ogHT = parseInt(crisisCalcResult.querySelector('ht').innerHTML);
   }catch(error){
