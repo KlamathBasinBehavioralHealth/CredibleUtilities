@@ -22,7 +22,7 @@ function checkAge(){
   return tempAge;
 }
 
-let isFollowUp = undefined;
+let isFollowUp = undefined; 
 let isStabilization = undefined;
 let ogHT = undefined;
 
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   checkStabilizationURLTest = `https://corsproxy.io/?reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eaKmY5yrn8bybVnZc2VMjJ&start_date=&end_date=&custom_param1=${tvid}&custom_param2=&custom_param3=`;
   
   try{
-    checkStabilizationResult = await getData(checkStabilizationURLTest);
+    checkStabilizationResult = await getData(checkStabilizationURL);
     tempVisitType = checkStabilizationResult.querySelector('visittype').innerHTML;
   }catch(error){
     console.log(error);
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   let crisisCalcResult;
   
   try{
-    crisisCalcResult = await getData(crisisCalcURLTest);
+    crisisCalcResult = await getData(crisisCalcUrl);
     isFollowUp = parseInt(crisisCalcResult.querySelector('within_72_hours').innerHTML);
     ogHT = parseInt(crisisCalcResult.querySelector('ht').innerHTML);
   }catch(error){
