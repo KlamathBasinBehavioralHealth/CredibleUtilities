@@ -171,6 +171,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         visibility('show', '#within72OfAssessment', true);
       }else{
         within72OfAssessmentNo.click();
+        visibility('hide', '#within72OfAssessment');
       }
     }
   }
