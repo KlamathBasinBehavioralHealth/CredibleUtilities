@@ -45,7 +45,14 @@ function checkHospital(){
 let tempVisitType = undefined;
 
 let checkStabilizationURL = undefined;
-let checkStabilizationResult = undefined;
+//let checkStabilizationResult = undefined;
+
+let isStabilizationYes;
+let isStabilizationNo;
+let within72OfAssessmentYes;
+let within72OfAssessmentNo;
+let ogHTYes;
+let ogHTNo;
 
 document.addEventListener('DOMContentLoaded', async () => {
   console.log('Crisis Calculator Primary Load Function');
@@ -115,7 +122,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	
   checkStabilizationURL = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eaKmY5yrn8bybVnZc2VMjJ&start_date=&end_date=&custom_param1=${tvid}&custom_param2=&custom_param3=`;
 
-  checkStabilizationURLTest = `https://corsproxy.io/?reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eaKmY5yrn8bybVnZc2VMjJ&start_date=&end_date=&custom_param1=${tvid}&custom_param2=&custom_param3=`;
+  //checkStabilizationURLTest = `https://corsproxy.io/?reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eaKmY5yrn8bybVnZc2VMjJ&start_date=&end_date=&custom_param1=${tvid}&custom_param2=&custom_param3=`;
   
   try{
     checkStabilizationResult = await getData(checkStabilizationURL);
@@ -138,7 +145,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   console.log('Check Stabilization done.');
   
   const crisisCalcUrl = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0fjxySud1NFWjBUhc9G4lfD&start_date=&end_date=&custom_param1=${cid}&custom_param2=${serviceTypeID}&custom_param3=`;
-  const crisisCalcURLTest = `https://corsproxy.io/?reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0fjxySud1NFWjBUhc9G4lfD&start_date=&end_date=&custom_param1=${cid}&custom_param2=${serviceTypeID}&custom_param3=`;
+  //const crisisCalcURLTest = `https://corsproxy.io/?reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0fjxySud1NFWjBUhc9G4lfD&start_date=&end_date=&custom_param1=${cid}&custom_param2=${serviceTypeID}&custom_param3=`;
   let crisisCalcResult;
   
   try{
@@ -163,10 +170,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     ogHTYes.checked = false;
     ogHTNo.checked = false;
     ogHTYes.click();
+    visibility('hide', '#ogHG');
   }else{
     ogHTYes.checked = false;
     ogHTNo.checked = false;
-    ogHTNo.click();
+    visibility('show', '#ogHG', true);
   }
 
   checkHospital();
