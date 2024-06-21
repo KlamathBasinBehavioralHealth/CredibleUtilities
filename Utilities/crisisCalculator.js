@@ -237,4 +237,4 @@ function calculateCodes(){
   }else{
     visibility('hide', '.crisisCalculatorQ');
   }
-}  
+}
