@@ -147,11 +147,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   const crisisCalcUrl = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0fjxySud1NFWjBUhc9G4lfD&start_date=&end_date=&custom_param1=${cid}&custom_param2=${serviceTypeID}&custom_param3=`;
   let crisisCalcResult;
   
+  let success = true;
+
   try{
     crisisCalcResult = await getData(crisisCalcUrl);
     isFollowUp = parseInt(crisisCalcResult.querySelector('within_72_hours').innerHTML);
     ogHT = parseInt(crisisCalcResult.querySelector('ht').innerHTML);
   }catch(error){
+    success = false;
     console.log(error);
   }
 
@@ -164,7 +167,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     within72OfAssessmentYes.checked = false;
     within72OfAssessmentNo.checked = false;
     if(programID == crisisProgramID){
-      visibility('show', '#within72OfAssessment', true);
+      if(!success){
+        visibility('show', '#within72OfAssessment', true);
+      }else{
+        within72OfAssessmentNo.click();
+      }
     }
   }
 
