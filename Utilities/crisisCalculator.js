@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   let ogHTNo = [...document.querySelector('#ogHT').closest('table').querySelectorAll('input')].filter((input) => {
     return input.closest('tr').innerHTML.includes('No');
   })[0];
-  
+
   try{
     cid = (new URL(frameElement.src)).searchParams.get('client_id');
   }catch(error){
@@ -129,6 +129,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     isStabilizationYes.checked = false;
     isStabilizationNo.checked = false;
     isStabilizationYes.click();
+  }else{
+    isStabilizationYes.checked = false;
+    isStabilizationNo.checked = false;
+    isStabilizationNo.click();
   }
 
   console.log('Check Stabilization done.');
@@ -149,12 +153,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     within72OfAssessmentYes.checked = false;
     within72OfAssessmentNo.checked = false;
     within72OfAssessmentYes.click();
+  }else{
+    within72OfAssessmentYes.checked = false;
+    within72OfAssessmentNo.checked = false;
+    within72OfAssessmentNo.click();
   }
 
   if(ogHT){
     ogHTYes.checked = false;
     ogHTNo.checked = false;
     ogHTYes.click();
+  }else{
+    ogHTYes.checked = false;
+    ogHTNo.checked = false;
+    ogHTNo.click();
   }
 
   checkHospital();
