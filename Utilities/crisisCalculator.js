@@ -137,7 +137,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }else{
     isStabilizationYes.checked = false;
     isStabilizationNo.checked = false;
-    isStabilizationNo.click();
     if(programID == crisisProgramID){
       visibility('show', '#isStabilization', true);
     }
@@ -164,7 +163,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }else{
     within72OfAssessmentYes.checked = false;
     within72OfAssessmentNo.checked = false;
-    within72OfAssessmentNo.click();
     if(programID == crisisProgramID){
       visibility('show', '#within72OfAssessment', true);
     }
