@@ -45,7 +45,6 @@ function checkHospital(){
 let tempVisitType = undefined;
 
 let checkStabilizationURL = undefined;
-//let checkStabilizationResult = undefined;
 
 let isStabilizationYes;
 let isStabilizationNo;
@@ -121,8 +120,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 	
   checkStabilizationURL = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eaKmY5yrn8bybVnZc2VMjJ&start_date=&end_date=&custom_param1=${tvid}&custom_param2=&custom_param3=`;
-
-  //checkStabilizationURLTest = `https://corsproxy.io/?reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eaKmY5yrn8bybVnZc2VMjJ&start_date=&end_date=&custom_param1=${tvid}&custom_param2=&custom_param3=`;
   
   try{
     checkStabilizationResult = await getData(checkStabilizationURL);
@@ -136,16 +133,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     isStabilizationYes.checked = false;
     isStabilizationNo.checked = false;
     isStabilizationYes.click();
+    visibility('hide', '#isStabilization');
   }else{
     isStabilizationYes.checked = false;
     isStabilizationNo.checked = false;
     isStabilizationNo.click();
+    if(programID == crisisProgramID){
+      visibility('show', '#isStabilization', true);
+    }
   }
 
   console.log('Check Stabilization done.');
   
   const crisisCalcUrl = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0fjxySud1NFWjBUhc9G4lfD&start_date=&end_date=&custom_param1=${cid}&custom_param2=${serviceTypeID}&custom_param3=`;
-  //const crisisCalcURLTest = `https://corsproxy.io/?reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0fjxySud1NFWjBUhc9G4lfD&start_date=&end_date=&custom_param1=${cid}&custom_param2=${serviceTypeID}&custom_param3=`;
   let crisisCalcResult;
   
   try{
@@ -160,21 +160,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     within72OfAssessmentYes.checked = false;
     within72OfAssessmentNo.checked = false;
     within72OfAssessmentYes.click();
+    visibility('hide', '#within72OfAssessment');
   }else{
     within72OfAssessmentYes.checked = false;
     within72OfAssessmentNo.checked = false;
     within72OfAssessmentNo.click();
+    if(programID == crisisProgramID){
+      visibility('show', '#within72OfAssessment', true);
+    }
   }
 
   if(ogHT){
     ogHTYes.checked = false;
     ogHTNo.checked = false;
     ogHTYes.click();
-    visibility('hide', '#ogHG');
+    visibility('hide', '#ogHT');
   }else{
     ogHTYes.checked = false;
     ogHTNo.checked = false;
-    visibility('show', '#ogHG', true);
+    if(programID == crisisProgramID){
+      visibility('show', '#ogHT', true);
+    }
   }
 
   checkHospital();
@@ -228,5 +234,7 @@ function calculateCodes(){
         }
       }
     }
+  }else{
+    visibility('hide', '.crisisCalculatorQ');
   }
 }  
