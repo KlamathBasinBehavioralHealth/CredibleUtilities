@@ -47,6 +47,30 @@ let tempVisitType = undefined;
 let checkStabilizationURL = undefined;
 let checkStabilizationResult = undefined;
 
+let isStabilizationYes = [...document.querySelector('#isStabilization').closest('table').querySelectorAll('input')].filter((input) => {
+  return input.closest('tr').innerHTML.includes('Yes');
+})[0];
+
+let isStabilizationNo = [...document.querySelector('#isStabilization').closest('table').querySelectorAll('input')].filter((input) => {
+  return input.closest('tr').innerHTML.includes('No');
+})[0];
+
+let within72OfAssessmentYes = [...document.querySelector('#within72OfAssessment').closest('table').querySelectorAll('input')].filter((input) => {
+  return input.closest('tr').innerHTML.includes('Yes');
+})[0];
+
+let within72OfAssessmentNo = [...document.querySelector('#within72OfAssessment').closest('table').querySelectorAll('input')].filter((input) => {
+  return input.closest('tr').innerHTML.includes('No');
+})[0];
+
+let ogHTYes = [...document.querySelector('#ogHT').closest('table').querySelectorAll('input')].filter((input) => {
+  return input.closest('tr').innerHTML.includes('Yes');
+})[0];
+
+let ogHTNo = [...document.querySelector('#ogHT').closest('table').querySelectorAll('input')].filter((input) => {
+  return input.closest('tr').innerHTML.includes('No');
+})[0];
+
 document.addEventListener('DOMContentLoaded', async () => {
   console.log('Crisis Calculator Primary Load Function');
 
@@ -102,7 +126,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   if(stabilizationServices.includes(tempVisitType)){
-    isStabilization = true;
+    isStabilizationYes.checked = false;
+    isStabilizationNo.checked = false;
+    isStabilizationYes.click();
   }
 
   console.log('Check Stabilization done.');
@@ -118,11 +144,34 @@ document.addEventListener('DOMContentLoaded', async () => {
   }catch(error){
     console.log(error);
   }
-  
-  console.log('Check Crisis Calc done.');
+
+  if(isFollowUp){
+    within72OfAssessmentYes.checked = false;
+    within72OfAssessmentNo.checked = false;
+    within72OfAssessmentYes.click();
+  }
+
+  if(ogHT){
+    ogHTYes.checked = false;
+    ogHTNo.checked = false;
+    ogHTYes.click();
+  }
 
   checkHospital();
+
   document.querySelector('#crisisAtHospital').closest('table').querySelectorAll('input').forEach((input) => {
+    input.addEventListener('change', checkHospital);
+    input.addEventListener('mouseleave', checkHospital);
+  });
+  document.querySelector('#isStabilization').closest('table').querySelectorAll('input').forEach((input) => {
+    input.addEventListener('change', checkHospital);
+    input.addEventListener('mouseleave', checkHospital);
+  });
+  document.querySelector('#within72OfAssessment').closest('table').querySelectorAll('input').forEach((input) => {
+    input.addEventListener('change', checkHospital);
+    input.addEventListener('mouseleave', checkHospital);
+  });
+  document.querySelector('#ogHT').closest('table').querySelectorAll('input').forEach((input) => {
     input.addEventListener('change', checkHospital);
     input.addEventListener('mouseleave', checkHospital);
   });
@@ -130,7 +179,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 function calculateCodes(){
   if(programID == crisisProgramID){
-    if(isFollowUp){
+    if(within72OfAssessmentYes){
       if(age >= 18){
         if(inHospital){
           cptCode.value = 'H2011';
@@ -148,7 +197,7 @@ function calculateCodes(){
           }
         }
       }else{
-        if(isStabilization){
+        if(isStabilizationYes){
           cptCode.value = 'H2011';
           modifier1.value = 'TS';
           modifier2.value = '';
