@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
   catch{ 
     if(programID == undefined){ 
-      programID = 117; 
+      programID = 130; 
     } 
   } 
 
@@ -207,6 +207,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     input.addEventListener('change', checkHospital);
     input.addEventListener('mouseleave', checkHospital);
   });
+
+  if(programID == crisisProgramID){
+    visibility('show', '#crisisAtHospital', true);
+  }else{
+    visibility('hide', '#crisisAtHospital');
+  }
 });
 
 function calculateCodes(){
