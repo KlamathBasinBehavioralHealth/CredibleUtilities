@@ -10,9 +10,7 @@ if(typeof programID == 'undefined'){
   var programID = undefined;
 }
 
-if(typeof crisisProgramID == 'undefined'){
-  const crisisProgramID = 117; 
-}
+const crisisProgramID = 117; 
 
 if(typeof serviceTypeID == 'undefined'){
   var serviceTypeID = '1036';
