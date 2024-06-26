@@ -1,13 +1,13 @@
 if(typeof cid == 'undefined'){
-  let cid = undefined;
+  var cid = undefined;
 }
 
 if(typeof tvid == 'undefined'){
-  let tvid = undefined;
+  var tvid = undefined;
 } 
 
 if(typeof programID == 'undefined'){
-  let programID = undefined;
+  var programID = undefined;
 }
 
 if(typeof crisisProgramID == 'undefined'){
@@ -15,13 +15,13 @@ if(typeof crisisProgramID == 'undefined'){
 }
 
 if(typeof serviceTypeID == 'undefined'){
-  let serviceTypeID = '1036';
+  var serviceTypeID = '1036';
 }
 if(typeof age == 'undefined'){
-  let age = undefined;
+  var age = undefined;
 }
 if(typeof defaultAge == 'undefined'){
-  let defaultAge = 18;
+  var defaultAge = 18;
 }
 
 function checkAge(){
@@ -37,29 +37,29 @@ function checkAge(){
 }
 
 if(typeof isFollowUp == 'undefined'){
-  let isFollowUp = undefined;
+  var isFollowUp = undefined;
 } 
 
 if(typeof isStabilization == 'undefined'){
-  let isStabilization = undefined;
+  var isStabilization = undefined;
 }
 
 if(typeof ogHT == 'undefined'){
-  let ogHT = undefined;
+  var ogHT = undefined;
 }
 
 if(typeof cptCode == 'undefined'){
-  let cptCode = undefined;
+  var cptCode = undefined;
 }
 if(typeof modifier1 == 'undefined'){
-  let modifier1 = undefined;
+  var modifier1 = undefined;
 }
 if(typeof modifier2 == 'undefined'){
-  let modifier2 = undefined;
+  var modifier2 = undefined;
 }
 
 if(typeof inHospital == 'undefined'){
-  let inHospital = undefined;
+  var inHospital = undefined;
 }
 
 const stabilizationServices = ['CRC Admit', 'CRC Observation', 'CRD Discharge', 'Admin Note'];
