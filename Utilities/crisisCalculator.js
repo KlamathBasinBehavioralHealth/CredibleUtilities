@@ -1,24 +1,24 @@
-if(typeof cid == 'undefined'){
+if(typeof cid === 'undefined'){
   var cid = undefined;
 }
 
-if(typeof tvid == 'undefined'){
+if(typeof tvid === 'undefined'){
   var tvid = undefined;
 } 
 
-if(typeof programID == 'undefined'){
+if(typeof programID === 'undefined'){
   var programID = undefined;
 }
 
 const crisisProgramID = 117; 
 
-if(typeof serviceTypeID == 'undefined'){
+if(typeof serviceTypeID === 'undefined'){
   var serviceTypeID = '1036';
 }
-if(typeof age == 'undefined'){
+if(typeof age === 'undefined'){
   var age = undefined;
 }
-if(typeof defaultAge == 'undefined'){
+if(typeof defaultAge === 'undefined'){
   var defaultAge = 18;
 }
 
@@ -34,29 +34,29 @@ function checkAge(){
   return tempAge;
 }
 
-if(typeof isFollowUp == 'undefined'){
+if(typeof isFollowUp === 'undefined'){
   var isFollowUp = undefined;
 } 
 
-if(typeof isStabilization == 'undefined'){
+if(typeof isStabilization === 'undefined'){
   var isStabilization = undefined;
 }
 
-if(typeof ogHT == 'undefined'){
+if(typeof ogHT === 'undefined'){
   var ogHT = undefined;
 }
 
-if(typeof cptCode == 'undefined'){
+if(typeof cptCode === 'undefined'){
   var cptCode = undefined;
 }
-if(typeof modifier1 == 'undefined'){
+if(typeof modifier1 === 'undefined'){
   var modifier1 = undefined;
 }
-if(typeof modifier2 == 'undefined'){
+if(typeof modifier2 === 'undefined'){
   var modifier2 = undefined;
 }
 
-if(typeof inHospital == 'undefined'){
+if(typeof inHospital === 'undefined'){
   var inHospital = undefined;
 }
 
