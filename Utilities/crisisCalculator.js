@@ -1,25 +1,49 @@
 if(typeof cid === 'undefined'){
-  var cid = undefined;
+  try{
+    var cid = undefined;
+  }catch(error){
+    console.log(error);
+  }
 }
 
 if(typeof tvid === 'undefined'){
-  var tvid = undefined;
+  try{
+    var tvid = undefined;
+  }catch(error){
+    console.log(error);
+  }
 } 
 
 if(typeof programID === 'undefined'){
-  var programID = undefined;
+  try{
+    var programID = undefined;
+  }catch(error){
+    console.log(error);
+  }
 }
 
 const crisisProgramID = 117; 
 
 if(typeof serviceTypeID === 'undefined'){
-  var serviceTypeID = '1036';
+  try{
+    var serviceTypeID = '1036';
+  }catch(error){
+    console.log(error);
+  }
 }
 if(typeof age === 'undefined'){
-  var age = undefined;
+  try{
+    var age = undefined;
+  }catch(error){
+    console.log(error);
+  }
 }
 if(typeof defaultAge === 'undefined'){
-  var defaultAge = 18;
+  try{
+    var defaultAge = 18;
+  }catch(error){
+    console.log(error);
+  }
 }
 
 function checkAge(){
@@ -35,29 +59,57 @@ function checkAge(){
 }
 
 if(typeof isFollowUp === 'undefined'){
-  var isFollowUp = undefined;
+  try{
+    var isFollowUp = undefined;
+  }catch(error){
+    console.log(error);
+  }
 } 
 
 if(typeof isStabilization === 'undefined'){
-  var isStabilization = undefined;
+  try{
+    var isStabilization = undefined;
+  }catch(error){
+    console.log(error);
+  }
 }
 
 if(typeof ogHT === 'undefined'){
-  var ogHT = undefined;
+  try{
+    var ogHT = undefined;
+  }catch(error){
+    console.log(error);
+  }
 }
 
 if(typeof cptCode === 'undefined'){
-  var cptCode = undefined;
+  try{
+    var cptCode = undefined;
+  }catch(error){
+    console.log(error);
+  }
 }
 if(typeof modifier1 === 'undefined'){
-  var modifier1 = undefined;
+  try{
+    var modifier1 = undefined;
+  }catch(error){
+    console.log(error);
+  }
 }
 if(typeof modifier2 === 'undefined'){
-  var modifier2 = undefined;
+  try{
+    var modifier2 = undefined;
+  }catch(error){
+    console.log(error);
+  }
 }
 
 if(typeof inHospital === 'undefined'){
-  var inHospital = undefined;
+  try{
+    var inHospital = undefined;
+  }catch(error){
+    console.log(error);
+  }
 }
 
 const stabilizationServices = ['CRC Admit', 'CRC Observation', 'CRD Discharge', 'Admin Note'];
