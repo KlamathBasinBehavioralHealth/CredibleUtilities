@@ -1,14 +1,28 @@
-let cid = undefined;
+if(typeof cid == 'undefined'){
+  let cid = undefined;
+}
 
-let tvid = undefined;
+if(typeof tvid == 'undefined'){
+  let tvid = undefined;
+} 
 
-let programID = undefined;
-const crisisProgramID = 117; 
+if(typeof programID == 'undefined'){
+  let programID = undefined;
+}
 
-let serviceTypeID = '1036';
+if(typeof crisisProgramID == 'undefined'){
+  const crisisProgramID = 117; 
+}
 
-let age = undefined;
-let defaultAge = 18;
+if(typeof serviceTypeID == 'undefined'){
+  let serviceTypeID = '1036';
+}
+if(typeof age == 'undefined'){
+  let age = undefined;
+}
+if(typeof defaultAge == 'undefined'){
+  let defaultAge = 18;
+}
 
 function checkAge(){
   let tempAge = undefined;
@@ -22,15 +36,31 @@ function checkAge(){
   return tempAge;
 }
 
-let isFollowUp = undefined; 
-let isStabilization = undefined;
-let ogHT = undefined;
+if(typeof isFollowUp == 'undefined'){
+  let isFollowUp = undefined;
+} 
 
-let cptCode = undefined;
-let modifier1 = undefined;
-let modifier2 = undefined;
+if(typeof isStabilization == 'undefined'){
+  let isStabilization = undefined;
+}
 
-let inHospital = undefined;
+if(typeof ogHT == 'undefined'){
+  let ogHT = undefined;
+}
+
+if(typeof cptCode == 'undefined'){
+  let cptCode = undefined;
+}
+if(typeof modifier1 == 'undefined'){
+  let modifier1 = undefined;
+}
+if(typeof modifier2 == 'undefined'){
+  let modifier2 = undefined;
+}
+
+if(typeof inHospital == 'undefined'){
+  let inHospital = undefined;
+}
 
 const stabilizationServices = ['CRC Admit', 'CRC Observation', 'CRD Discharge', 'Admin Note'];
 
