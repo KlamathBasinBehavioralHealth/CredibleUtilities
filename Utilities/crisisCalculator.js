@@ -78,21 +78,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try{
     crisisCalculatorResult = await getData(crisisCalculatorURL);
-    cptCode = crisisCalculatorResult.querySelector('cpt_code').innerHTML;
-    modifier1 = crisisCalculatorResult.querySelector('modifier1').innerHTML;
+    cptCode = crisisCalculatorResult.querySelector('cpt_code').innerHTML.toUpperCase();
+    modifier1 = crisisCalculatorResult.querySelector('modifier1').innerHTML.toUpperCase();
     billingMatrixID = crisisCalculatorResult.querySelector('billing_matrix_id').innerHTML;
     emLevel = crisisCalculatorResult.querySelector('em_level').innerHTML;
     
-    if(cptCodeTarget.value != '0'){
-      cptCodeTarget.value.toUpperCase() = cptCode;
+    if(cptCode !== '0'){
+      cptCodeTarget.value = cptCode;
     }
-    if(modifier1Target.value != '0'){
-      modifier1Target.value.toUpperCase() = modifier1;
+    if(modifier1 !== '0'){
+      modifier1Target.value = modifier1;
     }
-    if(billingMatrixIDTarget.value != '0'){
+    if(billingMatrixID !== '0'){
       billingMatrixIDTarget.value = billingMatrixID;
     }
-    if(emLevelTarget.value != '0'){
+    if(emLevel !== '0'){
       emLevelTarget.value = emLevel;
     }
   }catch(error){
