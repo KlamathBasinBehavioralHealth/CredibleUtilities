@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   
 
   try{
-    crisisCalculatorResult = await getData(crisisCalculatorURL2);
+    crisisCalculatorResult = await getData(crisisCalculatorURL);
     cptCode = crisisCalculatorResult.querySelector('cpt_code').innerHTML;
     modifier1 = crisisCalculatorResult.querySelector('modifier1').innerHTML;
     billingMatrixID = crisisCalculatorResult.querySelector('billing_matrix_id').innerHTML;
@@ -145,7 +145,7 @@ function calculateCrisisCodes(){
     if(!crisisAssessmentCheckYes.checked){
       crisisAssessmentCheckYes.click();
     }
-    
+
     try{
       visibility('hide', '#crisisAssessmentCheck');
     }catch(error){
