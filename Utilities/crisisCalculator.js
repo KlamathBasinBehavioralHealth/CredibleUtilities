@@ -83,16 +83,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     billingMatrixID = crisisCalculatorResult.querySelector('billing_matrix_id').innerHTML;
     emLevel = crisisCalculatorResult.querySelector('em_level').innerHTML;
     
-    if(cptCodeTarget.value !== '0'){
+    if(cptCodeTarget.value != '0'){
       cptCodeTarget.value.toUpperCase() = cptCode;
     }
-    if(modifier1Target.value !== '0'){
+    if(modifier1Target.value != '0'){
       modifier1Target.value.toUpperCase() = modifier1;
     }
-    if(billingMatrixIDTarget.value !== '0'){
+    if(billingMatrixIDTarget.value != '0'){
       billingMatrixIDTarget.value = billingMatrixID;
     }
-    if(emLevelTarget.value !== '0'){
+    if(emLevelTarget.value != '0'){
       emLevelTarget.value = emLevel;
     }
   }catch(error){
