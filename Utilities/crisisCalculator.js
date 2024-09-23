@@ -66,13 +66,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     tempVisitID = '2582616';
   }
 	
-  crisisCalculatorURL = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eaKmY5yrn8bybVnZc2VMj&start_date=&end_date=&custom_param1=${tempVisitID}&custom_param2=&custom_param3=`;
+  crisisCalculatorURL = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eaKmY5yrn8bybVnZc2VMjJ&start_date=&end_date=&custom_param1=${tempVisitID}&custom_param2=&custom_param3=`;
 
   visibility('hide', '.mcisQ');
   //visibility('hide', '.mcisA');
 
   try{
-    crisisCalculatorResult = await getData(crisisCalculatorURL);
+    crisisCalculatorResult = await getData(crisisCalculatorURL2);
     cptCode = crisisCalculatorResult.querySelector('cpt_code').innerHTML;
     modifier1 = crisisCalculatorResult.querySelector('modifier1').innerHTML;
     billingMatrixID = crisisCalculatorResult.querySelector('billing_matrix_id').innerHTML;
@@ -84,9 +84,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     emLevelTarget.value = emLevel;
   }catch(error){
     console.log(error);
-
-    visibility('show', '.mcisQ', true);
-    //visibility('hide', '.mcisA');
 
     stabilizationCheckYes = [...document.querySelector('#stabilizationCheck').closest('table').querySelectorAll('input')].filter((input) => {
       return input.closest('tr').innerHTML.includes('Yes');
@@ -121,6 +118,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     followUpCheckNo.addEventListener('mouseleave', calculateCrisisCodes);
 
     calculateCrisisCodes();
+
+    visibility('show', '.mcisQ', true);
+    //visibility('hide', '.mcisA');
   }
 });
 
