@@ -68,8 +68,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 	
   crisisCalculatorURL = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eaKmY5yrn8bybVnZc2VMjJ&start_date=&end_date=&custom_param1=${tempVisitID}&custom_param2=&custom_param3=`;
 
-  visibility('hide', '.mcisQ');
+  try{
+    visibility('hide', '.mcisQ');
   //visibility('hide', '.mcisA');
+  }catch(error){
+    console.log(error);
+  }
+  
 
   try{
     crisisCalculatorResult = await getData(crisisCalculatorURL2);
