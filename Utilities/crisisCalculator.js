@@ -1,18 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
-  if(typeof visibility != 'function'){
-    window.include = function (file){
-      var script = document.createElement('script');
-      script.src = file;
-      script.type = 'text/javascript';
-      script.defer = true;
-        
-      document.getElementsByTagName('head').item(0).appendChild(script);
-    }
-  
-    include('https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js');
-  }
-});
-
 if(typeof tempVisitID === 'undefined'){
   try{
     var tempVisitID = undefined;
@@ -59,6 +44,19 @@ let emLevelTarget = undefined;
 document.addEventListener('DOMContentLoaded', async () => {
   console.log('Crisis Calculator Primary Load Function');
 
+  if(typeof visibility != 'function'){
+    window.include = function (file){
+      var script = document.createElement('script');
+      script.src = file;
+      script.type = 'text/javascript';
+      script.defer = true;
+        
+      document.getElementsByTagName('head').item(0).appendChild(script);
+    }
+  
+    include('https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities/Utilities/visibility.js');
+  }
+  
   if($('tr').has('div[id=clientAge]').find('input')?.val() != ''){
 		age = $('tr').has('div[id=clientAge]').find('font').text();
 		console.log(age);
@@ -164,7 +162,7 @@ function calculateCrisisCodes(){
     if(!followUpCheckNo.checked){
       followUpCheckNo.click();
     }
-    
+
     visibility('hide', '#followUpCheck');
   }
 
