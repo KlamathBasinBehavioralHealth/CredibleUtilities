@@ -124,8 +124,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     calculateCrisisCodes();
 
-    visibility('show', '.mcisQ', true);
-    //visibility('hide', '.mcisA');
+    try{
+      visibility('show', '.mcisQ', true);
+      //visibility('hide', '.mcisA');
+    }catch(error){
+      console.log(error);
+    }
   }
 });
 
@@ -141,12 +145,22 @@ function calculateCrisisCodes(){
     if(!crisisAssessmentCheckYes.checked){
       crisisAssessmentCheckYes.click();
     }
-    visibility('hide', '#crisisAssessmentCheck');
+    
+    try{
+      visibility('hide', '#crisisAssessmentCheck');
+    }catch(error){
+      console.log(error);
+    }
 
     if(!followUpCheckYes.checked){
       followUpCheckYes.click();
     }
-    visibility('hide', '#followUpCheck');
+
+    try{
+      visibility('hide', '#followUpCheck');
+    }catch(error){
+      console.log(error);
+    }
   }
 
   if(stabilizationCheckYes.checked){
