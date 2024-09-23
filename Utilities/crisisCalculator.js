@@ -82,14 +82,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 	
   crisisCalculatorURL = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0e8PCfuSwWEdENelwx!LcKy&start_date=&end_date=&custom_param1=${tempVisitID}&custom_param2=&custom_param3=`;
-
-  try{
     visibility('hide', '.mcisQ');
-  //visibility('hide', '.mcisA');
-  }catch(error){
-    console.log(error);
-  }
-  
+    visibility('hide', '.mcisA');
 
   try{
     crisisCalculatorResult = await getData(crisisCalculatorURL);
@@ -147,12 +141,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     calculateCrisisCodes();
 
-    try{
-      visibility('show', '.mcisQ', true);
-      //visibility('hide', '.mcisA');
-    }catch(error){
-      console.log(error);
-    }
+    visibility('show', '.mcisQ', true);
+    visibility('hide', '.mcisA');
   }
 });
 
@@ -169,21 +159,13 @@ function calculateCrisisCodes(){
       crisisAssessmentCheckYes.click();
     }
 
-    try{
-      visibility('hide', '#crisisAssessmentCheck');
-    }catch(error){
-      console.log(error);
-    }
+    visibility('hide', '#crisisAssessmentCheck');
 
-    if(!followUpCheckYes.checked){
-      followUpCheckYes.click();
+    if(!followUpCheckNo.checked){
+      followUpCheckNo.click();
     }
-
-    try{
-      visibility('hide', '#followUpCheck');
-    }catch(error){
-      console.log(error);
-    }
+    
+    visibility('hide', '#followUpCheck');
   }
 
   if(stabilizationCheckYes.checked){
