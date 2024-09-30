@@ -33,7 +33,11 @@ if(typeof emLevel === 'undefined'){
     console.log(error);
   }
 }
-let age = undefined;
+
+if(typeof age === 'undefined'){
+  let age = undefined;
+}
+
 const adultAge = 21;
 
 let cptCodeTarget = undefined;
