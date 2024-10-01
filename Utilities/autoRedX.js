@@ -81,10 +81,15 @@ async function startUp(){
   setTimeout(() => {
     visibility('hide', '.adminUse');
     reviewRedX();
-    document.querySelector('#withinTxPlan').closest('table').querySelector('select').addEventListener('change', reviewRedX);
-    [...document.querySelector('#serviceProvided').closest('table').querySelectorAll('input')].forEach((input) => {
-      input.addEventListener('change', reviewRedX);    
-    });
+    try{
+      document.querySelector('#withinTxPlan').closest('table').querySelector('select').addEventListener('change', reviewRedX);
+      [...document.querySelector('#serviceProvided').closest('table').querySelectorAll('input')].forEach((input) => {
+        input.addEventListener('change', reviewRedX);    
+      });
+    }catch(error){
+      console.log(error);
+    }
+      
     try{
       document.querySelector('[name=Complete]').addEventListener('click', reviewRedX);
     }catch(error){
