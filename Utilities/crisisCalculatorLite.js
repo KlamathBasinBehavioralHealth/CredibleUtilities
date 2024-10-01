@@ -1,8 +1,10 @@
-try{
-  tempVisitID = undefined;
-}catch(error){
-  console.log(error);
-  var tempVisitID = undefined;
+if(typeof tempVisitID === 'undefined'){
+  try{
+    tempVisitID = undefined;
+  }catch(error){
+    console.log(error);
+    let tempVisitID = undefined;
+  }
 }
 
 if(typeof cptCode === 'undefined'){
