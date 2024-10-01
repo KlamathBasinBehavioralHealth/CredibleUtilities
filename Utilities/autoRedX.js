@@ -85,7 +85,12 @@ async function startUp(){
     [...document.querySelector('#serviceProvided').closest('table').querySelectorAll('input')].forEach((input) => {
       input.addEventListener('change', reviewRedX);    
     });
-    document.querySelector('[name=Complete]').addEventListener('click', reviewRedX);
+    try{
+      document.querySelector('[name=Complete]').addEventListener('click', reviewRedX);
+    }catch(error){
+      console.log(error);
+    }
+    
   }, 500);
 }
 
