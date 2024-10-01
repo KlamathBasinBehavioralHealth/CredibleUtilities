@@ -1,8 +1,9 @@
 if(typeof tempVisitID === 'undefined'){
   try{
-    var tempVisitID = undefined;
+    tempVisitID = undefined;
   }catch(error){
     console.log(error);
+    var tempVisitID = undefined;
   }
 } 
 if(typeof cptCode === 'undefined'){
@@ -35,7 +36,12 @@ if(typeof emLevel === 'undefined'){
 }
 
 if(typeof age === 'undefined'){
-  let age = undefined;
+  try{
+    age = undefined;
+  }catch(error){
+    console.log(error);
+    let age = undefined;
+  }
 }
 
 const adultAge = 21;
