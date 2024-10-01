@@ -1,11 +1,10 @@
-if(typeof tempVisitID === 'undefined'){
-  try{
-    tempVisitID = undefined;
-  }catch(error){
-    console.log(error);
-    var tempVisitID = undefined;
-  }
-} 
+try{
+  tempVisitID = undefined;
+}catch(error){
+  console.log(error);
+  var tempVisitID = undefined;
+}
+
 if(typeof cptCode === 'undefined'){
   try{
     var cptCode = undefined;
@@ -27,12 +26,11 @@ if(typeof billingMatrixID === 'undefined'){
     console.log(error);
   }
 }
-if(typeof emLevel === 'undefined'){
-  try{
-    var emLevel = undefined;
-  }catch(error){
-    console.log(error);
-  }
+
+try{
+  var emLevel = undefined;
+}catch(error){
+  console.log(error);
 }
 
 if(typeof age === 'undefined'){
