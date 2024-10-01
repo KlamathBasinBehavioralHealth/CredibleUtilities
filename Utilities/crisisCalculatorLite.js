@@ -1,9 +1,9 @@
 if(typeof tempVisitID === 'undefined'){
   try{
-    tempVisitID = undefined;
+    let tempVisitID = undefined;
   }catch(error){
     console.log(error);
-    let tempVisitID = undefined;
+    tempVisitID = undefined;
   }
 }
 
@@ -37,10 +37,10 @@ try{
 
 if(typeof age === 'undefined'){
   try{
-    age = undefined;
+    let age = undefined;
   }catch(error){
     console.log(error);
-    let age = undefined;
+    age = undefined;
   }
 }
 
