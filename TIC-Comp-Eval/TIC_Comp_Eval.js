@@ -153,7 +153,7 @@ var referralSUD;
 function checkDrinks(){
 	$('tr').has('div[id=referralsInternal]').find('tr:contains(\'SUDS\')').eq(1).css('background-color', 'white');
 	referralSUD = false;
-	if($('tr').has('div[id=drinksPastYear]').find('input').val() == 'Yes'){
+	if($('tr').has('div[id=drinksPastYear]').find('input[type="radio"][value="Yes"]').is(':checked')){
 		console.log('Consider a SUD Referral.');
 		alert('Consider a SUD Referral.');
 		if(!$('tr').has('div[id=referrals]').find('tr:contains(\'Internal\')').eq(1).find('input').prop('checked')){
