@@ -155,6 +155,7 @@ function checkDrinks(){
 	referralSUD = false;
 	if(parseInt($('tr').has('div[id=drinksPastYear]').find('input').val()) > 0){
 		console.log('Consider a SUD Referral.');
+		alert('Consider a SUD Referral.');
 		if(!$('tr').has('div[id=referrals]').find('tr:contains(\'Internal\')').eq(1).find('input').prop('checked')){
 			$('tr').has('div[id=referrals]').find('tr:contains(\'Internal\')').eq(1).find('input').trigger('click');
 		}
