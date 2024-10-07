@@ -160,7 +160,7 @@ function checkDrinks(){
 			$('tr').has('div[id=referrals]').find('tr:contains(\'Internal\')').eq(1).find('input').trigger('click');
 		}
 		if(!$('tr').has('div[id=referralsInternal]').find('tr:contains(\'SUDS\')').eq(1).find('input').prop('checked')){
-			$('tr').has('div[id=referralsInternal]').find('tr:contains(\'SUDS\')').eq(1).css('background-color', 'yellow');
+			//$('tr').has('div[id=referralsInternal]').find('tr:contains(\'SUDS\')').eq(1).css('background-color', 'yellow');
 			referralSUD = true;
 		}
 	}
