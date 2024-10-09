@@ -1,55 +1,38 @@
-if(typeof tempVisitID === 'undefined'){
-  try{
-    let tempVisitID = undefined;
-  }catch(error){
-    console.log(error);
-    tempVisitID = undefined;
-  }
+try{
+  let tempVisitID = undefined;
+}catch(error){
+  console.log(error);
+  tempVisitID = undefined;
 }
 
-if(typeof cptCode === 'undefined'){
-  try{
-    var cptCode = undefined;
-  }catch(error){
-    console.log(error);
-  }
+try{
+  var cptCode = undefined;
+}catch(error){
+  console.log(error);
 }
-if(typeof modifier1 === 'undefined'){
-  try{
-    var modifier1 = undefined;
-  }catch(error){
-    console.log(error);
-  }
+try{
+  var modifier1 = undefined;
+}catch(error){
+  console.log(error);
 }
-if(typeof emLevel === 'undefined'){
-  try{
-    var visitTypeId = undefined;
-  }catch(error){
-    console.log(error);
-  }
-}
-/* if(typeof billingMatrixID === 'undefined'){
-  try{
-    var billingMatrixID = undefined;
-  }catch(error){
-    console.log(error);
-  }
+
+/* try{
+  var billingMatrixID = undefined;
+}catch(error){
+  console.log(error);
 }
 if(typeof emLevel === 'undefined'){
-  try{
-    var emLevel = undefined;
-  }catch(error){
-    console.log(error);
-  } 
+try{
+  var emLevel = undefined;
+}catch(error){
+  console.log(error);
 } */
 
-if(typeof age === 'undefined'){
-  try{
-    let age = undefined;
-  }catch(error){
-    console.log(error);
-    age = undefined;
-  }
+try{
+  let age = undefined;
+}catch(error){
+  console.log(error);
+  age = undefined;
 }
 
 const adultAge = 21;
