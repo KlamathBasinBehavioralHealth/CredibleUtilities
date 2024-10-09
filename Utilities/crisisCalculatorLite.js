@@ -91,11 +91,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     if(modifier1 !== '0'){
       modifier1Target.value = modifier1;
     }
-    if(billingMatrixID !== '0'){
-      billingMatrixIDTarget.value = billingMatrixID;
-    }
-    /* if(visitTypeId !== '0'){
+    if(visitTypeId !== '0'){
       visitTypeIdTarget.value = visitTypeId;
+    }
+    /* if(billingMatrixID !== '0'){
+      billingMatrixIDTarget.value = billingMatrixID;
     }
     if(emLevel !== '0'){
       emLevelTarget.value = emLevel;
