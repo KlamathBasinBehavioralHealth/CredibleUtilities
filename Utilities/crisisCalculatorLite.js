@@ -29,10 +29,10 @@ try{
 } */
 
 try{
-  let age = undefined;
+  age = undefined;
 }catch(error){
   console.log(error);
-  age = undefined;
+  let age = undefined;
 }
 
 const adultAge = 21;
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   cptCodeTarget = document.querySelector('#mcisCPTCode').closest('table').querySelector('input');
   modifier1Target = document.querySelector('#mcisModifier1').closest('table').querySelector('input');
-  visitTypeIdTarget = document.querySelector('#visitTypeID').closest('table').querySelector('input');
+  visitTypeIdTarget = document.querySelector('#mcisVisitTypeID').closest('table').querySelector('input');
   /* billingMatrixIDTarget = document.querySelector('#mcisBillingMatrixID').closest('table').querySelector('input');
   emLevelTarget = document.querySelector('#mcisEMLevel').closest('table').querySelector('input'); */
 
