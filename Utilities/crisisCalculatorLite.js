@@ -1,31 +1,34 @@
 try{
-  let tempVisitID = undefined;
+  tempVisitID = undefined;
 }catch(error){
   console.log(error);
-  tempVisitID = undefined;
+  let tempVisitID = undefined;
 }
 
 try{
-  var cptCode = undefined;
+  cptCode = undefined;
 }catch(error){
   console.log(error);
+  let cptCode = undefined;
 }
 try{
-  var modifier1 = undefined;
+  modifier1 = undefined;
 }catch(error){
   console.log(error);
+  let modifier1 = undefined;
 }
 
 /* try{
-  var billingMatrixID = undefined;
+  billingMatrixID = undefined;
 }catch(error){
   console.log(error);
+  let billingMatrixID = undefined;
 }
-if(typeof emLevel === 'undefined'){
 try{
-  var emLevel = undefined;
+  emLevel = undefined;
 }catch(error){
   console.log(error);
+  let emLevel = undefined;
 } */
 
 try{
