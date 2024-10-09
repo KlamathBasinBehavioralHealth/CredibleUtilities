@@ -21,6 +21,11 @@ if(typeof modifier1 === 'undefined'){
     console.log(error);
   }
 }
+try{
+  var visitTypeId = undefined;
+}catch(error){
+  console.log(error);
+}
 if(typeof billingMatrixID === 'undefined'){
   try{
     var billingMatrixID = undefined;
@@ -48,8 +53,9 @@ const adultAge = 21;
 
 let cptCodeTarget = undefined;
 let modifier1Target = undefined;
+let visitTypeIdTarget = undefined;
 let billingMatrixIDTarget = undefined;
-let emLevelTarget = undefined;
+/* let emLevelTarget = undefined; */
 
 document.addEventListener('DOMContentLoaded', async () => {
   console.log('Crisis Calculator Primary Load Function');
@@ -64,8 +70,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   cptCodeTarget = document.querySelector('#mcisCPTCode').closest('table').querySelector('input');
   modifier1Target = document.querySelector('#mcisModifier1').closest('table').querySelector('input');
+  visitTypeIdTarget = document.querySelector('#visitTypeID').closest('table').querySelector('input');
   billingMatrixIDTarget = document.querySelector('#mcisBillingMatrixID').closest('table').querySelector('input');
-  emLevelTarget = document.querySelector('#mcisEMLevel').closest('table').querySelector('input');
+  /* emLevelTarget = document.querySelector('#mcisEMLevel').closest('table').querySelector('input'); */
 
   try{
     tempVisitID = parent.document.querySelector('frame[id=left]').contentDocument.querySelector('#visittemp_ids').value;
@@ -85,8 +92,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     crisisCalculatorResult = await getData(crisisCalculatorURL);
     cptCode = crisisCalculatorResult.querySelector('cpt_code').innerHTML.toUpperCase();
     modifier1 = crisisCalculatorResult.querySelector('modifier1').innerHTML.toUpperCase();
+    visitTypeId = crisisCalculatorResult.querySelector('visit_type_id').innerHTML;
     billingMatrixID = crisisCalculatorResult.querySelector('billing_matrix_id').innerHTML;
-    emLevel = crisisCalculatorResult.querySelector('em_level').innerHTML;
+    /* emLevel = crisisCalculatorResult.querySelector('em_level').innerHTML; */
     
     if(cptCode !== '0'){
       cptCodeTarget.value = cptCode;
@@ -97,9 +105,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     if(billingMatrixID !== '0'){
       billingMatrixIDTarget.value = billingMatrixID;
     }
-    if(emLevel !== '0'){
-      emLevelTarget.value = emLevel;
+    if(visitTypeId !== '0'){
+      visitTypeIdTarget.value = visitTypeId;
     }
+    /* if(emLevel !== '0'){
+      emLevelTarget.value = emLevel;
+    } */
+    
   }catch(error){
     console.log(error);
   }
