@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     crisisCalculatorResult = await getData(crisisCalculatorURL);
     cptCode = crisisCalculatorResult.querySelector('cpt_code').innerHTML.toUpperCase();
     modifier1 = crisisCalculatorResult.querySelector('modifier1').innerHTML.toUpperCase();
-    visitTypeId = crisisCalculatorResult.querySelector('visit_type_id').innerHTML;
+    visitTypeId = crisisCalculatorResult.querySelector('visittype_id').innerHTML;
     /*billingMatrixID = crisisCalculatorResult.querySelector('billing_matrix_id').innerHTML;
     emLevel = crisisCalculatorResult.querySelector('em_level').innerHTML; */
     
