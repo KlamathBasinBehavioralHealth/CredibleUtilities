@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   modifier1Target = document.querySelector('#mcisModifier1').closest('table').querySelector('input');
   visitTypeIdTarget = document.querySelector('#mcisVisitTypeId').closest('table').querySelector('input');
   billingMatrixIDTarget = document.querySelector('#mcisBillingMatrixID').closest('table').querySelector('input');
+  mcisNotificationTarget = document.querySelector('#mcisNotification').closest('table').querySelector('input');
   /* emLevelTarget = document.querySelector('#mcisEMLevel').closest('table').querySelector('input'); */
 
   try{
@@ -83,6 +84,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     modifier1 = crisisCalculatorResult.querySelector('modifier1').innerHTML.toUpperCase();
     visitTypeId = crisisCalculatorResult.querySelector('visittype_id').innerHTML;
     billingMatrixID = crisisCalculatorResult.querySelector('billing_matrix_id').innerHTML;
+    
     /*emLevel = crisisCalculatorResult.querySelector('em_level').innerHTML; */
     
     if(cptCode !== '0'){
@@ -100,6 +102,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     /* if(emLevel !== '0'){
       emLevelTarget.value = emLevel;
     } */
+    if(cptCode = 'H2011'){
+      mcisNotificationTarget.checked = true;
+    }else{
+      mcisNotificationTarget.checked = false;
+    }
     
   }catch(error){
     console.log(error);
