@@ -106,6 +106,7 @@ $(document).ready(function() {
 	checkHighlights();
 	allQuestionAnswers.forEach((input, index) => {
 		input.addEventListener('change', () => {
+			alert(input);
 			checkHighlights(input, index);
 		});
 	});
