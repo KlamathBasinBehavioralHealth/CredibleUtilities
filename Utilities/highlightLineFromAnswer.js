@@ -35,7 +35,7 @@ var allQuestionAnswers = [];
 var questionHighlights = {};
 [...document.querySelectorAll('.highlightQuestions')].map((question) => {
 	var lineToHighlight = question.getAttribute('highlightThis');
-	if(!Object.keys(data[0]).includes(lineToHighlight)){
+	if(!Object.keys(questionHighlights).includes(lineToHighlight)){
 		addColumn(questionHighlights,lineToHighlight);
 		addRecordToColumn(questionHighlights, lineToHighlight, question);
 	}
