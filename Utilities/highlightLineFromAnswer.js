@@ -119,7 +119,7 @@ function checkHighlights(lineToHighlight) {
 				answerDeTrigger = range(0, questionDropdownAnswers.length - 1).filter(item => !answerTrigger.includes(item));// Array for non-answers
 								console.log('Dropdown Highlighting');
 				answerDeTrigger.forEach(index => {
-					if (dropdownQuestion.selectedIndex == index && positiveIndicator) { // Checks if one of the non-answers are checked and if the positive indicator is false
+					if (dropdownQuestion.selectedIndex == index && !positiveIndicator) { // Checks if one of the non-answers are checked and if the positive indicator is false
 						lineToHighlight.forEach(row => {
 							row.style.backgroundColor = 'white';
 							console.log('De-Highlighted');
@@ -127,7 +127,7 @@ function checkHighlights(lineToHighlight) {
 					}
 				});
 				answerTrigger.forEach(index => {
-					if (dropdownQuestion.selectedIndex == index) { // Checks if one of the answers are checked
+					if (dropdownQuestion.selectedIndex == index  && positiveIndicator) { // Checks if one of the answers are checked
 						lineToHighlight.forEach(row => {
 							row.style.backgroundColor = 'yellow';
 							console.log('Highlighted');
