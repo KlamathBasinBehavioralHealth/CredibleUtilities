@@ -36,7 +36,6 @@ var questionHighlights = {};
 });
 var positiveIndicator = false;
 function checkPreviousQuestions(lineToHighlight) {
-	positiveIndicator = false;
 	console.log('checkHighlights Triggered');
 	var questionCheckRadioAnswers;
 	var questionDropdownAnswers;
@@ -77,6 +76,7 @@ function checkPreviousQuestions(lineToHighlight) {
 }
 
 function checkHighlights(lineToHighlight) {
+	positiveIndicator = false;
 	console.log('checkHighlights Triggered');
 	var questionCheckRadioAnswers;
 	var questionDropdownAnswers;
@@ -84,7 +84,6 @@ function checkHighlights(lineToHighlight) {
 	var lineToHighlight;
 	var answerTrigger;
 	var answerDeTrigger;
-
 	try{
 		console.log('checkHighlights Trying');
 		questionHighlights[lineToHighlight].forEach(question => {
