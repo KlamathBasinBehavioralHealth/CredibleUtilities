@@ -2,18 +2,6 @@ function range(start, end) {
     return Array.from({ length: end - start + 1 }, (_, index) => start + index);
 }
 
-function addColumn(table, columnName) {
-    if (!table[columnName]) {
-        table[columnName] = [];
-    }
-}
-
-function addRecordToColumn(table, columnName, record) {
-    if (table[columnName]) {
-        table[columnName].push(record);
-    }
-}
-
 var qtype;
 var allQuestionAnswers = [];
 [...document.querySelectorAll('.highlightQuestions')].forEach(answer => {
