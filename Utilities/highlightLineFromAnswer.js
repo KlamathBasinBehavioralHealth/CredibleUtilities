@@ -1,6 +1,26 @@
+<script>
 function range(start, end) {
     return Array.from({ length: end - start + 1 }, (_, index) => start + index);
 }
+
+function addColumn(table, columnName) {
+    if (!table[columnName]) {
+        table[columnName] = []; // Add the new column as an empty array
+        console.log(`Column '${columnName}' added.`);
+    } else {
+        console.log(`Column '${columnName}' already exists.`);
+    }
+}
+
+function addRecordToColumn(table, columnName, record) {
+    if (table[columnName]) {
+        table[columnName].push(record);
+        console.log(`Record '${record}' added to column '${columnName}'.`);
+    } else {
+        console.log(`Column '${columnName}' does not exist.`);
+    }
+}
+
 var qtype;
 var allQuestionAnswers = [];
 [...document.querySelectorAll('.highlightQuestions')].forEach(answer => {
@@ -12,6 +32,15 @@ var allQuestionAnswers = [];
 	}
 });
 
+var questionHighlights = {};
+[...document.querySelectorAll('.highlightQuestions')].map((question) => {
+	var lineToHighlight = question.getAttribute('highlightThis');
+	if(!Object.keys(data[0]).includes(lineToHighlight)){
+		addColumn(questionHighlights,lineToHighlight);
+		addRecordToColumn(questionHighlights, lineToHighlight, question);
+	}
+}
+
 function checkHighlights() {
 	console.log('checkHighlights Triggered');
 	var questionCheckRadioAnswers;
@@ -20,11 +49,22 @@ function checkHighlights() {
 	var lineToHighlight;
 	var answerTrigger;
 	var answerDeTrigger;
+	var linesToHighlightCount = []
 	try{
 		console.log('checkHighlights Trying');
 		[...document.querySelectorAll('.highlightQuestions')].map((question) => {
 			qtype = question.getAttribute('qtype');
 			lineToHighlight = Array.from(document.querySelectorAll('tr:has(div#' + question.getAttribute('highlightThis')));
+			var tempLinesToHighlight = Object.keys(linesToHighlightCount[0]);
+			if(!tempLinesToHighlight.includes(question.getAttribute('highlightThis'))){
+				linesToHighlightCount.push({[question.getAttribute('highlightThis')]:1});
+			} else {
+				linesToHighlightCount.forEach(row => {
+					if (row[question.getAttribute('highlightThis')] !== undefined) {
+						row[question.getAttribute('highlightThis')] += 1;
+					}
+				});
+			}
 			if(qtype == 'radio' || qtype == 'checkbox'){
 				console.log('Radio/Checkbox Highlighting Started');
 				questionCheckRadioAnswers = Array.from(question.closest('tbody').querySelector('tbody').querySelectorAll('input'));
@@ -33,8 +73,11 @@ function checkHighlights() {
 				answerDeTrigger.forEach(index => {
 					if (questionCheckRadioAnswers[index].checked) {
 						lineToHighlight.forEach(row => {
-							row.style.backgroundColor = 'white';
-							console.log('De-Highlighted');
+							currentColor = window.getComputedStyle(row).backgroundColor;
+							if(!(currentColor == 'yellow' && row[question.getAttribute('highlightThis')] == 1)){
+								row.style.backgroundColor = 'white';
+								console.log('De-Highlighted');
+							}
 						});
 					}
 				});
@@ -87,3 +130,6 @@ $(document).ready(function() {
 		});
 	});
 });
+
+</script>
+
