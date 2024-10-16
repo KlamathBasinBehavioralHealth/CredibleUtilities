@@ -26,13 +26,6 @@ var allQuestionAnswers = [];
 });
 
 var questionHighlights = {};
-[...document.querySelectorAll('.highlightQuestions')].map((question) => {
-	var lineToHighlight = question.getAttribute('highlightThis');
-	if(!Object.keys(questionHighlights).includes(lineToHighlight)){
-		addColumn(questionHighlights,lineToHighlight);
-		addRecordToColumn(questionHighlights, lineToHighlight, question);
-	}
-});
 
 function checkHighlights() {
 	console.log('checkHighlights Triggered');
