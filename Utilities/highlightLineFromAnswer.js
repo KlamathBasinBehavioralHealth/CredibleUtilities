@@ -1,7 +1,6 @@
-function range(start, end) {
+ function range(start, end) {
     return Array.from({ length: end - start + 1 }, (_, index) => start + index);
 }
-
 var qtype;
 var allQuestionAnswers = [];
 [...document.querySelectorAll('.highlightQuestions')].forEach(answer => {
@@ -21,22 +20,11 @@ function checkHighlights() {
 	var lineToHighlight;
 	var answerTrigger;
 	var answerDeTrigger;
-	var linesToHighlightCount = []
 	try{
 		console.log('checkHighlights Trying');
 		[...document.querySelectorAll('.highlightQuestions')].map((question) => {
 			qtype = question.getAttribute('qtype');
 			lineToHighlight = Array.from(document.querySelectorAll('tr:has(div#' + question.getAttribute('highlightThis')));
-			var tempLinesToHighlight = Object.keys(linesToHighlightCount[0]);
-			if(!tempLinesToHighlight.includes(question.getAttribute('highlightThis'))){
-				linesToHighlightCount.push({[question.getAttribute('highlightThis')]:1});
-			} else {
-				linesToHighlightCount.forEach(row => {
-					if (row[question.getAttribute('highlightThis')] !== undefined) {
-						row[question.getAttribute('highlightThis')] += 1;
-					}
-				});
-			}
 			if(qtype == 'radio' || qtype == 'checkbox'){
 				console.log('Radio/Checkbox Highlighting Started');
 				questionCheckRadioAnswers = Array.from(question.closest('tbody').querySelector('tbody').querySelectorAll('input'));
@@ -45,11 +33,8 @@ function checkHighlights() {
 				answerDeTrigger.forEach(index => {
 					if (questionCheckRadioAnswers[index].checked) {
 						lineToHighlight.forEach(row => {
-							currentColor = window.getComputedStyle(row).backgroundColor;
-							if(!(currentColor == 'yellow' && row[question.getAttribute('highlightThis')] == 1)){
-								row.style.backgroundColor = 'white';
-								console.log('De-Highlighted');
-							}
+							row.style.backgroundColor = 'white';
+							console.log('De-Highlighted');
 						});
 					}
 				});
