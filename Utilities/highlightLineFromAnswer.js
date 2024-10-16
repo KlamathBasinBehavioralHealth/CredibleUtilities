@@ -30,6 +30,8 @@ var questionHighlights = {};
 	if(!Object.keys(questionHighlights).includes(lineToHighlight)){
 		addColumn(questionHighlights,lineToHighlight);
 		addRecordToColumn(questionHighlights, lineToHighlight, question);
+	} else {
+		addRecordToColumn(questionHighlights, lineToHighlight, question);
 	}
 });
 
