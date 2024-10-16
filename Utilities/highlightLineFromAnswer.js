@@ -143,9 +143,7 @@ function checkHighlights(lineToHighlight) {
 }
 
 $(document).ready(function() {
-	
-	checkHighlights();
-	allQuestionAnswers.forEach((input, index) => {
+	allQuestionAnswers.forEach((input) => {
 		input.addEventListener('change', () => {
 			if(input.tagName.toLowerCase() == 'input'){
 				var lineToHighlight = input.closest('td').closest('table').closest('tr').previousElementSibling.querySelector('.highlightQuestions').getAttribute('highlightthis');
