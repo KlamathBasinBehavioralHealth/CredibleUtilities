@@ -36,7 +36,8 @@ var questionHighlights = {};
 });
 var positiveIndicator = false;
 function checkPreviousQuestions(lineToHighlight) {
-console.log('checkHighlights Triggered');
+	positiveIndicator = false;
+	console.log('checkHighlights Triggered');
 	var questionCheckRadioAnswers;
 	var questionDropdownAnswers;
 	var dropdownQuestion;
