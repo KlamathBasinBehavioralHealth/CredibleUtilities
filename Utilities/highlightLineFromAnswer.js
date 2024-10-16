@@ -107,6 +107,7 @@ $(document).ready(function() {
 	allQuestionAnswers.forEach((input, index) => {
 		input.addEventListener('change', () => {
 			console.log(input);
+			console.log(input.tagName.toLowerCase());
 			checkHighlights(input, index);
 		});
 	});
