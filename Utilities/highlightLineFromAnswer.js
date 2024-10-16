@@ -1,23 +1,16 @@
-<script>
 function range(start, end) {
     return Array.from({ length: end - start + 1 }, (_, index) => start + index);
 }
 
 function addColumn(table, columnName) {
     if (!table[columnName]) {
-        table[columnName] = []; // Add the new column as an empty array
-        console.log(`Column '${columnName}' added.`);
-    } else {
-        console.log(`Column '${columnName}' already exists.`);
+        table[columnName] = [];
     }
 }
 
 function addRecordToColumn(table, columnName, record) {
     if (table[columnName]) {
         table[columnName].push(record);
-        console.log(`Record '${record}' added to column '${columnName}'.`);
-    } else {
-        console.log(`Column '${columnName}' does not exist.`);
     }
 }
 
@@ -130,6 +123,3 @@ $(document).ready(function() {
 		});
 	});
 });
-
-</script>
-
