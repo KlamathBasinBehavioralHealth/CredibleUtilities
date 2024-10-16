@@ -86,7 +86,7 @@ function checkHighlights(lineToHighlight) {
 
 	try{
 		console.log('checkHighlights Trying');
-		questionHighlights[lineToHighlight].forEach(answer => {
+		questionHighlights[lineToHighlight].forEach(question => {
 			qtype = question.getAttribute('qtype');
 			if(qtype == 'radio' || qtype == 'checkbox'){
 				console.log('Radio/Checkbox Highlighting Started');
