@@ -131,7 +131,7 @@ function checkHighlights() {
 }
 	
 $(document).ready(async function() {
-	await tableOfQuestionHighlights()
+	await tableOfQuestionHighlights();
 	checkHighlights();
 	allQuestionAnswers.forEach((input, index) => {
 		input.addEventListener('change', () => {
