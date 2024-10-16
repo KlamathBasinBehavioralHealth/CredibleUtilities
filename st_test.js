@@ -22,7 +22,6 @@ function addRecordToColumn(table, columnName, record) {
 }
 
 var qtype;
-
 var allQuestionAnswers = [];
 [...document.querySelectorAll('.highlightQuestions')].forEach(answer => {
 	qtype = answer.getAttribute('qtype');
@@ -32,22 +31,15 @@ var allQuestionAnswers = [];
 		allQuestionAnswers = [...allQuestionAnswers, ...answer.closest('tr').nextElementSibling.querySelectorAll('select')];
 	}
 });
+
 var questionHighlights = {};
-function tableOfQuestionHighlights(){
-	try{
-		[...document.querySelectorAll('.highlightQuestions')].map((question) => {
-			qtype = answer.getAttribute('qtype');
-			var lineToHighlight = question.getAttribute('highlightThis');
-			if(!Object.keys(data[0]).includes(lineToHighlight)){
-				addColumn(questionHighlights,lineToHighlight);
-				addRecordToColumn(questionHighlights, lineToHighlight, question);
-			}
-		}
-	} catch(error){
-		console.log(error);
+[...document.querySelectorAll('.highlightQuestions')].map((question) => {
+	var lineToHighlight = question.getAttribute('highlightThis');
+	if(!Object.keys(data[0]).includes(lineToHighlight)){
+		addColumn(questionHighlights,lineToHighlight);
+		addRecordToColumn(questionHighlights, lineToHighlight, question);
 	}
 }
-
 
 function checkHighlights() {
 	console.log('checkHighlights Triggered');
@@ -130,8 +122,7 @@ function checkHighlights() {
 	}
 }
 	
-$(document).ready(async function() {
-	await tableOfQuestionHighlights();
+$(document).ready(function() {
 	checkHighlights();
 	allQuestionAnswers.forEach((input, index) => {
 		input.addEventListener('change', () => {
