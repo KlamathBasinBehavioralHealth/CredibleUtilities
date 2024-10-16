@@ -150,7 +150,7 @@ $(document).ready(function() {
 				var lineToHighlight = input.closest('td').closest('table').closest('tr').previousElementSibling.querySelector('.highlightQuestions').getAttribute('highlightthis');
 				checkHighlights(lineToHighlight);
 			} else if(input.tagName.toLowerCase() == 'select'){
-				var lineToHighlight = input.closest('tr').closest('tr').querySelector('.highlightQuestions').getAttribute('highlightthis');
+				var lineToHighlight = input.closest('tr').previousElementSibling.querySelector('.highlightQuestions').getAttribute('highlightthis');
 				checkHighlights(lineToHighlight);
 			}
 		});
