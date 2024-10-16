@@ -1,4 +1,16 @@
- function range(start, end) {
+function addColumn(table, columnName) {
+    if (!table[columnName]) {
+        table[columnName] = [];
+    }
+}
+
+function addRecordToColumn(table, columnName, record) {
+    if (table[columnName]) {
+        table[columnName].push(record);
+    }
+}
+
+function range(start, end) {
     return Array.from({ length: end - start + 1 }, (_, index) => start + index);
 }
 var qtype;
