@@ -25,8 +25,6 @@ var allQuestionAnswers = [];
 	}
 });
 
-var questionHighlights = {};
-
 function checkHighlights() {
 	console.log('checkHighlights Triggered');
 	var questionCheckRadioAnswers;
