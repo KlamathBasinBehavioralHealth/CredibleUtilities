@@ -152,7 +152,6 @@ $(document).ready(function() {
 			} else if(input.tagName.toLowerCase() == 'select'){
 				
 			}
-			checkHighlights(input, index);
 		});
 	});
 });
