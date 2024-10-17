@@ -197,34 +197,3 @@ document.addEventListener("DOMContentLoaded", async function() {
 		});
 	});
 });
-var allSafetyAnswers = [];
-[...document.querySelectorAll('#safetyAdditionCalc')].forEach(answer => {
-	allSafetyAnswers = [...allSafetyAnswers, ...answer.closest('tr').nextElementSibling.querySelectorAll('select')];
-});
-
-function safetyHighlight(){
-	console.log('Start Safety Highlight');
-	var lineToHighlight = Array.from(document.querySelectorAll('tr:has(div#resourceSafety'));
-	var score = document.querySelector('#safetyScore').closest('tr').nextElementSibling.querySelector('input').value;
-	if(score >= 11){
-		lineToHighlight.forEach(row => {
-			row.style.backgroundColor = 'yellow';
-			console.log('Highlighted');
-		});
-	} else {
-		lineToHighlight.forEach(row => {
-			row.style.backgroundColor = 'white';
-			console.log('Highlighted');
-		});
-	}
-	console.log('End Safety Highlight');
-}
-
-$(document).ready(function() {
-	safetyHighlight();
-	allSafetyAnswers.forEach((input) => {
-		input.addEventListener('change', () => {
-			safetyHighlight();
-		});
-	});
-});
