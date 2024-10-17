@@ -149,7 +149,7 @@ $('document').ready(function(){
 
 //SUD referral based on drinks
 function checkDrinks(){
-	if(parseInt($('tr').has('div[id=drinksPastYear]').find('input').val()) > 0){
+	if($('tr').has('div#drinksPastYear').find('td:contains("Yes")').prev('td').find('input[type="radio"]').is(':checked')){
 		alert('Consider a SUD Referral.');
 	}
 }
