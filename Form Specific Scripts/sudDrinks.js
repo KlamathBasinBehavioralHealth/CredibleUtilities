@@ -1,6 +1,6 @@
 function checkDrinks(){
 	if($('tr').has('div#drinksPastYear').find('td:contains("Yes")').prev('td').find('input[type="radio"]').is(':checked')){
-		alert('Consider a SUD Referral.');
+		console.log('Drinks Yes');
 	}
 }
 
