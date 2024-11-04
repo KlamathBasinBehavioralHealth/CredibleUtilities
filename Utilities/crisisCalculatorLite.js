@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   mcisNotificationTarget.checked = false;
-  if(cptCodeTarget.value = 'H2011'){
+  if(cptCode == 'H2011'){
     mcisNotificationTarget.checked = true;
   }
 });
