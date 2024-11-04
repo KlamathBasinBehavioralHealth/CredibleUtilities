@@ -45,6 +45,8 @@ let modifier1Target = undefined;
 let visitTypeIdTarget = undefined;
 let billingMatrixIDTarget = undefined;
 let mcisNotificationTarget = undefined;
+let crisisCalculatorURL = undefined;
+let crisisCalculatorResult = undefined;
 /* let emLevelTarget = undefined; */
 
 document.addEventListener('DOMContentLoaded', async () => {
