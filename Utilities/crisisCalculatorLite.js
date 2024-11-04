@@ -105,13 +105,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     /* if(emLevel !== '0'){
       emLevelTarget.value = emLevel;
     } */
-    if(cptCode = 'H2011'){
-      mcisNotificationTarget.checked = true;
-    }else{
-      mcisNotificationTarget.checked = false;
-    }
-    
   }catch(error){
     console.log(error);
+  }
+
+  mcisNotificationTarget.checked = false;
+  if(cptCode = 'H2011'){
+    mcisNotificationTarget.checked = true;
   }
 });
