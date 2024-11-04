@@ -44,6 +44,7 @@ let cptCodeTarget = undefined;
 let modifier1Target = undefined;
 let visitTypeIdTarget = undefined;
 let billingMatrixIDTarget = undefined;
+let mcisNotificationTarget = undefined;
 /* let emLevelTarget = undefined; */
 
 document.addEventListener('DOMContentLoaded', async () => {
