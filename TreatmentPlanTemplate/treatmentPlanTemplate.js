@@ -83,23 +83,9 @@ try{
 
 async function stopParagraphButton(targetBody){
   const observer = new MutationObserver((mutationsList) => {
-  var contenteditable;
-    for (const mutation of mutationsList) {
-      if (mutation.type === 'childList') {
-        // Loop through added nodes in the mutation record
-        mutation.addedNodes.forEach(node => {
-          // Check if the added node is a span element
-		  //if (node.nodeName === 'SPAN') {
-		//	contenteditable = node.getAttribute('style');
-			//alert(contenteditable);
-		 // }
-          //if (node.nodeName === 'SPAN') {
-          //  console.log('New span detected and removed:', node);
-           // node.remove(); // Delete the span element
-         // }
-        });
-      }
-    }
+    dumb_span = document.querySelector('#cke_1_contents > iframe').contentWindow.document.body.firstElementChild.tagName == 'SPAN';
+	dumb_span.remove();
+
   });
   
   // Configure the observer to watch for child nodes being added to the body
@@ -313,3 +299,5 @@ function overrideTemplateValidator(){
 function restoreTemplateValidator(){
   document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').addEventListener('click', templateValidator);
 }
+
+
