@@ -84,17 +84,16 @@ try{
 async function stopParagraphButton(targetBody){
   const observer = new MutationObserver((mutationsList) => {
     for (const mutation of mutationsList) {
-	 var contenteditable = true;
       if (mutation.type === 'childList') {
         // Loop through added nodes in the mutation record
         mutation.addedNodes.forEach(node => {
           // Check if the added node is a span element
-		  if (node.nodeName === 'SPAN') {
-			contenteditable = node.querySelector('span').getAttribute('contenteditable');
-		  }
-          if (node.nodeName === 'SPAN' && contenteditable == false) {
-            console.log('New span detected and removed:', node);
-            node.remove(); // Delete the span element
+          if (node.nodeName === 'SPAN' && contenteditable === false) {
+			const contenteditable = node.querySelector('span').getAttribute('contenteditable');
+			if(contenteditable === false){
+				console.log('New span detected and removed:', node);
+				node.remove(); // Delete the span element
+			}
           }
         });
       }
