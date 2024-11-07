@@ -91,7 +91,7 @@ async function stopParagraphButton(targetBody){
           // Check if the added node is a span element
 		  if (node.nodeName === 'SPAN') {
 			contenteditable = node.getAttribute('contenteditable');
-			console.log(contenteditable);
+			alert(contenteditable);
 		  }
           if (node.nodeName === 'SPAN') {
             console.log('New span detected and removed:', node);
