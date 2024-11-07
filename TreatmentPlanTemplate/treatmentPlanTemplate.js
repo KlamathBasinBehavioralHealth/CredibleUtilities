@@ -88,10 +88,8 @@ async function stopParagraphButton(targetBody){
         // Loop through added nodes in the mutation record
         mutation.addedNodes.forEach(node => {
           // Check if the added node is a span element
-		  if (node.nodeName === 'SPAN'){
-			console.log(node)
-		  }
-          if (node.nodeName === 'SPAN' && node.getAttribute('style').includes('z-index: 9999; color: rgb(255, 255, 255); font-size: 0px')) {
+		  var style = node.getAttribute('style');
+          if (node.nodeName === 'SPAN' && style && node.getAttribute('style').includes('z-index: 9999; color: rgb(255, 255, 255); font-size: 0px')) {
             console.log('New span detected and removed:', node);
             node.remove(); // Delete the span element
           }
