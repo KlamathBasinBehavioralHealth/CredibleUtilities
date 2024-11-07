@@ -90,9 +90,7 @@ async function stopParagraphButton(targetBody){
         mutation.addedNodes.forEach(node => {
 			var style;
           // Check if the added node is a span element
-		  if(node.nodeName === 'SPAN'){
-			style = node.getAttribute('style');
-		  }
+
           if (node.nodeName === 'SPAN' && style !== null) {
             console.log('New span detected and removed:', node);
             node.remove(); // Delete the span element
