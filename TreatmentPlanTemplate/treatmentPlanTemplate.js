@@ -92,6 +92,7 @@ async function stopParagraphButton(targetBody){
           // Check if the added node is a span element
 		  if(node.nodeName === 'SPAN'){
 			style = node.getAttribute('style');
+			console.log(style);
 		  }
           if (node.nodeName === 'SPAN' && style != null) {
             console.log('New span detected and removed:', node);
