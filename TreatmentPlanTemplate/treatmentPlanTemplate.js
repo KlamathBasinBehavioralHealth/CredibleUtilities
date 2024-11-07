@@ -60,6 +60,15 @@ function cleanUp(html){
 }
 
 function completeLine(target){
+  if(!target.querySelector('.buttons, .numbers, .entry, .check')){
+    try{
+        target.querySelector('.clearLine').remove();
+    }catch(error){
+        console.log(error);
+    }
+    
+    target.outerHTML = target.innerHTML;
+  }
 }
 
 function clearLine(button){
@@ -152,111 +161,7 @@ async function lookForBlankTxPlan(){
         }
       }
     }
-    
-    [...txBody.querySelectorAll('.buttons')].forEach((element) => {
-      element.addEventListener('click', (event) => {
-        let checkToComplete = false;
-        let parent = event.target.parentNode.parentNode;
-        if(parent.className = 'lineDiv'){
-          checkToComplete = true;
-        }
-        replaceWithText(event.target.innerText, event.target.parentNode);
-        if(checkToComplete){
-          completeLine(parent);
-        }
-      });
-      
-    });
-    
-    [...txBody.querySelectorAll('.numbers')].forEach((element) => {
-      element.addEventListener('click', (event) => {
-        let checkToComplete = false;
-        let parent = event.target.parentNode.parentNode;
-        if(parent.className = 'lineDiv'){
-          checkToComplete = true;
-        }
-        
-        var userInput = prompt('Enter a number:');
-        
-        var number = parseInt(userInput);
-        
-        if(userInput !== null){
-          while(isNaN(number) && userInput !== null){
-            alert('Number was not entered.');
-            userInput = prompt('Enter a number:');
-            number = parseInt(userInput);
-          }
-          
-          if(userInput !== null){
-            replaceWithText(`${number}`, event.target.parentNode);
-            
-            if(checkToComplete){
-              completeLine(parent);
-            }
-          }
-        }
-      });
-    });
 
-    [...txBody.querySelectorAll('.entry')].forEach((element) => {
-      element.addEventListener('click', (event) => {
-        let checkToComplete = false;
-        let parent = event.target.parentNode.parentNode;
-        if(parent.className = 'lineDiv'){
-          checkToComplete = true;
-        }
-
-        var userInput = prompt(`${event.target.innerText}:`);
-    ``
-        if(userInput !== null){
-          while(userInput === '' && userInput !== null){
-            alert('Nothing entered.');
-            userInput = prompt(`${event.target.innerText}:`);
-          }
-          if(userInput !== null){
-            replaceWithText(`${userInput}`, event.target.parentNode);
-
-            if(checkToComplete){
-              completeLine(parent);
-            }
-          }
-        }
-      });
-    });
-
-    [...txBody.querySelectorAll('.check')].forEach((element) => {
-      element.addEventListener('click', (event) => {
-        let checkToComplete = false;
-        let parent = event.target.parentNode.parentNode;
-        if(parent.className = 'lineDiv'){
-          checkToComplete = true;
-        }
-        if(checkToComplete){
-          element.remove();
-          completeLine(parent);
-        }
-      });
-    });
-    
-    [...txBody.querySelectorAll('.clearLine')].forEach((element) => {
-      element.addEventListener('click', (event) => {
-        clearLine(event.target);
-      });
-    });
-  }    
-  catch(error){
-    console.log(error);
-  }
-
-  /*document.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').addEventListener('click', (event) => {
-    if(txBody.querySelector('.buttons, .numbers, .entry')){
-      event.preventDefault();
-      alert('Please complete all fields or delete service lines that are not use via the X button.');
-    }else{
-      console.log('This is empty!');
-    }
-  });*/
-  restoreTemplateValidator();
 }
 
 function templateValidator(event){
