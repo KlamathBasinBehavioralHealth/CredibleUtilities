@@ -81,6 +81,28 @@ try{
   console.log(error);
 }
 
+async function stopParagraphButton(targetBody){
+  const observer = new MutationObserver((mutationsList) => {
+    for (const mutation of mutationsList) {
+      if (mutation.type === 'childList') {
+        // Loop through added nodes in the mutation record
+        mutation.addedNodes.forEach(node => {
+          // Check if the added node is a span element
+          if (node.nodeName === 'SPAN') {
+            console.log('New span detected and removed:', node);
+            node.remove(); // Delete the span element
+          }
+        });
+      }
+    }
+  });
+  
+  // Configure the observer to watch for child nodes being added to the body
+  const config = { childList: true, subtree: true };
+  
+  // Start observing
+  observer.observe(targetBody, config);
+}
 
 async function lookForBlankTxPlan(){
   let txModule = document.querySelector('#txPlanModule').contentDocument.querySelector('[name=\'ctl00$cph$txtGoals\']');
@@ -95,6 +117,8 @@ async function lookForBlankTxPlan(){
     }
   }, 500);
   let txBody = txModule.closest('tr').querySelector('iframe').contentDocument.querySelector('body');
+
+  stopParagraphButton(txBody);
   
   try{    
     if(!txBody.innerText){
