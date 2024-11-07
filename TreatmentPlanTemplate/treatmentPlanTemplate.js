@@ -89,14 +89,14 @@ async function stopParagraphButton(targetBody){
         // Loop through added nodes in the mutation record
         mutation.addedNodes.forEach(node => {
           // Check if the added node is a span element
-		  if (node.nodeName === 'SPAN') {
-			contenteditable = node.getAttribute('style');
-			alert(contenteditable);
-		  }
-          if (node.nodeName === 'SPAN') {
-            console.log('New span detected and removed:', node);
-            node.remove(); // Delete the span element
-          }
+		  //if (node.nodeName === 'SPAN') {
+		//	contenteditable = node.getAttribute('style');
+			//alert(contenteditable);
+		 // }
+          //if (node.nodeName === 'SPAN') {
+          //  console.log('New span detected and removed:', node);
+           // node.remove(); // Delete the span element
+         // }
         });
       }
     }
