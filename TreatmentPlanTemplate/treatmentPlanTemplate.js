@@ -83,18 +83,16 @@ try{
 
 async function stopParagraphButton(targetBody){
   const observer = new MutationObserver((mutationsList) => {
-  
+  var contenteditable;
     for (const mutation of mutationsList) {
       if (mutation.type === 'childList') {
         // Loop through added nodes in the mutation record
         mutation.addedNodes.forEach(node => {
-			var style;
           // Check if the added node is a span element
 		  if(node.nodeName === 'SPAN'){
-			style = node.getAttribute('style');
-			console.log(style);
+			contenteditable = node.getAttribute('contenteditable')
 		  }
-          if (node.nodeName === 'SPAN' && style != null) {
+          if (node.nodeName === 'SPAN' && contenteditable != null && contenteditable == 'false') {
             console.log('New span detected and removed:', node);
             node.remove(); // Delete the span element
           }
