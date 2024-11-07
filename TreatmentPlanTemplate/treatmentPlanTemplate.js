@@ -60,15 +60,6 @@ function cleanUp(html){
 }
 
 function completeLine(target){
-  if(!target.querySelector('.buttons, .numbers, .entry, .check')){
-    try{
-        target.querySelector('.clearLine').remove();
-    }catch(error){
-        console.log(error);
-    }
-    
-    target.outerHTML = target.innerHTML;
-  }
 }
 
 function clearLine(button){
