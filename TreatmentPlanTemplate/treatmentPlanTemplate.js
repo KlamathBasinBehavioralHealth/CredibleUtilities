@@ -84,7 +84,7 @@ try{
 async function stopParagraphButton(targetBody){
   const observer = new MutationObserver((mutationsList) => {
     for (const mutation of mutationsList) {
-	 var contenteditable;
+	 var contenteditable = true;
       if (mutation.type === 'childList') {
         // Loop through added nodes in the mutation record
         mutation.addedNodes.forEach(node => {
