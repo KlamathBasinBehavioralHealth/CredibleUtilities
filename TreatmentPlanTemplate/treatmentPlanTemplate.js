@@ -88,7 +88,7 @@ async function stopParagraphButton(targetBody){
         // Loop through added nodes in the mutation record
         mutation.addedNodes.forEach(node => {
           // Check if the added node is a span element
-          if (node.nodeName === 'SPAN' && node.textContent.includes('https://assets.cbh3.crediblebh.com')) {
+          if (node.nodeName === 'SPAN' && node.style.background.includes('https://assets.cbh3.crediblebh.com')) {
             console.log('New span detected and removed:', node);
             node.remove(); // Delete the span element
           }
