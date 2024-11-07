@@ -88,7 +88,7 @@ async function stopParagraphButton(targetBody){
         // Loop through added nodes in the mutation record
         mutation.addedNodes.forEach(node => {
           // Check if the added node is a span element
-          if (node.nodeName === 'SPAN' && contenteditable === false) {
+          if (node.nodeName === 'SPAN') {
 			const contenteditable = node.querySelector('span').getAttribute('contenteditable');
 			if(contenteditable === false){
 				console.log('New span detected and removed:', node);
