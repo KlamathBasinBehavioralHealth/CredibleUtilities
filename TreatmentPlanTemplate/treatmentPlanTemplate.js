@@ -91,6 +91,7 @@ async function stopParagraphButton(targetBody){
           if (node.nodeName === 'SPAN') {
 			const contenteditable = node.querySelector('span').getAttribute('contenteditable');
 			console.log(contenteditable);
+		  	alert(contenteditable);
 			if(contenteditable === false){
 				console.log('New span detected and removed:', node);
 				node.remove(); // Delete the span element
