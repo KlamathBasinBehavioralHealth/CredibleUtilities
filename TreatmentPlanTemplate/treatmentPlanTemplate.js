@@ -90,7 +90,8 @@ async function stopParagraphButton(targetBody){
           // Check if the added node is a span element
           if (node.nodeName === 'SPAN') {
 			const contenteditable = node.querySelector('span').getAttribute('contenteditable');
-			alert(document.querySelector('#cke_1_contents > iframe').contentWindow.document.body.firstElementChild.tagName == 'SPAN');
+			alert(contenteditable);
+			console.log(contenteditable);
 			if(contenteditable === false){
 				console.log('New span detected and removed:', node);
 				node.remove(); // Delete the span element
