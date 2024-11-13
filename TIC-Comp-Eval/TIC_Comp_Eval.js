@@ -157,7 +157,7 @@ function checkDrinks(){
 	}
 	referralSUD = false;
 	console.log('updog.');
-	if($('tr').has('div#drinksPastYear').find('td:contains("Yes")').prev('td').find('input[type="radio"]').is(':checked')){
+	if($('tr').has('div#drinksPastYear').find('td:contains("Yes")').prev('td').find('input[type="radio"]').is(':checked') || document.querySelector('#substanceUse').closest('tr').nextElementSibling.querySelector('select').selectedIndex == 1){
 		console.log('Consider a SUD Referral.');
 		alert('Consider a SUD Referral.');
 		if(!$('tr').has('div[id=referrals]').find('tr:contains(\'Internal\')').eq(1).find('input').prop('checked')){
