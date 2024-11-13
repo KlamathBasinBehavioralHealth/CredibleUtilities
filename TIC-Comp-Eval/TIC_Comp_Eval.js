@@ -188,6 +188,7 @@ function checkReferralAlert(){
 $('document').ready(function(){
 	checkDrinks();
 	checkReferralAlert();
+	$('tr').has('div[id=substanceUse]').find('input').change(checkDrinks)
 	$('tr').has('div[id=drinksPastYear]').find('input').change(checkDrinks);
 	$('input').change(checkReferralAlert);
 	$('select').change(checkReferralAlert);
