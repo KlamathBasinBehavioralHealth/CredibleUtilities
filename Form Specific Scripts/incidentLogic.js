@@ -28,10 +28,12 @@ $(document).ready(function() {
         incidentDescription.forEach((input) => {
             input.addEventListener('change', () => {
                 if (incidentDescription[0].checked || incidentDescription[1].checked || incidentDescription[3].checked || incidentDescription[4].checked || incidentDescription[6].checked || incidentDescription[7].checked || incidentDescription[9].checked || incidentDescription[10].checked || incidentDescription[11].checked || incidentDescription[13].checked) {
-                    criticalIncident[0].checked = true;
+                    criticalIncident[1].checked = false;
+					criticalIncident[0].checked = true;
                   	criticalIncident[0].dispatchEvent(new Event('change'));
                 } else {
                     criticalIncident[0].checked = false;
+					criticalIncident[1].checked = true;
                   	criticalIncident[0].dispatchEvent(new Event('change'));
                 }
             });
@@ -49,10 +51,12 @@ $(document).ready(function() {
 		input.addEventListener('change', () => {
 			var incidentLocation = Array.from(document.querySelector('#incidentLocation').closest('tr').nextElementSibling.querySelectorAll('select')).map(select => select.value);
 			if(notificationDetails[0].checked || notificationDetails[1].checked || notificationDetails[2].checked || notificationDetails[3].checked || notificationDetails[5].checked || notificationDetails[6].checked || notificationDetails[8].checked){
+				criticalIncident[1].checked = false;
 				criticalIncident[0].checked = true;
 				input.dispatchEvent(new Event('change'));
 			} else{
 				criticalIncident[0].checked = false;
+				criticalIncident[1].checked = true;
 				input.dispatchEvent(new Event('change'));
 			}
 		});
