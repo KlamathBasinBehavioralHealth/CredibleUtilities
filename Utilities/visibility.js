@@ -5,7 +5,7 @@ function getShownRequiredCBAnswers(){
 		let questionCBAnswers = [...question.closest('tbody').querySelectorAll('input')];
 		try{
 			if(question.closest('tbody').querySelector('input').type == 'checkbox' && questionCBAnswers.length > 1 && questionCBAnswers[0].getAttribute('data-cbRequire') == "true"){
-				shownRequiredCBAnswers = [...requiredCBAnswers, [...question.closest('tbody').querySelectorAll('input')]];
+				shownRequiredCBAnswers = [...shownRequiredCBAnswers, [...question.closest('tbody').querySelectorAll('input')]];
 			}
 		}
 		catch(error){
@@ -48,7 +48,7 @@ function checkRequiredCB(){
 	let cbCheckedCount = 0;
 	let cbQuestionCheckedCount = 0;
 	let firstCBUnchecked;
-	requiredCBAnswers.forEach(answerArray => {
+	shownRequiredCBAnswers.forEach(answerArray => {
 		answerArray.forEach(answer => {
 			if(answer.checked){
 				cbCheckedCount = cbCheckedCount + 1;
