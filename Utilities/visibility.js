@@ -35,6 +35,7 @@ function requireField (target, condition) {
 			else { 
 				$('tr').has(target).find('input').prop('required', false); 
 				$('tr').has(target).find('select').prop('required', false); 
+				cb_answer.setAttribute('data-cbRequire', false);
 			}
 			getShownRequiredCBAnswers();
 		}catch(error){
