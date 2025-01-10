@@ -1,10 +1,11 @@
 var shownRequiredCBAnswers = [];
 function getShownRequiredCBAnswers(){
 	[...document.querySelectorAll('.hideableQuestion')].forEach(question => {
+		shownRequiredCBAnswers = [];
 		let questionCBAnswers = [...question.closest('tbody').querySelectorAll('input')];
 		try{
 			if(question.closest('tbody').querySelector('input').type == 'checkbox' && questionCBAnswers.length > 1 && questionCBAnswers[0].getAttribute('data-cbRequire') == "true"){
-				shownRequiredCBAnswers = [...shownRequiredCBAnswers, [...question.closest('tbody').querySelectorAll('input')]];
+				shownRequiredCBAnswers = [...shownRequiredCBAnswers, questionCBAnswers];
 			}
 		}
 		catch(error){
@@ -76,13 +77,13 @@ function checkRequiredCB(){
 	}
 	else{
 		try{
-			document.querySelector('[name=Complete]').setAttribute('disabled',false);
+			document.querySelector('[name=Complete]').removeAttribute('disabled');
 		}
 		catch(error){
 			console.log(error);
 		}
 		try{
-			document.querySelector('[value=Complete]').setAttribute('disabled',false);
+			document.querySelector('[value=Complete]').removeAttribute('disabled');
 		}
 		catch(error){
 			console.log(error);
