@@ -19,13 +19,14 @@ function getShownRequiredCBAnswers(){
 function requireField (target, condition) { 
 	if(document.querySelector('[name=Complete]')){
 		try{
+			let questionCBAnswers = [...target.closest('tbody').querySelectorAll('input')]
 			$('tr').find(target).next().remove();  
 			if(condition) { 
 				if(target.closest('tbody').querySelector('input').type != 'checkbox') {
 					$('tr').has(target).find('input').prop('required', true); 
 					$('tr').has(target).find('select').prop('required', true); 
 				}
-				else {
+				else if(questionCBAnswers.length > 1){
 					[...target.closest('tbody').querySelectorAll('input')].forEach(cb_answer => {
 						cb_answer.setAttribute('data-cbRequire', true);
 					});
@@ -48,10 +49,11 @@ function requireField (target, condition) {
 
 function checkRequiredCB(){
 	let cbCheckedCount = 0;
-	cbQuestionCheckedCount = 0;
+	let cbQuestionCheckedCount = 0;
 	let firstCBUnchecked;
 	shownRequiredCBAnswers.forEach(answerArray => {
-		answerArray.forEach(answer => {
+		cbQuestionCheckedCount = 0;
+		answerArray.forEach(answer => {	
 			if(answer.checked){
 				cbCheckedCount = cbCheckedCount + 1;
 			}
