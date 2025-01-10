@@ -58,7 +58,7 @@ function checkRequiredCB(){
 			cbQuestionCheckedCount = cbQuestionCheckedCount + 1;
 		} 
 	});
-	if(cbQuestionCheckedCount < requiredCBAnswers.length){
+	if(cbQuestionCheckedCount < shownRequiredCBAnswers.length){
 		try{
 			document.querySelector('[name=Complete]').setAttribute('disabled',true);
 		}
