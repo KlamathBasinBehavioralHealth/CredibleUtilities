@@ -1,7 +1,6 @@
 var shownRequiredCBAnswers = [];
 function getShownRequiredCBAnswers(){
 	[...document.querySelectorAll('.hideableQuestion')].forEach(question => {
-		shownRequiredCBAnswers = [];
 		let questionCBAnswers = [...question.closest('tbody').querySelectorAll('input')];
 		try{
 			if(question.closest('tbody').querySelector('input').type == 'checkbox' && questionCBAnswers.length > 1 && questionCBAnswers[0].getAttribute('data-cbRequire') == "true"){
@@ -90,6 +89,7 @@ function checkRequiredCB(){
 
 //New hide show function
 function visibility(hideShow, target, require = false){
+	shownRequiredCBAnswers = [];
 	if(document.querySelector('[name=Complete]')){
 	  try{
 		  if(hideShow == 'show'){
