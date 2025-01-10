@@ -1,7 +1,6 @@
 var shownRequiredCBAnswers = [];
 function getShownRequiredCBAnswers(){
 	[...document.querySelectorAll('.hideableQuestion')].forEach(question => {
-		shownRequiredCBAnswers = [];
 		let questionCBAnswers = [...question.closest('tbody').querySelectorAll('input')];
 		try{
 			if(question.closest('tbody').querySelector('input').type == 'checkbox' && questionCBAnswers.length > 1 && questionCBAnswers[0].getAttribute('data-cbRequire') == "true"){
@@ -44,6 +43,50 @@ function requireField (target, condition) {
 		}catch(error){
 			console.log(error);
 		}
+	}
+}
+
+function checkRequiredCB(){
+	let cbCheckedCount = 0;
+	cbQuestionCheckedCount = 0;
+	let firstCBUnchecked;
+	shownRequiredCBAnswers.forEach(answerArray => {
+		answerArray.forEach(answer => {
+			if(answer.checked){
+				cbCheckedCount = cbCheckedCount + 1;
+			}
+		});
+		if(cbCheckedCount > 0 && shownRequiredCBAnswers.length > 0){
+			cbQuestionCheckedCount = cbQuestionCheckedCount + 1;
+		} 
+	});
+	if(cbQuestionCheckedCount < shownRequiredCBAnswers.length){
+		try{
+			document.querySelector('[name=Complete]').setAttribute('disabled',true);
+		}
+		catch(error){
+			console.log(error);
+		}
+		try{
+			document.querySelector('[value=Complete]').setAttribute('disabled',true);
+		}
+		catch(error){
+			console.log(error);
+		}		
+	}
+	else{
+		try{
+			document.querySelector('[name=Complete]').removeAttribute('disabled');
+		}
+		catch(error){
+			console.log(error);
+		}
+		try{
+			document.querySelector('[value=Complete]').removeAttribute('disabled');
+		}
+		catch(error){
+			console.log(error);
+		}		
 	}
 }
 
