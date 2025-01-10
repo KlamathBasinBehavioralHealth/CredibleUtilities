@@ -52,7 +52,7 @@ function checkRequiredCB(){
 	let cbQuestionCheckedCount = 0;
 	let firstCBUnchecked;
 	shownRequiredCBAnswers.forEach(answerArray => {
-		cbQuestionCheckedCount = 0;
+		cbCheckedCount = 0
 		answerArray.forEach(answer => {	
 			if(answer.checked){
 				cbCheckedCount = cbCheckedCount + 1;
