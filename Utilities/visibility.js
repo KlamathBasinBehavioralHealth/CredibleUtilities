@@ -48,7 +48,7 @@ function requireField (target, condition) {
 var firstCBUnchecked;
 function checkRequiredCB(){
 	let cbCheckedCount = 0;
-	let z = 0;
+	let cbQuestionCheckedCount = 0;
 	shownRequiredCBAnswers.forEach(answerArray => {
 		cbCheckedCount = 0
 		answerArray.forEach(answer => {	
