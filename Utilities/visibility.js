@@ -201,13 +201,14 @@ document.addEventListener('DOMContentLoaded', () => {
 			visibility('hide', element, false);
 	  	});
 	}
-	document.querySelector('[value="Complete"]').addEventListener('mouseover', function() {
-		if (this.disabled) {
-			firstCBUnchecked.scrollIntoView({
-				  behavior: 'smooth', 
-				block: 'start',     
-			});
-			flashElement(firstCBUnchecked);
-		} 
-	});
+});
+
+document.querySelector('[value="Complete"]').addEventListener('mouseover', function() {
+	if (this.disabled) {
+		firstCBUnchecked.scrollIntoView({
+			  behavior: 'smooth', 
+			block: 'start',     
+		});
+		flashElement(firstCBUnchecked);
+	} 
 });
