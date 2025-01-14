@@ -95,6 +95,28 @@ function checkRequiredCB(){
 	}
 }
 
+function flashElement(element) {
+  let flashCount = 0;
+  const interval = 250; 
+  
+  const flashInterval = setInterval(() => {
+    if (flashCount % 2 === 0) {
+      element.style.backgroundColor = 'yellow'; 
+    } else {
+      element.style.backgroundColor = ''; 
+    }
+    
+    flashCount++;
+    
+    if (flashCount >= 12) {
+      clearInterval(flashInterval); 
+    }
+  }, interval);
+}
+
+
+
+
 //New hide show function
 function visibility(hideShow, target, require = false){
 	shownRequiredCBAnswers = [];
@@ -174,9 +196,18 @@ function visibility(hideShow, target, require = false){
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  if(document.querySelector('[name=Complete]')){
-	  document.querySelectorAll('.defaultHidden').forEach((element) => {
-	    visibility('hide', element, false);
-	  });
-  }
+	if(document.querySelector('[name=Complete]')){
+		document.querySelectorAll('.defaultHidden').forEach((element) => {
+			visibility('hide', element, false);
+	  	});
+	}
+	document.querySelector('[value="Complete"]').addEventListener('mouseover', function() {
+		if (this.disabled) {
+			firstCBUnchecked.scrollIntoView({
+				  behavior: 'smooth', 
+				block: 'start',     
+			});
+			flashElement(firstCBUnchecked);
+		} 
+	});
 });
