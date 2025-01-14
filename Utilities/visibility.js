@@ -61,6 +61,9 @@ function checkRequiredCB(){
 		if(cbCheckedCount > 0 && shownRequiredCBAnswers.length > 0){
 			cbQuestionCheckedCount = cbQuestionCheckedCount + 1;
 		} 
+		else{
+			firstCBUnchecked = answerArray[0].closest('table').previousElementSibling.previousElementSibling.closest('tr').previousElementSibling;
+		}
 	});
 	if(cbQuestionCheckedCount < shownRequiredCBAnswers.length){
 		try{
