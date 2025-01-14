@@ -1,25 +1,103 @@
-//New require function
+var shownRequiredCBAnswers = [];
+function getShownRequiredCBAnswers(){
+	[...document.querySelectorAll('.hideableQuestion')].forEach(question => {
+		let questionCBAnswers = [...question.closest('tbody').querySelectorAll('input')];
+		try{
+			if(question.closest('tbody').querySelector('input').type == 'checkbox' && questionCBAnswers.length > 1 && questionCBAnswers[0].getAttribute('data-cbRequire') == "true"){
+				shownRequiredCBAnswers = [...shownRequiredCBAnswers, questionCBAnswers];
+			}
+		}
+		catch(error){
+			console.log(error);
+		}
+	});
+	checkRequiredCB();
+}
+
+
+
 function requireField (target, condition) { 
 	if(document.querySelector('[name=Complete]')){
 		try{
+			let questionCBAnswers = [...target.closest('tbody').querySelectorAll('input')]
 			$('tr').find(target).next().remove();  
 			if(condition) { 
-				$('tr').has(target).find('input').prop('required', true); 
-				$('tr').has(target).find('select').prop('required', true); 
+				if(target.closest('tbody').querySelector('input').type != 'checkbox') {
+					$('tr').has(target).find('input').prop('required', true); 
+					$('tr').has(target).find('select').prop('required', true); 
+				}
+				else if(questionCBAnswers.length > 1){
+					[...target.closest('tbody').querySelectorAll('input')].forEach(cb_answer => {
+						cb_answer.setAttribute('data-cbRequire', true);
+					});
+				}
 				$('tr').find(target).after('<div class=\'redAsterisk\' style=\'color : red; display : inline\'>*</div>');  
 			} 
 			else { 
 				$('tr').has(target).find('input').prop('required', false); 
 				$('tr').has(target).find('select').prop('required', false); 
+				[...target.closest('tbody').querySelectorAll('input')].forEach(cb_answer => {
+					cb_answer.setAttribute('data-cbRequire', false);
+				});
 			}
+			getShownRequiredCBAnswers();
 		}catch(error){
 			console.log(error);
 		}
 	}
 }
 
+var firstCBUnchecked;
+function checkRequiredCB(){
+	let cbCheckedCount = 0;
+	let cbQuestionCheckedCount = 0;
+	shownRequiredCBAnswers.forEach(answerArray => {
+		cbCheckedCount = 0
+		answerArray.forEach(answer => {	
+			if(answer.checked){
+				cbCheckedCount = cbCheckedCount + 1;
+			}
+		});
+		if(cbCheckedCount > 0 && shownRequiredCBAnswers.length > 0){
+			cbQuestionCheckedCount = cbQuestionCheckedCount + 1;
+		} 
+		else {
+			firstCBUnchecked = answer;
+		}
+	});
+	if(cbQuestionCheckedCount < shownRequiredCBAnswers.length){
+		try{
+			document.querySelector('[name=Complete]').setAttribute('disabled',true);
+		}
+		catch(error){
+			console.log(error);
+		}
+		try{
+			document.querySelector('[value=Complete]').setAttribute('disabled',true);
+		}
+		catch(error){
+			console.log(error);
+		}		
+	}
+	else{
+		try{
+			document.querySelector('[name=Complete]').removeAttribute('disabled');
+		}
+		catch(error){
+			console.log(error);
+		}
+		try{
+			document.querySelector('[value=Complete]').removeAttribute('disabled');
+		}
+		catch(error){
+			console.log(error);
+		}		
+	}
+}
+
 //New hide show function
 function visibility(hideShow, target, require = false){
+	shownRequiredCBAnswers = [];
 	if(document.querySelector('[name=Complete]')){
 	  try{
 		  if(hideShow == 'show'){
