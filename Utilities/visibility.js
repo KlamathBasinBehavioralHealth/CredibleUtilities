@@ -49,6 +49,8 @@ function requireField (target, condition) {
 
 var firstCBUnchecked;
 function checkRequiredCB(){
+	const completeButtonName = document.querySelector('[name=Complete]');
+    const completeButtonValue = document.querySelector('[value=Complete]');
 	let cbCheckedCount = 0;
 	let cbQuestionCheckedCount = 0;
 	shownRequiredCBAnswers.forEach(answerArray => {
@@ -66,32 +68,20 @@ function checkRequiredCB(){
 		}
 	});
 	if(cbQuestionCheckedCount < shownRequiredCBAnswers.length){
-		try{
-			document.querySelector('[name=Complete]').setAttribute('disabled',true);
+		if(completeButtonName){
+			completeButtonName.setAttribute('disabled',true);
 		}
-		catch(error){
-			console.log(error);
-		}
-		try{
-			document.querySelector('[value=Complete]').setAttribute('disabled',true);
-		}
-		catch(error){
-			console.log(error);
-		}		
+		if(completeButtonValue){
+			completeButtonValue.setAttribute('disabled',true);
+		}	
 	}
 	else{
-		try{
-			document.querySelector('[name=Complete]').removeAttribute('disabled');
+		if(completeButtonName){
+			completeButtonName.removeAttribute('disabled');
 		}
-		catch(error){
-			console.log(error);
-		}
-		try{
-			document.querySelector('[value=Complete]').removeAttribute('disabled');
-		}
-		catch(error){
-			console.log(error);
-		}		
+		if(completeButtonValue){
+			completeButtonValue.removeAttribute('disabled');
+		}	
 	}
 }
 
