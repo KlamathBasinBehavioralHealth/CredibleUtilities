@@ -97,7 +97,6 @@ function checkRequiredCB(){
 
 //New hide show function
 function visibility(hideShow, target, require = false){
-	shownRequiredCBAnswers = [];
 	if(document.querySelector('[name=Complete]')){
 	  try{
 		  if(hideShow == 'show'){
