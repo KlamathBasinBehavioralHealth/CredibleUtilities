@@ -49,7 +49,7 @@ function requireField (target, condition) {
 
 var firstCBUnchecked;
 function checkRequiredCB(){
-	const completeButtonName = document.querySelector('[name=Complete]');
+    const completeButtonName = document.querySelector('[name=Complete]');
     const completeButtonValue = document.querySelector('[value=Complete]');
 	let cbCheckedCount = 0;
 	let cbQuestionCheckedCount = 0;
