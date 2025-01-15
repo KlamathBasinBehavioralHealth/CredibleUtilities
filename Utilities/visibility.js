@@ -193,12 +193,15 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 });
 
-document.querySelector('[value="Complete"]').addEventListener('mouseover', function() {
-	if (this.disabled) {
-		firstCBUnchecked.scrollIntoView({
-			  behavior: 'smooth', 
-			block: 'start',     
-		});
-		flashElement(firstCBUnchecked);
-	} 
+document.addEventListener('DOMContentLoaded', () => {
+	document.querySelector('[value="Complete"]').addEventListener('mouseover', function() {
+		if (this.disabled) {
+			firstCBUnchecked.scrollIntoView({
+				  behavior: 'smooth', 
+				block: 'start',     
+			});
+			flashElement(firstCBUnchecked);
+		} 
+	});
 });
+
