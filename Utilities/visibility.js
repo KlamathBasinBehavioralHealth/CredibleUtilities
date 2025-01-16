@@ -193,8 +193,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 });
 
+const completeButton = document.querySelector('[value="Complete"]');
 document.addEventListener('DOMContentLoaded', () => {
-	document.querySelector('[value="Complete"]').addEventListener('mouseover', function() {
+	completeButton.addEventListener('mouseover', function() {
 		if (this.disabled) {
 			firstCBUnchecked.scrollIntoView({
 				  behavior: 'smooth', 
