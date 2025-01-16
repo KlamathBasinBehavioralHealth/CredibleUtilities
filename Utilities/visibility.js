@@ -47,6 +47,7 @@ function requireField (target, condition) {
 	}
 }
 
+var floatingCompleteButton = document.querySelector('#complete');
 var firstCBUnchecked;
 function checkRequiredCB(){
     const completeButtonName = document.querySelector('[name=Complete]');
@@ -200,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 });
 
-var floatingCompleteButton = document.querySelector('#complete');
+
 document.addEventListener('DOMContentLoaded', () => {
 	floatingCompleteButton = document.querySelector('#complete');
 	floatingCompleteButton.addEventListener('mouseover', function() {
