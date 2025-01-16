@@ -1,3 +1,15 @@
+async function waitForElement(selector) {
+    return new Promise(resolve => {
+        const interval = setInterval(() => {
+            const element = document.querySelector(selector);
+            if (element) {
+                clearInterval(interval);
+                resolve(element);  // Resolves when the element is found
+            }
+        }, 100);  // Check every 100ms
+    });
+}
+
 var shownRequiredCBAnswers = [];
 function getShownRequiredCBAnswers(){
 	[...document.querySelectorAll('.hideableQuestion')].forEach(question => {
@@ -13,8 +25,6 @@ function getShownRequiredCBAnswers(){
 	});
 	checkRequiredCB();
 }
-
-
 
 function requireField (target, condition) { 
 	if(document.querySelector('[name=Complete]')){
@@ -49,10 +59,10 @@ function requireField (target, condition) {
 
 var floatingCompleteButton = document.querySelector('#complete');
 var firstCBUnchecked;
-function checkRequiredCB(){
+async function checkRequiredCB(){
     const completeButtonName = document.querySelector('[name=Complete]');
     const completeButtonValue = document.querySelector('[value=Complete]');
-    floatingCompleteButton = document.querySelector('#complete');
+    floatingCompleteButton = await waitForElement('#complete');
 	let cbCheckedCount = 0;
 	let cbQuestionCheckedCount = 0;
 	shownRequiredCBAnswers.forEach(answerArray => {
