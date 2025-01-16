@@ -1,4 +1,4 @@
-var shownRequiredCBAnswers = [];
+menvar shownRequiredCBAnswers = [];
 function getShownRequiredCBAnswers(){
 	[...document.querySelectorAll('.hideableQuestion')].forEach(question => {
 		let questionCBAnswers = [...question.closest('tbody').querySelectorAll('input')];
@@ -193,10 +193,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 });
 
-var completeButton;
+var completeButtonElement;
 document.addEventListener('DOMContentLoaded', () => {
-	completeButton = document.querySelector('[value="Complete"]');
-	completeButton.addEventListener('mouseover', function() {
+	completeButtonElement = document.querySelector('[value="Complete"]');
+	completeButtonElement.addEventListener('mouseover', function() {
 		if (this.disabled) {
 			firstCBUnchecked.scrollIntoView({
 				  behavior: 'smooth', 
