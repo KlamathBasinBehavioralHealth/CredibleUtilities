@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 });
 
-window.onload = function() {
+document.addEventListener('DOMContentLoaded', () => {
 	document.querySelector('[value="Complete"]').addEventListener('mouseover', function() {
 		if (this.disabled) {
 			firstCBUnchecked.scrollIntoView({
@@ -203,5 +203,5 @@ window.onload = function() {
 			flashElement(firstCBUnchecked);
 		} 
 	});
-}
+});
 
