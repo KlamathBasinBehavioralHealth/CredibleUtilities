@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 });
 
-var completeButtonElement;
+var completeButtonElement = document.querySelector('#complete');
 document.addEventListener('DOMContentLoaded', () => {
 	completeButtonElement = document.querySelector('#complete');
 	completeButtonElement.addEventListener('mouseover', function() {
