@@ -51,6 +51,7 @@ var firstCBUnchecked;
 function checkRequiredCB(){
     const completeButtonName = document.querySelector('[name=Complete]');
     const completeButtonValue = document.querySelector('[value=Complete]');
+    floatingCompleteButton = document.querySelector('#complete');
 	let cbCheckedCount = 0;
 	let cbQuestionCheckedCount = 0;
 	shownRequiredCBAnswers.forEach(answerArray => {
@@ -73,6 +74,9 @@ function checkRequiredCB(){
 		}
 		if(completeButtonValue){
 			completeButtonValue.setAttribute('disabled',true);
+		}
+		if(completeButtonValue){
+			floatingCompleteButton.setAttribute('disabled',true);
 		}	
 	}
 	else{
@@ -81,6 +85,9 @@ function checkRequiredCB(){
 		}
 		if(completeButtonValue){
 			completeButtonValue.removeAttribute('disabled');
+		}
+		if(completeButtonValue){
+			floatingCompleteButton.removeAttribute('disabled');
 		}	
 	}
 }
@@ -193,10 +200,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 });
 
-var completeButtonElement = document.querySelector('#complete');
+var floatingCompleteButton = document.querySelector('#complete');
 document.addEventListener('DOMContentLoaded', () => {
-	completeButtonElement = document.querySelector('#complete');
-	completeButtonElement.addEventListener('mouseover', function() {
+	floatingCompleteButton = document.querySelector('#complete');
+	floatingCompleteButton.addEventListener('mouseover', function() {
 		if (this.disabled) {
 			firstCBUnchecked.scrollIntoView({
 				  behavior: 'smooth', 
