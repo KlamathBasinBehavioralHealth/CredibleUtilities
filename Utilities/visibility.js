@@ -1,4 +1,4 @@
-menvar shownRequiredCBAnswers = [];
+var shownRequiredCBAnswers = [];
 function getShownRequiredCBAnswers(){
 	[...document.querySelectorAll('.hideableQuestion')].forEach(question => {
 		let questionCBAnswers = [...question.closest('tbody').querySelectorAll('input')];
