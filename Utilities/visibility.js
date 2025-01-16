@@ -46,10 +46,12 @@ function requireField (target, condition) {
 }
 
 var floatingCompleteButton = document.querySelector('#complete');
+var completeButtonName = document.querySelector('[name=Complete]');
+var completeButtonValue = document.querySelector('[value=Complete]');
 var firstCBUnchecked;
-async function checkRequiredCB(){
-    const completeButtonName = document.querySelector('[name=Complete]');
-    const completeButtonValue = document.querySelector('[value=Complete]');
+function checkRequiredCB(){
+    completeButtonName = document.querySelector('[name=Complete]');
+    completeButtonValue = document.querySelector('[value=Complete]');
     floatingCompleteButton = document.querySelector('#complete');
 	let cbCheckedCount = 0;
 	let cbQuestionCheckedCount = 0;
@@ -202,13 +204,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
 	floatingCompleteButton = document.querySelector('#complete');
-	floatingCompleteButton.addEventListener('mouseover', function() {
-		if (this.disabled) {
-			firstCBUnchecked.scrollIntoView({
-				  behavior: 'smooth', 
-				block: 'start',     
-			});
-			flashElement(firstCBUnchecked);
-		} 
-	});
+	completeButtonName = document.querySelector('[name=Complete]');
+	completeButtonValue = document.querySelector('[value=Complete]');
+	if(floatingCompleteButton){
+		floatingCompleteButton.addEventListener('mouseover', function() {
+			if (this.disabled) {
+				firstCBUnchecked.scrollIntoView({
+					  behavior: 'smooth', 
+					block: 'start',     
+				});
+				flashElement(firstCBUnchecked);
+			} 
+		});
+	}
+	else if (completeButtonName){
+		completeButtonName.addEventListener('mouseover', function() {
+			if (this.disabled) {
+				firstCBUnchecked.scrollIntoView({
+					  behavior: 'smooth', 
+					block: 'start',     
+				});
+				flashElement(firstCBUnchecked);
+			} 
+		});
+	}
+	else {
+		completeButtonValue.addEventListener('mouseover', function() {
+			if (this.disabled) {
+				firstCBUnchecked.scrollIntoView({
+					  behavior: 'smooth', 
+					block: 'start',     
+				});
+				flashElement(firstCBUnchecked);
+			} 
+		});
+	}
+	
 });
