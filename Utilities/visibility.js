@@ -1,31 +1,14 @@
-//async function waitForElement(selector) {
-//    return new Promise(resolve => {
-//        const interval = setInterval(() => {
-//            const element = document.querySelector(selector);
-//            if (element) {
-//                clearInterval(interval);
-//                resolve(element);  // Resolves when the element is found
-//            }
-//        }, 100);  // Check every 100ms
-//    });
-//}
-
-
-//var aggregateHideables = [];
-//document.addEventListener('DOMContentLoaded', () => {
-//	try{
-//		window.top[1][1].document.querySelectorAll('iframe').forEach(iframe => {
-//			const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-//			const element = iframeDocument.querySelectorAll('.hideableQuestion');
-//			if (element) {
-//				aggregateHideables = [...hideables, ...element];
-//			}
-//		});
-//	}
-//	catch(error){
-//		console.log(error);
-//	}
-//});
+async function waitForElement(selector) {
+    return new Promise(resolve => {
+        const interval = setInterval(() => {
+            const element = document.querySelector(selector);
+            if (element) {
+                clearInterval(interval);
+                resolve(element);  // Resolves when the element is found
+            }
+        }, 100);  // Check every 100ms
+    });
+}
 
 var shownRequiredCBAnswers = [];
 function getShownRequiredCBAnswers(){
@@ -76,10 +59,10 @@ function requireField (target, condition) {
 
 var floatingCompleteButton = document.querySelector('#complete');
 var firstCBUnchecked;
-function checkRequiredCB(){
+async function checkRequiredCB(){
     const completeButtonName = document.querySelector('[name=Complete]');
     const completeButtonValue = document.querySelector('[value=Complete]');
-    floatingCompleteButton = document.querySelector('#complete');
+    floatingCompleteButton = await waitForElement('#complete');
 	let cbCheckedCount = 0;
 	let cbQuestionCheckedCount = 0;
 	shownRequiredCBAnswers.forEach(answerArray => {
@@ -229,7 +212,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-function missedCBNotification(){
+document.addEventListener('DOMContentLoaded', () => {
+	floatingCompleteButton = document.querySelector('#complete');
 	floatingCompleteButton.addEventListener('mouseover', function() {
 		if (this.disabled) {
 			firstCBUnchecked.scrollIntoView({
@@ -239,10 +223,4 @@ function missedCBNotification(){
 			flashElement(firstCBUnchecked);
 		} 
 	});
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-	floatingCompleteButton = document.querySelector('#complete');
-	missedCBNotification();
 });
-
