@@ -229,8 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-document.addEventListener('DOMContentLoaded', () => {
-	floatingCompleteButton = document.querySelector('#complete');
+function missedCBNotification(){
 	floatingCompleteButton.addEventListener('mouseover', function() {
 		if (this.disabled) {
 			firstCBUnchecked.scrollIntoView({
@@ -240,5 +239,10 @@ document.addEventListener('DOMContentLoaded', () => {
 			flashElement(firstCBUnchecked);
 		} 
 	});
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+	floatingCompleteButton = document.querySelector('#complete');
+	missedCBNotification();
 });
 
