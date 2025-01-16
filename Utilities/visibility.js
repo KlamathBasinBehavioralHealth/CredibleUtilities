@@ -1,15 +1,3 @@
-async function waitForElement(selector) {
-    return new Promise(resolve => {
-        const interval = setInterval(() => {
-            const element = document.querySelector(selector);
-            if (element) {
-                clearInterval(interval);
-                resolve(element);  // Resolves when the element is found
-            }
-        }, 100);  // Check every 100ms
-    });
-}
-
 var shownRequiredCBAnswers = [];
 function getShownRequiredCBAnswers(){
 	[...document.querySelectorAll('.hideableQuestion')].forEach(question => {
@@ -62,7 +50,7 @@ var firstCBUnchecked;
 async function checkRequiredCB(){
     const completeButtonName = document.querySelector('[name=Complete]');
     const completeButtonValue = document.querySelector('[value=Complete]');
-    floatingCompleteButton = await waitForElement('#complete');
+    floatingCompleteButton = document.querySelector('#complete');
 	let cbCheckedCount = 0;
 	let cbQuestionCheckedCount = 0;
 	shownRequiredCBAnswers.forEach(answerArray => {
