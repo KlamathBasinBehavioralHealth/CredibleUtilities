@@ -53,6 +53,39 @@ function checkRequiredCB(){
     completeButtonName = document.querySelector('[name=Complete]');
     completeButtonValue = document.querySelector('[value=Complete]');
     floatingCompleteButton = document.querySelector('#complete');
+	if(floatingCompleteButton){
+		floatingCompleteButton.addEventListener('mouseover', function() {
+			if (this.disabled) {
+				firstCBUnchecked.scrollIntoView({
+					  behavior: 'smooth', 
+					block: 'start',     
+				});
+				flashElement(firstCBUnchecked);
+			} 
+		});
+	}
+	else if (completeButtonName){
+		completeButtonName.addEventListener('mouseover', function() {
+			if (this.disabled) {
+				firstCBUnchecked.scrollIntoView({
+					  behavior: 'smooth', 
+					block: 'start',     
+				});
+				flashElement(firstCBUnchecked);
+			} 
+		});
+	}
+	else {
+		completeButtonValue.addEventListener('mouseover', function() {
+			if (this.disabled) {
+				firstCBUnchecked.scrollIntoView({
+					  behavior: 'smooth', 
+					block: 'start',     
+				});
+				flashElement(firstCBUnchecked);
+			} 
+		});
+	}
 	let cbCheckedCount = 0;
 	let cbQuestionCheckedCount = 0;
 	shownRequiredCBAnswers.forEach(answerArray => {
@@ -201,42 +234,3 @@ window.onload = () => {
 	}
 }
 
-window.onload = () => {
-	floatingCompleteButton = document.querySelector('#complete');
-	completeButtonName = document.querySelector('[name=Complete]');
-	completeButtonValue = document.querySelector('[value=Complete]');
-	if(floatingCompleteButton){
-		floatingCompleteButton.addEventListener('mouseover', function() {
-			if (this.disabled) {
-				firstCBUnchecked.scrollIntoView({
-					  behavior: 'smooth', 
-					block: 'start',     
-				});
-				flashElement(firstCBUnchecked);
-			} 
-		});
-	}
-	else if (completeButtonName){
-		completeButtonName.addEventListener('mouseover', function() {
-			if (this.disabled) {
-				firstCBUnchecked.scrollIntoView({
-					  behavior: 'smooth', 
-					block: 'start',     
-				});
-				flashElement(firstCBUnchecked);
-			} 
-		});
-	}
-	else {
-		completeButtonValue.addEventListener('mouseover', function() {
-			if (this.disabled) {
-				firstCBUnchecked.scrollIntoView({
-					  behavior: 'smooth', 
-					block: 'start',     
-				});
-				flashElement(firstCBUnchecked);
-			} 
-		});
-	}
-	
-}
