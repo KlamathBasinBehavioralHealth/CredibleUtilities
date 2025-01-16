@@ -10,6 +10,23 @@ async function waitForElement(selector) {
     });
 }
 
+
+var aggregateHideables = []
+
+try{
+	window.top[1][1].document.querySelectorAll('iframe').forEach(iframe => {
+		const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+		const element = iframeDocument.querySelectorAll('.hideableQuestion');
+		if (element) {
+			aggregateHideables = [...hideables, ...element];
+		}
+	});
+}
+catch(error){
+	console.log(error);
+}
+
+
 var shownRequiredCBAnswers = [];
 function getShownRequiredCBAnswers(){
 	[...document.querySelectorAll('.hideableQuestion')].forEach(question => {
