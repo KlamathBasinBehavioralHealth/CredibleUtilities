@@ -199,7 +199,7 @@ window.onload = () => {
 			visibility('hide', element, false);
 	  	});
 	}
-});
+}
 
 window.onload = () => {
 	floatingCompleteButton = document.querySelector('#complete');
@@ -239,4 +239,4 @@ window.onload = () => {
 		});
 	}
 	
-});
+}
