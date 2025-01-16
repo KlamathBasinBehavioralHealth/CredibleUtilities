@@ -193,7 +193,7 @@ function visibility(hideShow, target, require = false){
 	}
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+window.onload = () => {
 	if(document.querySelector('[name=Complete]')){
 		document.querySelectorAll('.defaultHidden').forEach((element) => {
 			visibility('hide', element, false);
@@ -201,8 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 });
 
-
-document.addEventListener('DOMContentLoaded', () => {
+window.onload = () => {
 	floatingCompleteButton = document.querySelector('#complete');
 	completeButtonName = document.querySelector('[name=Complete]');
 	completeButtonValue = document.querySelector('[value=Complete]');
