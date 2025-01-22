@@ -42,7 +42,7 @@ function searchClosestLabel(checkboxGroup){
 
 
 var closestUncheckedRequiredLabel;
-function checkRequiredCB(){
+function checkRequiredGroupCB(){
     const completeButtonName = document.querySelector('[name=Complete]');
     const completeButtonValue = document.querySelector('[value=Complete]');
 	let cbCheckedCount = 0;
