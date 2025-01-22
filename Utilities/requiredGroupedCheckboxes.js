@@ -7,9 +7,7 @@ requiredIndividualCheckboxes.forEach(element => {
   }
   groups[groupId].push(element);
 });
-
 const requiredGroupCheckboxes = Object.values(groups);
-
 
 
 requiredGroupCheckboxes.forEach(checkboxGroup => {
@@ -21,6 +19,7 @@ requiredGroupCheckboxes.forEach(checkboxGroup => {
 	//	$('tr').find(question).after('<div class=\'redAsterisk\' style=\'color : red; display : inline\'>*</div>');  
 	//});
 });
+
 
 var closestB;
 function searchClosestLabel(checkboxGroup){
@@ -149,5 +148,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
-
