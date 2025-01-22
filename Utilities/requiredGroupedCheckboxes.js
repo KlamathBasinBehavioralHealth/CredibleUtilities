@@ -52,7 +52,7 @@ function checkRequiredGroupCB(){
 		cbCheckedCount = 0;
 		checkboxGroup.forEach(answer => {
 			requiredCount = parseInt(answer.getAttribute('requiredCount'), 10);	
-			if(answer.checked){
+			if(answer.closest('tbody').querySelector('input').checked){
 				cbCheckedCount = cbCheckedCount + 1;
 			}
 		});
