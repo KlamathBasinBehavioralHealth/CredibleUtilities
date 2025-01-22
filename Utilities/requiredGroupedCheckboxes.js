@@ -44,9 +44,10 @@ function searchClosestLabel(checkboxGroup){
 var closestUncheckedRequiredLabel;
 var closestUncheckedRequiredCount = 1;
 function checkRequiredGroupCB(){
-	closestUncheckedRequiredLabel = null;
+    closestUncheckedRequiredLabel = null;
     const completeButtonName = document.querySelector('[name=Complete]');
     const completeButtonValue = document.querySelector('[value=Complete]');
+    const floatingCompleteButton = document.querySelector('#complete');
 	let cbCheckedCount = 0;
 	let checkedRequiredGroupCount = 0;
 	requiredGroupCheckboxes.forEach(checkboxGroup => {
@@ -72,15 +73,22 @@ function checkRequiredGroupCB(){
 		}
 		if(completeButtonValue){
 			completeButtonValue.setAttribute('disabled',true);
-		}	
+		}
+		if(floatingCompleteButton){
+			floatingCompleteButton.setAttribute('disabled',true);
+		}
 	}
 	else{
-		if(completeButtonName){
+		// firstCBUnchecked is from the visibility.js and including it here is to ensure visibility.js and requiredGroupedCheckboxes.js do not overwrite each other
+		if(completeButtonName && firstCBUnchecked == null){
 			completeButtonName.removeAttribute('disabled');
 		}
-		if(completeButtonValue){
+		if(completeButtonValue && firstCBUnchecked == null){
 			completeButtonValue.removeAttribute('disabled');
-		}	
+		}
+		if(floatingCompleteButton && firstCBUnchecked == null){
+			floatingCompleteButton.removeAttribute('disabled');
+		}
 	}
 }
 
