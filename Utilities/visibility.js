@@ -48,7 +48,7 @@ function requireField (target, condition) {
 var floatingCompleteButton = document.querySelector('#complete');
 var completeButtonName = document.querySelector('[name=Complete]');
 var completeButtonValue = document.querySelector('[value=Complete]');
-var firstCBUnchecked;
+var firstCBUnchecked = null;
 function checkRequiredCB(){
     firstCBUnchecked = null;
     completeButtonName = document.querySelector('[name=Complete]');
@@ -235,5 +235,6 @@ window.onload = () => {
 			visibility('hide', element, false);
 	  	});
 	}
+	firstCBUnchecked = null;
 }
 
