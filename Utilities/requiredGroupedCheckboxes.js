@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     requiredGroupCheckboxes.forEach(checkboxGroup => {
         checkboxGroup.forEach(answer => {
-            answer.addEventListener('change', checkRequiredGroupCB);
+            answer.closest('tbody').querySelector('input').addEventListener('change', checkRequiredGroupCB);
         });
     });
 });
