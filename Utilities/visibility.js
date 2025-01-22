@@ -114,13 +114,13 @@ function checkRequiredCB(){
 		}	
 	}
 	else{
-		if(completeButtonName){
+		if(completeButtonName && closestUncheckedRequiredLabel != null){
 			completeButtonName.removeAttribute('disabled');
 		}
-		if(completeButtonValue){
+		if(completeButtonValue && closestUncheckedRequiredLabel != null){
 			completeButtonValue.removeAttribute('disabled');
 		}
-		if(completeButtonValue){
+		if(completeButtonValue  && closestUncheckedRequiredLabel != null){
 			floatingCompleteButton.removeAttribute('disabled');
 		}	
 	}
