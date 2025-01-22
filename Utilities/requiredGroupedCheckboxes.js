@@ -42,7 +42,7 @@ function searchClosestLabel(checkboxGroup){
 
 
 var closestUncheckedRequiredLabel;
-var closestUncheckedRequiredCount;
+//var closestUncheckedRequiredCount;
 function checkRequiredGroupCB(){
     const completeButtonName = document.querySelector('[name=Complete]');
     const completeButtonValue = document.querySelector('[value=Complete]');
@@ -62,7 +62,7 @@ function checkRequiredGroupCB(){
 		} 
 		else{
 			closestUncheckedRequiredLabel = searchClosestLabel(checkboxGroup);
-			closestUncheckedRequiredCount = requiredCount;
+			//closestUncheckedRequiredCount = requiredCount;
 		}
 	});
 	if(checkedRequiredGroupCount < requiredGroupCheckboxes.length){
@@ -91,21 +91,21 @@ document.addEventListener('DOMContentLoaded', () => {
 	if(floatingCompleteButton){
 		floatingCompleteButton.addEventListener('mouseover', function() {
 			if (this.disabled) {
-				alert('Please check question ' + "\"" + closestUncheckedRequiredLabel.innerText + "\"" + " and ensure at least " + closestUncheckedRequiredCount + " checkbox is selected.");
+				alert('Please check question ' + "\"" + closestUncheckedRequiredLabel.innerText + "\"");
 			}
 		});
 	}
 	else if (completeButtonName){
 		completeButtonName.addEventListener('mouseover', function() {
 			if (this.disabled) {
-				alert('Please check question ' + "\"" + closestUncheckedRequiredLabel.innerText + "\"" + " and ensure at least " + closestUncheckedRequiredCount + " checkbox is selected.");
+				alert('Please check question ' + "\"" + closestUncheckedRequiredLabel.innerText + "\"");
 			}
 		});
 	}
 	else {
 		completeButtonValue.addEventListener('mouseover', function() {
 			if (this.disabled) {
-				alert('Please check question ' + "\"" + closestUncheckedRequiredLabel.innerText + "\"" + " and ensure at least " + closestUncheckedRequiredCount + " checkbox is selected.");
+				alert('Please check question ' + "\"" + closestUncheckedRequiredLabel.innerText + "\"");
 			}
 		});
 	}
