@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementsByTagName('head').item(0).appendChild(script);
     }
   
-    include('https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities@d808d3d/Utilities/visibility.js');
+    include('https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities@3b2dcf2/Utilities/visibility.js');
   }
 });
 
