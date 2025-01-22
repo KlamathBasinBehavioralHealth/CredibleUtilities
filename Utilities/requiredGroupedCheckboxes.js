@@ -66,26 +66,42 @@ function checkRequiredGroupCB(){
 	});
 	if(checkedRequiredGroupCount < requiredGroupCheckboxes.length){
 		// firstCBUnchecked is from the visibility.js and including it here is to ensure visibility.js and requiredGroupedCheckboxes.js do not overwrite each other
-		if(completeButtonName && firstCBUnchecked == null){
-			completeButtonName.setAttribute('disabled',true);
-		}
-		if(completeButtonValue && firstCBUnchecked == null){
-			completeButtonValue.setAttribute('disabled',true);
-		}
-		if(floatingCompleteButton && firstCBUnchecked == null){
-			floatingCompleteButton.setAttribute('disabled',true);
+		try{
+			if(completeButtonName && firstCBUnchecked == null){
+				completeButtonName.setAttribute('disabled',true);
+			}
+			if(completeButtonValue && firstCBUnchecked == null){
+				completeButtonValue.setAttribute('disabled',true);
+			}
+			if(floatingCompleteButton && firstCBUnchecked == null){
+				floatingCompleteButton.setAttribute('disabled',true);
+			}
+		} catch (e){
+			if(e instanceof ReferenceError){
+				completeButtonName.setAttribute('disabled',true);
+				completeButtonValue.setAttribute('disabled',true);
+				floatingCompleteButton.setAttribute('disabled',true);
+			}
 		}
 	}
 	else{
 		// firstCBUnchecked is from the visibility.js and including it here is to ensure visibility.js and requiredGroupedCheckboxes.js do not overwrite each other
-		if(completeButtonName && firstCBUnchecked == null){
-			completeButtonName.removeAttribute('disabled');
-		}
-		if(completeButtonValue && firstCBUnchecked == null){
-			completeButtonValue.removeAttribute('disabled');
-		}
-		if(floatingCompleteButton && firstCBUnchecked == null){
-			floatingCompleteButton.removeAttribute('disabled');
+		try{
+			if(completeButtonName && firstCBUnchecked == null){
+				completeButtonName.removeAttribute('disabled');
+			}
+			if(completeButtonValue && firstCBUnchecked == null){
+				completeButtonValue.removeAttribute('disabled');
+			}
+			if(floatingCompleteButton && firstCBUnchecked == null){
+				floatingCompleteButton.removeAttribute('disabled');
+			}
+		} catch (e){
+			if(e instanceof ReferenceError){
+				completeButtonName.removeAttribute('disabled');
+				completeButtonValue.removeAttribute('disabled');
+				floatingCompleteButton.removeAttribute('disabled');
+			}
 		}
 	}
 }
