@@ -43,11 +43,11 @@ function searchClosestLabel(checkboxGroup){
 
 var closestUncheckedRequiredLabel;
 function checkRequiredCB(){
-	const completeButtonName = document.querySelector('[name=Complete]');
+    const completeButtonName = document.querySelector('[name=Complete]');
     const completeButtonValue = document.querySelector('[value=Complete]');
 	let cbCheckedCount = 0;
 	let checkedRequiredGroupCount = 0;
-	shownRequiredCBAnswers.forEach(checkboxGroup => {
+	requiredGroupCheckboxes.forEach(checkboxGroup => {
 		let requiredCount = 1;
 		cbCheckedCount = 0;
 		checkboxGroup.forEach(answer => {
@@ -63,7 +63,7 @@ function checkRequiredCB(){
 			closestUncheckedRequiredLabel = searchClosestLabel(checkboxGroup);
 		}
 	});
-	if(checkedRequiredGroupCount < shownRequiredCBAnswers.length){
+	if(checkedRequiredGroupCount < requiredGroupCheckboxes.length){
 		if(completeButtonName){
 			completeButtonName.setAttribute('disabled',true);
 		}
