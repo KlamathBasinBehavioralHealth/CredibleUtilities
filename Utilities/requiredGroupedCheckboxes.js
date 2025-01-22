@@ -68,13 +68,14 @@ function checkRequiredGroupCB(){
 		}
 	});
 	if(checkedRequiredGroupCount < requiredGroupCheckboxes.length){
-		if(completeButtonName){
+		// firstCBUnchecked is from the visibility.js and including it here is to ensure visibility.js and requiredGroupedCheckboxes.js do not overwrite each other
+		if(completeButtonName && firstCBUnchecked == null){
 			completeButtonName.setAttribute('disabled',true);
 		}
-		if(completeButtonValue){
+		if(completeButtonValue && firstCBUnchecked == null){
 			completeButtonValue.setAttribute('disabled',true);
 		}
-		if(floatingCompleteButton){
+		if(floatingCompleteButton && firstCBUnchecked == null){
 			floatingCompleteButton.setAttribute('disabled',true);
 		}
 	}
