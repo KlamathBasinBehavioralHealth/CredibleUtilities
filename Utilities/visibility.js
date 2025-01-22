@@ -104,13 +104,14 @@ function checkRequiredCB(){
 		}
 	});
 	if(cbQuestionCheckedCount < shownRequiredCBAnswers.length){
-		if(completeButtonName){
+		// closestUncheckedRequiredLabel is from the requiredGroupedCheckboxes.js and including it here is to ensure visibility.js and requiredGroupedCheckboxes.js do not overwrite each other
+		if(completeButtonName  && closestUncheckedRequiredLabel == null){
 			completeButtonName.setAttribute('disabled',true);
 		}
-		if(completeButtonValue){
+		if(completeButtonValue  && closestUncheckedRequiredLabel == null){
 			completeButtonValue.setAttribute('disabled',true);
 		}
-		if(floatingCompleteButton){
+		if(floatingCompleteButton  && closestUncheckedRequiredLabel == null){
 			floatingCompleteButton.setAttribute('disabled',true);
 		}	
 	}
