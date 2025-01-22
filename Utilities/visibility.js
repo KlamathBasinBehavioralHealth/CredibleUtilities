@@ -50,6 +50,7 @@ var completeButtonName = document.querySelector('[name=Complete]');
 var completeButtonValue = document.querySelector('[value=Complete]');
 var firstCBUnchecked;
 function checkRequiredCB(){
+    firstCBUnchecked = null;
     completeButtonName = document.querySelector('[name=Complete]');
     completeButtonValue = document.querySelector('[value=Complete]');
     floatingCompleteButton = document.querySelector('#complete');
