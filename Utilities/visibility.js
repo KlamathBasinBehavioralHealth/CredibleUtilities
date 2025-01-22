@@ -114,13 +114,14 @@ function checkRequiredCB(){
 		}	
 	}
 	else{
-		if(completeButtonName && closestUncheckedRequiredLabel != null){
+		// closestUncheckedRequiredLabel is from the requiredGroupedCheckboxes.js and including it here is to ensure visibility.js and requiredGroupedCheckboxes.js do not overwrite each other
+		if(completeButtonName && closestUncheckedRequiredLabel == null){
 			completeButtonName.removeAttribute('disabled');
 		}
-		if(completeButtonValue && closestUncheckedRequiredLabel != null){
+		if(completeButtonValue && closestUncheckedRequiredLabel == null){
 			completeButtonValue.removeAttribute('disabled');
 		}
-		if(completeButtonValue  && closestUncheckedRequiredLabel != null){
+		if(completeButtonValue  && closestUncheckedRequiredLabel == null){
 			floatingCompleteButton.removeAttribute('disabled');
 		}	
 	}
