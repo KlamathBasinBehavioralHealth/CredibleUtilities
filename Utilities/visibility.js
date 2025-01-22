@@ -110,7 +110,7 @@ function checkRequiredCB(){
 		if(completeButtonValue){
 			completeButtonValue.setAttribute('disabled',true);
 		}
-		if(completeButtonValue){
+		if(floatingCompleteButton){
 			floatingCompleteButton.setAttribute('disabled',true);
 		}	
 	}
@@ -122,7 +122,7 @@ function checkRequiredCB(){
 		if(completeButtonValue && closestUncheckedRequiredLabel == null){
 			completeButtonValue.removeAttribute('disabled');
 		}
-		if(completeButtonValue  && closestUncheckedRequiredLabel == null){
+		if(floatingCompleteButton  && closestUncheckedRequiredLabel == null){
 			floatingCompleteButton.removeAttribute('disabled');
 		}	
 	}
