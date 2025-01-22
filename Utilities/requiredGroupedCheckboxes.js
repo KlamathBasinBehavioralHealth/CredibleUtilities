@@ -17,9 +17,6 @@ requiredGroupCheckboxes.forEach(checkboxGroup => {
 	asterisk.textContent = '*';
 	asterisk.style.color = 'red'; 
 	searchClosestLabel(checkboxGroup).parentElement.appendChild(asterisk);
-    checkboxGroup.forEach(question =>{
-		$('tr').find(question).after('<div class=\'redAsterisk\' style=\'color : red; display : inline\'>*</div>');  
-	});
 });
 
 var closestB;
