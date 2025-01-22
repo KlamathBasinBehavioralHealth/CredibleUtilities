@@ -105,27 +105,43 @@ function checkRequiredCB(){
 	});
 	if(cbQuestionCheckedCount < shownRequiredCBAnswers.length){
 		// closestUncheckedRequiredLabel is from the requiredGroupedCheckboxes.js and including it here is to ensure visibility.js and requiredGroupedCheckboxes.js do not overwrite each other
-		if(completeButtonName  && closestUncheckedRequiredLabel == null){
-			completeButtonName.setAttribute('disabled',true);
+		try{
+			if(completeButtonName  && closestUncheckedRequiredLabel == null){
+				completeButtonName.setAttribute('disabled',true);
+			} 
+			if(completeButtonValue  && closestUncheckedRequiredLabel == null){
+				completeButtonValue.setAttribute('disabled',true);
+			}
+			if(floatingCompleteButton  && closestUncheckedRequiredLabel == null){
+				floatingCompleteButton.setAttribute('disabled',true);
+			}	
+		} catch (e){
+			if(e instanceof ReferenceError){
+				completeButtonName.setAttribute('disabled',true);
+				completeButtonValue.setAttribute('disabled',true);
+				floatingCompleteButton.setAttribute('disabled',true);
+			}
 		}
-		if(completeButtonValue  && closestUncheckedRequiredLabel == null){
-			completeButtonValue.setAttribute('disabled',true);
-		}
-		if(floatingCompleteButton  && closestUncheckedRequiredLabel == null){
-			floatingCompleteButton.setAttribute('disabled',true);
-		}	
 	}
 	else{
 		// closestUncheckedRequiredLabel is from the requiredGroupedCheckboxes.js and including it here is to ensure visibility.js and requiredGroupedCheckboxes.js do not overwrite each other
-		if(completeButtonName && closestUncheckedRequiredLabel == null){
+		try{
+			if(completeButtonName && closestUncheckedRequiredLabel == null){
 			completeButtonName.removeAttribute('disabled');
+			}
+			if(completeButtonValue && closestUncheckedRequiredLabel == null){
+				completeButtonValue.removeAttribute('disabled');
+			}
+			if(floatingCompleteButton  && closestUncheckedRequiredLabel == null){
+				floatingCompleteButton.removeAttribute('disabled');
+			}
+		} catch (e){
+			if(e instanceof ReferenceError){
+				completeButtonName.removeAttribute('disabled');
+				completeButtonValue.removeAttribute('disabled');
+				floatingCompleteButton.removeAttribute('disabled');
+			}
 		}
-		if(completeButtonValue && closestUncheckedRequiredLabel == null){
-			completeButtonValue.removeAttribute('disabled');
-		}
-		if(floatingCompleteButton  && closestUncheckedRequiredLabel == null){
-			floatingCompleteButton.removeAttribute('disabled');
-		}	
 	}
 }
 
