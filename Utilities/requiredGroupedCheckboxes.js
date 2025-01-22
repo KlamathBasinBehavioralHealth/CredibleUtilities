@@ -94,21 +94,21 @@ document.addEventListener('DOMContentLoaded', () => {
 	const completeButtonName = document.querySelector('[name=Complete]');
 	const completeButtonValue = document.querySelector('[value=Complete]');
 	if(floatingCompleteButton){
-		floatingCompleteButton.querySelector('[value="Complete"]').addEventListener('mouseover', function() {
+		floatingCompleteButton.addEventListener('mouseover', function() {
 			if (this.disabled) {
 				alert('Please check question ' + "\"" + closestUncheckedRequiredLabel.innerText + "\"");
 			}
 		});
 	}
 	else if (completeButtonName){
-		completeButtonName.querySelector('[value="Complete"]').addEventListener('mouseover', function() {
+		completeButtonName.addEventListener('mouseover', function() {
 			if (this.disabled) {
 				alert('Please check question ' + "\"" + closestUncheckedRequiredLabel.innerText + "\"");
 			}
 		});
 	}
 	else {
-		completeButtonValue.querySelector('[value="Complete"]').addEventListener('mouseover', function() {
+		completeButtonValue.addEventListener('mouseover', function() {
 			if (this.disabled) {
 				alert('Please check question ' + "\"" + closestUncheckedRequiredLabel.innerText + "\"");
 			}
