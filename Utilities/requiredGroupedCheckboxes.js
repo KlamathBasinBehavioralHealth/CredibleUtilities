@@ -1,6 +1,3 @@
-
-
-
 const groups = {};
 const requiredIndividualCheckboxes = [...document.querySelectorAll('.requireIndividualCheckboxes')];
 requiredIndividualCheckboxes.forEach(element => {
@@ -125,6 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		});
 	}
+	checkRequiredGroupCB();
 });
 
 
