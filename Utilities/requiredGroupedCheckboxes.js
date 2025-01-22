@@ -89,3 +89,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+	const floatingCompleteButton = document.querySelector('#complete');
+	const completeButtonName = document.querySelector('[name=Complete]');
+	const completeButtonValue = document.querySelector('[value=Complete]');
+	if(floatingCompleteButton){
+		floatingCompleteButton.querySelector('[value="Complete"]').addEventListener('mouseover', function() {
+			if (this.disabled) {
+				alert('Please check question ' + "\"" + closestUncheckedRequiredLabel.innerText + "\"");
+			}
+		});
+	}
+	else if (completeButtonName){
+		completeButtonName.querySelector('[value="Complete"]').addEventListener('mouseover', function() {
+			if (this.disabled) {
+				alert('Please check question ' + "\"" + closestUncheckedRequiredLabel.innerText + "\"");
+			}
+		});
+	}
+	else {
+		completeButtonValue.querySelector('[value="Complete"]').addEventListener('mouseover', function() {
+			if (this.disabled) {
+				alert('Please check question ' + "\"" + closestUncheckedRequiredLabel.innerText + "\"");
+			}
+		});
+	}
+});
