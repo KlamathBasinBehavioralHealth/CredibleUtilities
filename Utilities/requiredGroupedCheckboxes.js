@@ -81,9 +81,11 @@ function checkRequiredGroupCB(){
 	}
 }
 
-//function checkRequirement() {
-//  const interval = 250; 
-//  const flashInterval = setInterval(() => {
-//	  
-//  }, interval);
-//}
+document.addEventListener('DOMContentLoaded', () => {
+    requiredGroupCheckboxes.forEach(checkboxGroup => {
+        checkboxGroup.forEach(answer => {
+            answer.addEventListener('change', checkRequiredGroupCB);
+        });
+    });
+});
+
