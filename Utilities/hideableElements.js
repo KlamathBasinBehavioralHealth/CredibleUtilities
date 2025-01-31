@@ -1,4 +1,9 @@
-const intervalTime = 250;
+try{
+  intervalTime = 250;
+}catch(error){
+  console.log(error);
+  let intervalTime = 250;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   if(typeof visibility != 'function'){
