@@ -48,8 +48,9 @@ function requireField (target, condition) {
 var floatingCompleteButton = document.querySelector('#complete');
 var completeButtonName = document.querySelector('[name=Complete]');
 var completeButtonValue = document.querySelector('[value=Complete]');
-var firstCBUnchecked;
+var firstCBUnchecked = null;
 function checkRequiredCB(){
+    firstCBUnchecked = null;
     completeButtonName = document.querySelector('[name=Complete]');
     completeButtonValue = document.querySelector('[value=Complete]');
     floatingCompleteButton = document.querySelector('#complete');
@@ -103,26 +104,44 @@ function checkRequiredCB(){
 		}
 	});
 	if(cbQuestionCheckedCount < shownRequiredCBAnswers.length){
-		if(completeButtonName){
-			completeButtonName.setAttribute('disabled',true);
+		// closestUncheckedRequiredLabel is from the requiredGroupedCheckboxes.js and including it here is to ensure visibility.js and requiredGroupedCheckboxes.js do not overwrite each other
+		try{
+			if(completeButtonName  && closestUncheckedRequiredLabel == null){
+				completeButtonName.setAttribute('disabled',true);
+			} 
+			if(completeButtonValue  && closestUncheckedRequiredLabel == null){
+				completeButtonValue.setAttribute('disabled',true);
+			}
+			if(floatingCompleteButton  && closestUncheckedRequiredLabel == null){
+				floatingCompleteButton.setAttribute('disabled',true);
+			}	
+		} catch (e){
+			if(e instanceof ReferenceError){
+				completeButtonName.setAttribute('disabled',true);
+				completeButtonValue.setAttribute('disabled',true);
+				floatingCompleteButton.setAttribute('disabled',true);
+			}
 		}
-		if(completeButtonValue){
-			completeButtonValue.setAttribute('disabled',true);
-		}
-		if(completeButtonValue){
-			floatingCompleteButton.setAttribute('disabled',true);
-		}	
 	}
 	else{
-		if(completeButtonName){
+		// closestUncheckedRequiredLabel is from the requiredGroupedCheckboxes.js and including it here is to ensure visibility.js and requiredGroupedCheckboxes.js do not overwrite each other
+		try{
+			if(completeButtonName && closestUncheckedRequiredLabel == null){
 			completeButtonName.removeAttribute('disabled');
+			}
+			if(completeButtonValue && closestUncheckedRequiredLabel == null){
+				completeButtonValue.removeAttribute('disabled');
+			}
+			if(floatingCompleteButton  && closestUncheckedRequiredLabel == null){
+				floatingCompleteButton.removeAttribute('disabled');
+			}
+		} catch (e){
+			if(e instanceof ReferenceError){
+				completeButtonName.removeAttribute('disabled');
+				completeButtonValue.removeAttribute('disabled');
+				floatingCompleteButton.removeAttribute('disabled');
+			}
 		}
-		if(completeButtonValue){
-			completeButtonValue.removeAttribute('disabled');
-		}
-		if(completeButtonValue){
-			floatingCompleteButton.removeAttribute('disabled');
-		}	
 	}
 }
 
@@ -232,5 +251,6 @@ window.onload = () => {
 			visibility('hide', element, false);
 	  	});
 	}
+	firstCBUnchecked = null;
 }
 
