@@ -1102,14 +1102,16 @@ const toggleExtraSpace = (selector, hiddenBool) => {
     element.hidden = hiddenBool;
   });
 };
-try{
-	const clientPresent = document
-		.querySelector("#presentClient")
-		.parentElement.parentElement.querySelector("input");
-}catch(error){
-	console.log(error);
-	const clientPresent = null;
-}
+window.addEventListener('load', function() {
+	try{
+		const clientPresent = document
+			.querySelector("#presentClient")
+			.parentElement.parentElement.querySelector("input");
+	}catch(error){
+		console.log(error);
+		const clientPresent = null;
+	}
+});
 try{
 	const clientPresentCheck = () => {
 	if (clientPresent.checked) {
