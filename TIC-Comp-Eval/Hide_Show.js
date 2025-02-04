@@ -70,32 +70,34 @@ function requireHiddenNotes (condition, target) {
 } */
 
 function hideShow(hideShow, target, setRequired = true){ 
-	if(hideShow == 'show'){ 
-        $('td').has('div[class=' + target + ']').show(); 
-		$('tr').has('div[class=' + target + ']').show(); 
-		$('tr').has('div[class=' + target + ']').next().show(); 
-        $('td').has('div[id=' + target + ']').show();
-		$('tr').has('div[id=' + target + ']').show(); 
-		$('tr').has('div[id=' + target + ']').next().show(); 
-        $('td').has('div[hide=' + target + ']').show();
-		$('tr').has('div[hide=' + target + ']').show(); 
-		$('tr').has('div[hide=' + target + ']').next().show(); 	
-		if(setRequired == true){
-			requireHidden(true, target); 
-		}
-	} 
-	else if(hideShow == 'hide'){ 
-        $('td').has('div[class=' + target + ']').hide(); 
-		$('tr').has('div[class=' + target + ']').hide(); 
-		$('tr').has('div[class=' + target + ']').next().hide();
-        $('td').has('div[id=' + target + ']').hide(); 
-		$('tr').has('div[id=' + target + ']').hide(); 
-		$('tr').has('div[id=' + target + ']').next().hide();
-        $('td').has('div[hide=' + target + ']').hide(); 
-		$('tr').has('div[hide=' + target + ']').hide();
-		$('tr').has('div[hide=' + target + ']').next().hide();	
-		if(setRequired == true){
-			requireHidden(false, target); 
-		}
-	}  
+	if(document.querySelector('[name=Complete]')){
+		if(hideShow == 'show'){ 
+			$('td').has('div[class=' + target + ']').show(); 
+			$('tr').has('div[class=' + target + ']').show(); 
+			$('tr').has('div[class=' + target + ']').next().show(); 
+			$('td').has('div[id=' + target + ']').show();
+			$('tr').has('div[id=' + target + ']').show(); 
+			$('tr').has('div[id=' + target + ']').next().show(); 
+			$('td').has('div[hide=' + target + ']').show();
+			$('tr').has('div[hide=' + target + ']').show(); 
+			$('tr').has('div[hide=' + target + ']').next().show(); 	
+			if(setRequired == true){
+				requireHidden(true, target); 
+			}
+		} 
+		else if(hideShow == 'hide'){ 
+			$('td').has('div[class=' + target + ']').hide(); 
+			$('tr').has('div[class=' + target + ']').hide(); 
+			$('tr').has('div[class=' + target + ']').next().hide();
+			$('td').has('div[id=' + target + ']').hide(); 
+			$('tr').has('div[id=' + target + ']').hide(); 
+			$('tr').has('div[id=' + target + ']').next().hide();
+			$('td').has('div[hide=' + target + ']').hide(); 
+			$('tr').has('div[hide=' + target + ']').hide();
+			$('tr').has('div[hide=' + target + ']').next().hide();	
+			if(setRequired == true){
+				requireHidden(false, target); 
+			}
+		}  
+	}
 }
