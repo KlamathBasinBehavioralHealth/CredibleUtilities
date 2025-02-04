@@ -1138,17 +1138,17 @@ try{
 		}
 	}
 	};
+
+	window.addEventListener("DOMContentLoaded", () => { 
+		clientPresentCheck(); 
+		if (!clientPresent.checked){
+			clientPresent.click();
+		}
+		document.querySelectorAll('.screeningScore').forEach(score => {
+			score.closest('table').querySelector('input').setAttribute('readonly', true);
+			score.closest('table').querySelector('input').setAttribute('tabIndex', -1);
+		});
+	});
 }catch(error){
 	console.log(error);
 }
-window.addEventListener("DOMContentLoaded", () => { 
-	clientPresentCheck(); 
-	if (!clientPresent.checked){
-		clientPresent.click();
-	}
-	document.querySelectorAll('.screeningScore').forEach(score => {
-		score.closest('table').querySelector('input').setAttribute('readonly', true);
-		score.closest('table').querySelector('input').setAttribute('tabIndex', -1);
-	});
-});
-
