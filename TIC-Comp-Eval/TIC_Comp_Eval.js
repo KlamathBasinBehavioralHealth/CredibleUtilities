@@ -1109,34 +1109,38 @@ try{
 }catch(error){
 	console.log(error);
 }
-const clientPresentCheck = () => {
-  if (clientPresent.checked) {
-    hideShow("show", "clientQuestion", true);
-    toggleExtraSpace(".clientQuestion", false);
-    if (document.querySelector("#skillsTraining") != null) {
-      document.querySelector("#skillsTraining").closest("tr").hidden = false;
-    }
-    if (document.querySelector("#subAddNotes") != null) {
-      const subAddNotes = document.querySelector("#subAddNotes");
-      subAddNotes.closest("tr").querySelector("input").required = false;
-      subAddNotes.closest("tr").querySelector(".redAsterisk").remove();
-    }
-  } else {
-    hideShow("hide", "clientQuestion", true);
-    toggleExtraSpace(".clientQuestion", true);
-    hideShow("show", "objectivesAddressed", true);
-    if (document.querySelector("#objectivesAddressed") != null) {
-      document
-        .querySelector("#objectivesAddressed")
-        .closest("table")
-        .closest("tr").hidden = false;
-    }
-    hideShow("show", "dxInjection", true);
-    if (document.querySelector("#skillsTraining") != null) {
-      document.querySelector("#skillsTraining").closest("tr").hidden = true;
-    }
-  }
-};
+try{
+	const clientPresentCheck = () => {
+	if (clientPresent.checked) {
+		hideShow("show", "clientQuestion", true);
+		toggleExtraSpace(".clientQuestion", false);
+		if (document.querySelector("#skillsTraining") != null) {
+		document.querySelector("#skillsTraining").closest("tr").hidden = false;
+		}
+		if (document.querySelector("#subAddNotes") != null) {
+		const subAddNotes = document.querySelector("#subAddNotes");
+		subAddNotes.closest("tr").querySelector("input").required = false;
+		subAddNotes.closest("tr").querySelector(".redAsterisk").remove();
+		}
+	} else {
+		hideShow("hide", "clientQuestion", true);
+		toggleExtraSpace(".clientQuestion", true);
+		hideShow("show", "objectivesAddressed", true);
+		if (document.querySelector("#objectivesAddressed") != null) {
+		document
+			.querySelector("#objectivesAddressed")
+			.closest("table")
+			.closest("tr").hidden = false;
+		}
+		hideShow("show", "dxInjection", true);
+		if (document.querySelector("#skillsTraining") != null) {
+		document.querySelector("#skillsTraining").closest("tr").hidden = true;
+		}
+	}
+	};
+}catch(error){
+	console.log(error);
+}
 window.addEventListener("DOMContentLoaded", () => { 
 	clientPresentCheck(); 
 	if (!clientPresent.checked){
