@@ -1102,13 +1102,9 @@ const toggleExtraSpace = (selector, hiddenBool) => {
     element.hidden = hiddenBool;
   });
 };
-try{
-	const clientPresent = document
-		.querySelector("#presentClient")
-		.parentElement.parentElement.querySelector("input");
-}catch(error){
-	console.log(error);
-}
+const clientPresent = document
+  .querySelector("#presentClient")
+  .parentElement.parentElement.querySelector("input");
 const clientPresentCheck = () => {
   if (clientPresent.checked) {
     hideShow("show", "clientQuestion", true);
@@ -1147,4 +1143,4 @@ window.addEventListener("DOMContentLoaded", () => {
 		score.closest('table').querySelector('input').setAttribute('tabIndex', -1);
 	});
 });
-clientPresent.onchange = clientPresentCheck;
+

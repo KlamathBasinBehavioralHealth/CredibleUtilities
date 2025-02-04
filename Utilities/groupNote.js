@@ -42,4 +42,4 @@ function removeMdd(environment){
     }
 }
 
-setTimeout(() => {removeMdd(env)}, 2000);
+setTimeout(() => {removeMdd(env)}, 3000);
