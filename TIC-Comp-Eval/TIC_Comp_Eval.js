@@ -1108,6 +1108,7 @@ try{
 		.parentElement.parentElement.querySelector("input");
 }catch(error){
 	console.log(error);
+	const clientPresent = null;
 }
 try{
 	const clientPresentCheck = () => {
