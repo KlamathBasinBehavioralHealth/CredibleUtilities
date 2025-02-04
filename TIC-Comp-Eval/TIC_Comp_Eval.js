@@ -1102,9 +1102,7 @@ const toggleExtraSpace = (selector, hiddenBool) => {
     element.hidden = hiddenBool;
   });
 };
-const clientPresent = document
-  .querySelector("#presentClient")
-  .parentElement.parentElement.querySelector("input");
+const clientPresent = document.querySelector("#presentClient").parentElement.parentElement.querySelector("input");
 const clientPresentCheck = () => {
   if (clientPresent.checked) {
     hideShow("show", "clientQuestion", true);
