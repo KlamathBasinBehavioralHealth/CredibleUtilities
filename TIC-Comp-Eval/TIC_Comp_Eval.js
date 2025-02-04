@@ -1105,6 +1105,7 @@ const toggleExtraSpace = (selector, hiddenBool) => {
 let clientPresent;
 document.addEventListener("DOMContentLoaded", function() {
 	clientPresent = document.querySelector("#presentClient").parentElement.parentElement.querySelector("input");
+	clientPresent.onchange = clientPresentCheck;
 });
 const clientPresentCheck = () => {
   if (clientPresent.checked) {
@@ -1144,4 +1145,4 @@ window.addEventListener("DOMContentLoaded", () => {
 		score.closest('table').querySelector('input').setAttribute('tabIndex', -1);
 	});
 });
-clientPresent.onchange = clientPresentCheck;
+
