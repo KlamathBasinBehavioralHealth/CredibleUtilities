@@ -1102,14 +1102,7 @@ const toggleExtraSpace = (selector, hiddenBool) => {
     element.hidden = hiddenBool;
   });
 };
-try{
-	const clientPresent = document
-		.querySelector("#presentClient")
-		.parentElement.parentElement.querySelector("input");
-}catch(error){
-	console.log(error);
-	const clientPresent = null;
-}
+let clientPresent = null;
 try{
 	const clientPresentCheck = () => {
 	if (clientPresent.checked) {
@@ -1141,14 +1134,21 @@ try{
 	};
 
 	window.addEventListener("DOMContentLoaded", () => { 
-		clientPresentCheck(); 
-		if (!clientPresent.checked){
-			clientPresent.click();
+		try{
+			clientPresent = document
+				.querySelector("#presentClient")
+				.parentElement.parentElement.querySelector("input");
+				clientPresentCheck(); 
+			if (!clientPresent.checked){
+				clientPresent.click();
+			}
+			document.querySelectorAll('.screeningScore').forEach(score => {
+				score.closest('table').querySelector('input').setAttribute('readonly', true);
+				score.closest('table').querySelector('input').setAttribute('tabIndex', -1);
+			});
+		}catch(error){
+			console.log(error);
 		}
-		document.querySelectorAll('.screeningScore').forEach(score => {
-			score.closest('table').querySelector('input').setAttribute('readonly', true);
-			score.closest('table').querySelector('input').setAttribute('tabIndex', -1);
-		});
 	});
 }catch(error){
 	console.log(error);
