@@ -1126,7 +1126,7 @@ try{
 			.closest("table")
 			.closest("tr").hidden = false;
 		}
-		//hideShow("show", "dxInjection", true);
+		hideShow("show", "dxInjection", true);
 		if (document.querySelector("#skillsTraining") != null) {
 		document.querySelector("#skillsTraining").closest("tr").hidden = true;
 		}
