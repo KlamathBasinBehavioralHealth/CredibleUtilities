@@ -1,4 +1,5 @@
 const criticalIncident = Array.from(document.querySelector('#incidentType').closest('tbody').querySelector('tbody').querySelectorAll('input'));
+// Function to check Notification Details options
 $(document).ready(function() {
 	try{
 		criticalIncident.forEach((input) => {
@@ -6,12 +7,10 @@ $(document).ready(function() {
 			var incidentLocation = Array.from(document.querySelector('#incidentLocation').closest('tr').nextElementSibling.querySelectorAll('select')).map(select => select.value);
 			if(criticalIncident[0].checked & (incidentLocation == 234 || incidentLocation == 235)){
 				Array.from(document.querySelector('#notificationDetails').closest('tr').nextElementSibling.querySelectorAll('input'))[0].checked = true;
-				Array.from(document.querySelector('#notificationDetails').closest('tr').nextElementSibling.querySelectorAll('input'))[1].checked = true;
-				Array.from(document.querySelector('#notificationDetails').closest('tr').nextElementSibling.querySelectorAll('input'))[5].checked = true;
+				Array.from(document.querySelector('#notificationDetails').closest('tr').nextElementSibling.querySelectorAll('input'))[4].checked = true;
 			} else{
 				Array.from(document.querySelector('#notificationDetails').closest('tr').nextElementSibling.querySelectorAll('input'))[0].checked = false;
-				Array.from(document.querySelector('#notificationDetails').closest('tr').nextElementSibling.querySelectorAll('input'))[1].checked = false;
-				Array.from(document.querySelector('#notificationDetails').closest('tr').nextElementSibling.querySelectorAll('input'))[5].checked = false;
+				Array.from(document.querySelector('#notificationDetails').closest('tr').nextElementSibling.querySelectorAll('input'))[4].checked = false;
 			}
 		});
 	});
@@ -23,6 +22,7 @@ $(document).ready(function() {
 });
 
 const incidentDescription = Array.from(document.querySelector('#incidentDescription').closest('tr').nextElementSibling.querySelectorAll('input'));
+//Function to select critical incident based on incident description 
 $(document).ready(function() {
     try {
         incidentDescription.forEach((input) => {
@@ -45,6 +45,7 @@ $(document).ready(function() {
 
 
 const notificationDetails = Array.from(document.querySelector('#notificationDetails').closest('tr').nextElementSibling.querySelectorAll('input'));
+// Function to select critical incident based off who was notified.
 $(document).ready(function() {
 	try{
 		notificationDetails.forEach((input) => {
