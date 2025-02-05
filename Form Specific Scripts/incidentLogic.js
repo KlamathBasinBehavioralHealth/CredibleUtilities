@@ -68,7 +68,7 @@ $(document).ready(function() {
 	}
 });
 
-
+// This automatically sets the program and location based off whatever the staff put as the program and location in the scheduled service.
 window.addEventListener("DOMContentLoaded", async function() { 
 	try{
 		var tempVisitID = parent.document.querySelector('frame[id=left]').contentDocument.querySelector('#visittemp_ids').value;
