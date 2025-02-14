@@ -106,7 +106,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
 			[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
 			  let answer = table.querySelector('answer').innerHTML;
 			  [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
-				  console.log(element);
+				console.log(element.checked);
 				return element.innerHTML.includes(answer);
 			  })[0].querySelector('input').checked = true;
 			});
