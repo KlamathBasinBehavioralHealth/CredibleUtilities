@@ -2,6 +2,7 @@ const connectionString =
   "LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eo6Xujb93cLI0fLowwDKI2";
 
 const defaultMode = 'visit';
+const defaultOverride = 'false';
 
 let url = undefined;
 
@@ -87,7 +88,7 @@ function getData(url) {
 
 let thing = undefined;
 
-async function loadMostRecentAnswer(clientID, divID, mode = defaultMode){
+async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, override = defaultOverride){
   setURL(connectionString, clientID, divID, mode);
   try{
     let result = await getData(url);
@@ -96,69 +97,71 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode){
     let answerIDType = result.documentElement.querySelector('answer_id').innerHTML;
     let visitType = result.documentElement.querySelector('visittype').innerHTML;
     let timeDate = result.documentElement.querySelector('rev_timein').innerHTML;
-    switch(questionType){
-      case 'CB':
-      case 'RB':
-        [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
-          let answer = table.querySelector('answer').innerHTML;
-          [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
-            return element.innerHTML.includes(answer);
-          })[0].querySelector('input').checked = true;
-        });
-      break;
-      case 'CAL':
-      case 'TXT':
-        [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
-          let answer = table.querySelector('answer').innerHTML;
-          document.querySelector(`#${divID}`).closest('table').querySelector('input').value = answer;
-        });
-      break;
-      case 'DD':
-        [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
-          let answer = table.querySelector('answer').innerHTML;
-          let answerID = table.querySelector('answer_id').innerHTML;
-          let optionValue = undefined;
-          if(answerID !== '0'){
-            optionValue = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('option')].filter((option) => {
-              return option.innerText === answer;
-            })[0]?.value;
-          }else{
-            optionValue = answer;
-          }
-          document.querySelector(`#${divID}`).closest('table').querySelector('select').value = optionValue;
-        });
-      break;
-      case 'NLC':
-        try{
-          let answer = result.documentElement.querySelector('answer').innerHTML;
-          if(answer){
-            if(!document.querySelector(`#${divID}`).closest('table').querySelector('input').checked){
-              document.querySelector(`#${divID}`).closest('table').querySelector('input').click();
-            }
-          }
-        }catch(error){
-          console.log(error);
-          if(document.querySelector(`#${divID}`).closest('table').querySelector('input').checked){
-            document.querySelector(`#${divID}`).closest('table').querySelector('input').click();
-          }
-        }
-      break;
-      case 'PB':
-        try{
-          let answer = result.documentElement.querySelector('answer').innerHTML;
-          let target = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('input:not([type=hidden])')].filter((input) => {
-            return input.value == answer;
-          })[0];
-          if(target.style.backgroundColor == 'white' || target.style.backgroundColor == 'rgb(255, 255, 255)'){
-            target.click();
-          }
-        }catch(error){
-          console.log(error);
-        }
-      break;
-      default:
-        console.log('WHO AM I?!!!');
-    }
+	if(override == 'true'){
+		switch(questionType){
+		  case 'CB':
+		  case 'RB':
+			[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+			  let answer = table.querySelector('answer').innerHTML;
+			  [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
+				return element.innerHTML.includes(answer);
+			  })[0].querySelector('input').checked = true;
+			});
+		  break;
+		  case 'CAL':
+		  case 'TXT':
+			[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+			  let answer = table.querySelector('answer').innerHTML;
+			  document.querySelector(`#${divID}`).closest('table').querySelector('input').value = answer;
+			});
+		  break;
+		  case 'DD':
+			[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+			  let answer = table.querySelector('answer').innerHTML;
+			  let answerID = table.querySelector('answer_id').innerHTML;
+			  let optionValue = undefined;
+			  if(answerID !== '0'){
+				optionValue = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('option')].filter((option) => {
+				  return option.innerText === answer;
+				})[0]?.value;
+			  }else{
+				optionValue = answer;
+			  }
+			  document.querySelector(`#${divID}`).closest('table').querySelector('select').value = optionValue;
+			});
+		  break;
+		  case 'NLC':
+			try{
+			  let answer = result.documentElement.querySelector('answer').innerHTML;
+			  if(answer){
+				if(!document.querySelector(`#${divID}`).closest('table').querySelector('input').checked){
+				  document.querySelector(`#${divID}`).closest('table').querySelector('input').click();
+				}
+			  }
+			}catch(error){
+			  console.log(error);
+			  if(document.querySelector(`#${divID}`).closest('table').querySelector('input').checked){
+				document.querySelector(`#${divID}`).closest('table').querySelector('input').click();
+			  }
+			}
+		  break;
+		  case 'PB':
+			try{
+			  let answer = result.documentElement.querySelector('answer').innerHTML;
+			  let target = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('input:not([type=hidden])')].filter((input) => {
+				return input.value == answer;
+			  })[0];
+			  if(target.style.backgroundColor == 'white' || target.style.backgroundColor == 'rgb(255, 255, 255)'){
+				target.click();
+			  }
+			}catch(error){
+			  console.log(error);
+			}
+		  break;
+		  default:
+			console.log('WHO AM I?!!!');
+		}
+	}
   }catch(error){
     console.log(error);
   }
@@ -282,13 +285,16 @@ function loadMostRecentQuestions(clientID, tempVisitID){
   document.querySelectorAll('.loadPreviousAnswer').forEach((question) => {
     let divID = question.getAttribute('id');
     let mode = undefined; 
+	let override = undefined;
     try{
       mode = question.getAttribute('mode');
+	  override = question.getAttribute('override');
     }catch(error){
       mode = defaultMode;
+	  override = defaultOverride;
     }
 
-    loadMostRecentAnswer(clientID, divID, mode);
+    loadMostRecentAnswer(clientID, divID, mode, override);
   });
 
   document.querySelectorAll('.loadTempVisitAnswer').forEach((question) => {
