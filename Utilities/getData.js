@@ -97,7 +97,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
     let answerIDType = result.documentElement.querySelector('answer_id').innerHTML;
     let visitType = result.documentElement.querySelector('visittype').innerHTML;
     let timeDate = result.documentElement.querySelector('rev_timein').innerHTML;
-	let hasAnswer = false;
+	let hasNoAnswer = true;
 	
 	if(override == 'true'){
 		switch(questionType){
@@ -107,10 +107,10 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
 			  let answer = table.querySelector('answer').innerHTML;
 			  [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
 				if(element.querySelector('input').checked){
-					hasAnswer = true;
+					hasNoAnswer = false;
 				}
 				return element.innerHTML.includes(answer);
-			  })[0].querySelector('input').checked = hasAnswer;
+			  })[0].querySelector('input').checked = hasNoAnswer;
 			});
 		  break;
 		  case 'CAL':
