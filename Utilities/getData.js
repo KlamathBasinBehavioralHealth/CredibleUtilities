@@ -98,75 +98,74 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
     let visitType = result.documentElement.querySelector('visittype').innerHTML;
     let timeDate = result.documentElement.querySelector('rev_timein').innerHTML;
 	let hasNoAnswer = true;
-	
-	if(override == 'true'){
-		switch(questionType){
-		  case 'CB':
-		  case 'RB':
-			[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
-			  let answer = table.querySelector('answer').innerHTML;
-			  [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
-				if(element.querySelector('input').checked){
-					hasNoAnswer = false;
-				}
-				return element.innerHTML.includes(answer);
-			  })[0].querySelector('input').checked = hasNoAnswer;
-			});
-		  break;
-		  case 'CAL':
-		  case 'TXT':
-			[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
-			  let answer = table.querySelector('answer').innerHTML;
-			  document.querySelector(`#${divID}`).closest('table').querySelector('input').value = answer;
-			});
-		  break;
-		  case 'DD':
-			[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
-			  let answer = table.querySelector('answer').innerHTML;
-			  let answerID = table.querySelector('answer_id').innerHTML;
-			  let optionValue = undefined;
-			  if(answerID !== '0'){
-				optionValue = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('option')].filter((option) => {
-				  return option.innerText === answer;
-				})[0]?.value;
-			  }else{
-				optionValue = answer;
-			  }
-			  document.querySelector(`#${divID}`).closest('table').querySelector('select').value = optionValue;
-			});
-		  break;
-		  case 'NLC':
-			try{
-			  let answer = result.documentElement.querySelector('answer').innerHTML;
-			  if(answer){
-				if(!document.querySelector(`#${divID}`).closest('table').querySelector('input').checked){
-				  document.querySelector(`#${divID}`).closest('table').querySelector('input').click();
-				}
-			  }
-			}catch(error){
-			  console.log(error);
-			  if(document.querySelector(`#${divID}`).closest('table').querySelector('input').checked){
-				document.querySelector(`#${divID}`).closest('table').querySelector('input').click();
-			  }
+
+	switch(questionType){
+	  case 'CB':
+	  case 'RB':
+		[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+		  let answer = table.querySelector('answer').innerHTML;
+		  [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
+			if(element.querySelector('input').checked){
+				hasNoAnswer = false;
 			}
-		  break;
-		  case 'PB':
-			try{
-			  let answer = result.documentElement.querySelector('answer').innerHTML;
-			  let target = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('input:not([type=hidden])')].filter((input) => {
-				return input.value == answer;
-			  })[0];
-			  if(target.style.backgroundColor == 'white' || target.style.backgroundColor == 'rgb(255, 255, 255)'){
-				target.click();
-			  }
-			}catch(error){
-			  console.log(error);
+			return element.innerHTML.includes(answer);
+		  })[0].querySelector('input').checked = hasNoAnswer || override;
+		});
+	  break;
+	  case 'CAL':
+	  case 'TXT':
+		[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+		  let answer = table.querySelector('answer').innerHTML;
+		  document.querySelector(`#${divID}`).closest('table').querySelector('input').value = answer;
+		});
+	  break;
+	  case 'DD':
+		[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+		  let answer = table.querySelector('answer').innerHTML;
+		  let answerID = table.querySelector('answer_id').innerHTML;
+		  let optionValue = undefined;
+		  if(answerID !== '0'){
+			optionValue = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('option')].filter((option) => {
+			  return option.innerText === answer;
+			})[0]?.value;
+		  }else{
+			optionValue = answer;
+		  }
+		  document.querySelector(`#${divID}`).closest('table').querySelector('select').value = optionValue;
+		});
+	  break;
+	  case 'NLC':
+		try{
+		  let answer = result.documentElement.querySelector('answer').innerHTML;
+		  if(answer){
+			if(!document.querySelector(`#${divID}`).closest('table').querySelector('input').checked){
+			  document.querySelector(`#${divID}`).closest('table').querySelector('input').click();
 			}
-		  break;
-		  default:
-			console.log('WHO AM I?!!!');
+		  }
+		}catch(error){
+		  console.log(error);
+		  if(document.querySelector(`#${divID}`).closest('table').querySelector('input').checked){
+			document.querySelector(`#${divID}`).closest('table').querySelector('input').click();
+		  }
 		}
+	  break;
+	  case 'PB':
+		try{
+		  let answer = result.documentElement.querySelector('answer').innerHTML;
+		  let target = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('input:not([type=hidden])')].filter((input) => {
+			return input.value == answer;
+		  })[0];
+		  if(target.style.backgroundColor == 'white' || target.style.backgroundColor == 'rgb(255, 255, 255)'){
+			target.click();
+		  }
+		}catch(error){
+		  console.log(error);
+		}
+	  break;
+	  default:
+		console.log('WHO AM I?!!!');
 	}
+
   }catch(error){
     console.log(error);
   }
