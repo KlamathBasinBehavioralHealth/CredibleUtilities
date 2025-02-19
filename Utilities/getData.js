@@ -294,8 +294,8 @@ function loadMostRecentQuestions(clientID, tempVisitID){
     let mode = undefined; 
 	let override = undefined;
     try{
-      mode = question.getAttribute('mode');
-	  override = question.getAttribute('override');
+      mode = question.getAttribute('mode') || defaultMode;
+	  override = question.getAttribute('override') || defaultOverride;
     }catch(error){
       mode = defaultMode;
 	  override = defaultOverride;
