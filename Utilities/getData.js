@@ -109,7 +109,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
 				hasNoAnswer = false;
 			}
 			return element.innerHTML.includes(answer);
-		  })[0].querySelector('input').checked = hasNoAnswer || override;
+		  })[0].querySelector('input').checked = override || (hasNoAnswer && !override);
 		});
 	  break;
 	  case 'CAL':
