@@ -106,7 +106,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
 		[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
 			let notRadioCheckAnswers = [];
 			let answer = table.querySelector('answer').innerHTML;
-			
+			previousAnswers.push(answer);
 			[...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].forEach((element) => {
 				if(element.querySelector('input').checked){
 					hasNoAnswer = false;
@@ -143,7 +143,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
 					}
 				});
 			}
-			previousAnswers.push(answer);
+			
 		});
 	  break;
 	  case 'CAL':
