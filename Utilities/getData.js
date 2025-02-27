@@ -124,7 +124,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
 					}
 				});
 				if(prevAnswerCheck){
-					input.checked = JSON.parse(override) || (true && !JSON.parse(override))
+					input.checked = JSON.parse(override) || (true && !JSON.parse(override));
 				} else{
 					input.checked =  JSON.parse(override) || (hasNoAnswer && !JSON.parse(override));
 				}	
