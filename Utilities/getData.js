@@ -97,21 +97,25 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
     let answerIDType = result.documentElement.querySelector('answer_id').innerHTML;
     let visitType = result.documentElement.querySelector('visittype').innerHTML;
     let timeDate = result.documentElement.querySelector('rev_timein').innerHTML;
-    let buttonCounter = 0;
 	let hasNoAnswer = true;
-
+	let radioCheckAnswers = [];
 	switch(questionType){
 	  case 'CB':
 	  case 'RB':
 		[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
-		  let answer = table.querySelector('answer').innerHTML;
-		  [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].forEach((element) => {
-			buttonCounter = buttonCounter + 1;
-			if(element.querySelector('input').checked){
-				hasNoAnswer = false;
-			}
-			return element.querySelector('td').nextElementSibling.nextElementSibling.innerHTML.includes(answer);
-		  })[buttonCounter].querySelector('input').checked = override || (hasNoAnswer && !override);
+			radioCheckAnswers = [];
+			let answer = table.querySelector('answer').innerHTML;
+			[...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].forEach((element) => {
+				if(element.querySelector('input').checked){
+					hasNoAnswer = false;
+				}
+				if(element.querySelector('td').nextElementSibling.nextElementSibling.innerHTML.includes(answer)){
+					radioCheckAnswers.push(element.querySelector('td').nextElementSibling.querySelector('input'));
+				}
+			});
+			radioCheckAnswers.forEach((input) => {
+				input.checked =  override || (hasNoAnswer && !override);
+			});
 		});
 	  break;
 	  case 'CAL':
