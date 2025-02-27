@@ -126,7 +126,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
 				if(prevAnswerCheck){
 					input.checked = JSON.parse(override) || (true && !JSON.parse(override));
 				}
-				else if(input.closest('td').nextElementSibling.innerHTML.includes(answer) && prevAnswerCheck.length > 0){
+				else if(input.closest('td').nextElementSibling.innerHTML.includes(answer) && previousAnswers.length > 0){
 					input.checked =  JSON.parse(override) || (false && !JSON.parse(override))
 				}
 				else {
