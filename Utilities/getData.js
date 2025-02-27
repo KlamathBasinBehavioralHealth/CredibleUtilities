@@ -123,8 +123,11 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
 						prevAnswerCheck = true;
 					}
 				});
-				if(prevAnswerCheck || input.closest('td').nextElementSibling.innerHTML.includes(answer)){
+				if(prevAnswerCheck){
 					input.checked = JSON.parse(override) || (true && !JSON.parse(override));
+				}
+				else if(input.closest('td').nextElementSibling.innerHTML.includes(answer) && prevAnswerCheck.length > 0){
+					input.checked =  JSON.parse(override) || (false && !JSON.parse(override))
 				}
 				else {
 					input.checked =  JSON.parse(override) || (hasNoAnswer && !JSON.parse(override));
