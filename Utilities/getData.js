@@ -99,12 +99,14 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
     let timeDate = result.documentElement.querySelector('rev_timein').innerHTML;
 	let hasNoAnswer = true;
 	let radioCheckAnswers = [];
+    let previousAnswers = []
 	switch(questionType){
 	  case 'CB':
 	  case 'RB':
 		[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
 			let notRadioCheckAnswers = [];
 			let answer = table.querySelector('answer').innerHTML;
+			previousAnswers.push(answer);
 			[...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].forEach((element) => {
 				if(element.querySelector('input').checked){
 					hasNoAnswer = false;
@@ -120,7 +122,15 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
 			});
 			if(override == 'true'){
 				notRadioCheckAnswers.forEach((input) => {
+					let prevAnswerCheck = false;
+					previousAnswers.forEach((prevAnswer) => {
+						if(input.closest('td').nextElementSibling.innerHTML.includes(prevAnswer){
+							prevAnswerCheck = true;
+						}
+					});
+					if(!prevAnswerCheck){
 					input.checked =  false;
+					}
 				});
 			}
 		});
