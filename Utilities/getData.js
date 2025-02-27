@@ -118,7 +118,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
 				}
 			});
 			radioCheckAnswers.forEach((input) => {
-				input.checked =  override || (hasNoAnswer && !override);
+				input.checked =  JSON.parse(override) || (hasNoAnswer && !JSON.parse(override));
 			});
 			if(override == 'true'){
 				notRadioCheckAnswers.forEach((input) => {
