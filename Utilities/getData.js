@@ -118,6 +118,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
 				}
 			});
 			radioCheckAnswers.forEach((input) => {
+				let prevAnswerCheck = false;
 				previousAnswers.forEach((prevAnswer) => {
 					if(input.closest('td').nextElementSibling.innerHTML.includes(prevAnswer)){
 						prevAnswerCheck = true;
