@@ -120,9 +120,11 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
 			radioCheckAnswers.forEach((input) => {
 				input.checked =  override || (hasNoAnswer && !override);
 			});
-			notRadioCheckAnswers.forEach((input) => {
-				input.checked =  !override || (!hasNoAnswer && override);
-			});
+			if(override == 'true'){
+				notRadioCheckAnswers.forEach((input) => {
+					input.checked =  !override || (!hasNoAnswer && override);
+				});
+			}
 		});
 	  break;
 	  case 'CAL':
