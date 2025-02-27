@@ -99,12 +99,11 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
     let timeDate = result.documentElement.querySelector('rev_timein').innerHTML;
 	let hasNoAnswer = true;
 	let radioCheckAnswers = [];
-	let notRadioCheckAnswers = [];
 	switch(questionType){
 	  case 'CB':
 	  case 'RB':
 		[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
-			radioCheckAnswers = [];
+			let notRadioCheckAnswers = [];
 			let answer = table.querySelector('answer').innerHTML;
 			[...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].forEach((element) => {
 				if(element.querySelector('input').checked){
