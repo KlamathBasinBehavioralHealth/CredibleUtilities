@@ -122,7 +122,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
 			});
 			if(override == 'true'){
 				notRadioCheckAnswers.forEach((input) => {
-					input.checked =  !override || (!hasNoAnswer && override);
+					input.checked =  false;
 				});
 			}
 		});
