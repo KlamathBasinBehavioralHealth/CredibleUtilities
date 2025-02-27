@@ -106,7 +106,6 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
 		[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
 			let notRadioCheckAnswers = [];
 			let answer = table.querySelector('answer').innerHTML;
-			previousAnswers.push(answer);
 			[...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].forEach((element) => {
 				if(element.querySelector('input').checked){
 					hasNoAnswer = false;
@@ -126,7 +125,10 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
 				});
 				if(prevAnswerCheck){
 					input.checked = JSON.parse(override) || (true && !JSON.parse(override));
-				} else{
+				} else if(input.closest('td').nextElementSibling.innerHTML.includes(answer)) {
+					input.checked =  JSON.parse(override) || (false && !JSON.parse(override));
+				}
+				else {
 					input.checked =  JSON.parse(override) || (hasNoAnswer && !JSON.parse(override));
 				}	
 			});
@@ -143,7 +145,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
 					}
 				});
 			}
-			
+			previousAnswers.push(answer);
 		});
 	  break;
 	  case 'CAL':
