@@ -88,11 +88,11 @@ function initTTips(targetDocument){
       }catch(error){
         console.log(error);
       }
-      try{
+      /* try{
         tTip.closest('table').closest('tr').nextSibling.style.display = 'none';
       }catch(error){
         console.log(error);
-      }
+      } */
     });
   }
 }  
