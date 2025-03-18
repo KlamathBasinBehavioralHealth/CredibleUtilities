@@ -83,8 +83,16 @@ function initTTips(targetDocument){
     });  
 
     document.querySelectorAll('.externalTTip').forEach((tTip) => {    
-      tTip.closest('table').closest('tr').style.display = 'none';    
-      tTip.closest('table').closest('tr').nextSibling.style.display = 'none';
+      try{
+        tTip.closest('table').closest('tr').style.display = 'none'; 
+      }catch(error){
+        console.log(error);
+      }
+      try{
+        tTip.closest('table').closest('tr').nextSibling.style.display = 'none';
+      }catch(error){
+        console.log(error);
+      }
     });
   }
 }  
