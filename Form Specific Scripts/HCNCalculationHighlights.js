@@ -46,7 +46,7 @@ var allSafetyAnswers = [];
 
 var allMentalHealthAnswers = [];
 [...document.querySelectorAll('#mentalHealthCalc')].forEach(answer => {
-	allSafetyAnswers = [...allSafetyAnswers, ...answer.closest('tr').nextElementSibling.querySelectorAll('select')];
+	allMentalHealthAnswers = [...allSafetyAnswers, ...answer.closest('tr').nextElementSibling.querySelectorAll('select')];
 });
 
 function safetyHighlight(){
