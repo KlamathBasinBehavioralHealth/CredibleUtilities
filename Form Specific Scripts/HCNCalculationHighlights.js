@@ -40,17 +40,10 @@ document.addEventListener("DOMContentLoaded", async function() {
 	});
 });
 var allSafetyAnswers = [];
-[...document.querySelectorAll('#safetyAdditionCalc')].forEach(answer => {
-	allSafetyAnswers = [...allSafetyAnswers, ...answer.closest('tr').nextElementSibling.querySelectorAll('select')];
-});
+
 
 var allMentalHealthAnswers = [];
-[...document.querySelectorAll('#phq9AQ1')].forEach(answer => {
-	allMentalHealthAnswers = [...allMentalHealthAnswers, ...answer.closest('tr').nextElementSibling.querySelectorAll('select')];
-});
-[...document.querySelectorAll('#phq9Q1')].forEach(answer => {
-	allMentalHealthAnswers = [...allMentalHealthAnswers, ...answer.closest('tr').nextElementSibling.querySelectorAll('select')];
-});
+
 
 function safetyHighlight(){
 	console.log('Start Safety Highlight');
@@ -87,6 +80,15 @@ function mentalHealthHighlight(){
 }
 
 $(document).ready(function() {
+	[...document.querySelectorAll('#safetyAdditionCalc')].forEach(answer => {
+	allSafetyAnswers = [...allSafetyAnswers, ...answer.closest('tr').nextElementSibling.querySelectorAll('select')];
+	});
+	[...document.querySelectorAll('#phq9AQ1')].forEach(answer => {
+	allMentalHealthAnswers = [...allMentalHealthAnswers, ...answer.closest('tr').nextElementSibling.querySelectorAll('select')];
+	});
+	[...document.querySelectorAll('#phq9Q1')].forEach(answer => {
+		allMentalHealthAnswers = [...allMentalHealthAnswers, ...answer.closest('tr').nextElementSibling.querySelectorAll('select')];
+	});
 	mentalHealthHighlight();
 	allSafetyAnswers.forEach((input) => {
 		input.addEventListener('change', () => {
