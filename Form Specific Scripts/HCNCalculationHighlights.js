@@ -44,6 +44,11 @@ var allSafetyAnswers = [];
 	allSafetyAnswers = [...allSafetyAnswers, ...answer.closest('tr').nextElementSibling.querySelectorAll('select')];
 });
 
+var allMentalHealthAnswers = [];
+[...document.querySelectorAll('#mentalHealthCalc')].forEach(answer => {
+	allSafetyAnswers = [...allSafetyAnswers, ...answer.closest('tr').nextElementSibling.querySelectorAll('select')];
+});
+
 function safetyHighlight(){
 	console.log('Start Safety Highlight');
 	var lineToHighlight = Array.from(document.querySelectorAll('tr:has(div#resourceSafety'));
@@ -80,9 +85,14 @@ function mentalHealthHighlight(){
 
 $(document).ready(function() {
 	safetyHighlight();
+	mentalHealthHighlight();
 	allSafetyAnswers.forEach((input) => {
 		input.addEventListener('change', () => {
 			safetyHighlight();
+		});
+	});
+	mentalHealthCalc.forEach((input) => {
+		input.addEventListener('change', () => {
 			mentalHealthHighlight();
 		});
 	});
