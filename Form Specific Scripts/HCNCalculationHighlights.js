@@ -91,9 +91,4 @@ $(document).ready(function() {
 			safetyHighlight();
 		});
 	});
-	mentalHealthCalc.forEach((input) => {
-		input.addEventListener('change', () => {
-			mentalHealthHighlight();
-		});
-	});
 });
