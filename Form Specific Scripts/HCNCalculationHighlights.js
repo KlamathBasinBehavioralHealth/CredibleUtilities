@@ -62,11 +62,28 @@ function safetyHighlight(){
 	console.log('End Safety Highlight');
 }
 
+function mentalHealthHighlight(){
+	var lineToHighlight = Array.from(document.querySelectorAll('tr:has(div#resourceMentalHealth'));
+	console.log('Start Mental Health');
+	if( (document.querySelector('#phq9Q1').closest('tr').nextElementSibling.querySelector('select').options.selectedIndex + 1) + (document.querySelector('#phq9AQ1').closest('tr').nextElementSibling.querySelector('select').options.selectedIndex + 1) >= 3){
+		lineToHighlight.forEach(row => {
+			row.style.backgroundColor = 'yellow';
+			console.log('Highlighted');
+		});
+	} else{
+		lineToHighlight.forEach(row => {
+			row.style.backgroundColor = 'white';
+			console.log('Highlighted');
+		});
+	}
+}
+
 $(document).ready(function() {
 	safetyHighlight();
 	allSafetyAnswers.forEach((input) => {
 		input.addEventListener('change', () => {
 			safetyHighlight();
+			mentalHealthHighlight();
 		});
 	});
 });
