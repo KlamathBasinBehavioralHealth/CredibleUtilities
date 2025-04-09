@@ -1,7 +1,7 @@
 // This is to grab all the groups and make sure the groups const only has one instance of each group.
 const groups = {};
 const onlyOneGroupedIndividualCheckboxes = [...document.querySelectorAll('.onlyOneNLCB')];
-requiredIndividualCheckboxes.forEach(element => {
+onlyOneGroupedIndividualCheckboxes.forEach(element => {
   const groupId = element.getAttribute('groupid');
   if (!groups[groupId]) {
     groups[groupId] = [];
