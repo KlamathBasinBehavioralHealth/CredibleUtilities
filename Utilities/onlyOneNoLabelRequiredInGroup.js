@@ -26,7 +26,7 @@ function checkRequiredGroupCB(checkbox_answer){
 				if(answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea')){
 					answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').required = false;
 					answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.style.display = 'none';
-					if(checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('table').style.display){
+					if(checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('table')){
 						checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('table').style.display = 'none';
 					}
 					if(checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').closest('td').querySelector('div')){
@@ -37,7 +37,9 @@ function checkRequiredGroupCB(checkbox_answer){
 		}
 		checkbox_answer.closest('tbody').querySelector('input').checked = true;
 		checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.style.display = 'inline';
-		checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('table').style.display = 'inline';
+		if(checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('table')){
+			checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('table').style.display = 'inline';
+		}
 		if(checkbox_answer.classList.contains('requireTextarea')){
 			if(checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea')){
 				checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').required = true;
@@ -60,3 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities@45dd6d0/Utilities/onlyOneNoLabelRequiredInGroup.js'></script>
