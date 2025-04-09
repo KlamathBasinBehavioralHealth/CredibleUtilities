@@ -60,6 +60,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
-
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities@f65049d/Utilities/onlyOneNoLabelRequiredInGroup.js'></script>
