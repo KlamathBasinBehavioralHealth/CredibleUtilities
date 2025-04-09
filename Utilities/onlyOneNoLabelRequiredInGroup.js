@@ -1,6 +1,6 @@
 // This is to grab all the groups and make sure the groups const only has one instance of each group.
 const groups = {};
-const requiredIndividualCheckboxes = [...document.querySelectorAll('.onlyOneNLCB')];
+const onlyOneGroupedIndividualCheckboxes = [...document.querySelectorAll('.onlyOneNLCB')];
 requiredIndividualCheckboxes.forEach(element => {
   const groupId = element.getAttribute('groupid');
   if (!groups[groupId]) {
@@ -8,18 +8,16 @@ requiredIndividualCheckboxes.forEach(element => {
   }
   groups[groupId].push(element);
 });
-const requiredGroupCheckboxes = Object.values(groups);
 
-function checkRequiredGroupCB(checkbox_answer){
+const onlyOneGroupedCheckboxes = Object.values(groups);
+
+function onlyOneGroupedNLCB(checkbox_answer){
 	const redAsteriskDiv = document.createElement('div');
 	// Red asterisk for the text box
-    redAsteriskDiv.textContent = '*';  
-    redAsteriskDiv.style.color = 'red';
-    redAsteriskDiv.style.fontSize = '15px';
+        redAsteriskDiv.textContent = '*';  
+        redAsteriskDiv.style.color = 'red';
+        redAsteriskDiv.style.fontSize = '15px';
 	requiredGroupCheckboxes.forEach(checkboxGroup => {
-		// This variable is to count how many no label checkboxes in the group are checked
-		cbCheckedCount = 0;
-		let checkedAnswer;
 		if(checkboxGroup[1].getAttribute('groupid') == checkbox_answer.getAttribute('groupid')){
 			checkboxGroup.forEach(answer => {
 				answer.closest('tbody').querySelector('input').checked = false;
@@ -58,10 +56,10 @@ function checkRequiredGroupCB(checkbox_answer){
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    requiredGroupCheckboxes.forEach(checkboxGroup => {
+    onlyOneGroupedCheckboxes.forEach(checkboxGroup => {
         checkboxGroup.forEach(answer => {
             answer.closest('tbody').querySelector('input').addEventListener('change', function(){
-				checkRequiredGroupCB(answer);
+				onlyOneGroupedNLCB(answer);
 			});
         });
     });
