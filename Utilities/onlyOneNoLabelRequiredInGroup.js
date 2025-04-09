@@ -3,7 +3,7 @@ const onlyOneGroups = {};
 const onlyOneGroupedIndividualCheckboxes = [...document.querySelectorAll('.onlyOneNLCB')];
 onlyOneGroupedIndividualCheckboxes.forEach(element => {
   const groupId = element.getAttribute('groupid');
-  if (!groups[groupId]) {
+  if (!onlyOneGroups[groupId]) {
     onlyOneGroups[groupId] = [];
   }
   onlyOneGroups[groupId].push(element);
