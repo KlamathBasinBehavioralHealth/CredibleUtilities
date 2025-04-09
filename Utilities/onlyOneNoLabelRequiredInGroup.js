@@ -10,10 +10,9 @@ requiredIndividualCheckboxes.forEach(element => {
 });
 const requiredGroupCheckboxes = Object.values(groups);
 
-// This variable is to notify which is the closest group of no label checkboxes does not meet its required checked answer count
-var closestUncheckedRequiredLabel;
 function checkRequiredGroupCB(checkbox_answer){
 	const redAsteriskDiv = document.createElement('div');
+	// Red asterisk for the text box
     redAsteriskDiv.textContent = '*';  
     redAsteriskDiv.style.color = 'red';
     redAsteriskDiv.style.fontSize = '15px';
@@ -24,24 +23,27 @@ function checkRequiredGroupCB(checkbox_answer){
 		if(checkboxGroup[1].getAttribute('groupid') == checkbox_answer.getAttribute('groupid')){
 			checkboxGroup.forEach(answer => {
 				answer.closest('tbody').querySelector('input').checked = false;
-				answer.closest('tbody').querySelector('input').checked = false;
-				answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').required = false;
-				answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.style.display = 'none';
-				checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('table').style.display = 'none';
-				if(checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').closest('td').querySelector('div')){
-					checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').closest('td').querySelector('div').remove();
-				}
+				if(answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea')){
+					answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').required = false;
+					answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.style.display = 'none';
+					checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('table').style.display = 'none';
+					if(checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').closest('td').querySelector('div')){
+						checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').closest('td').querySelector('div').remove();
+					}
+				}			
 			});
 		}
 		checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.style.display = 'inline';
 		checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('table').style.display = 'inline';
 		checkbox_answer.closest('tbody').querySelector('input').checked = true;
 		if(checkbox_answer.classList.contains('requireTextarea')){
-			checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').required = true;
-			if(checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').closest('td').querySelector('div')){
-				checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').closest('td').querySelector('div').remove();
-			} else{
-				checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').closest('td').appendChild(redAsteriskDiv);
+			if(answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea')){
+				checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').required = true;
+				if(checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').closest('td').querySelector('div')){
+					checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').closest('td').querySelector('div').remove();
+				} else{
+					checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').closest('td').appendChild(redAsteriskDiv);
+				}
 			}
 		}
 	});
