@@ -17,7 +17,7 @@ function onlyOneGroupedNLCB(checkbox_answer){
         redAsteriskDiv.textContent = '*';  
         redAsteriskDiv.style.color = 'red';
         redAsteriskDiv.style.fontSize = '15px';
-	requiredGroupCheckboxes.forEach(checkboxGroup => {
+	onlyOneGroupedCheckboxes.forEach(checkboxGroup => {
 		if(checkboxGroup[1].getAttribute('groupid') == checkbox_answer.getAttribute('groupid')){
 			checkboxGroup.forEach(answer => {
 				answer.closest('tbody').querySelector('input').checked = false;
