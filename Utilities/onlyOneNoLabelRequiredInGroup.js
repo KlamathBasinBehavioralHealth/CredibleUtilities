@@ -1,15 +1,15 @@
 // This is to grab all the groups and make sure the groups const only has one instance of each group.
-const groups = {};
+const onlyOneGroups = {};
 const onlyOneGroupedIndividualCheckboxes = [...document.querySelectorAll('.onlyOneNLCB')];
 onlyOneGroupedIndividualCheckboxes.forEach(element => {
   const groupId = element.getAttribute('groupid');
   if (!groups[groupId]) {
-    groups[groupId] = [];
+    onlyOneGroups[groupId] = [];
   }
-  groups[groupId].push(element);
+  onlyOneGroups[groupId].push(element);
 });
 
-const onlyOneGroupedCheckboxes = Object.values(groups);
+const onlyOneGroupedCheckboxes = Object.values(onlyOneGroups);
 
 function onlyOneGroupedNLCB(checkbox_answer){
 	const redAsteriskDiv = document.createElement('div');
