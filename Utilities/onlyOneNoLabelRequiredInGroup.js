@@ -26,16 +26,18 @@ function checkRequiredGroupCB(checkbox_answer){
 				if(answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea')){
 					answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').required = false;
 					answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.style.display = 'none';
-					checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('table').style.display = 'none';
-					if(checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').closest('td').querySelector('div')){
-						checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').closest('td').querySelector('div').remove();
-					}
+					//if(checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('table').style.display){
+					//	checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('table').style.display = 'none';
+					//}
+					//if(checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').closest('td').querySelector('div')){
+					//	checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').closest('td').querySelector('div').remove();
+					//}
 				}			
 			});
 		}
+		checkbox_answer.closest('tbody').querySelector('input').checked = true;
 		checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.style.display = 'inline';
 		checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('table').style.display = 'inline';
-		checkbox_answer.closest('tbody').querySelector('input').checked = true;
 		if(checkbox_answer.classList.contains('requireTextarea')){
 			if(answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea')){
 				checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').required = true;
@@ -58,3 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities@f65049d/Utilities/onlyOneNoLabelRequiredInGroup.js'></script>
