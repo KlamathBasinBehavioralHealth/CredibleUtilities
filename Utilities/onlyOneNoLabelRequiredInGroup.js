@@ -20,7 +20,7 @@ function onlyOneGroupedNLCB(checkbox_answer, alreadyChecked){
 	redAsteriskDiv.style.fontSize = '15px';
 	let same = false;
 	onlyOneGroupedCheckboxes.forEach(checkboxGroup => {
-		if(checkboxGroup[1].getAttribute('groupid') == checkbox_answer.getAttribute('groupid')){'
+		if(checkboxGroup[1].getAttribute('groupid') == checkbox_answer.getAttribute('groupid')){
 			checkboxGroup.forEach(answer => {
 				answer.closest('tbody').querySelector('input').checked = false;
 				if(answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea')){
