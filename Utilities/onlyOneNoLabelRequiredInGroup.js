@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     onlyOneGroupedCheckboxes.forEach(checkboxGroup => {
         checkboxGroup.forEach(answer => {
             answer.closest('tbody').querySelector('input').addEventListener('change', function(){
-				let alreadyAnswered = answer.closest('tbody').querySelector('input').checked == true 
+				let alreadyAnswered = answer.closest('tbody').querySelector('input').checked == false ;
 				onlyOneGroupedNLCB(answer, alreadyAnswered);
 			});
         });
