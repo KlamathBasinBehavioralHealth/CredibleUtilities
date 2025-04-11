@@ -11,7 +11,7 @@ onlyOneGroupedIndividualCheckboxes.forEach(element => {
 
 const onlyOneGroupedCheckboxes = Object.values(onlyOneGroups);
 
-function onlyOneGroupedNLCB(checkbox_answer){
+function onlyOneGroupedNLCB(checkbox_answer, alreadyChecked){
 
 	const redAsteriskDiv = document.createElement('div');
 	// Red asterisk for the text box
@@ -20,11 +20,8 @@ function onlyOneGroupedNLCB(checkbox_answer){
 	redAsteriskDiv.style.fontSize = '15px';
 	let same = false;
 	onlyOneGroupedCheckboxes.forEach(checkboxGroup => {
-		if(checkboxGroup[1].getAttribute('groupid') == checkbox_answer.getAttribute('groupid')){
+		if(checkboxGroup[1].getAttribute('groupid') == checkbox_answer.getAttribute('groupid')){'
 			checkboxGroup.forEach(answer => {
-				if(answer == checkbox_answer & answer.closest('tbody').querySelector('input').checked == true){
-					same = true;
-				}
 				answer.closest('tbody').querySelector('input').checked = false;
 				if(answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea')){
 					answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('textarea').required = false;
@@ -42,7 +39,7 @@ function onlyOneGroupedNLCB(checkbox_answer){
 				}			
 			});
 		}
-		if(!same){
+		if(!alreadyChecked){
 			checkbox_answer.closest('tbody').querySelector('input').checked = true;
 			checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.style.display = 'inline';
 			if(checkbox_answer.closest('tr').closest('tbody').closest('tr').nextElementSibling.querySelector('table')){
@@ -66,7 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
     onlyOneGroupedCheckboxes.forEach(checkboxGroup => {
         checkboxGroup.forEach(answer => {
             answer.closest('tbody').querySelector('input').addEventListener('change', function(){
-				onlyOneGroupedNLCB(answer);
+				let alreadyAnswered = answer.closest('tbody').querySelector('input').checked == true 
+				onlyOneGroupedNLCB(answer, alreadyAnswered);
 			});
         });
     });
