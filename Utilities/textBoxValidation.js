@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				if (delayedString1 === delayedString2) {
 					isValidEmail(inputField.value);
 				}
-			}, 500);
+			}, 1000);
 		});
 	});
 	// This makes sure that no special characters allowed (only numbers and letters)
