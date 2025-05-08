@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		txtbox.closest('tr').nextElementSibling.querySelector('input').addEventListener('change', function(){
 			isValidEmail(this.value);
 		});
+		/* Commenting this mouse leave out. It acts odd since it triggers a second alert of the first change event happens and an alert popped up. Causes 2 alerts if the first alert happens.
 		txtbox.closest('tr').nextElementSibling.querySelector('input').addEventListener('mouseleave', function() {
 			console.log("Mouse left the input field");
 			let delayedString1 = this.value;
@@ -34,6 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 			}, 1000);
 		});
+                */
+		// Make it so the email box can't even have spaces.
 		txtbox.closest('tr').nextElementSibling.querySelector('input').addEventListener('input', function() {
 			const spaceRegex = /\s/g;
 			this.value = this.value.replace(spaceRegex, '');	
