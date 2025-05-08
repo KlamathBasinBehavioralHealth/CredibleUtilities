@@ -19,11 +19,16 @@ function isValidEmail(email) {
 
 // Add these event listers to the specific text boxes that have the respective classes
 document.addEventListener('DOMContentLoaded', () => {
-        [...document.querySelectorAll('.validEmail')].forEach(txtbox => {
-            txtbox.closest('tr').nextElementSibling.querySelector('input').addEventListener('change', function(){
-				isValidEmail(this.value);
-			});
-        });
+	[...document.querySelectorAll('.validEmail')].forEach(txtbox => {
+		txtbox.closest('tr').nextElementSibling.querySelector('input').addEventListener('change', function(){
+			isValidEmail(this.value);
+		});
+		txtbox.closest('tr').nextElementSibling.querySelector('input').addEventListener('mouseleave', function() {
+			console.log("Mouse left the input field");
+			isValidEmail(this.value);  // Optional: run the validation when mouse leaves
+		  });
+		});
+	});
 	// This makes sure that no special characters allowed (only numbers and letters)
 	[...document.querySelectorAll('.noSpecialChar')].forEach(txtbox => {
 		txtbox.closest('tr').nextElementSibling.querySelector('input').addEventListener('input', function() {
