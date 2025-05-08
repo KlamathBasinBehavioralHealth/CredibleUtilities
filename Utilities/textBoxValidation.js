@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		txtbox.closest('tr').nextElementSibling.querySelector('input').addEventListener('mouseleave', function() {
 			console.log("Mouse left the input field");
 			isValidEmail(this.value); 
-		  });
 		});
 	});
 	// This makes sure that no special characters allowed (only numbers and letters)
