@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 		txtbox.closest('tr').nextElementSibling.querySelector('input').addEventListener('mouseleave', function() {
 			console.log("Mouse left the input field");
-			isValidEmail(this.value);  // Optional: run the validation when mouse leaves
+			isValidEmail(this.value); 
 		  });
 		});
 	});
