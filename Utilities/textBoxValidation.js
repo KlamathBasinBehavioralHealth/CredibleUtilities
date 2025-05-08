@@ -34,6 +34,11 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 			}, 1000);
 		});
+		txtbox.closest('tr').nextElementSibling.querySelector('input').addEventListener('input', function() {
+			const spaceRegex = /\s/g;
+			this.value = this.value.replace(spaceRegex, '');	
+			console.log('no spaces allowed');
+		});
 	});
 	// This makes sure that no special characters allowed (only numbers and letters)
 	[...document.querySelectorAll('.noSpecialChar')].forEach(txtbox => {
