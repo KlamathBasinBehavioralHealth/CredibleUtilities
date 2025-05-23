@@ -1,6 +1,7 @@
 /*
 HOW TO USE:
-1. add the class of validEmail and/or noSpecialChar depending on which one you want to use
+1. add the class of validEmail and/or noSpecialChar xor addressOne depending on which one you want to use.
+	DO NOT USE addressONE with noSpecialChar. addressOne already disallows special characters.
 2. add <Text Box Validator> <script type='text/javascript' src='https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities@da34423/Utilities/textBoxValidation.js'></script> as a no label checkbox. Ensure the @da34423 matches the most recent version.
 3. done.
 */
@@ -49,6 +50,22 @@ document.addEventListener('DOMContentLoaded', () => {
 			const specialCharRegex = /[^a-zA-Z0-9\s]/g;
 			this.value = this.value.replace(specialCharRegex, '');
 			console.log('no special characters allowed');
+		});
+	});
+	[...document.querySelectorAll('.addressOne')].forEach(txtbox => {
+		txtbox.closest('tr').nextElementSibling.querySelector('input').addEventListener('input', function () {
+			const specialCharRegex = /[^a-zA-Z0-9\s]/g;
+			const suffixRegex = /\b(?:Street|St|Avenue|Ave|Boulevard|Blvd|Road|Rd|Lane|Ln|Drive|Dr)\b$/i;
+
+			// Remove special characters
+			this.value = this.value.replace(specialCharRegex, '');
+
+			// Check suffix validity
+			if (!suffixRegex.test(this.value.trim())) {
+				alert('Warning: Address must end with a valid street suffix. (e.g., St, Ave, Blvd)');
+			} else {
+				console.log('Valid address suffix detected.');
+			}
 		});
 	});
 });
