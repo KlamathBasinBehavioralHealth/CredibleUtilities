@@ -54,11 +54,18 @@ document.addEventListener('DOMContentLoaded', () => {
 	// This alerts if it is missing an address suffix.
 	[...document.querySelectorAll('.addressOne')].forEach(txtbox => {
 		txtbox.closest('tr').nextElementSibling.querySelector('input').addEventListener('change', function () {
-			const suffixRegex = /\b(?:Street|St|Avenue|Ave|Boulevard|Blvd|Road|Rd|Lane|Ln|Drive|Dr|Court|Ct|Terrace|Ter|Place|Pl|Square|Sq|Loop|Parkway|Pkwy|Trail|Trl|Highway|Hwy|Way|Circle|Cir|Alley|Aly|Crescent|Cres|Point|Pt|Row)\b$/i;
-			if (!suffixRegex.test(this.value.trim())) {
-				alert('Warning: Address must end with a valid street suffix. (e.g., St, Ave, Blvd)');
+			let value = this.value.trim();
+
+			const startsWithNumber = /^\d/.test(value);
+
+			const endsWithSuffix = /\b(?:Street|St|Avenue|Ave|Boulevard|Blvd|Road|Rd|Lane|Ln|Drive|Dr|Court|Ct|Terrace|Ter|Place|Pl|Square|Sq|Loop|Parkway|Pkwy|Trail|Trl|Highway|Hwy|Way|Circle|Cir|Alley|Aly|Crescent|Cres|Point|Pt|Row)\b$/i.test(value);
+
+			if (!startsWithNumber) {
+				alert('Address must start with a number.');
+			} else if (!endsWithSuffix) {
+				alert('Address must end with a valid street suffix (e.g., St, Ave, Blvd).');
 			} else {
-				console.log('Valid address suffix detected.');
+				console.log('Valid address format.');
 			}
 		});
 	});
