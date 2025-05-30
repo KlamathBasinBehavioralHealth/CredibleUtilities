@@ -470,6 +470,15 @@ function customCallBack ()
 		if($('tr').has('div[id=averageBillableHours]').find('input').val() && $('tr').has('div[id=expectedBillableHours]').find('input').val())
 		{
 			$('tr').has('span[id=billableHoursScore]').find('input').val((($('tr').has('div[id=averageBillableHours]').find('input').val() / $('tr').has('div[id=expectedBillableHours]').find('input').val()) * 100).toFixed(1) + '%');
+			if(parseFloat($('tr').has('div[id=averageBillableHours]').find('input').val()) > parseFloat($('tr').has('div[id=expectedBillableHours]').find('input').val().slice(0, $('tr').has('div[id=expectedBillableHours]').find('input').val().length - 1))){
+				$('tr').has('div[id=averageBillableHours]').find('input').css('color', 'red');
+				$('tr').has('span[id=billableHoursScore]').find('input').css('color', 'red');
+			}
+			else
+			{
+				$('tr').has('div[id=averageBillableHours]').find('input').css('color', 'black');
+				$('tr').has('span[id=billableHoursScore]').find('input').css('color', 'black');
+			}
 		}
 		else
 		{
