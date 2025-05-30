@@ -18,25 +18,29 @@ var supScore = 0.0;
 
 //Function to prevent non digits and only allow one decimal in field
 function preventAlpha() {
-    var val = $(this).val();
+    let val = $(this).val();
 
-    // Allow "N/A" (case insensitive)
-    if (val.toUpperCase() === 'N/A') {
-        $(this).val('N/A');
+    // Allow partial N/A typing (case insensitive)
+    if (/^n\/?a?$/i.test(val)) {
+        // Capitalize properly if fully typed
+        if (val.toUpperCase() === 'N/A') {
+            $(this).val('N/A');
+        }
         return;
     }
 
-    // Remove all characters except digits and a single decimal point
+    // Otherwise, clean value to allow only digits and one decimal
     val = val.replace(/[^0-9.]/g, '');
 
-    // Allow only one decimal point
-    var parts = val.split('.');
+    // Ensure only one decimal point
+    const parts = val.split('.');
     if (parts.length > 2) {
         val = parts[0] + '.' + parts.slice(1).join('');
     }
 
     $(this).val(val);
 }
+
 
 
 //Function to resize textareas
