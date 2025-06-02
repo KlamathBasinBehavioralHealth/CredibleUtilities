@@ -406,6 +406,7 @@ function customCallBack ()
 	//Setting default parameters for error and late documentaion rates
 	$('tr').has('div[id=expectedErrorRate]').find('input').val('5.0%');
 	$('tr').has('div[id=expectedLateDocumentationRate]').find('input').val('5.0%');
+	$('tr').has('div[id=expectedBillableHours]').find('input').val('40%');
 
 	//On page load set clinical scores if fields are filed in
 	if($('tr').has('div[id=averageRevenue]').find('input').val() && $('tr').has('div[id=expectedRevenue]').find('input').val())
