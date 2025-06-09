@@ -10,7 +10,7 @@ function toggleExtraSpace(selector, hiddenBool){
 const clientPresent = document.querySelector('#presentClient').parentElement.parentElement.querySelector('input');
 function clientPresentCheck(){
   if (clientPresent.checked){
-    visibility("show", "clientQuestion", true);
+    visibility("show", ".clientQuestion", true);
     toggleExtraSpace(".clientQuestion", false);
     if (document.querySelector('#skillsTraining') != null){
       document.querySelector('#skillsTraining').closest('tr').hidden = false;
@@ -22,7 +22,7 @@ function clientPresentCheck(){
     }
   }
   else{
-    visibility("hide", 'clientQuestion', true);
+    visibility("hide", '.clientQuestion', true);
     toggleExtraSpace('.clientQuestion', true);
     visibility('show','objectivesAddressed', true);
     
