@@ -10,7 +10,7 @@ function toggleExtraSpace(selector, hiddenBool){
 const clientPresent = document.querySelector('#presentClient').parentElement.parentElement.querySelector('input');
 function clientPresentCheck(){
   if (clientPresent.checked){
-    hideShow("show", "clientQuestion", true);
+    visibility("show", "clientQuestion", true);
     toggleExtraSpace(".clientQuestion", false);
     if (document.querySelector('#skillsTraining') != null){
       document.querySelector('#skillsTraining').closest('tr').hidden = false;
@@ -22,14 +22,14 @@ function clientPresentCheck(){
     }
   }
   else{
-    hideShow("hide", 'clientQuestion', true);
+    visibility("hide", 'clientQuestion', true);
     toggleExtraSpace('.clientQuestion', true);
-    hideShow('show','objectivesAddressed', true);
+    visibility('show','objectivesAddressed', true);
     
     if(document.querySelector('#objectivesAddressed') != null){
       document.querySelector('#objectivesAddressed').closest('table').closest('tr').hidden = false;
     }
-    hideShow('show', 'dxInjection', true);
+    visibility('show', 'dxInjection', true);
     if (document.querySelector('#skillsTraining') != null){
       document.querySelector('#skillsTraining').closest('tr').hidden = true;
     }
