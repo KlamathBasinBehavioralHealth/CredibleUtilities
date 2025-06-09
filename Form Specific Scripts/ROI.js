@@ -93,29 +93,26 @@ $(document).ready(function(){
 
 function dropMatchId ()
 {	
-	if($('tr').has('div[class*=payerDriver]').find('select').val())
-	{
-		$('tr').has('div[class*=payerPassenger]').find('select').val($('tr').has('div[class*=payerDriver]').find('select').val());
-		
-		$('tr').has('div[class*=payerDriverText]').find('input').val($('tr').has('div[class*=payerDriver]').find('option[value=' + $('tr').has('div[class*=payerDriver]').find('select').val() + ']').text());
-		for(let count = 0; count < $('tr').has('div[class*=payerPassenger]').find('select').length; count++)
-		{
-			$('tr').has('div[class*=payerPassengerText]').find('input')[count].value = $('tr').has('div[class*=payerPassenger]').find('option[value=' + $('tr').has('div[class*=payerPassenger]').find('select')[count].value + ']')[count].text;
-		}
-		
-		requireHidden(false, 'payerDriver');
-	}
-	
 	if($('tr').has('div[class*=providerDriver]').find('select').val())
 	{
-		$('tr').has('div[class*=providerPassenger]').find('select').val($('tr').has('div[class*=providerDriver]').find('select').val());
-		
-		$('tr').has('div[class*=providerDriverText]').find('input').val($('tr').has('div[class*=providerDriver]').find('option[value=' + $('tr').has('div[class*=providerDriver]').find('select').val() + ']').text());
-		for(let count = 0; count < $('tr').has('div[class*=providerPassenger]').find('select').length; count++)
-		{
-			$('tr').has('div[class*=providerPassengerText]').find('input')[count].value = $('tr').has('div[class*=providerPassenger]').find('option[value=' + $('tr').has('div[class*=providerPassenger]').find('select')[count].value + ']')[count].text;
+		if($('tr').has('div[class*=providerDriver]').find('select').val() == 553 | $('tr').has('div[class*=providerDriver]').find('select').val() == 733 | $('tr').has('div[class*=providerDriver]').find('select').val() == 734){
+			$('tr').has('div[class*=providerPassenger]').find('select').val($('tr').has('div[class*=providerDriver]').find('select').val());
+			
+			$('tr').has('div[class*=providerDriverText]').find('input').val($('tr').has('div[class*=providerDriver]').find('option[value=' + 779 + ']').text());
+			for(let count = 0; count < $('tr').has('div[class*=providerPassenger]').find('select').length; count++)
+			{
+				$('tr').has('div[class*=providerPassengerText]').find('input')[count].value = $('tr').has('div[class*=providerPassenger]').find('option[value=' + 779 + ']')[count].text;
+			}
 		}
-		
+		else{
+			$('tr').has('div[class*=providerPassenger]').find('select').val($('tr').has('div[class*=providerDriver]').find('select').val());
+			
+			$('tr').has('div[class*=providerDriverText]').find('input').val($('tr').has('div[class*=providerDriver]').find('option[value=' + $('tr').has('div[class*=providerDriver]').find('select').val() + ']').text());
+			for(let count = 0; count < $('tr').has('div[class*=providerPassenger]').find('select').length; count++)
+			{
+				$('tr').has('div[class*=providerPassengerText]').find('input')[count].value = $('tr').has('div[class*=providerPassenger]').find('option[value=' + $('tr').has('div[class*=providerPassenger]').find('select')[count].value + ']')[count].text;
+			}
+		}
 		requireHidden(false, 'providerDriver');
 	}
 
