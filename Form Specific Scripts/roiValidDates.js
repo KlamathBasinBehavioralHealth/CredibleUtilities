@@ -40,8 +40,8 @@ function restrictValidDates() {
 }
 
 function fillValidDates() {
-	let recipientType = document.querySelector('#recipientSenderType').closest('table').querySelector('select');
-	let payerValue = [...document.querySelector('#recipientSenderType').closest('table').querySelectorAll('option')].filter((option) => {
+    let recipientType = document.querySelector('#recipientSenderType').closest('table').querySelector('select');
+    let payerValue = [...document.querySelector('#recipientSenderType').closest('table').querySelectorAll('option')].filter((option) => {
         return option.innerText === 'Payer';
     })[0].value;
     const oneYearInDays = 364;
@@ -74,7 +74,7 @@ function fillValidDates() {
 		document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
 		document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
 		document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
-	} else if ((!document.querySelector('#validByDate').closest('tr').querySelector('input').checked & !document.querySelector('#validByLaw').closest('tr').querySelector('input').checked) || recipientType.value === providerValue) {
+	} else if ((!document.querySelector('#validByDate').closest('tr').querySelector('input').checked & !document.querySelector('#validByLaw').closest('tr').querySelector('input').checked) || recipientType.value === payerValue) {
         startDate.value = '';
         endDate.value = '';
     }
