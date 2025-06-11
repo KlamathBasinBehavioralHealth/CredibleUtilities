@@ -80,6 +80,3 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#recipientSenderType').closest('table').querySelector('select').addEventListener('change', restrictValidDates);
     document.querySelector('#recipientSenderType').closest('table').querySelector('select').addEventListener('mouseleave', restrictValidDates);
 });
-
-
-<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities@ff40d56/Form Specific Scripts/roiValidDates.js'>
