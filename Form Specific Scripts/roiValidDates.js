@@ -39,7 +39,7 @@ function restrictValidDates() {
 }
 
 function fillValidDates() {
-    const oneYearInDays = 365;
+    const oneYearInDays = 364;
     let date = new Date();
     let laterDate = new Date(date);
     laterDate.setDate(date.getDate() + oneYearInDays);
@@ -80,3 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#recipientSenderType').closest('table').querySelector('select').addEventListener('change', restrictValidDates);
     document.querySelector('#recipientSenderType').closest('table').querySelector('select').addEventListener('mouseleave', restrictValidDates);
 });
+
+
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities@ff40d56/Form Specific Scripts/roiValidDates.js'>
