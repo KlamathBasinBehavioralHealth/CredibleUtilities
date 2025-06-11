@@ -67,18 +67,21 @@ function fillValidDates() {
 	   	if(recipientType.value === payerValue){
 			startDate.value = '';
         	        endDate.value = '';
+			visibility('hide', '#validDateStart', false);
+			visibility('hide', '#validDateEnd', false);
 		} else{
 			startDate.value = today;
 			endDate.value = yearLater;
+			document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
+			document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
+			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
+			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
+		    	document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
+			document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
+			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
+			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
 		}
-	    	document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
-		document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
-		document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
-		document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
-	    	document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
-		document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
-		document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
-		document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
+	    	
 	} else if ((!document.querySelector('#validByDate').closest('tr').querySelector('input').checked & !document.querySelector('#validByLaw').closest('tr').querySelector('input').checked) || recipientType.value === payerValue) {
         startDate.value = '';
         endDate.value = '';
