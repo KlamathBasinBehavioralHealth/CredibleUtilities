@@ -77,8 +77,8 @@ function fillValidDates() {
 document.addEventListener('DOMContentLoaded', () => {
     fillValidDates();
     [...document.querySelectorAll('.validOptions')].forEach((validOption) => {
-        validOption.addEventListener('change', fillValidDates);
-        validOption.addEventListener('mouseleave', fillValidDates);
+        validOption.closest('tr').querySelector('input').addEventListener('change', fillValidDates);
+        validOption.closest('tr').querySelector('input').addEventListener('mouseleave', fillValidDates);
     });
     restrictValidDates();
     document.querySelector('#recipientSenderType').closest('table').querySelector('select').addEventListener('change', restrictValidDates);
