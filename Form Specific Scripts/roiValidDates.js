@@ -51,19 +51,31 @@ function fillValidDates() {
         if (startDate.value === '') {
             startDate.value = today;
 			document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').readOnly = false;
+			document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'visible';
+			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').readOnly = false;
+			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'visible';
         }
         if (endDate.value === '') {
             endDate.value = yearLater;
 			document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').readOnly = false;
+			document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'visible';
+			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').readOnly = false;
+			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'visible';
         }
     } else if(document.querySelector('#validByLaw').closest('tr').querySelector('input').checked){
 		if (startDate.value === '') {
             startDate.value = today;
 			document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
+			document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
+			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
+			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
         }
         if (endDate.value === '') {
             endDate.value = yearLater;
 			document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
+			document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
+			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
+			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
         }
 	} else if (!document.querySelector('#validByDate').closest('tr').querySelector('input').checked & !document.querySelector('#validByLaw').closest('tr').querySelector('input').checked) {
         startDate.value = '';
@@ -80,3 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#recipientSenderType').closest('table').querySelector('select').addEventListener('change', restrictValidDates);
     document.querySelector('#recipientSenderType').closest('table').querySelector('select').addEventListener('mouseleave', restrictValidDates);
 });
+
+
+<script type='text/javascript' src='https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities@ff40d56/Form Specific Scripts/roiValidDates.js'>
