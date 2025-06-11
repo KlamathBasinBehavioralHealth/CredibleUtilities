@@ -13,7 +13,8 @@ function restrictValidDates() {
     let validByLawInput = document.querySelector('#validByLaw').closest('tr').querySelector('input');
     let validByDate = document.querySelector('#validByDate').closest('tr');
     let validByDateInput = document.querySelector('#validByDate').closest('tr').querySelector('input');
-    if (recipientType.value === payerValue || recipientType.value === providerValue) {
+	// || recipientType.value === providerValue
+    if (recipientType.value === payerValue) {
         validByLawInput.style.pointerEvents = 'none';
         validByDateInput.style.pointerEvents = 'auto';
         validByLaw.hidden = false;
