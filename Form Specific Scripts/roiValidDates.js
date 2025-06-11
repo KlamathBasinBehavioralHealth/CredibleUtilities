@@ -63,20 +63,16 @@ function fillValidDates() {
 			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'visible';
         }
     } else if(document.querySelector('#validByLaw').closest('tr').querySelector('input').checked){
-		if (startDate.value === '') {
-            startDate.value = today;
-			document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
-			document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
-			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
-			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
-        }
-        if (endDate.value === '') {
-            endDate.value = yearLater;
-			document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
-			document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
-			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
-			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
-        }
+		startDate.value = today;
+		document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
+		document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
+		document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
+		document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
+		endDate.value = yearLater;
+		document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
+		document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
+		document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').readOnly = true;
+		document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
 	} else if (!document.querySelector('#validByDate').closest('tr').querySelector('input').checked & !document.querySelector('#validByLaw').closest('tr').querySelector('input').checked) {
         startDate.value = '';
         endDate.value = '';
