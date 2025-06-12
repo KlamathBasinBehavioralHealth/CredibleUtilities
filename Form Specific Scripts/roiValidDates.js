@@ -67,8 +67,10 @@ function fillValidDates() {
 	   	if(recipientType.value === payerValue){
 			startDate.value = '';
         	        endDate.value = '';
-			document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').require = false;
-			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').require = false;
+			document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').required = false;
+			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').required = false;
+			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').style.visibility = 'hidden';
+			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').style.visibility = 'hidden';
 			document.querySelector('#validDateStart').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
 			document.querySelector('#validDateEnd').closest('tr').nextElementSibling.querySelector('input').nextElementSibling.style.visibility = 'hidden';
 			//visibility('hide', '#validDateStart', false);
