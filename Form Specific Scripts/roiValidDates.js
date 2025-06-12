@@ -67,8 +67,8 @@ function fillValidDates() {
 	   	if(recipientType.value === payerValue){
 			startDate.value = '';
         	        endDate.value = '';
-			visibility('hide', '#validDateStart', false);
-			visibility('hide', '#validDateEnd', false);
+			//visibility('hide', '#validDateStart', false);
+			//visibility('hide', '#validDateEnd', false);
 		} else{
 			startDate.value = today;
 			endDate.value = yearLater;
