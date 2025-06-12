@@ -30,6 +30,8 @@ function restrictValidDates() {
         if (!validByDate.querySelector('input').checked) {
             validByDate.querySelector('input').click();
         }
+	visibility('show', '#validDateStart', true);
+	visibility('show', '#validDateEnd', true);
     } else {
         validByLawInput.style.pointerEvents = 'auto';
         validByDateInput.style.pointerEvents = 'auto';
