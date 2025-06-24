@@ -1,40 +1,4 @@
-function requireField (target, condition) {  
-  if(document.querySelector('[name=Complete]')){ 
-    try{ 
-      $('tr').find(target).next().remove();   
-      if(condition) {  
-        if(target.closest('tbody').querySelector('input').type != 'checkbox') { 
-          $('tr').has(target).find('input').prop('required', true);  
-          $('tr').has(target).find('select').prop('required', true);  
-          try{ 
-            target.removeAttribute('requireCheckbox'); 
-          }catch(error){ 
-            console.log(error); 
-          } 
-        } else if(target.closest('tbody').querySelector('input').type == 'checkbox'){ 
-          $('tr').has(target).find('input').prop('required', false);  
-          $('tr').has(target).find('select').prop('required', false); 
-          target.setAttribute('requireCheckbox', true); 
-        }  
-
-        $('tr').find(target).after('<div class=\'redAsterisk\' style=\'color : red; display : inline\'>*</div>');   
-      }else {  
-        $('tr').has(target).find('input').prop('required', false);  
-        $('tr').has(target).find('select').prop('required', false); 
-        try{ 
-          target.removeAttribute('requireCheckbox'); 
-        }catch(error){ 
-          console.log(error); 
-        } 
-      } 
-    }catch(error){ 
-      console.log(error); 
-    } 
-  } 
-} 
- 
 function visibility(hideShow, target, require = false){ 
-  shownRequiredCBAnswers = []; 
   if(document.querySelector('[name=Complete]')){   
     try{   
       if(hideShow == 'show'){     
