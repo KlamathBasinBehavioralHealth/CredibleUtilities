@@ -276,6 +276,6 @@ document.querySelector('form').addEventListener('submit', function(e) {
   }
 
   if (selectedCredential) {
-    document.querySelector('#serviceType').closest('table').querySelector('input').value = selectedCredential;
+    document.querySelector('#mcisVisitTypeId').closest('table').querySelector('input').value = selectedCredential;
   }
 });
