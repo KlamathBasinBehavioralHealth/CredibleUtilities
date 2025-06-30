@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.querySelector('#relevantCredentials').closest('table').closest('tr').hidden = true;
   
   try{
-    dataPull = await getData(`https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0dXuqjUt41eVlLBrzHd!rkn&start_date=&end_date=&custom_param1=${getTempVisitID()}&custom_param2=&custom_param3=`);
+    dataPull = await getData(`https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0f3Bkthlr2RHWvG95oVWxhJ&start_date=&end_date=&custom_param1=${getTempVisitID()}&custom_param2=&custom_param3=`);
   }catch(error){
     console.log('error');
   }
@@ -125,8 +125,6 @@ const adultAge = 21;
 
 let cptCodeTarget = undefined;
 let modifier1Target = undefined;
-let visitTypeIdTarget = undefined;
-let billingMatrixIDTarget = undefined;
 let mcisNotificationTarget = undefined;
 let crisisCalculatorURL = undefined;
 let crisisCalculatorResult = undefined;
@@ -144,8 +142,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   cptCodeTarget = document.querySelector('#mcisCPTCode').closest('table').querySelector('input');
   modifier1Target = document.querySelector('#mcisModifier1').closest('table').querySelector('input');
-  visitTypeIdTarget = document.querySelector('#mcisVisitTypeId').closest('table').querySelector('input');
-  billingMatrixIDTarget = document.querySelector('#mcisBillingMatrixID').closest('table').querySelector('input');
   mcisNotificationTarget = document.querySelector('#mcisNotification').closest('table').querySelector('input');
 
   try{
@@ -166,20 +162,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     crisisCalculatorResult = await getData(crisisCalculatorURL);
     cptCode = crisisCalculatorResult.querySelector('cpt_code').innerHTML.toUpperCase();
     modifier1 = crisisCalculatorResult.querySelector('modifier1').innerHTML.toUpperCase();
-    visitTypeId = crisisCalculatorResult.querySelector('visittype_id').innerHTML;
-    billingMatrixID = crisisCalculatorResult.querySelector('billing_matrix_id').innerHTML;
     
     if(cptCode !== '0'){
       cptCodeTarget.value = cptCode;
     }
     if(modifier1 !== '0'){
       modifier1Target.value = modifier1;
-    }
-    if(visitTypeId !== '0'){
-      visitTypeIdTarget.value = visitTypeId;
-    }
-    if(billingMatrixID !== '0'){
-      billingMatrixIDTarget.value = billingMatrixID;
     }
   }catch(error){
     console.log(error);
