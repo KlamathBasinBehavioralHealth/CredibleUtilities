@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.querySelector('#relevantCredentials').closest('table').closest('tr').hidden = true;
   
   try{
-    dataPull = await getData(`https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0f3Bkthlr2RHWvG95oVWxhJ&start_date=&end_date=&custom_param1=${getTempVisitID()}&custom_param2=&custom_param3=`);
+    dataPull = await getData(`https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0dXuqjUt41eVlLBrzHd!rkn&start_date=&end_date=&custom_param1=${getTempVisitID()}&custom_param2=&custom_param3=`);
   }catch(error){
     console.log('error');
   }
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     tempVisitID = '2582616';
   }
 	
-  crisisCalculatorURL = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0e8PCfuSwWEdENelwx!LcKy&start_date=&end_date=&custom_param1=${tempVisitID}&custom_param2=&custom_param3=`;
+  crisisCalculatorURL = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0f3Bkthlr2RHWvG95oVWxhJ&start_date=&end_date=&custom_param1=${tempVisitID}&custom_param2=&custom_param3=`;
   
   visibility('hide', '.mcisQ');
   visibility('hide', '.mcisA');
