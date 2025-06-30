@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   let qmha;
   let cadc;
   let pss;
+
   try{
     qmhp = document.querySelector('#credentialQMHP').closest('tr');
   }catch(error){
@@ -54,12 +55,28 @@ document.addEventListener('DOMContentLoaded', async () => {
   if(dataPull.documentElement.querySelectorAll('credentials').length){
     document.querySelector('#relevantCredentials').closest('table').closest('tr').hidden = false;
   }
-  
-  qmhp.hidden = true;
-  qmha.hidden = true;
-  cadc.hidden = true;
-  pss.hidden = true;
-  
+
+  try{
+    qmhp.hidden = true;
+  }catch(error){
+    console.log(error);
+  }
+  try{
+    qmha.hidden = true;
+  }catch(error){
+    console.log(error);
+  }
+  try{
+    cadc.hidden = true;
+  }catch(error){
+    console.log(error);
+  }
+  try{
+    pss.hidden = true;
+  }catch(error){
+    console.log(error);
+  }
+    
   try{
     if(dataPull.documentElement.querySelectorAll('credentials').length){
       [...dataPull.documentElement.querySelectorAll('credentials')].forEach((credential) => {
@@ -88,37 +105,53 @@ document.addEventListener('DOMContentLoaded', async () => {
   if(dataPull.documentElement.querySelectorAll('credentials').length === 1){
     switch(true){
       case [...dataPull.documentElement.querySelectorAll('credentials')][0].innerHTML.includes('QMHP'):
-        if(!document.querySelector('#credentialQMHP').closest('tr').querySelector('input').checked){
-          qmhp.querySelector('input').checked = false;
-          qmhp.querySelector('input').disabled = false;
-          qmhp.querySelector('input').click();
-          qmhp.querySelector('input').disabled = true;
+        try{
+          if(!document.querySelector('#credentialQMHP').closest('tr').querySelector('input').checked){
+            qmhp.querySelector('input').checked = false;
+            qmhp.querySelector('input').disabled = false;
+            qmhp.querySelector('input').click();
+            qmhp.querySelector('input').disabled = true;
+          }
+          break;
+        }catch(error){
+          console.log(error);
         }
-        break;
       case [...dataPull.documentElement.querySelectorAll('credentials')][0].innerHTML.includes('QMHA'):
-        if(!document.querySelector('#credentialQMHA').closest('tr').querySelector('input').checked){
-          qmha.querySelector('input').checked = false;
-          qmha.querySelector('input').disabled = false;
-          qmha.querySelector('input').click();
-          qmha.querySelector('input').disabled = true;
+        try{
+          if(!document.querySelector('#credentialQMHA').closest('tr').querySelector('input').checked){
+            qmha.querySelector('input').checked = false;
+            qmha.querySelector('input').disabled = false;
+            qmha.querySelector('input').click();
+            qmha.querySelector('input').disabled = true;
+          }
+          break;
+        }catch(error){
+          console.log(error);
         }
-        break;
       case [...dataPull.documentElement.querySelectorAll('credentials')][0].innerHTML.includes('CADC'):
-        if(!document.querySelector('#credentialCADC').closest('tr').querySelector('input').checked){
-          cadc.querySelector('input').checked = false;
-          cadc.querySelector('input').disabled = false;
-          cadc.querySelector('input').click();
-          cadc.querySelector('input').disabled = true;
+        try{
+          if(!document.querySelector('#credentialCADC').closest('tr').querySelector('input').checked){
+            cadc.querySelector('input').checked = false;
+            cadc.querySelector('input').disabled = false;
+            cadc.querySelector('input').click();
+            cadc.querySelector('input').disabled = true;
+          }
+          break;
+        }catch(error){
+          console.log(error);
         }
-        break;
       case [...dataPull.documentElement.querySelectorAll('credentials')][0].innerHTML.includes('PSS'):
-        if(!document.querySelector('#credentialPSS').closest('tr').querySelector('input').checked){
-          pss.querySelector('input').checked = false;
-          pss.querySelector('input').disabled = false;
-          pss.querySelector('input').click();
-          pss.querySelector('input').disabled = true;
+        try{
+          if(!document.querySelector('#credentialPSS').closest('tr').querySelector('input').checked){
+            pss.querySelector('input').checked = false;
+            pss.querySelector('input').disabled = false;
+            pss.querySelector('input').click();
+            pss.querySelector('input').disabled = true;
+          }
+          break;
+        }catch(error){
+          console.log(error);
         }
-        break;
       default:
         break;
     }
