@@ -21,17 +21,15 @@ function setURL2(newConnectionString, newTempVisitID, newDivID){
 
 function getClientID(){
   let clientID = undefined;
-  try{
-    clientID = (new URL(frameElement.src)).searchParams.get('client_id');
+  try{  
+    clientID = window.top.document.querySelector('frame[name=main]').contentDocument.querySelector('frame[id=left]').contentDocument.querySelector('input[id=client_id]').value;
   }catch(error){
-    console.log(error);    
-  }
-  
-  if(clientID == undefined){
+    console.log(error);
     try{
-      clientID = parent.document.querySelector('frame[id=left]').contentDocument.querySelector('#client_id').value;
+      clientID = window.top.document.querySelector('frame[name=left]').contentDocument.querySelector('input[id=client_id]').value;
     }catch(error){
       console.log(error);
+      clientID = '200079'
     }
   }
 
@@ -44,11 +42,15 @@ function getClientID(){
 function getTempVisitID(){
   let tempVisitID = undefined;
   
-  if(tempVisitID == undefined){
+  try{  
+    tempVisitID = window.top.document.querySelector('frame[name=main]').contentDocument.querySelector('frame[id=left]').contentDocument.querySelector('#visittemp_ids').value;
+  }catch(error){
+    console.log(error);
     try{
-      tempVisitID = parent.document.querySelector('frame[id=left]').contentDocument.querySelector('#visittemp_ids').value;
+      tempVisitID = window.top.document.querySelector('frame[name=left]').contentDocument.querySelector('#visittemp_ids').value;
     }catch(error){
       console.log(error);
+      tempVisitID = '200079'
     }
   }
 
