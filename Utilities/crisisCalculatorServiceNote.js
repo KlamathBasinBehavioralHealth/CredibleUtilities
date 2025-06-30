@@ -1,17 +1,12 @@
+let tempVisitIDCCSN = undefined;
+
 document.addEventListener('DOMContentLoaded', async () => {
   let dataPull;
   let qmhp = document.querySelector('#credentialQMHP').closest('tr');
   let qmha = document.querySelector('#credentialQMHA').closest('tr');
   let cadc = document.querySelector('#credentialCADC').closest('tr');
   let pss = document.querySelector('#credentialPSS').closest('tr');
-  
-  try{
-    tempVisitIDCCSN = undefined;
-  }catch(error){
-    console.log(error);
-    let tempVisitIDCCSN = undefined;
-  }
-
+    
   try{  
     tempVisitIDCCSN = window.top.document.querySelector('frame[name=main]').contentDocument.querySelector('frame[id=left]').contentDocument.querySelector('#visittemp_ids').value;
   }catch(error){
