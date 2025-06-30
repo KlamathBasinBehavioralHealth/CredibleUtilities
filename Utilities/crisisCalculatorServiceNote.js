@@ -5,10 +5,33 @@ document.addEventListener('DOMContentLoaded', async () => {
   let cadc = document.querySelector('#credentialCADC').closest('tr');
   let pss = document.querySelector('#credentialPSS').closest('tr');
   
+  try{
+    tempVisitIDCCSN = undefined;
+  }catch(error){
+    console.log(error);
+    let tempVisitIDCCSN = undefined;
+  }
+
+  try{  
+    tempVisitIDCCSN = window.top.document.querySelector('frame[name=main]').contentDocument.querySelector('frame[id=left]').contentDocument.querySelector('#visittemp_ids').value;
+  }catch(error){
+    console.log(error);
+    try{
+      tempVisitIDCCSN = window.top.document.querySelector('frame[name=left]').contentDocument.querySelector('#visittemp_ids').value;
+    }catch(error){
+      console.log(error);
+      tempVisitIDCCSN = '200079'
+    }
+  }
+
+  if(tempVisitIDCCSN == undefined){
+    tempVisitIDCCSN = '99999999';
+  }
+
   document.querySelector('#relevantCredentials').closest('table').closest('tr').hidden = true;
   
   try{
-    dataPull = await getData(`https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0dXuqjUt41eVlLBrzHd!rkn&start_date=&end_date=&custom_param1=${getTempVisitID()}&custom_param2=&custom_param3=`);
+    dataPull = await getData(`https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0dXuqjUt41eVlLBrzHd!rkn&start_date=&end_date=&custom_param1=${tempVisitIDCCSN}&custom_param2=&custom_param3=`);
   }catch(error){
     console.log('error');
   }
@@ -88,13 +111,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 try{
-  tempVisitID = undefined;
-}catch(error){
-  console.log(error);
-  let tempVisitID = undefined;
-}
-
-try{
   cptCode = undefined;
 }catch(error){
   console.log(error);
@@ -143,17 +159,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   cptCodeTarget = document.querySelector('#mcisCPTCode').closest('table').querySelector('input');
   modifier1Target = document.querySelector('#mcisModifier1').closest('table').querySelector('input');
   mcisNotificationTarget = document.querySelector('#mcisNotification').closest('table').querySelector('input');
-
-  try{
-    tempVisitID = parent.document.querySelector('frame[id=left]').contentDocument.querySelector('#visittemp_ids').value;
-  }catch(error){
-    console.log(error);
-  }
-  if(tempVisitID == undefined){
-    tempVisitID = '2582616';
-  }
 	
-  crisisCalculatorURL = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0f3Bkthlr2RHWvG95oVWxhJ&start_date=&end_date=&custom_param1=${tempVisitID}&custom_param2=&custom_param3=`;
+  crisisCalculatorURL = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0f3Bkthlr2RHWvG95oVWxhJ&start_date=&end_date=&custom_param1=${tempVisitIDCCSN}&custom_param2=&custom_param3=`;
   
   visibility('hide', '.mcisQ');
   visibility('hide', '.mcisA');
