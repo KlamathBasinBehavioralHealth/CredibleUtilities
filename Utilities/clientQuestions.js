@@ -21,7 +21,7 @@ function clientPresentCheck(){
       subAddNotes.closest('tr').querySelector('input').required = false;
       subAddNotes.closest('tr').querySelector('.redAsterisk').remove();
     }
-  } else if(!qmhpCred.checked){
+  } else if(!(qmhpCred.checked)){
       visibility("hide", '.QMHPOnly', true);
   }
   else{
