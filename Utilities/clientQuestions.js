@@ -7,6 +7,7 @@ function toggleExtraSpace(selector, hiddenBool){
     });
   };
 
+const qmhpCred = document.querySelector('#credentialQMHP').parentElement.parentElement.querySelector('input');
 const clientPresent = document.querySelector('#presentClient').parentElement.parentElement.querySelector('input');
 function clientPresentCheck(){
   if (clientPresent.checked){
@@ -20,6 +21,8 @@ function clientPresentCheck(){
       subAddNotes.closest('tr').querySelector('input').required = false;
       subAddNotes.closest('tr').querySelector('.redAsterisk').remove();
     }
+  } else if(!qmhpCred.checked){
+      visibility("hide", '.QMHPOnly', true);
   }
   else{
     visibility("hide", '.clientQuestion', true);
