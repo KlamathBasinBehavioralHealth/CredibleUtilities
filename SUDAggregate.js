@@ -746,17 +746,23 @@ function completeButton() {
   };
   return complete;
 }
-function saveProgressButton() {
-  const saveProgress = document.createElement('input');
-  saveProgress.id = 'saveProgress';
-  saveProgress.type = 'submit';
-  saveProgress.name = 'Save Progress';
-  saveProgress.value = 'Save Progress';
-  saveProgress.onclick = (e) => {
-    e.preventDefault();
-    formSubmit();
-  };
-  return saveProgress;
+function saveProgressButton(){
+    const saveProgress = document.createElement('input');
+    saveProgress.id = 'saveProgress';
+    saveProgress.type = 'submit';
+    saveProgress.name = 'Save Progress';
+    saveProgress.value = 'Save Progress';
+    saveProgress.onclick = (e) => {
+        e.preventDefault();
+        try{
+            document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+        }catch(error){
+            console.log(error);
+        }
+        
+        formSubmit();
+    };
+    return saveProgress;
 }
 function createSubmitButtons() {
   const form = document.querySelector('#input');

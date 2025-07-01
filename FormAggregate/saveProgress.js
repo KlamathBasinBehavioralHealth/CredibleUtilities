@@ -101,6 +101,12 @@ function saveProgressButton(){
     saveProgress.value = 'Save Progress';
     saveProgress.onclick = (e) => {
         e.preventDefault();
+        try{
+            document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+        }catch(error){
+            console.log(error);
+        }
+        
         formSubmit();
     };
     return saveProgress;
