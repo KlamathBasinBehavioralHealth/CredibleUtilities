@@ -21,8 +21,6 @@ function clientPresentCheck(){
       subAddNotes.closest('tr').querySelector('input').required = false;
       subAddNotes.closest('tr').querySelector('.redAsterisk').remove();
     }
-  } else if(!(qmhpCred.checked)){
-      visibility("hide", '.QMHPOnly', true);
   }
   else{
     visibility("hide", '.clientQuestion', true);
@@ -36,6 +34,9 @@ function clientPresentCheck(){
     if (document.querySelector('#skillsTraining') != null){
       document.querySelector('#skillsTraining').closest('tr').hidden = true;
     }
+  }
+  if(!(qmhpCred.checked)){
+      visibility("hide", '.QMHPOnly', true);
   }
 }
 window.addEventListener('DOMContentLoaded', () => { 
