@@ -8,6 +8,7 @@ function toggleExtraSpace(selector, hiddenBool){
   };
 
 const qmhpCred = document.querySelector('#credentialQMHP').parentElement.parentElement.querySelector('input');
+const qmhaCred = document.querySelector('#credentialQMHP').parentElement.parentElement.querySelector('input');
 const clientPresent = document.querySelector('#presentClient').parentElement.parentElement.querySelector('input');
 function clientPresentCheck(){
   if (clientPresent.checked){
@@ -39,10 +40,20 @@ function clientPresentCheck(){
       visibility("hide", '.QMHPOnly', true);
   }
 }
+
 window.addEventListener('DOMContentLoaded', () => { 
   clientPresentCheck(); 
   if (!clientPresent.closest('table').querySelector('input').checked){
     clientPresent.closest('table').querySelector('input').click();
   }
+  qmhaCred.addEventListener('change', function(){
+        clientPresentCheck();
+    });
+  qmhpCred.addEventListener('change', function(){
+        clientPresentCheck();
+    });
+  clientPresent.addEventListener('change', function(){
+        clientPresentCheck();
+    });
 });
 clientPresent.onchange = clientPresentCheck;
