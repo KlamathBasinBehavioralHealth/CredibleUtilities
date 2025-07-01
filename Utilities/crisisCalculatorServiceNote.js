@@ -254,6 +254,11 @@ document.querySelector('form').addEventListener('submit', function(e) {
       case document.querySelector('#skillsTraining')?.closest('tr').querySelector('input').checked:
         selectedCredential = '1046';
         break;
+      case document.querySelector('#clientUpdate')?.closest('tr').querySelector('input').checked:
+        selectedCredential = '1039';
+        break;
+      default:
+        selectedCredential = '1058';
     }
   }else{
     switch (true) {
@@ -272,6 +277,11 @@ document.querySelector('form').addEventListener('submit', function(e) {
       case document.querySelector('#skillsTraining')?.closest('tr').querySelector('input').checked:
         selectedCredential = '444';
         break;
+      case document.querySelector('#clientUpdate')?.closest('tr').querySelector('input').checked:
+        selectedCredential = '1039';
+        break;
+      default:
+        selectedCredential = '1058';
     }
   }
 
