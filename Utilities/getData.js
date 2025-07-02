@@ -99,14 +99,23 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
     let answerIDType = result.documentElement.querySelector('answer_id').innerHTML;
     let visitType = result.documentElement.querySelector('visittype').innerHTML;
     let timeDate = result.documentElement.querySelector('rev_timein').innerHTML;
+	let answerCounter = 0;
 	switch(questionType){
 	  case 'CB':
 	   case 'RB':
+	    answerCounter = 0;
         [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
           let answer = table.querySelector('answer').innerHTML;
-          [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
-            return element.innerHTML.includes(answer);
-          })[0].querySelector('input').checked = true;
+		  [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].forEach((answer) => {
+		      if(answer.checked){
+				answerCounter = answerCounter + 1;
+			  }
+		  });
+		  if(override == 'false' & answerCounter == 0){
+			[...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
+				return element.innerHTML.includes(answer);
+			})[0].querySelector('input').checked = true;
+		  }
         });
       break;
 	  case 'CAL':
@@ -312,7 +321,3 @@ document.addEventListener('DOMContentLoaded', () => {
   let tempVisitID = getTempVisitID();
   loadMostRecentQuestions(clientID, tempVisitID);
 });
-
-function isAnswered(divID){
-
-}
