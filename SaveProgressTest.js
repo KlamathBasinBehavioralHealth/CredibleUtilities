@@ -1,458 +1,323 @@
-let errCount = 0;
+const connectionString =
+  "LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0eo6Xujb93cLI0fLowwDKI2";
 
-function errorMsg(element){
-    const err = document.createElement('p');
-    err.className = 'errMsg';
-    if (element.parentElement != null){
-        err.innerHTML = `Please complete <b><i>${element.parentElement.textContent.replace('*','')}</i></b>`;
-    }
-    err.style.color = 'red';
-    let inputElements = [];
-    let allRequired = false;
-    if (element.closest('tr') != null && element.closest('tr').querySelector('div[questionSelector]') != null){
-        const labelElement = element.closest('tr').querySelector('div[questionSelector]');
-        const selector = labelElement.getAttribute('questionSelector');
-        inputElements = [...element.closest('body').querySelectorAll(selector)].map(x => x.closest('tr').querySelector('input, select, textarea'));
-        if (labelElement.hasAttribute('allRequired')){
-            allRequired = true;
-        }
-    }
-    else if (element.closest('table') != null){
-        inputElements = element.closest('table').querySelectorAll('input, select, textarea');
-    }
-    inputElements = [...inputElements].filter(x => x.type != 'button');
-    if (inputElements.length == 1){
-        const elem = inputElements[0];
+const defaultMode = 'visit';
+const defaultOverride = 'false';
 
-        elem.style.border = '2px solid red';
-        elem.style.borderRadius = '0.25em';
-        elem.onchange = (e) => {
-            if (inputElements.length == 1){
-                if (e.target.value != '' || e.target.getAttribute('data-value') != ''){
-                    e.target.style.border = '1px solid #8f8f9d';
-                    if (e.target.closest('table').querySelector('.errMsg') != null){
-                        e.target.closest('table').querySelector('.errMsg').remove();
-                        errCount -= 1;
-                    }
-                }
-                else{
-                    errorMsg(element);
-                }
-            }
-        };
+let url = undefined;
 
-        const observer = new MutationObserver((mutationsList, observer) =>{
-            if (elem.value != '' || elem.getAttribute('data-value') != ''){
-                elem.style.border = '1px solid #8f8f9d';
-                if (elem.closest('table').querySelector('.errMsg') != null){
-                    elem.closest('table').querySelector('.errMsg').remove();
-                    errCount -= 1;
-                }
-            }
-            else{
-                errorMsg(element);
-            }
-        });
-        const config = {attributes: true, childList: true, subtree: true};
-        observer.observe(elem, config);
-
-        if (inputElements[inputElements.length - 1].closest('table').querySelector('.errMsg') == null){
-            inputElements[inputElements.length - 1].closest('table').appendChild(err);
-            errCount += 1;
-            if (errCount == 1){
-                inputElements[0].focus();
-            }
-        }
-    }
-    else if (inputElements.length > 1){
-        inputElements.forEach(elem => {
-            elem.style.outline = '2px solid red';
-            elem.style.borderRadius = '0.25em';
-        });
-        inputElements.forEach(inp => {
-            inp.closest('tr').onclick = (e) => {
-                let noneSelected = true;
-                let selectedCount = 0;
-                inputElements.forEach(elem => {
-                    if (elem.type == 'radio' || elem.type == 'checkbox'){
-                    if (elem.checked){
-                            noneSelected = false;
-                            selectedCount += 1;
-                        }
-                    }
-                    else{
-                        if (elem.value != ''){
-                            noneSelected = false;
-                            selectedCount += 1;
-                        }
-                    }
-                });
-                if (allRequired && inputElements.length != selectedCount){
-                    errorMsg(element);
-                }
-                else if(noneSelected){
-                    errorMsg(element);
-                }
-                else{
-                    inputElements.forEach(elem => {
-                        elem.style.outline = 'none';
-                    });
-                    if (inputElements[inputElements.length - 1].closest('table').closest('td').querySelector('.errMsg') != null){
-                        inputElements[inputElements.length - 1].closest('table').closest('td').querySelector('.errMsg').remove();
-                        errCount -= 1;
-                    }
-                }
-            }
-        });
-        if (inputElements[inputElements.length - 1].closest('table').closest('td').querySelector('.errMsg') == null){
-            inputElements[inputElements.length - 1].closest('table').closest('td').appendChild(err);
-            errCount += 1;
-            if (errCount == 1){
-                inputElements[inputElements.length - 1].focus();
-            }
-        }
-    }
+function setURL(newConnectionString, newClientID, newDivID, newMode = defaultMode){
+  url = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=${newConnectionString}&start_date=&end_date=&custom_param1=${newClientID}&custom_param2=${newDivID}&custom_param3=${newMode}`;
 }
 
-function validation() {
-    let isValid = true;
-    if (document.querySelectorAll('font[color=\'red\'], .redAsterisk').length > 0){
-        document.querySelectorAll('font[color=\'red\'], .redAsterisk').forEach(font => {
-            let inputElements;
-            let allRequired = false;
-            if (font.closest('tr').querySelector('div[questionSelector]') != null){
-                const labelElement = font.closest('tr').querySelector('div[questionSelector]');
-                const selector = labelElement.getAttribute('questionSelector');
-                inputElements = [...document.querySelectorAll(selector)].map(x => x.closest('tr').querySelector('input, select, textarea'));
-                if (labelElement.hasAttribute('allRequired')){
-                    allRequired = true;
-                }
-            }
-            else{
-                inputElements = font.closest('table').querySelectorAll('input, select, textarea');
-            }
-            inputElements = [...inputElements].filter(x => x.type != 'button');
-            if (inputElements.length == 1){
-                if (inputElements[0].hasAttribute('data-value') && inputElements[0].getAttribute('data-value') == '' && inputElements[0].value == ''){
-                    errorMsg(font);
-                    isValid = false;
-                }
-                else if (inputElements[0].value == '' && (inputElements[0].offsetParent != null || userChange == true)){
-                    errorMsg(font);
-                    isValid = false;
-                }
-            }
-            else if (inputElements.length > 1){
-                let noneSelected = true;
-                let selectedCount = 0;
-                inputElements.forEach(elem => {
-                    if (elem.type == 'radio' || elem.type == 'checkbox'){
-                        if (elem.checked){
-                            noneSelected = false;
-                            selectedCount += 1;
-                        }
-                    }
-                    else{
-                        if (elem.value != ''){
-                            noneSelected = false;
-                            selectedCount += 1;
-                        }
-                    }
-                });
-                if (allRequired){
-                    if (inputElements.length != selectedCount && font.offsetParent != null){
-                        errorMsg(font);
-                        isValid = false;
-                    }
-                }
-                else{
-                    if (noneSelected && font.offsetParent != null){
-                        errorMsg(font);
-                        isValid = false;
-                    }
-                }
-            }
-        });
+const connectionString2 =
+  "LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0e3B61Hq5F3g0xNL8B0Lbul";
+
+let url2 = undefined;
+
+function setURL2(newConnectionString, newTempVisitID, newDivID){
+  url2 = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=${newConnectionString}&start_date=&end_date=&custom_param1=${newTempVisitID}&custom_param2=${newDivID}&custom_param3=`;
+}
+
+function getClientID(){
+  let clientID = undefined;
+  try{  
+    clientID = window.top.document.querySelector('frame[name=main]').contentDocument.querySelector('frame[id=left]').contentDocument.querySelector('input[id=client_id]').value;
+  }catch(error){
+    console.log(error);
+    try{
+      clientID = window.top.document.querySelector('frame[name=left]').contentDocument.querySelector('input[id=client_id]').value;
+    }catch(error){
+      console.log(error);
+      clientID = '200079'
     }
-    if (document.querySelectorAll('.frame').length > 0){
-        document.querySelectorAll('.frame').forEach(frame => {
-            if (frame.contentWindow.userChange){
-                if (frame.contentWindow.document.querySelectorAll('font[color=\'red\'], .redAsterisk').length > 0){
-                    frame.contentWindow.document.querySelectorAll('font[color=\'red\'], .redAsterisk').forEach(font => {
-                        let inputElements;
-                        let allRequired = false;
-                        if (font.closest('tr').querySelector('div[questionSelector]') != null){
-                            const labelElement = font.closest('tr').querySelector('div[questionSelector]');
-                            const selector = labelElement.getAttribute('questionSelector');
-                            inputElements = [...frame.contentWindow.document.querySelectorAll(selector)].map(x => x.closest('tr').querySelector('input, select, textarea'));
-                            if (labelElement.hasAttribute('allRequired')){
-                                allRequired = true;
-                            }
-                        }
-                        else{
-                            inputElements = font.closest('table').querySelectorAll('input, select, textarea');
-                        }
-                        inputElements = [...inputElements].filter(x => x.type != 'button');
-                        if (inputElements.length == 1){
-                            if (inputElements[0].hasAttribute('data-value') && inputElements[0].getAttribute('data-value') == '' && inputElements[0].value == ''){
-                                errorMsg(font);
-                                isValid = false;
-                                if (frame.contentWindow.document.querySelector('#questions_container').hidden){
-                                    frame.contentWindow.document.querySelector('.toolHead').click();
-                                }
-                                frame.style.height = idealFrameHeight(frame);
-                            }
-                            else if (inputElements[0].value == '' && (inputElements[0].offsetParent != null || frame.contentWindow.userChange == true )){
-                                errorMsg(font);
-                                isValid = false;
-                                if (frame.contentWindow.document.querySelector('#questions_container').hidden){
-                                    frame.contentWindow.document.querySelector('.toolHead').click();
-                                }
-                                frame.style.height = idealFrameHeight(frame);
-                            }
-                        }
-                        else if (inputElements.length > 1){
-                            let noneSelected = true;
-                            let selectedCount = 0;
-                            inputElements.forEach(elem => {
-                                if (elem.type == 'radio' || elem.type == 'checkbox'){
-                                    if (elem.checked){
-                                        noneSelected = false;
-                                        selectedCount += 1;
-                                    }
-                                }
-                                else{
-                                    if (elem.value != ''){
-                                        noneSelected = false;
-                                        selectedCount += 1;
-                                    }
-                                }
-                            });
-                            if (allRequired){
-                                if (inputElements.length != selectedCount && (font.offsetParent != null || frame.contentWindow.userChange == true)){
-                                    errorMsg(font);
-                                    isValid = false;
-                                    if (frame.contentWindow.document.querySelector('#questions_container').hidden){
-                                        frame.contentWindow.document.querySelector('.toolHead').click();
-                                    }
-                                    frame.style.height = idealFrameHeight(frame);
-                                }
-                            }
-                            else{
-                                if (noneSelected && (font.offsetParent != null || frame.contentWindow.userChange == true)){
-                                    errorMsg(font);
-                                    isValid = false;
-                                    if (frame.contentWindow.document.querySelector('#questions_container').hidden){
-                                        frame.contentWindow.document.querySelector('.toolHead').click();
-                                    }
-                                    frame.style.height = idealFrameHeight(frame);
-                                }
-                            }
-                        }
-                    });
-                }
-            }
-        });
+  }
+
+  if(clientID == undefined){
+    clientID = '200079';
+  }
+  return clientID;
+}
+
+function getTempVisitID(){
+  let tempVisitID = undefined;
+  
+  try{  
+    tempVisitID = window.top.document.querySelector('frame[name=main]').contentDocument.querySelector('frame[id=left]').contentDocument.querySelector('#visittemp_ids').value;
+  }catch(error){
+    console.log(error);
+    try{
+      tempVisitID = window.top.document.querySelector('frame[name=left]').contentDocument.querySelector('#visittemp_ids').value;
+    }catch(error){
+      console.log(error);
+      tempVisitID = '200079'
     }
-    let errorMsgs = [...document.querySelectorAll('.errMsg')];
-    document.querySelectorAll('.frame').forEach(frame => {
-        errorMsgs = [...errorMsgs, ...frame.contentDocument.querySelectorAll('.errMsg')]
-    });
-    if (errorMsgs.length > 0){
-        isValid = false;
-    }
-    return isValid;
+  }
+
+  if(tempVisitID == undefined){
+    tempVisitID = '99999999';
+  }
+  return tempVisitID;
 }
 
-function addStyling() {
-    const css = document.createElement('style');
-    css.textContent = `body{ width: 98vw; } /* IFRAMES */ .frameContainer{ width: 98vw; height: auto; margin-left: -2.75em; overflow-y: hidden; } .frame{ border: none; width: 100%; height: 100vh; overflow-y: hidden; } /* SUBMIT BUTTONS */ #buttonWrapper{ width: 100vw; max-width: 100%; margin-top: 2em; } #buttonContainer{ width: 25%; margin: 0px 37.5% 0px calc(37.5% - 30px); display: flex; flex-direction: row; column-gap: 1.5em; } #saveProgress, #complete{ margin: 0; width: 8.25em !important; font-size: 0.8em !important; } @media screen and (max-width: 800px){ #buttonContainer{ flex-direction: column; row-gap: 1.25em; } }`;
-    document.head.appendChild(css);
-}
-
-let globalIsValid = true;
-
-/* Async wizardry */
-async function unrequireAll(){
-    const promises = [];
-    if (document.querySelectorAll('.frame').length > 0){
-        document.querySelectorAll('.frame').forEach(frame => {
-            const reqFlags = frame.contentWindow.document.querySelectorAll('[required]');
-            reqFlags.forEach(req => {
-                req.removeAttribute('required');
-            });
-            promises.push(new Promise((resolve, reject) => { 
-                if (frame.contentWindow.document.querySelectorAll('[required]').length == 0){
-                    resolve();
-                }
-            }));
-        });
-    }
-    else{
-        document.querySelectorAll('[required]').forEach(req => {
-            req.removeAttribute('required');
-        });
-        promises.push(new Promise((resolve, reject) => {
-            if (document.querySelectorAll('[required]').length == 0){
-                resolve();
-            }
-        }));
-    }
-
-    return Promise.all(promises);
-}
-
-async function submitFrames(){
-    const frames = document.querySelectorAll('.frame');
-    const promises = [...frames].map(async (frame) => {
-        if (frame.contentWindow.userChange){
-            await forceTemplateSubmit().catch((error) => {
-                console.log(error);
-            });
-            return new Promise((resolve, reject) => { frame.contentWindow.document.querySelector('#oldComplete').click(); frame.onload = resolve; })
-        }
-    });
-
-    return Promise.all(promises);
-}
-
-async function deleteFrames(){
-    const frames = document.querySelectorAll('.frame');
-    const promises = [...frames].map(frame => {
-        frame.remove();
-        waitForDelete(document, '#' + frame.id);
-    });
-
-    return  Promise.all(promises);
-}
-
-if(typeof waitForIt !== 'function'){
-    function waitForIt (target){
-        return new Promise((resolve) => {
-            
-            if(target !== null && target !== undefined){
-                console.log(target);
-                return resolve(target);
-            }
-            
-            const observer = new MutationObserver(mutations => {
-                if (target !== null && target !== undefined) {
-                    observer.disconnect();
-                    console.log(target);
-                    resolve(target);
-                }
-            });
-
-            observer.observe(document.body, {
-                childList: true,
-                subtree: true
-            });
-        });
-    }  
-}
-
-async function forceTemplateSubmit(){
-    return new Promise(async (resolve, reject) => {
-        try{
-            overrideTemplateValidator();
-            document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnSave').click();
-            document.querySelector('#txPlanModule').addEventListener('load',async () => {
-                await waitForIt(document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnNewTX2'));
-                return resolve('Found it');
-            });
-        }catch(error){
-            console.log(error);
-            reject('Doom');
-        }
-    });
-}
-
-async function formSubmit(){
-    if (document.querySelectorAll('.frame').length > 0){
-        unrequireAll().then(() => {
-            submitFrames().then(() => {
-                deleteFrames().then(() => {
-                    document.querySelector('#input').submit();
-                });
-            });
-        });
-    }
-    else{
-        await forceTemplateSubmit().catch((error) => {
-            console.log(error);
-        });
-        unrequireAll(document).then(async () => {
-            document.querySelector('#oldComplete').click();
-        });
-    }
-}
-
-/* Assign id and hide old complete. Create new complete and trigger validation and submit on click */
-function completeButton(){
-    const oldComplete = document.querySelector('input[name=\'Complete\']');
-    oldComplete.id = 'oldComplete';
-    oldComplete.hidden = true;
-    oldComplete.disabled = false;
-
-    const complete = document.createElement('input');
-    complete.type = 'button';
-    complete.id = 'complete';
-    complete.value = 'Complete';
-    complete.onclick = (e) => {
-        e.preventDefault();
-        const isValidSubmit = validation() && globalIsValid;
-        if (isValidSubmit){
-            formSubmit();
-        }
-    };
-    return complete;
-}
-
-/* Create save progress button and trigger formSubmit() on click */
-function saveProgressButton(){
-    const saveProgress = document.createElement('input');
-    saveProgress.id = 'saveProgress';
-    saveProgress.type = 'submit';
-    saveProgress.name = 'Save Progress';
-    saveProgress.value = 'Save Progress';
-    saveProgress.onclick = (e) => {
-        e.preventDefault();
-        try{
-            document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
-        }catch(error){
-            console.log(error);
-        }
+function getData(url) {
+  return new Promise(async (resolve, reject) => {
+    try {
+        const response = await fetch(url);
         
-        formSubmit();
-    };
-    return saveProgress;
-}
+        if (!response.ok) {
+          return resolve("Could not fetch data.");
+        }
 
-/* Create submit buttons and wrap in containers for positioning. Handle different situations where they need to be created */
-function createSubmitButtons(){
-    const form = document.querySelector('#input');
-    form.setexit.value = 1;
+        const xmlString = await response.text();
+    
+        const parser = new DOMParser();
+        const cleanedXmlString = xmlString.replaceAll(/<string\b[^>]*>(?:.*?)|<\/string>|<\/string>|\n/g, '')
+            .replaceAll(/\s+/g, ' ')
+            .replaceAll('&lt;', '<')
+            .replaceAll('&gt;', '>');
+        
+        const xmlResult = parser.parseFromString(cleanedXmlString, "application/xml");
 
-    const complete = completeButton();
+        return resolve(xmlResult);
+    } catch (error) {
+      console.log(error);
 
-    const saveProgress = saveProgressButton();
-
-    const oldComplete = document.querySelector('#oldComplete');
-
-    const buttonContainer = document.createElement('div');
-    buttonContainer.id = 'buttonContainer';
-
-    const buttonWrapper = oldComplete.parentElement;
-    buttonWrapper.id = 'buttonWrapper';
-    buttonWrapper.style.position = 'sticky';
-    buttonWrapper.style.bottom = '0px';
-
-    if ((frameElement != null && !frameElement.classList.contains('frame')) || getURLQueryStringParameter('formbuilder') == '1'){
-        buttonWrapper.insertBefore(buttonContainer, oldComplete);
-        buttonContainer.appendChild(saveProgress);
-        buttonContainer.appendChild(complete);
+      resolve("Could not fetch data.");
     }
-    window.onbeforeunload = () => { console.log(document.querySelector('.toolHead').textContent); };
+  });
 }
 
-document.addEventListener('DOMContentLoaded', () => { createSubmitButtons(); addStyling(); } );
+let thing = undefined;
+
+async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, override = defaultOverride){
+  setURL(connectionString, clientID, divID, mode);
+  try{
+    let result = await getData(url);
+    thing = result;
+    let questionType = result.documentElement.querySelector('question_format').innerHTML;
+    let answerIDType = result.documentElement.querySelector('answer_id').innerHTML;
+    let visitType = result.documentElement.querySelector('visittype').innerHTML;
+    let timeDate = result.documentElement.querySelector('rev_timein').innerHTML;
+	let answerCounter = 0;
+	switch(questionType){
+	  case 'CB':
+	   case 'RB':
+	    answerCounter = 0;
+        [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+          let answer = table.querySelector('answer').innerHTML;
+		  [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].forEach((answer) => {
+		      if(answer.querySelector('input').checked){
+				answerCounter = answerCounter + 1;
+			  }
+		  });
+		  if(override == 'false' & answerCounter == 0){
+			[...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
+				return element.innerHTML.includes(answer);
+			})[0].querySelector('input').checked = true;
+		  }
+        });
+      break;
+	  case 'CAL':
+	  case 'TXT':
+		[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+		  let answer = table.querySelector('answer').innerHTML;
+		  document.querySelector(`#${divID}`).closest('table').querySelector('input').value = answer;
+		});
+	  break;
+	  case 'DD':
+		[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+		  let answer = table.querySelector('answer').innerHTML;
+		  let answerID = table.querySelector('answer_id').innerHTML;
+		  let optionValue = undefined;
+		  if(answerID !== '0'){
+			optionValue = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('option')].filter((option) => {
+			  return option.innerText === answer;
+			})[0]?.value;
+		  }else{
+			optionValue = answer;
+		  }
+		  document.querySelector(`#${divID}`).closest('table').querySelector('select').value = optionValue;
+		});
+	  break;
+	  case 'NLC':
+		try{
+		  let answer = result.documentElement.querySelector('answer').innerHTML;
+		  if(answer){
+			if(!document.querySelector(`#${divID}`).closest('table').querySelector('input').checked){
+			  document.querySelector(`#${divID}`).closest('table').querySelector('input').click();
+			}
+		  }
+		}catch(error){
+		  console.log(error);
+		  if(document.querySelector(`#${divID}`).closest('table').querySelector('input').checked){
+			document.querySelector(`#${divID}`).closest('table').querySelector('input').click();
+		  }
+		}
+	  break;
+	  case 'PB':
+		try{
+		  let answer = result.documentElement.querySelector('answer').innerHTML;
+		  let target = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('input:not([type=hidden])')].filter((input) => {
+			return input.value == answer;
+		  })[0];
+		  if(target.style.backgroundColor == 'white' || target.style.backgroundColor == 'rgb(255, 255, 255)'){
+			target.click();
+		  }
+		}catch(error){
+		  console.log(error);
+		}
+	  break;
+	  default:
+		console.log('WHO AM I?!!!');
+	}
+
+  }catch(error){
+    console.log(error);
+  }
+}
+
+function scrubAnswer(answer){
+  var entityRegex = /&amp;lt;|&lt;|&amp;gt;|&gt;|&amp;\/|&\//g;
+
+  var result = answer.replace(entityRegex, function (match) {
+    switch (match) {
+      case "&amp;lt;":
+        return "<";
+      case "&lt;":
+        return "<";
+      case "&amp;gt;":
+        return ">";
+      case "&gt;":
+        return ">";
+      case "&amp;/":
+        return "/";
+      case "&/":
+        return "/";
+      default:
+        return match;
+    }
+  });
+
+  return result;
+}
+
+function extractInnerText(string){
+  var tempDiv = document.createElement('div');
+  
+  tempDiv.innerHTML = string;
+
+  var innerText = tempDiv.innerText;
+
+  tempDiv.remove();
+
+  return innerText;
+}
+
+async function loadTempVisitAnswer(tempVisitID, divID){
+  setURL2(connectionString2, tempVisitID, divID);
+  try{
+    let result = await getData(url2);
+    thing = result;
+    let questionType = result.documentElement.querySelector('question_format').innerHTML;
+    
+    switch(questionType){
+      case 'CB':
+      case 'RB':
+        [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+          let answer = table.querySelector('answer').innerHTML;
+          answer = scrubAnswer(answer);
+          answer = extractInnerText(answer);
+          [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
+            return element.innerHTML.includes(answer);
+          })[0].querySelector('input').checked = true;
+        });
+      break;
+      case 'CAL':
+      case 'TXT':
+        [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+          let answer = table.querySelector('answer').innerHTML;
+          document.querySelector(`#${divID}`).closest('table').querySelector('input').value = answer;
+        });
+      break;
+      case 'DD':
+        [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+          let answer = table.querySelector('answer').innerHTML;
+          let answerID = table.querySelector('answer_id').innerHTML;
+          let optionValue = undefined;
+          if(answerID !== '0'){
+            optionValue = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('option')].filter((option) => {
+              return option.innerText === answer;
+            })[0]?.value;
+          }else{
+            optionValue = answer;
+          }
+          document.querySelector(`#${divID}`).closest('table').querySelector('select').value = optionValue;
+        });
+      break;
+      case 'NLC':
+        try{
+          let answer = result.documentElement.querySelector('answer').innerHTML;
+          if(answer){
+            if(!document.querySelector(`#${divID}`).closest('table').querySelector('input').checked){
+              document.querySelector(`#${divID}`).closest('table').querySelector('input').click();
+            }
+          }
+        }catch(error){
+          console.log(error);
+          if(document.querySelector(`#${divID}`).closest('table').querySelector('input').checked){
+            document.querySelector(`#${divID}`).closest('table').querySelector('input').click();
+          }
+        }
+      break;
+      case 'PB':
+        try{
+          let answer = result.documentElement.querySelector('answer').innerHTML;
+          let target = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('input:not([type=hidden])')].filter((input) => {
+            return input.value == answer;
+          })[0];
+          if(target.style.backgroundColor == 'white' || target.style.backgroundColor == 'rgb(255, 255, 255)'){
+            target.click();
+          }
+        }catch(error){
+          console.log(error);
+        }
+      break;
+      default:
+        console.log('WHO AM I?!!!');
+    }
+  }catch(error){
+    console.log(error);
+  }
+}
+
+
+
+function loadMostRecentQuestions(clientID, tempVisitID){
+  document.querySelectorAll('.loadPreviousAnswer').forEach((question) => {
+    let divID = question.getAttribute('id');
+    let mode = undefined; 
+	let override = undefined;
+    try{
+      mode = question.getAttribute('mode') || defaultMode;
+	  override = question.getAttribute('override') || defaultOverride;
+    }catch(error){
+      mode = defaultMode;
+	  override = defaultOverride;
+    }
+
+    loadMostRecentAnswer(clientID, divID, mode, override);
+  });
+
+  document.querySelectorAll('.loadTempVisitAnswer').forEach((question) => {
+    let divID = question.getAttribute('id');
+
+    loadTempVisitAnswer(tempVisitID, divID);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  let clientID = getClientID();
+  let tempVisitID = getTempVisitID();
+  loadMostRecentQuestions(clientID, tempVisitID);
+});
