@@ -107,7 +107,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
         [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
           let answer = table.querySelector('answer').innerHTML;
 		  [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].forEach((answer) => {
-		      if(answer.checked){
+		      if(answer.querySelector('input').checked){
 				answerCounter = answerCounter + 1;
 			  }
 		  });
