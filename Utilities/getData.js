@@ -99,58 +99,16 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
     let answerIDType = result.documentElement.querySelector('answer_id').innerHTML;
     let visitType = result.documentElement.querySelector('visittype').innerHTML;
     let timeDate = result.documentElement.querySelector('rev_timein').innerHTML;
-	let hasNoAnswer = true;
-	let radioCheckAnswers = [];
-    let previousAnswers = []
 	switch(questionType){
 	  case 'CB':
-	  case 'RB':
-		[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
-			let notRadioCheckAnswers = [];
-			let answer = table.querySelector('answer').innerHTML;
-			[...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].forEach((element) => {
-				if(element.querySelector('input').checked){
-					hasNoAnswer = false;
-				}
-				if(element.querySelector('td').nextElementSibling.nextElementSibling.innerHTML.includes(answer)){
-					radioCheckAnswers.push(element.querySelector('td').nextElementSibling.querySelector('input'));
-				} else{
-					notRadioCheckAnswers.push(element.querySelector('td').nextElementSibling.querySelector('input'));
-				}
-			});
-			radioCheckAnswers.forEach((input) => {
-				let prevAnswerCheck = false;
-				previousAnswers.forEach((prevAnswer) => {
-					if(input.closest('td').nextElementSibling.innerHTML.includes(prevAnswer)){
-						prevAnswerCheck = true;
-					}
-				});
-				if(prevAnswerCheck){
-					input.checked = JSON.parse(override) || (true && !JSON.parse(override));
-				}
-				else if(input.closest('td').nextElementSibling.innerHTML.includes(answer) && previousAnswers.length > 0){
-					input.checked =  JSON.parse(override) || (false && !JSON.parse(override))
-				}
-				else {
-					input.checked =  JSON.parse(override) || (hasNoAnswer && !JSON.parse(override));
-				}	
-			});
-			if(override == 'true'){
-				notRadioCheckAnswers.forEach((input) => {
-					let prevAnswerCheck = false;
-					previousAnswers.forEach((prevAnswer) => {
-						if(input.closest('td').nextElementSibling.innerHTML.includes(prevAnswer)){
-							prevAnswerCheck = true;
-						}
-					});
-					if(!prevAnswerCheck){
-					input.checked =  false;
-					}
-				});
-			}
-			previousAnswers.push(answer);
-		});
-	  break;
+	   case 'RB':
+        [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+          let answer = table.querySelector('answer').innerHTML;
+          [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
+            return element.innerHTML.includes(answer);
+          })[0].querySelector('input').checked = true;
+        });
+      break;
 	  case 'CAL':
 	  case 'TXT':
 		[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
@@ -354,3 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let tempVisitID = getTempVisitID();
   loadMostRecentQuestions(clientID, tempVisitID);
 });
+
+function isAnswered(divID){
+
+}
