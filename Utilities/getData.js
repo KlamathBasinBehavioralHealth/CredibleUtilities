@@ -141,7 +141,9 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
             case 'TXT':
                 [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
                     let answer = table.querySelector('answer').innerHTML;
-                    document.querySelector(`#${divID}`).closest('table').querySelector('input').value = answer;
+                    if(document.querySelector(`#${divID}`).closest('table').querySelector('input').value == '' & override =='false'){
+                        document.querySelector(`#${divID}`).closest('table').querySelector('input').value = answer;
+                    }
                 });
                 break;
             case 'DD':
@@ -149,7 +151,8 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
                     let answer = table.querySelector('answer').innerHTML;
                     let answerID = table.querySelector('answer_id').innerHTML;
                     let optionValue = undefined;
-                    if (answerID !== '0') {
+                    if(document.querySelector(`#${divID}`).closest('table').querySelector('select').value == '' & override == 'false'){
+                        if (answerID !== '0') {
                         optionValue = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('option')].filter((option) => {
                             return option.innerText === answer;
                         })[0]?.value;
@@ -158,6 +161,8 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
                     }
                     document.querySelector(`#${divID}`).closest('table').querySelector('select').value = optionValue;
                 });
+                    }
+                    
                 break;
             case 'NLC':
                 try {
