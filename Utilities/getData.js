@@ -102,7 +102,9 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
         let alreadyAnswered = false;
         switch (questionType) {
             case 'CB':
-                [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].forEach((answer) => {
+                let answers = [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')];
+                for(let i = 0; i < answers.length; i++){
+                    let answer = answers[i];
                     if (answer.querySelector('input').checked) {
                         alreadyAnswered = true;
                         break;
@@ -120,7 +122,6 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
                 [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].forEach((answer) => {
                     if (answer.querySelector('input').checked) {
                         alreadyAnswered = true;
-                        break;
                     }
                 });
                 if (override == 'false' & !alreadyAnswered) {
