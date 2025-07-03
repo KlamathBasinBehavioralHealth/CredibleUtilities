@@ -111,7 +111,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
                         break;
                     }
                 };
-                if (override == 'false' & !alreadyAnswered) {
+                if ((override == 'false' & !alreadyAnswered) }} override == 'true') {
                     [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
                         let answer = table.querySelector('answer').innerHTML;
                         [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
@@ -128,7 +128,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
                         break;
                     }
                 };
-                if (override == 'false' & !alreadyAnswered) {
+                if ((override == 'false' & !alreadyAnswered) }} override == 'true') {
                     [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
                         let answer = table.querySelector('answer').innerHTML;
                         [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
@@ -139,17 +139,17 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
                 break;
             case 'CAL':
             case 'TXT':
-                //if (document.querySelector(`#${divID}`).closest('table').querySelector('input').value == '' & override == 'false') {
+                if ((document.querySelector(`#${divID}`).closest('table').querySelector('input').value == '' & override == 'false') || override == 'true') {
                     [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
                         let answer = table.querySelector('answer').innerHTML;
 
                         document.querySelector(`#${divID}`).closest('table').querySelector('input').value = answer;
 
                     });
-                //}
+                }
                 break;
             case 'DD':
-                //if (document.querySelector(`#${divID}`).closest('table').querySelector('select').value == '' & override == 'false') {
+                if ((document.querySelector(`#${divID}`).closest('table').querySelector('select').value == '' & override == 'false') || override == 'true') {
                     [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
                         let answer = table.querySelector('answer').innerHTML;
                         let answerID = table.querySelector('answer_id').innerHTML;
@@ -165,7 +165,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
                         document.querySelector(`#${divID}`).closest('table').querySelector('select').value = optionValue;
 
                     });
-                //}
+                }
                 break;
             case 'NLC':
                 try {
