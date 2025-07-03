@@ -184,12 +184,22 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
                 break;
             case 'PB':
                 try {
-                    let answer = result.documentElement.querySelector('answer').innerHTML;
-                    let target = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('input:not([type=hidden])')].filter((input) => {
-                        return input.value == answer;
-                    })[0];
-                    if (target.style.backgroundColor == 'white' || target.style.backgroundColor == 'rgb(255, 255, 255)') {
-                        target.click();
+                    answers = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('input:not([type=hidden])')];
+                    for (let i = 0; i < answers.length; i++) {
+                        let answer = answers[i];
+                         if (answer.style.backgroundColor == 'rgb(204, 204, 204)') {
+                            alreadyAnswered = true;
+                            break;
+                        }
+                    };
+                    if ((override == 'false' & !alreadyAnswered) ||override == 'true') {
+                        let answer = result.documentElement.querySelector('answer').innerHTML;
+                        let target = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('input:not([type=hidden])')].filter((input) => {
+                            return input.value == answer;
+                        })[0];
+                        if (target.style.backgroundColor == 'white' || target.style.backgroundColor == 'rgb(255, 255, 255)') {
+                            target.click();
+                        }
                     }
                 } catch (error) {
                     console.log(error);
