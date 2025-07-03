@@ -100,7 +100,6 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
     let visitType = result.documentElement.querySelector('visittype').innerHTML;
     let timeDate = result.documentElement.querySelector('rev_timein').innerHTML;
 	let answerCounter = 0;
-	let answerLength;
 	switch(questionType){
 	  case 'CB':
 	    answerCounter = 0;
@@ -109,13 +108,14 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
 		      answerCounter = answerCounter + 1;
 			}
 		});
-		[...result.documentElement.querySelectorAll('Table')].forEach((table) => {
-          let answer = table.querySelector('answer').innerHTML;
-		  answerLength = [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].length;
-		  [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
-			  return element.innerHTML.includes(answer);
-		  })[0].querySelector('input').checked = true;
-        });
+		if(override == 'false' & answerCounter == 0){
+		  [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+            let answer = table.querySelector('answer').innerHTML;
+		    [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
+			    return element.innerHTML.includes(answer);
+		    })[0].querySelector('input').checked = true;
+          });
+		}
 	  case 'RB':
 	    answerCounter = 0;
         [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
