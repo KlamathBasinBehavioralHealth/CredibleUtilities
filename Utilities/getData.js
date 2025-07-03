@@ -107,7 +107,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
                         alreadyAnswered = true;
                     }
                 });
-                if (override == 'false' & alreadyAnswered) {
+                if (override == 'false' & !alreadyAnswered) {
                     [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
                         let answer = table.querySelector('answer').innerHTML;
                         [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
@@ -121,7 +121,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
                         alreadyAnswered = true
                     }
                 });
-                if (override == 'false' & alreadyAnswered) {
+                if (override == 'false' & !alreadyAnswered) {
                     [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
                         let answer = table.querySelector('answer').innerHTML;
                         [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
