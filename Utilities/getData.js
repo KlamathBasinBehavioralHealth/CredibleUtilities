@@ -102,7 +102,13 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
 	let answerCounter = 0;
 	switch(questionType){
 	  case 'CB':
-	   case 'RB':
+		  [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+          let answer = table.querySelector('answer').innerHTML;
+		  [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].filter((element) => {
+			  return element.innerHTML.includes(answer);
+		  })[0].querySelector('input').checked = true;
+        });
+	  case 'RB':
 	    answerCounter = 0;
         [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
           let answer = table.querySelector('answer').innerHTML;
