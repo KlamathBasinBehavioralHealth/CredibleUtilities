@@ -104,7 +104,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
         switch (questionType) {
             case 'CB':
                 answers = [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')];
-                for(let i = 0; i < answers.length; i++){
+                for (let i = 0; i < answers.length; i++) {
                     let answer = answers[i];
                     if (answer.querySelector('input').checked) {
                         alreadyAnswered = true;
@@ -121,7 +121,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
                 }
             case 'RB':
                 answers = [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')];
-                for(let i = 0; i < answers.length; i++){
+                for (let i = 0; i < answers.length; i++) {
                     let answer = answers[i];
                     if (answer.querySelector('input').checked) {
                         alreadyAnswered = true;
@@ -139,30 +139,33 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
                 break;
             case 'CAL':
             case 'TXT':
-                [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
-                    let answer = table.querySelector('answer').innerHTML;
-                    if(document.querySelector(`#${divID}`).closest('table').querySelector('input').value == '' & override =='false'){
+                if (document.querySelector(`#${divID}`).closest('table').querySelector('input').value == '' & override == 'false') {
+                    [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+                        let answer = table.querySelector('answer').innerHTML;
+
                         document.querySelector(`#${divID}`).closest('table').querySelector('input').value = answer;
-                    }
-                });
+
+                    });
+                }
                 break;
             case 'DD':
-                [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
-                    let answer = table.querySelector('answer').innerHTML;
-                    let answerID = table.querySelector('answer_id').innerHTML;
-                    let optionValue = undefined;
-                    if(document.querySelector(`#${divID}`).closest('table').querySelector('select').value == '' & override == 'false'){
+                if (document.querySelector(`#${divID}`).closest('table').querySelector('select').value == '' & override == 'false') {
+                    [...result.documentElement.querySelectorAll('Table')].forEach((table) => {
+                        let answer = table.querySelector('answer').innerHTML;
+                        let answerID = table.querySelector('answer_id').innerHTML;
+                        let optionValue = undefined;
+
                         if (answerID !== '0') {
-                        optionValue = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('option')].filter((option) => {
-                            return option.innerText === answer;
-                        })[0]?.value;
-                    } else {
-                        optionValue = answer;
-                    }
-                    document.querySelector(`#${divID}`).closest('table').querySelector('select').value = optionValue;
-                });
-                    }
-                    
+                            optionValue = [...document.querySelector(`#${divID}`).closest('table').querySelectorAll('option')].filter((option) => {
+                                return option.innerText === answer;
+                            })[0]?.value;
+                        } else {
+                            optionValue = answer;
+                        }
+                        document.querySelector(`#${divID}`).closest('table').querySelector('select').value = optionValue;
+
+                    });
+                }
                 break;
             case 'NLC':
                 try {
