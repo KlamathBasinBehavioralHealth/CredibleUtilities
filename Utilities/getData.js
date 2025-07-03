@@ -100,9 +100,10 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
         let visitType = result.documentElement.querySelector('visittype').innerHTML;
         let timeDate = result.documentElement.querySelector('rev_timein').innerHTML;
         let alreadyAnswered = false;
+        let answers;
         switch (questionType) {
             case 'CB':
-                let answers = [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')];
+                answers = [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')];
                 for(let i = 0; i < answers.length; i++){
                     let answer = answers[i];
                     if (answer.querySelector('input').checked) {
@@ -119,7 +120,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
                     });
                 }
             case 'RB':
-                let answers = [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')];
+                answers = [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')];
                 for(let i = 0; i < answers.length; i++){
                     let answer = answers[i];
                     if (answer.querySelector('input').checked) {
