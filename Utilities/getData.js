@@ -105,6 +105,7 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
                 [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].forEach((answer) => {
                     if (answer.querySelector('input').checked) {
                         alreadyAnswered = true;
+                        break;
                     }
                 });
                 if (override == 'false' & !alreadyAnswered) {
@@ -118,7 +119,8 @@ async function loadMostRecentAnswer(clientID, divID, mode = defaultMode, overrid
             case 'RB':
                 [...document.querySelector(`#${divID}`).closest('tbody').querySelector('tbody').querySelectorAll('tr')].forEach((answer) => {
                     if (answer.querySelector('input').checked) {
-                        alreadyAnswered = true
+                        alreadyAnswered = true;
+                        break;
                     }
                 });
                 if (override == 'false' & !alreadyAnswered) {
