@@ -9,7 +9,7 @@ if(typeof visibilty != 'function'){
     document.getElementsByTagName('head').item(0).appendChild(script);
   }
 
-  include('https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities@cf624dd/Utilities/visibility.js');
+  include('https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities@7c95c8d/Utilities/visibility.js');
 }
 
 let age;

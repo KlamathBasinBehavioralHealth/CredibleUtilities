@@ -186,7 +186,7 @@ function checkReferralAlert(){
 }
 
 $('document').ready(function(){
-	checkDrinks();
+	//checkDrinks();
 	checkReferralAlert();
 	$('tr').has('div[id=substanceUse]').find('select').change(checkDrinks);
 	$('tr').has('div[id=drinksPastYear]').find('input').change(checkDrinks);
@@ -211,7 +211,7 @@ $('document').ready(function(){
 	populateOptionText('substanceUse');
 	populateOptionText('substanceResourcesOffered');
 
-	checkSUD();
+	//checkSUD();
 
 	$('tr').has('div[id=substanceUse]').find('select').change(checkSUD);
 });
