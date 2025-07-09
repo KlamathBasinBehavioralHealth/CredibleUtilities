@@ -133,11 +133,95 @@ document.addEventListener('DOMContentLoaded', async () => {
             qmhp.querySelector('input').disabled = false;
             qmhp.querySelector('input').click();
             qmhp.querySelector('input').disabled = true;
-          }
-          break;
+          } 
         }catch(error){
           console.log(error);
         }
+        break;
+        case [...dataPull.documentElement.querySelectorAll('credentials')][0].innerHTML.includes('CSWA'):
+        try{
+          if(!document.querySelector('#credentialQMHP').closest('tr').querySelector('input').checked){
+            qmhp.querySelector('input').checked = false;
+            qmhp.querySelector('input').disabled = false;
+            qmhp.querySelector('input').click();
+            qmhp.querySelector('input').disabled = true;
+          } 
+        }catch(error){
+          console.log(error);
+        }
+        break;
+        case [...dataPull.documentElement.querySelectorAll('credentials')][0].innerHTML.includes('LCSW'):
+        try{
+          if(!document.querySelector('#credentialQMHP').closest('tr').querySelector('input').checked){
+            qmhp.querySelector('input').checked = false;
+            qmhp.querySelector('input').disabled = false;
+            qmhp.querySelector('input').click();
+            qmhp.querySelector('input').disabled = true;
+          } 
+        }catch(error){
+          console.log(error);
+        }
+        break;
+        case [...dataPull.documentElement.querySelectorAll('credentials')][0].innerHTML.includes('LMFT'):
+        try{
+          if(!document.querySelector('#credentialQMHP').closest('tr').querySelector('input').checked){
+            qmhp.querySelector('input').checked = false;
+            qmhp.querySelector('input').disabled = false;
+            qmhp.querySelector('input').click();
+            qmhp.querySelector('input').disabled = true;
+          } 
+        }catch(error){
+          console.log(error);
+        }
+        break;
+        case [...dataPull.documentElement.querySelectorAll('credentials')][0].innerHTML.includes('LPC'):
+        try{
+          if(!document.querySelector('#credentialQMHP').closest('tr').querySelector('input').checked){
+            qmhp.querySelector('input').checked = false;
+            qmhp.querySelector('input').disabled = false;
+            qmhp.querySelector('input').click();
+            qmhp.querySelector('input').disabled = true;
+          } 
+        }catch(error){
+          console.log(error);
+        }
+        break;
+        case [...dataPull.documentElement.querySelectorAll('credentials')][0].innerHTML.includes('PCA'):
+        try{
+          if(!document.querySelector('#credentialQMHP').closest('tr').querySelector('input').checked){
+            qmhp.querySelector('input').checked = false;
+            qmhp.querySelector('input').disabled = false;
+            qmhp.querySelector('input').click();
+            qmhp.querySelector('input').disabled = true;
+          } 
+        }catch(error){
+          console.log(error);
+        }
+        break;
+        case [...dataPull.documentElement.querySelectorAll('credentials')][0].innerHTML.includes('Therapist'):
+        try{
+          if(!document.querySelector('#credentialQMHP').closest('tr').querySelector('input').checked){
+            qmhp.querySelector('input').checked = false;
+            qmhp.querySelector('input').disabled = false;
+            qmhp.querySelector('input').click();
+            qmhp.querySelector('input').disabled = true;
+          } 
+        }catch(error){
+          console.log(error);
+        }
+        break;
+        case [...dataPull.documentElement.querySelectorAll('credentials')][0].innerHTML.includes('MFT'):
+        try{
+          if(!document.querySelector('#credentialQMHP').closest('tr').querySelector('input').checked){
+            qmhp.querySelector('input').checked = false;
+            qmhp.querySelector('input').disabled = false;
+            qmhp.querySelector('input').click();
+            qmhp.querySelector('input').disabled = true;
+          } 
+        }catch(error){
+          console.log(error);
+        }
+        break;
       case [...dataPull.documentElement.querySelectorAll('credentials')][0].innerHTML.includes('QMHA'):
         try{
           if(!document.querySelector('#credentialQMHA').closest('tr').querySelector('input').checked){
@@ -146,10 +230,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             qmha.querySelector('input').click();
             qmha.querySelector('input').disabled = true;
           }
-          break;
         }catch(error){
           console.log(error);
         }
+        break;
       case [...dataPull.documentElement.querySelectorAll('credentials')][0].innerHTML.includes('CADC'):
         try{
           if(!document.querySelector('#credentialCADC').closest('tr').querySelector('input').checked){
@@ -158,10 +242,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             cadc.querySelector('input').click();
             cadc.querySelector('input').disabled = true;
           }
-          break;
         }catch(error){
           console.log(error);
         }
+        break;
       case [...dataPull.documentElement.querySelectorAll('credentials')][0].innerHTML.includes('PSS'):
         try{
           if(!document.querySelector('#credentialPSS').closest('tr').querySelector('input').checked){
@@ -170,10 +254,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             pss.querySelector('input').click();
             pss.querySelector('input').disabled = true;
           }
-          break;
         }catch(error){
           console.log(error);
         }
+        break;
       default:
         break;
     }
