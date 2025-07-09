@@ -95,7 +95,7 @@ function dropMatchId ()
 {	
 	if($('tr').has('div[class*=providerDriver]').find('select').val())
 	{
-		if($('tr').has('div[class*=providerDriver]').find('select').val() == 550 | $('tr').has('div[class*=providerDriver]').find('select').val() == 733 | $('tr').has('div[class*=providerDriver]').find('select').val() == 734){
+		if($('tr').has('div[class*=providerDriver]').find('select').val() == 550 | $('tr').has('div[class*=providerDriver]').find('select').val() == 733 | $('tr').has('div[class*=providerDriver]').find('select').val() == 734 | $('tr').has('div[class*=providerDriver]').find('select').val() == 283){
 			$('tr').has('div[class*=providerPassenger]').find('select').val($('tr').has('div[class*=providerDriver]').find('select').val());
 			
 			$('tr').has('div[class*=providerDriverText]').find('input').val($('tr').has('div[class*=providerDriver]').find('option[value=' + 779 + ']').text());
