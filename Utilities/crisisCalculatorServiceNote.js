@@ -85,6 +85,27 @@ document.addEventListener('DOMContentLoaded', async () => {
           case credential.innerHTML.includes('QMHP'):
             qmhp.hidden = false;
             break;
+          case credential.innerHTML.includes('CSWA'):
+            qmhp.hidden = false;
+            break;
+          case credential.innerHTML.includes('LCSW'):
+            qmhp.hidden = false;
+            break;
+          case credential.innerHTML.includes('LMFT'):
+            qmhp.hidden = false;
+            break;
+          case credential.innerHTML.includes('LPC'):
+            qmhp.hidden = false;
+            break;
+          case credential.innerHTML.includes('PCA'):
+            qmhp.hidden = false;
+            break;
+          case credential.innerHTML.includes('Therapist'):
+            qmhp.hidden = false;
+            break;
+          case credential.innerHTML.includes('MFT'):
+            qmhp.hidden = false;
+            break;
           case credential.innerHTML.includes('QMHA'):
             qmha.hidden = false;
             break;
