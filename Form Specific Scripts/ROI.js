@@ -10,7 +10,7 @@ if(typeof visibility != 'function'){
 		}
 	}
   
-	include('https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities@21229c2/Utilities/visibility.js');
+	include('https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities@7c95c8d/Utilities/visibility.js');
 }
 
 //Tooltips
