@@ -382,6 +382,11 @@ async function formSubmit(){
             console.log(error);
         });
         unrequireAll(document).then(async () => {
+            try{
+                document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+            }catch(error){
+                console.log(error);
+            }
             document.querySelector('#oldComplete').click();
         });
     }
