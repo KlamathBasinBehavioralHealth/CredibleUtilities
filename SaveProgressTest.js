@@ -297,6 +297,7 @@ async function unrequireAll(){
                 resolve();
             }
         }));
+        
     }
 
     return Promise.all(promises);
@@ -382,11 +383,6 @@ async function formSubmit(){
             console.log(error);
         });
         unrequireAll(document).then(async () => {
-            try{
-                document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
-            }catch(error){
-                console.log(error);
-            }
             document.querySelector('#oldComplete').click();
         });
     }
@@ -422,6 +418,7 @@ function saveProgressButton(){
     saveProgress.value = 'Save Progress';
     saveProgress.onclick = (e) => {
         e.preventDefault();
+        
         try{
             document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
         }catch(error){
