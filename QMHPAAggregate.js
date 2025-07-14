@@ -717,6 +717,7 @@ async function formSubmit() {
     unrequireAll().then(() => {
       submitFrames().then(() => {
         deleteFrames().then(() => {
+          document.querySelector('form').noValidate = true;
           document.querySelector('#input').submit();
         });
       });
@@ -815,7 +816,7 @@ function saveProgressButton(){
             }
           }
         }catch(error){
-  
+          
         }
         
         /*try{
