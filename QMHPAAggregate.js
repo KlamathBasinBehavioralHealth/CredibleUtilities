@@ -726,11 +726,6 @@ async function formSubmit() {
       console.log(error);
     });
     unrequireAll(document).then(async () => {
-      try{
-          document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
-      }catch(error){
-          console.log(error);
-      }
       document.querySelector('#oldComplete').click();
     });
   }
@@ -754,6 +749,8 @@ function completeButton() {
   };
   return complete;
 }
+
+/* Create save progress button and trigger formSubmit() on click */
 function saveProgressButton(){
     const saveProgress = document.createElement('input');
     saveProgress.id = 'saveProgress';
@@ -762,11 +759,29 @@ function saveProgressButton(){
     saveProgress.value = 'Save Progress';
     saveProgress.onclick = (e) => {
         e.preventDefault();
-        try{
+        
+        let rightFrame = findFrameByName(window.top, 'right');
+
+        let childFrames = rightFrame.document.querySelectorAll('iframe');
+
+        for(let i = 0; i < childFrames.length; i++){
+            try{
+                childFrames[i].contentDocument.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+            }catch(error){
+                console.log(error);
+                try{
+                    document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+                }catch(error){
+                    console.log(error);
+                }                
+            }
+        }
+
+        /*try{
             document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
         }catch(error){
             console.log(error);
-        }
+        }*/
         
         formSubmit();
     };
