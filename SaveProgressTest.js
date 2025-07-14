@@ -273,34 +273,43 @@ function addStyling() {
 let globalIsValid = true;
 
 /* Async wizardry */
-async function unrequireAll(){
-    const promises = [];
-    if (document.querySelectorAll('.frame').length > 0){
-        document.querySelectorAll('.frame').forEach(frame => {
-            const reqFlags = frame.contentWindow.document.querySelectorAll('[required]');
-            reqFlags.forEach(req => {
-                req.removeAttribute('required');
-            });
-            promises.push(new Promise((resolve, reject) => { 
-                if (frame.contentWindow.document.querySelectorAll('[required]').length == 0){
-                    resolve();
-                }
-            }));
-        });
-    }
-    else{
-        document.querySelectorAll('[required]').forEach(req => {
-            req.removeAttribute('required');
-        });
-        promises.push(new Promise((resolve, reject) => {
-            if (document.querySelectorAll('[required]').length == 0){
-                resolve();
-            }
-        }));
-        
-    }
-
-    return Promise.all(promises);
+async function unrequireAll() {
+  const promises = [];
+  if (document.querySelectorAll('.frame').length > 0) {
+    document.querySelectorAll('.frame').forEach((frame) => {
+      frame.contentWindow.document.querySelector('form').noValidate = true;
+      [...frame.contentWindow.document.querySelectorAll('div[requireCheckbox=true]')].forEach(element => {
+        element.removeAttribute('requireCheckbox');
+       });
+      const reqFlags =
+        frame.contentWindow.document.querySelectorAll('[required]');
+      reqFlags.forEach((req) => {
+        req.removeAttribute('required');
+      });
+      promises.push(
+        new Promise((resolve, reject) => {
+          if (
+            frame.contentWindow.document.querySelectorAll('[required]')
+              .length == 0
+          ) {
+            resolve();
+          }
+        })
+      );
+    });
+  } else {
+    document.querySelectorAll('[required]').forEach((req) => {
+      req.removeAttribute('required');
+    });
+    promises.push(
+      new Promise((resolve, reject) => {
+        if (document.querySelectorAll('[required]').length == 0) {
+          resolve();
+        }
+      })
+    );
+  }
+  return Promise.all(promises);
 }
 
 async function submitFrames(){

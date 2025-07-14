@@ -607,6 +607,10 @@ async function unrequireAll() {
   const promises = [];
   if (document.querySelectorAll('.frame').length > 0) {
     document.querySelectorAll('.frame').forEach((frame) => {
+      frame.contentWindow.document.querySelector('form').noValidate = true;
+      [...frame.contentWindow.document.querySelectorAll('div[requireCheckbox=true]')].forEach(element => {
+        element.removeAttribute('requireCheckbox');
+       });
       const reqFlags =
         frame.contentWindow.document.querySelectorAll('[required]');
       reqFlags.forEach((req) => {
@@ -649,12 +653,12 @@ async function submitFrames() {
   });
   setHref(
     parent.document.querySelector("frame[name='left']").contentDocument,
-    'TIC EVAL',
+    mainForm,
     true
   );
   hideSubforms(
     parent.document.querySelector("frame[name='left']").contentDocument,
-    'Eval Subforms',
+    subForm,
     true
   );
   return Promise.all(promises);
@@ -723,7 +727,7 @@ async function formSubmit() {
       console.log(error);
     });
     unrequireAll(document).then(async () => {
-        document.querySelector('#oldComplete').click();
+      document.querySelector('#oldComplete').click();
     });
   }
 }
@@ -746,6 +750,32 @@ function completeButton() {
   };
   return complete;
 }
+
+/*Locate Right Frame regardless of page*/
+function findFrameByName(win, targetName) {
+  // Check current frame
+  if (win.name === targetName) {
+    return win;
+  }
+
+  // Search child frames
+  for (let i = 0; i < win.frames.length; i++) {
+    try {
+      const found = findFrameByName(win.frames[i], targetName);
+      if (found) {
+        return found; // ✅ Return immediately if found
+      }
+    } catch (e) {
+      // Cross-origin frame; skip
+      continue;
+    }
+  }
+
+  // Not found in this branch
+  return null;
+}
+
+/* Create save progress button and trigger formSubmit() on click */
 function saveProgressButton(){
     const saveProgress = document.createElement('input');
     saveProgress.id = 'saveProgress';
@@ -754,16 +784,52 @@ function saveProgressButton(){
     saveProgress.value = 'Save Progress';
     saveProgress.onclick = (e) => {
         e.preventDefault();
+        
+        let rightFrame = findFrameByName(window.top, 'right');
+
+        let childFrames = undefined;
+
         try{
+          childFrames = rightFrame.document.querySelectorAll('iframe');
+        }catch(error){
+
+        }
+
+        try{
+          for(let i = 0; i < childFrames.length; i++){
+            try{
+              [...childFrames[i].contentDocument.querySelectorAll('input[type=\'checkbox\']')].forEach(element => {
+                element.setCustomValidity('');
+              });
+            }catch(error){
+              
+            }
+
+            try{
+              childFrames[i].contentDocument.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+            }catch(error){
+              try{
+                  document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+              }catch(error){
+            
+              }                
+            }
+          }
+        }catch(error){
+          
+        }
+        
+        /*try{
             document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
         }catch(error){
             console.log(error);
-        }
+        }*/
         
         formSubmit();
     };
     return saveProgress;
 }
+
 function createSubmitButtons() {
   const form = document.querySelector('#input');
   form.setexit.value = 1;

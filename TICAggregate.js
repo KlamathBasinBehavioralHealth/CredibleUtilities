@@ -610,6 +610,10 @@ async function unrequireAll() {
   const promises = [];
   if (document.querySelectorAll('.frame').length > 0) {
     document.querySelectorAll('.frame').forEach((frame) => {
+      frame.contentWindow.document.querySelector('form').noValidate = true;
+      [...frame.contentWindow.document.querySelectorAll('div[requireCheckbox=true]')].forEach(element => {
+        element.removeAttribute('requireCheckbox');
+       });
       const reqFlags =
         frame.contentWindow.document.querySelectorAll('[required]');
       reqFlags.forEach((req) => {
@@ -696,31 +700,24 @@ if(typeof waitForIt !== 'function'){
   }  
 }
 
-function overrideTemplateValidatorAggregate(){
-  document.querySelector('#assessment').contentDocument.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').replaceWith(document.querySelector('#assessment').contentDocument.querySelector('#txPlanModule').contentDocument.querySelector('input[type=submit]').cloneNode(true));
-}
-
 async function forceTemplateSubmit(){
   return new Promise(async (resolve, reject) => {
       try{
-        overrideTemplateValidatorAggregate();
-        document.querySelector('#assessment').contentDocument.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnSave').click();
-        document.querySelector('#assessment').contentDocument.querySelector('#txPlanModule').addEventListener('load',async () => {
-            await waitForIt(document.querySelector('#assessment').contentDocument.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnNewTX2'));
-            return resolve('Found it');
-        });
+          overrideTemplateValidator();
+          document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnSave').click();
+          document.querySelector('#txPlanModule').addEventListener('load',async () => {
+              await waitForIt(document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnNewTX2'));
+              return resolve('Found it');
+          });
       }catch(error){
-        console.log(error);
-        reject('Doom');
+          console.log(error);
+          reject('Doom');
       }
   });
 }
 
 async function formSubmit() {
   if (document.querySelectorAll('.frame').length > 0) {
-    await forceTemplateSubmit().catch((error) => {
-      console.log(error);
-    });
     unrequireAll().then(() => {
       submitFrames().then(() => {
         deleteFrames().then(() => {
@@ -733,7 +730,7 @@ async function formSubmit() {
       console.log(error);
     });
     unrequireAll(document).then(async () => {
-        document.querySelector('#oldComplete').click();
+      document.querySelector('#oldComplete').click();
     });
   }
 }
@@ -756,6 +753,32 @@ function completeButton() {
   };
   return complete;
 }
+
+/*Locate Right Frame regardless of page*/
+function findFrameByName(win, targetName) {
+  // Check current frame
+  if (win.name === targetName) {
+    return win;
+  }
+
+  // Search child frames
+  for (let i = 0; i < win.frames.length; i++) {
+    try {
+      const found = findFrameByName(win.frames[i], targetName);
+      if (found) {
+        return found; // ✅ Return immediately if found
+      }
+    } catch (e) {
+      // Cross-origin frame; skip
+      continue;
+    }
+  }
+
+  // Not found in this branch
+  return null;
+}
+
+/* Create save progress button and trigger formSubmit() on click */
 function saveProgressButton(){
     const saveProgress = document.createElement('input');
     saveProgress.id = 'saveProgress';
@@ -764,16 +787,52 @@ function saveProgressButton(){
     saveProgress.value = 'Save Progress';
     saveProgress.onclick = (e) => {
         e.preventDefault();
+        
+        let rightFrame = findFrameByName(window.top, 'right');
+
+        let childFrames = undefined;
+
         try{
+          childFrames = rightFrame.document.querySelectorAll('iframe');
+        }catch(error){
+
+        }
+
+        try{
+          for(let i = 0; i < childFrames.length; i++){
+            try{
+              [...childFrames[i].contentDocument.querySelectorAll('input[type=\'checkbox\']')].forEach(element => {
+                element.setCustomValidity('');
+              });
+            }catch(error){
+              
+            }
+
+            try{
+              childFrames[i].contentDocument.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+            }catch(error){
+              try{
+                  document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+              }catch(error){
+            
+              }                
+            }
+          }
+        }catch(error){
+          
+        }
+        
+        /*try{
             document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
         }catch(error){
             console.log(error);
-        }
+        }*/
         
         formSubmit();
     };
     return saveProgress;
 }
+
 function createSubmitButtons() {
   const form = document.querySelector('#input');
   form.setexit.value = 1;
