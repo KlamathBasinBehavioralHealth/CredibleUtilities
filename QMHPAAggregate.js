@@ -611,6 +611,9 @@ async function unrequireAll() {
   if (document.querySelectorAll('.frame').length > 0) {
     document.querySelectorAll('.frame').forEach((frame) => {
       frame.contentWindow.document.querySelector('form').noValidate = true;
+      [...frame.contentWindow.document.querySelectorAll('div[requireCheckbox=true]')].forEach(element => {
+        element.removeAttribute('requireCheckbox');
+       });
       const reqFlags =
         frame.contentWindow.document.querySelectorAll('[required]');
       reqFlags.forEach((req) => {
