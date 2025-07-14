@@ -610,6 +610,7 @@ async function unrequireAll() {
   const promises = [];
   if (document.querySelectorAll('.frame').length > 0) {
     document.querySelectorAll('.frame').forEach((frame) => {
+      frame.contentWindow.document.querySelector('form').noValidate = true;
       const reqFlags =
         frame.contentWindow.document.querySelectorAll('[required]');
       reqFlags.forEach((req) => {
@@ -717,7 +718,6 @@ async function formSubmit() {
     unrequireAll().then(() => {
       submitFrames().then(() => {
         deleteFrames().then(() => {
-          document.querySelector('form').noValidate = true;
           document.querySelector('#input').submit();
         });
       });
