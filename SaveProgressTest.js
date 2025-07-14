@@ -409,6 +409,30 @@ function completeButton(){
     return complete;
 }
 
+/*Locate Right Frame regardless of page*/
+function findFrameByName(win, targetName) {
+  // Check current frame
+  if (win.name === targetName) {
+    return win;
+  }
+
+  // Search child frames
+  for (let i = 0; i < win.frames.length; i++) {
+    try {
+      const found = findFrameByName(win.frames[i], targetName);
+      if (found) {
+        return found; // ✅ Return immediately if found
+      }
+    } catch (e) {
+      // Cross-origin frame; skip
+      continue;
+    }
+  }
+
+  // Not found in this branch
+  return null;
+}
+
 /* Create save progress button and trigger formSubmit() on click */
 function saveProgressButton(){
     const saveProgress = document.createElement('input');
@@ -419,11 +443,23 @@ function saveProgressButton(){
     saveProgress.onclick = (e) => {
         e.preventDefault();
         
-        try{
+        let rightFrame = findFrameByName(window.top, 'right');
+
+        let childFrames = rightFrame.document.querySelectorAll('iframe');
+
+        for(let i = 0; i < childFrames.length; i++){
+            try{
+                childFrames[i].contentDocument.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+            }catch(error){
+                console.log(error);
+            }
+        }
+
+        /*try{
             document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
         }catch(error){
             console.log(error);
-        }
+        }*/
         
         formSubmit();
     };
