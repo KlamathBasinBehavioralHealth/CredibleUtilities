@@ -750,6 +750,30 @@ function completeButton() {
   return complete;
 }
 
+/*Locate Right Frame regardless of page*/
+function findFrameByName(win, targetName) {
+  // Check current frame
+  if (win.name === targetName) {
+    return win;
+  }
+
+  // Search child frames
+  for (let i = 0; i < win.frames.length; i++) {
+    try {
+      const found = findFrameByName(win.frames[i], targetName);
+      if (found) {
+        return found; // ✅ Return immediately if found
+      }
+    } catch (e) {
+      // Cross-origin frame; skip
+      continue;
+    }
+  }
+
+  // Not found in this branch
+  return null;
+}
+
 /* Create save progress button and trigger formSubmit() on click */
 function saveProgressButton(){
     const saveProgress = document.createElement('input');
@@ -762,21 +786,30 @@ function saveProgressButton(){
         
         let rightFrame = findFrameByName(window.top, 'right');
 
-        let childFrames = rightFrame.document.querySelectorAll('iframe');
+        try{
+            let childFrames = rightFrame.document.querySelectorAll('iframe');
 
-        for(let i = 0; i < childFrames.length; i++){
-            try{
-                childFrames[i].contentDocument.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
-            }catch(error){
-                console.log(error);
+            for(let i = 0; i < childFrames.length; i++){
                 try{
-                    document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+                    childFrames[i].contentDocument.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
                 }catch(error){
                     console.log(error);
-                }                
+                    try{
+                        document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+                    }catch(error){
+                        console.log(error);
+                    }                
+                }
+            }
+        }catch(error){
+            console.log(error);
+            try{
+                document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+            }catch(error){
+                console.log(error);
             }
         }
-
+        
         /*try{
             document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
         }catch(error){
@@ -787,6 +820,7 @@ function saveProgressButton(){
     };
     return saveProgress;
 }
+
 function createSubmitButtons() {
   const form = document.querySelector('#input');
   form.setexit.value = 1;
