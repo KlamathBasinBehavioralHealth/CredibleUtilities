@@ -452,6 +452,11 @@ function saveProgressButton(){
                 childFrames[i].contentDocument.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
             }catch(error){
                 console.log(error);
+                try{
+                    document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+                }catch(error){
+                    console.log(error);
+                }                
             }
         }
 
