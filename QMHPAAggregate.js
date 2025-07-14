@@ -800,6 +800,13 @@ function saveProgressButton(){
                         console.log(error);
                     }                
                 }
+                try{
+                  [...childFrames[i].contentDocument.querySelectorAll('input[type=\'checkbox\']')].forEach(element => {
+                    element.setCustomValidity('');
+                  });
+                }catch(error){
+                  console.log(error);
+                }
             }
         }catch(error){
             console.log(error);
