@@ -445,21 +445,30 @@ function saveProgressButton(){
         
         let rightFrame = findFrameByName(window.top, 'right');
 
-        let childFrames = rightFrame.document.querySelectorAll('iframe');
+        try{
+            let childFrames = rightFrame.document.querySelectorAll('iframe');
 
-        for(let i = 0; i < childFrames.length; i++){
-            try{
-                childFrames[i].contentDocument.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
-            }catch(error){
-                console.log(error);
+            for(let i = 0; i < childFrames.length; i++){
                 try{
-                    document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+                    childFrames[i].contentDocument.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
                 }catch(error){
                     console.log(error);
-                }                
+                    try{
+                        document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+                    }catch(error){
+                        console.log(error);
+                    }                
+                }
+            }
+        }catch(error){
+            console.log(error);
+            try{
+                document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+            }catch(error){
+                console.log(error);
             }
         }
-
+        
         /*try{
             document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
         }catch(error){
