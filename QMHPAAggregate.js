@@ -786,9 +786,15 @@ function saveProgressButton(){
         
         let rightFrame = findFrameByName(window.top, 'right');
 
-        try{
-            let childFrames = rightFrame.document.querySelectorAll('iframe');
+        let childFrames = undefined;
 
+        try{
+          childFrames = rightFrame.document.querySelectorAll('iframe');
+        }catch(error){
+
+        }
+
+        try{
             for(let i = 0; i < childFrames.length; i++){
                 try{
                     childFrames[i].contentDocument.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
