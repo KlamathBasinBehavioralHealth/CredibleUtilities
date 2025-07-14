@@ -795,15 +795,15 @@ function saveProgressButton(){
         }
 
         try{
-          [...childFrames[i].contentDocument.querySelectorAll('input[type=\'checkbox\']')].forEach(element => {
-            element.setCustomValidity('');
-          });
-        }catch(error){
-          
-        }
-
-        try{
           for(let i = 0; i < childFrames.length; i++){
+            try{
+              [...childFrames[i].contentDocument.querySelectorAll('input[type=\'checkbox\']')].forEach(element => {
+                element.setCustomValidity('');
+              });
+            }catch(error){
+              
+            }
+
             try{
               childFrames[i].contentDocument.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
             }catch(error){
