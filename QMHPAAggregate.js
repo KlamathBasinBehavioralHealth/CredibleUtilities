@@ -795,32 +795,27 @@ function saveProgressButton(){
         }
 
         try{
-            for(let i = 0; i < childFrames.length; i++){
-                try{
-                    childFrames[i].contentDocument.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
-                }catch(error){
-                    console.log(error);
-                    try{
-                        document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
-                    }catch(error){
-                        console.log(error);
-                    }                
-                }
-                try{
-                  [...childFrames[i].contentDocument.querySelectorAll('input[type=\'checkbox\']')].forEach(element => {
-                    element.setCustomValidity('');
-                  });
-                }catch(error){
-                  console.log(error);
-                }
-            }
+          [...childFrames[i].contentDocument.querySelectorAll('input[type=\'checkbox\']')].forEach(element => {
+            element.setCustomValidity('');
+          });
         }catch(error){
-            console.log(error);
+          
+        }
+
+        try{
+          for(let i = 0; i < childFrames.length; i++){
             try{
-                document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+              childFrames[i].contentDocument.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
             }catch(error){
-                console.log(error);
+              try{
+                  document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+              }catch(error){
+            
+              }                
             }
+          }
+        }catch(error){
+  
         }
         
         /*try{
