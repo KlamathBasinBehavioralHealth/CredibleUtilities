@@ -361,7 +361,7 @@ document.querySelector('form').addEventListener('submit', function(e) {
         selectedCredential = '1046';
         break;
       case document.querySelector('#clientUpdate')?.closest('tr').querySelector('input').checked:
-        selectedCredential = '1039';
+        selectedCredential = '705';
         break;
       default:
         selectedCredential = '1058';
@@ -384,7 +384,7 @@ document.querySelector('form').addEventListener('submit', function(e) {
         selectedCredential = '444';
         break;
       case document.querySelector('#clientUpdate')?.closest('tr').querySelector('input').checked:
-        selectedCredential = '1039';
+        selectedCredential = '705';
         break;
       default:
         selectedCredential = '1058';
