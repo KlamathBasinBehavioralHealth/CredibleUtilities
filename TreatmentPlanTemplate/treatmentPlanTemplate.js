@@ -125,7 +125,7 @@ async function lookForBlankTxPlan(){
   stopParagraphButton(txBody);
   
   try{    
-    if(!txBody.innerText){
+    if(!txBody.innerText || txBody.innerText === '\n'){
       console.log('Here lies a blank Tx plan.');
       
       try{
