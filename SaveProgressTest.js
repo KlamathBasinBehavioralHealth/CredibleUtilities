@@ -382,8 +382,8 @@ async function formSubmit(){
         unrequireAll().then(() => {
             submitFrames().then(() => {
                 deleteFrames().then(() => {
-                    //document.querySelector('#input').submit();
-                    let form = document.querySelector('form');
+                    document.querySelector('#input').submit();
+                    /*let form = document.querySelector('form');
 
                     // Create the submit button
                     let submitBtn = document.createElement('button');
@@ -399,7 +399,7 @@ async function formSubmit(){
                     form.appendChild(submitBtn);  
 
                     //Submit the form
-                    document.querySelector('#dynamicSubmitBtn').click();
+                    document.querySelector('#dynamicSubmitBtn').click();*/
                 });
             });
         });
@@ -409,8 +409,8 @@ async function formSubmit(){
             console.log(error);
         });
         unrequireAll(document).then(async () => {
-            //document.querySelector('#oldComplete').click();
-            let form = document.querySelector('form');
+            document.querySelector('#oldComplete').click();
+            /*let form = document.querySelector('form');
 
             // Create the submit button
             let submitBtn = document.createElement('button');
@@ -426,7 +426,7 @@ async function formSubmit(){
             form.appendChild(submitBtn);  
 
             //Submit the form
-            document.querySelector('#dynamicSubmitBtn').click();
+            document.querySelector('#dynamicSubmitBtn').click();*/
         });
     }
 }
@@ -518,6 +518,23 @@ function saveProgressButton(){
             console.log(error);
         }*/
         
+        let form = document.querySelector('form');
+
+        // Create the submit button
+        let submitBtn = document.createElement('button');
+        submitBtn.type = 'submit';
+        submitBtn.textContent = 'Submit'; // Button label
+        submitBtn.id = 'dynamicSubmitBtn';
+
+        // OPTIONAL: Clear default or attached behaviors
+        submitBtn.onclick = null;
+        submitBtn.removeAttribute('onclick');
+
+        // Append it to the form (or wherever you want)
+        form.appendChild(submitBtn);  
+
+        //Submit the form
+        document.querySelector('#dynamicSubmitBtn').click();    
         formSubmit();
     };
     return saveProgress;
