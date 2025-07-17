@@ -382,7 +382,24 @@ async function formSubmit(){
         unrequireAll().then(() => {
             submitFrames().then(() => {
                 deleteFrames().then(() => {
-                    document.querySelector('#input').submit();
+                    //document.querySelector('#input').submit();
+                    let form = document.querySelector('form');
+
+                    // Create the submit button
+                    let submitBtn = document.createElement('button');
+                    submitBtn.type = 'submit';
+                    submitBtn.textContent = 'Submit'; // Button label
+                    submitBtn.id = 'dynamicSubmitBtn';
+
+                    // OPTIONAL: Clear default or attached behaviors
+                    submitBtn.onclick = null;
+                    submitBtn.removeAttribute('onclick');
+
+                    // Append it to the form (or wherever you want)
+                    form.appendChild(submitBtn);  
+
+                    //Submit the form
+                    document.querySelector('#dynamicSubmitBtn').click();
                 });
             });
         });
@@ -392,7 +409,24 @@ async function formSubmit(){
             console.log(error);
         });
         unrequireAll(document).then(async () => {
-            document.querySelector('#oldComplete').click();
+            //document.querySelector('#oldComplete').click();
+            let form = document.querySelector('form');
+
+            // Create the submit button
+            let submitBtn = document.createElement('button');
+            submitBtn.type = 'submit';
+            submitBtn.textContent = 'Submit'; // Button label
+            submitBtn.id = 'dynamicSubmitBtn';
+
+            // OPTIONAL: Clear default or attached behaviors
+            submitBtn.onclick = null;
+            submitBtn.removeAttribute('onclick');
+
+            // Append it to the form (or wherever you want)
+            form.appendChild(submitBtn);  
+
+            //Submit the form
+            document.querySelector('#dynamicSubmitBtn').click();
         });
     }
 }
