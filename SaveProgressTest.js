@@ -409,8 +409,8 @@ async function formSubmit(){
             console.log(error);
         });
         unrequireAll(document).then(async () => {
-            document.querySelector('#oldComplete').click();
-            /*let form = document.querySelector('form');
+            //document.querySelector('#oldComplete').click();
+            let form = document.querySelector('form');
 
             // Create the submit button
             let submitBtn = document.createElement('button');
@@ -426,7 +426,7 @@ async function formSubmit(){
             form.appendChild(submitBtn);  
 
             //Submit the form
-            document.querySelector('#dynamicSubmitBtn').click();*/
+            document.querySelector('#dynamicSubmitBtn').click();
         });
     }
 }
