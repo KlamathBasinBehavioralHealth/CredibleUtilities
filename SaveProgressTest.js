@@ -409,6 +409,60 @@ async function formSubmit(){
             console.log(error);
         });
         unrequireAll(document).then(async () => {
+            document.querySelector('#oldComplete').click();
+            /* let form = document.querySelector('form');
+
+            // Create the submit button
+            let submitBtn = document.createElement('button');
+            submitBtn.type = 'submit';
+            submitBtn.textContent = 'Submit'; // Button label
+            submitBtn.id = 'dynamicSubmitBtn';
+
+            // OPTIONAL: Clear default or attached behaviors
+            submitBtn.onclick = null;
+            submitBtn.removeAttribute('onclick');
+
+            // Append it to the form (or wherever you want)
+            form.appendChild(submitBtn);  
+
+            //Submit the form
+            document.querySelector('#dynamicSubmitBtn').click(); */
+        });
+    }
+}
+
+async function formSubmitSaveProgress(){
+    if (document.querySelectorAll('.frame').length > 0){
+        unrequireAll().then(() => {
+            submitFrames().then(() => {
+                deleteFrames().then(() => {
+                    document.querySelector('#input').submit();
+                    /*let form = document.querySelector('form');
+
+                    // Create the submit button
+                    let submitBtn = document.createElement('button');
+                    submitBtn.type = 'submit';
+                    submitBtn.textContent = 'Submit'; // Button label
+                    submitBtn.id = 'dynamicSubmitBtn';
+
+                    // OPTIONAL: Clear default or attached behaviors
+                    submitBtn.onclick = null;
+                    submitBtn.removeAttribute('onclick');
+
+                    // Append it to the form (or wherever you want)
+                    form.appendChild(submitBtn);  
+
+                    //Submit the form
+                    document.querySelector('#dynamicSubmitBtn').click();*/
+                });
+            });
+        });
+    }
+    else{
+        await forceTemplateSubmit().catch((error) => {
+            console.log(error);
+        });
+        unrequireAll(document).then(async () => {
             //document.querySelector('#oldComplete').click();
             let form = document.querySelector('form');
 
@@ -518,7 +572,7 @@ function saveProgressButton(){
             console.log(error);
         }*/
         
-        let form = document.querySelector('form');
+        /*let form = document.querySelector('form');
 
         // Create the submit button
         let submitBtn = document.createElement('button');
@@ -534,8 +588,8 @@ function saveProgressButton(){
         form.appendChild(submitBtn);  
 
         //Submit the form
-        document.querySelector('#dynamicSubmitBtn').click();    
-        formSubmit();
+        document.querySelector('#dynamicSubmitBtn').click();*/    
+        formSubmitSaveProgress();
     };
     return saveProgress;
 }
