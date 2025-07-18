@@ -273,33 +273,43 @@ function addStyling() {
 let globalIsValid = true;
 
 /* Async wizardry */
-async function unrequireAll(){
-    const promises = [];
-    if (document.querySelectorAll('.frame').length > 0){
-        document.querySelectorAll('.frame').forEach(frame => {
-            const reqFlags = frame.contentWindow.document.querySelectorAll('[required]');
-            reqFlags.forEach(req => {
-                req.removeAttribute('required');
-            });
-            promises.push(new Promise((resolve, reject) => { 
-                if (frame.contentWindow.document.querySelectorAll('[required]').length == 0){
-                    resolve();
-                }
-            }));
-        });
-    }
-    else{
-        document.querySelectorAll('[required]').forEach(req => {
-            req.removeAttribute('required');
-        });
-        promises.push(new Promise((resolve, reject) => {
-            if (document.querySelectorAll('[required]').length == 0){
-                resolve();
-            }
-        }));
-    }
-
-    return Promise.all(promises);
+async function unrequireAll() {
+  const promises = [];
+  if (document.querySelectorAll('.frame').length > 0) {
+    document.querySelectorAll('.frame').forEach((frame) => {
+      frame.contentWindow.document.querySelector('form').noValidate = true;
+      [...frame.contentWindow.document.querySelectorAll('div[requireCheckbox=true]')].forEach(element => {
+        element.removeAttribute('requireCheckbox');
+       });
+      const reqFlags =
+        frame.contentWindow.document.querySelectorAll('[required]');
+      reqFlags.forEach((req) => {
+        req.removeAttribute('required');
+      });
+      promises.push(
+        new Promise((resolve, reject) => {
+          if (
+            frame.contentWindow.document.querySelectorAll('[required]')
+              .length == 0
+          ) {
+            resolve();
+          }
+        })
+      );
+    });
+  } else {
+    document.querySelectorAll('[required]').forEach((req) => {
+      req.removeAttribute('required');
+    });
+    promises.push(
+      new Promise((resolve, reject) => {
+        if (document.querySelectorAll('[required]').length == 0) {
+          resolve();
+        }
+      })
+    );
+  }
+  return Promise.all(promises);
 }
 
 async function submitFrames(){
@@ -373,6 +383,23 @@ async function formSubmit(){
             submitFrames().then(() => {
                 deleteFrames().then(() => {
                     document.querySelector('#input').submit();
+                    /*let form = document.querySelector('form');
+
+                    // Create the submit button
+                    let submitBtn = document.createElement('button');
+                    submitBtn.type = 'submit';
+                    submitBtn.textContent = 'Submit'; // Button label
+                    submitBtn.id = 'dynamicSubmitBtn';
+
+                    // OPTIONAL: Clear default or attached behaviors
+                    submitBtn.onclick = null;
+                    submitBtn.removeAttribute('onclick');
+
+                    // Append it to the form (or wherever you want)
+                    form.appendChild(submitBtn);  
+
+                    //Submit the form
+                    document.querySelector('#dynamicSubmitBtn').click();*/
                 });
             });
         });
@@ -383,6 +410,77 @@ async function formSubmit(){
         });
         unrequireAll(document).then(async () => {
             document.querySelector('#oldComplete').click();
+            /* let form = document.querySelector('form');
+
+            // Create the submit button
+            let submitBtn = document.createElement('button');
+            submitBtn.type = 'submit';
+            submitBtn.textContent = 'Submit'; // Button label
+            submitBtn.id = 'dynamicSubmitBtn';
+
+            // OPTIONAL: Clear default or attached behaviors
+            submitBtn.onclick = null;
+            submitBtn.removeAttribute('onclick');
+
+            // Append it to the form (or wherever you want)
+            form.appendChild(submitBtn);  
+
+            //Submit the form
+            document.querySelector('#dynamicSubmitBtn').click(); */
+        });
+    }
+}
+
+async function formSubmitSaveProgress(){
+    if (document.querySelectorAll('.frame').length > 0){
+        unrequireAll().then(() => {
+            submitFrames().then(() => {
+                deleteFrames().then(() => {
+                    document.querySelector('#input').submit();
+                    /*let form = document.querySelector('form');
+
+                    // Create the submit button
+                    let submitBtn = document.createElement('button');
+                    submitBtn.type = 'submit';
+                    submitBtn.textContent = 'Submit'; // Button label
+                    submitBtn.id = 'dynamicSubmitBtn';
+
+                    // OPTIONAL: Clear default or attached behaviors
+                    submitBtn.onclick = null;
+                    submitBtn.removeAttribute('onclick');
+
+                    // Append it to the form (or wherever you want)
+                    form.appendChild(submitBtn);  
+
+                    //Submit the form
+                    document.querySelector('#dynamicSubmitBtn').click();*/
+                });
+            });
+        });
+    }
+    else{
+        await forceTemplateSubmit().catch((error) => {
+            console.log(error);
+        });
+        unrequireAll(document).then(async () => {
+            //document.querySelector('#oldComplete').click();
+            let form = document.querySelector('form');
+
+            // Create the submit button
+            let submitBtn = document.createElement('button');
+            submitBtn.type = 'submit';
+            submitBtn.textContent = 'Submit'; // Button label
+            submitBtn.id = 'dynamicSubmitBtn';
+
+            // OPTIONAL: Clear default or attached behaviors
+            submitBtn.onclick = null;
+            submitBtn.removeAttribute('onclick');
+
+            // Append it to the form (or wherever you want)
+            form.appendChild(submitBtn);  
+
+            //Submit the form
+            document.querySelector('#dynamicSubmitBtn').click();
         });
     }
 }
@@ -408,6 +506,30 @@ function completeButton(){
     return complete;
 }
 
+/*Locate Right Frame regardless of page*/
+function findFrameByName(win, targetName) {
+  // Check current frame
+  if (win.name === targetName) {
+    return win;
+  }
+
+  // Search child frames
+  for (let i = 0; i < win.frames.length; i++) {
+    try {
+      const found = findFrameByName(win.frames[i], targetName);
+      if (found) {
+        return found; // ✅ Return immediately if found
+      }
+    } catch (e) {
+      // Cross-origin frame; skip
+      continue;
+    }
+  }
+
+  // Not found in this branch
+  return null;
+}
+
 /* Create save progress button and trigger formSubmit() on click */
 function saveProgressButton(){
     const saveProgress = document.createElement('input');
@@ -417,7 +539,57 @@ function saveProgressButton(){
     saveProgress.value = 'Save Progress';
     saveProgress.onclick = (e) => {
         e.preventDefault();
-        formSubmit();
+        
+        let rightFrame = findFrameByName(window.top, 'right');
+
+        try{
+            let childFrames = rightFrame.document.querySelectorAll('iframe');
+
+            for(let i = 0; i < childFrames.length; i++){
+                try{
+                    childFrames[i].contentDocument.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+                }catch(error){
+                    console.log(error);
+                    try{
+                        document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+                    }catch(error){
+                        console.log(error);
+                    }                
+                }
+            }
+        }catch(error){
+            console.log(error);
+            try{
+                document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+            }catch(error){
+                console.log(error);
+            }
+        }
+        
+        /*try{
+            document.querySelector('form').removeEventListener('submit', checkRequiredCheckboxes);
+        }catch(error){
+            console.log(error);
+        }*/
+        
+        /*let form = document.querySelector('form');
+
+        // Create the submit button
+        let submitBtn = document.createElement('button');
+        submitBtn.type = 'submit';
+        submitBtn.textContent = 'Submit'; // Button label
+        submitBtn.id = 'dynamicSubmitBtn';
+
+        // OPTIONAL: Clear default or attached behaviors
+        submitBtn.onclick = null;
+        submitBtn.removeAttribute('onclick');
+
+        // Append it to the form (or wherever you want)
+        form.appendChild(submitBtn);  
+
+        //Submit the form
+        document.querySelector('#dynamicSubmitBtn').click();*/    
+        formSubmitSaveProgress();
     };
     return saveProgress;
 }
