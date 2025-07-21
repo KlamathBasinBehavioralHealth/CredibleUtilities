@@ -471,11 +471,10 @@ async function formSubmitSaveProgress(){
             submitBtn.type = 'submit';
             submitBtn.textContent = 'Submit'; // Button label
             submitBtn.id = 'dynamicSubmitBtn';
-            submitBtn.formAction = 'https://www.cbh3.crediblebh.com/webforms/process.asp';
 
             // OPTIONAL: Clear default or attached behaviors
             submitBtn.onclick = null;
-            submitBtn.removeAttribute('onclick');
+            //submitBtn.removeAttribute('onclick');
 
             // Append it to the form (or wherever you want)
             form.appendChild(submitBtn);  
