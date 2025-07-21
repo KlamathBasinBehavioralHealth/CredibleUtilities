@@ -37,6 +37,9 @@ function restrictValidDates() {
         validByDateInput.style.pointerEvents = 'auto';
         validByLaw.hidden = false;
         validByDate.hidden = false;
+	if (!validByLaw.querySelector('input').checked) {
+            validByLaw.querySelector('input').click();
+        }
     }
     fillValidDates();
 }
