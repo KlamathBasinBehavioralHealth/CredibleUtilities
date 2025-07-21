@@ -481,7 +481,7 @@ async function formSubmitSaveProgress(){
                 /*let leftFrame = findFrameByName(window.top, 'left');
                 window.location.href = leftFrame.document.querySelector('a.triangle_yellows').href;*/
 
-                const form = document.document.querySelector('form');
+                const form = document.querySelector('form');
 
                 fetch(form.action, {
                     method: form.method,
