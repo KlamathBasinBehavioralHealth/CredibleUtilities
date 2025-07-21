@@ -478,10 +478,14 @@ async function formSubmitSaveProgress(){
             submitBtn.onclick = function (e){
                 e.preventDefault();
                 
-                /*let leftFrame = findFrameByName(window.top, 'left');
-                window.location.href = leftFrame.document.querySelector('a.triangle_yellows').href;*/
-
                 const form = document.querySelector('form');
+
+                form.submit();
+
+                let leftFrame = findFrameByName(window.top, 'left');
+                window.location.href = leftFrame.document.querySelector('a.triangle_yellows').href;
+
+                /*const form = document.querySelector('form');
 
                 fetch(form.action, {
                     method: form.method,
@@ -490,7 +494,7 @@ async function formSubmitSaveProgress(){
                     // After successful submit, redirect
                     let leftFrame = findFrameByName(window.top, 'left');
                     window.location.href = leftFrame.document.querySelector('a.triangle_yellows').href;
-                });
+                });*/
             };
             //submitBtn.removeAttribute('onclick');
 
