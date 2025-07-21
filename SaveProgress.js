@@ -471,6 +471,8 @@ async function formSubmitSaveProgress(){
             submitBtn.type = 'submit';
             submitBtn.textContent = 'Submit'; // Button label
             submitBtn.id = 'dynamicSubmitBtn';
+            // Hide the button initially
+            bypassBtn.style.display = 'none';
 
             // OPTIONAL: Clear default or attached behaviors
             submitBtn.onclick = function (e){
