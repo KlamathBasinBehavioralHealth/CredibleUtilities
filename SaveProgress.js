@@ -473,10 +473,13 @@ async function formSubmitSaveProgress(){
             submitBtn.id = 'dynamicSubmitBtn';
 
             // OPTIONAL: Clear default or attached behaviors
-            submitBtn.onclick = (e) => {
+            submitBtn.onclick = function (e){
                 e.preventDefault();
+                
+                let leftFrame = findFrameByName(window.top, 'left');
+                window.location.href = leftFrame.document.querySelector('frame').contentDocument.querySelector('a.triangle_yellows').href;
 
-                const form = document.document.querySelector('form');
+                /*const form = document.document.querySelector('form');
 
                 fetch(form.action, {
                     method: form.method,
@@ -485,7 +488,7 @@ async function formSubmitSaveProgress(){
                     // After successful submit, redirect
                     let leftFrame = findFrameByName(window.top, 'left');
                     window.location.href = leftFrame.document.querySelector('frame').contentDocument.querySelector('a.triangle_yellows').href;
-                });
+                });*/
             };
             //submitBtn.removeAttribute('onclick');
 
