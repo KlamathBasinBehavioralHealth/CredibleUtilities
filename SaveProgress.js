@@ -476,19 +476,35 @@ async function formSubmitSaveProgress(){
 
             // OPTIONAL: Clear default or attached behaviors
             submitBtn.onclick = function (e){
-                let leftFrame = findFrameByName(window.top, 'left');
-                window.location.href = leftFrame.document.querySelector('a.triangle_yellows').href;
+                e.preventDefault();
+                
+                let form = document.querySelector('form');
 
-                /*const form = document.querySelector('form');
+                //form.submit();
+
+                /*let leftFrame = findFrameByName(window.top, 'left');
+                window.location.href = leftFrame.document.querySelector('a.triangle_yellows').href;*/
 
                 fetch(form.action, {
-                    method: form.method,
+                    method: form.method || 'POST',
                     body: new FormData(form),
-                }).then(() => {
+                    credentials: 'include' // include cookies/session
+                }).then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Form submission failed with status ${response.status}`);
+                    }
+
                     // After successful submit, redirect
                     let leftFrame = findFrameByName(window.top, 'left');
-                    window.location.href = leftFrame.document.querySelector('a.triangle_yellows').href;
-                });*/
+                    let targetLink = leftFrame.document.querySelector('a.triangle_yellows');
+                    if (targetLink) {
+                        window.location.href = targetLink.href;
+                    } else {
+                        console.warn('Redirect link not found in left frame');
+                    }
+                }).catch(error => {
+                    console.error('Submission error:', error);
+                });
             };
             //submitBtn.removeAttribute('onclick');
 
