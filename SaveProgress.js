@@ -476,12 +476,6 @@ async function formSubmitSaveProgress(){
 
             // OPTIONAL: Clear default or attached behaviors
             submitBtn.onclick = function (e){
-                e.preventDefault();
-                
-                const form = document.querySelector('form');
-
-                form.submit();
-
                 let leftFrame = findFrameByName(window.top, 'left');
                 window.location.href = leftFrame.document.querySelector('a.triangle_yellows').href;
 
