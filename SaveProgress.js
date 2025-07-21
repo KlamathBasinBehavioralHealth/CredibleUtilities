@@ -479,7 +479,7 @@ async function formSubmitSaveProgress(){
                 e.preventDefault();
                 
                 let leftFrame = findFrameByName(window.top, 'left');
-                window.location.href = leftFrame.document.querySelector('frame').contentDocument.querySelector('a.triangle_yellows').href;
+                window.location.href = leftFrame.document.querySelector('a.triangle_yellows').href;
 
                 /*const form = document.document.querySelector('form');
 
