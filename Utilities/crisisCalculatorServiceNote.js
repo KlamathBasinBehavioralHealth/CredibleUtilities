@@ -45,12 +45,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   document.querySelector('#relevantCredentials').closest('table').closest('tr').hidden = true;
+  try{
+    document.querySelector('#relevantCredentials').nextElementSibling.remove();
+  }catch(error){}
   
   try{
     dataPull = await getData(`https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0dXuqjUt41eVlLBrzHd!rkn&start_date=&end_date=&custom_param1=${tempVisitIDCCSN}&custom_param2=&custom_param3=`);
   }catch(error){
     console.log('error');
     document.querySelector('#relevantCredentials').closest('table').closest('tr').hidden = false;
+    document.querySelector('#relevantCredentials').insertAdjacentHTML('afterend', '<div class=\'redAsterisk\' style=\'color : red; display : inline\'>*</div>');
   }
   
   if(dataPull.documentElement.querySelectorAll('credentials').length){
