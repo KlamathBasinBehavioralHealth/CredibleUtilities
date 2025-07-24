@@ -59,10 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   if(dataPull.documentElement.querySelectorAll('credentials').length){
     document.querySelector('#relevantCredentials').closest('table').closest('tr').hidden = false;
-  }else{
-    document.querySelector('#relevantCredentials').closest('table').closest('tr').hidden = false;
-    document.querySelector('#relevantCredentials').insertAdjacentHTML('afterend', '<div class=\'redAsterisk\' style=\'color : red; display : inline\'>*</div>');
-  }
+  }else{}
 
   try{
     qmhp.hidden = true;
@@ -128,7 +125,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
     }
   }catch(error){
-    console.log(error);
+    document.querySelector('#relevantCredentials').closest('table').closest('tr').hidden = false;
+    document.querySelector('#relevantCredentials').insertAdjacentHTML('afterend', '<div class=\'redAsterisk\' style=\'color : red; display : inline\'>*</div>');
   }
   
   if(dataPull.documentElement.querySelectorAll('credentials').length === 1){
