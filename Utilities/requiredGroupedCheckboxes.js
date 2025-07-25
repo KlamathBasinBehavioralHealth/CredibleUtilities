@@ -91,9 +91,24 @@ function checkRequiredGroupCB(){
 			}
 		} catch (e){
 			if(e instanceof ReferenceError){
-				completeButtonName.setAttribute('disabled',true);
-				completeButtonValue.setAttribute('disabled',true);
-				floatingCompleteButton.setAttribute('disabled',true);
+				try{
+					completeButtonName.setAttribute('disabled',true);
+				}
+				catch(d){
+					console.log(d);
+				}
+				try{
+					completeButtonValue.setAttribute('disabled',true);
+				}
+				catch(d){
+					console.log(d);
+				}
+				try{
+					floatingCompleteButton.setAttribute('disabled',true);
+				}
+				catch(d){
+					console.log(d);
+				}
 			}
 		}
 	}
