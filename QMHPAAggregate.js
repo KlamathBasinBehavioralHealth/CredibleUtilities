@@ -1,4 +1,4 @@
-const mainForm = 'QMHP/QMHA SERVICE NOTE';
+const mainForm = 'QMHP/QMHA Service Note';
 const subForm = 'QMHP/QMHA Subforms';
 
 const sudRefList = {
@@ -158,8 +158,8 @@ function setHref(context, formName, submitBool) {
         link.href = refList[camelCase(link.textContent)];
         //link.href = navTarget;
       } else {
-        //link.href = 'javascript:void(0)';
-        link.href = refList[camelCase(link.textContent)];
+        link.href = 'javascript:void(0)';
+        //link.href = refList[camelCase(link.textContent)];
         //link.href = navTarget;
       }
     } else {
@@ -168,7 +168,7 @@ function setHref(context, formName, submitBool) {
         //link.href = navTarget;
       } else {
         mainHref = link.href;
-        //link.href = 'javascript:void(0)';
+        link.href = 'javascript:void(0)';
         //link.href = navTarget;
       }
     }
