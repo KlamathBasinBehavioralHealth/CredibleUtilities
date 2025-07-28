@@ -156,14 +156,16 @@ function setHref(context, formName, submitBool) {
       if (submitBool) {
         link.href = refList[camelCase(link.textContent)];
       } else {
-        link.href = 'javascript:void(0)';
+        //link.href = 'javascript:void(0)';
+        link.href = parent.document.querySelector('frame[id=left]').contentDocument.querySelectorAll('a.triangle_yellows')[0].href;
       }
     } else {
       if (submitBool) {
         link.href = mainHref;
       } else {
         mainHref = link.href;
-        link.href = 'javascript:void(0)';
+        //link.href = 'javascript:void(0)';
+        link.href = parent.document.querySelector('frame[id=left]').contentDocument.querySelectorAll('a.triangle_yellows')[0].href;
       }
     }
   });
