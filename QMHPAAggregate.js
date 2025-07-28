@@ -155,20 +155,22 @@ function setHref(context, formName, submitBool) {
   navTree.querySelectorAll('a').forEach((link) => {
     if (link.textContent != formName) {
       if (submitBool) {
-        //link.href = refList[camelCase(link.textContent)];
-        link.href = navTarget;
+        link.href = refList[camelCase(link.textContent)];
+        //link.href = navTarget;
       } else {
         //link.href = 'javascript:void(0)';
-        link.href = navTarget;
+        link.href = refList[camelCase(link.textContent)];
+        //link.href = navTarget;
       }
     } else {
       if (submitBool) {
-        //link.href = mainHref;
-        link.href = navTarget;
+        link.href = mainHref;
+        //link.href = navTarget;
       } else {
         mainHref = link.href;
         //link.href = 'javascript:void(0)';
-        link.href = navTarget;
+        //link.href = navTarget;
+        link.href = refList[camelCase(link.textContent)];
       }
     }
   });
