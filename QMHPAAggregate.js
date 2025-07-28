@@ -161,7 +161,8 @@ function setHref(context, formName, submitBool) {
       }
     } else {
       if (submitBool) {
-        link.href = mainHref;
+        //link.href = mainHref;
+        link.href = refList[camelCase(link.textContent)];
       } else {
         mainHref = link.href;
         //link.href = 'javascript:void(0)';
