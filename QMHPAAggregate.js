@@ -164,13 +164,12 @@ function setHref(context, formName, submitBool) {
       }
     } else {
       if (submitBool) {
-        link.href = mainHref;
-        //link.href = navTarget;
+        //link.href = mainHref;
+        link.href = navTarget;
       } else {
         mainHref = link.href;
         //link.href = 'javascript:void(0)';
-        //link.href = navTarget;
-        link.href = refList[camelCase(link.textContent)];
+        link.href = navTarget;
       }
     }
   });
