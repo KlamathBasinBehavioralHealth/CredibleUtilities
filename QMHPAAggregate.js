@@ -151,23 +151,24 @@ function setFrameHeightEvents() {
 let mainHref;
 function setHref(context, formName, submitBool) {
   const navTree = context.querySelector('a.form_yellow').closest('tbody');
+  let navTarget = parent.document.querySelector('frame[id=left]').contentDocument.querySelectorAll('a.form_yellow')[0].href;
   navTree.querySelectorAll('a').forEach((link) => {
     if (link.textContent != formName) {
       if (submitBool) {
         //link.href = refList[camelCase(link.textContent)];
-        link.href = parent.document.querySelector('frame[id=left]').contentDocument.querySelectorAll('a.triangle_yellows')[0].href;
+        link.href = navTarget;
       } else {
         //link.href = 'javascript:void(0)';
-        link.href = parent.document.querySelector('frame[id=left]').contentDocument.querySelectorAll('a.triangle_yellows')[0].href;
+        link.href = navTarget;
       }
     } else {
       if (submitBool) {
         //link.href = mainHref;
-        link.href = parent.document.querySelector('frame[id=left]').contentDocument.querySelectorAll('a.triangle_yellows')[0].href;
+        link.href = navTarget;
       } else {
         mainHref = link.href;
         //link.href = 'javascript:void(0)';
-        link.href = parent.document.querySelector('frame[id=left]').contentDocument.querySelectorAll('a.triangle_yellows')[0].href;
+        link.href = navTarget;
       }
     }
   });
