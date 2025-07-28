@@ -906,5 +906,17 @@ waitForElement(parent.document, "frame[name='left']").then((navFrame) => {
     hideSubCompletes();
     addStyling();
     deployInlineValidation();
+
+    parent.document.querySelector("frame[name='left']").contentDocument.addEventListener('load', () => {
+      setHref(
+        parent.document.querySelector("frame[name='left']").contentDocument,
+        mainForm,
+        false
+      );
+      setLinks(
+        parent.document.querySelector("frame[name='left']").contentDocument,
+        subForm
+      );
+    });
   });
 });
