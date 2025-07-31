@@ -3,17 +3,18 @@ var tempAge;
 function exerciseMinuteHighlight() {
 	console.log('Start Exercise Highlight');
 	var lineToHighlight = Array.from(document.querySelectorAll('tr:has(div#resourcePhysicalActivity'));
-	var tempindex = document.querySelector('#minutesExercise').closest('tr').nextElementSibling.querySelector('select').selectedIndex;
+	var minuteIndex = document.querySelector('#minutesExercise').closest('tr').nextElementSibling.querySelector('select').selectedIndex;
+	let dayIndex = document.querySelector('#daysExercise').closest('tr').nextElementSibling.querySelector('select').selectedIndex;
 	lineToHighlight.forEach(row => {
 		row.style.backgroundColor = 'white';
 		console.log('De-Highlighted');
 	});
-	if(tempAge >=6 && tempAge <=17 && tempindex < 7){
+	if(tempAge >=6 && tempAge <=17 && document.querySelector('#minutesExercise').closest('tr').nextElementSibling.querySelector('select')[minuteIndex].innerHTML * document.querySelector('#daysExercise').closest('tr').nextElementSibling.querySelector('select')[minuteIndex].innerHTML < 420){
 		lineToHighlight.forEach(row => {
 			row.style.backgroundColor = 'yellow';
 			console.log('Highlighted');
 		});
-	} else if (tempAge >= 18 && tempindex < 10){
+	} else if (tempAge >= 18 && document.querySelector('#minutesExercise').closest('tr').nextElementSibling.querySelector('select')[minuteIndex].innerHTML * document.querySelector('#daysExercise').closest('tr').nextElementSibling.querySelector('select')[minuteIndex].innerHTML < 150){
 		lineToHighlight.forEach(row => {
 			row.style.backgroundColor = 'yellow';
 			console.log('Highlighted');
