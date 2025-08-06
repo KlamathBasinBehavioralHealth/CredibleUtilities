@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log(error);
     }
     try {
-        clientID = parseInt(window.top.document.querySelector('frame[name=main]').contentDocument.querySelector('frame[name=left]').contentDocument.querySelector('#client_id'));
+        clientID = parseInt(window.top.document.querySelector('frame[name=main]').contentDocument.querySelector('frame[name=left]').contentDocument.querySelector('#client_id').value);
     } catch (error) {
         console.log(error);
     }
@@ -52,4 +52,5 @@ document.addEventListener('DOMContentLoaded', async function() {
     document.querySelector('#hrsnUtilities').closest('tr').querySelector('td').querySelector('input').addEventListener('change', () => {
         checkHRSN();
     });
+
 });
