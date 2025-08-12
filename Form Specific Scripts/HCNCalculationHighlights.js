@@ -19,6 +19,11 @@ function exerciseMinuteHighlight() {
 			row.style.backgroundColor = 'yellow';
 			console.log('Highlighted');
 		});
+	} else {
+		lineToHighlight.forEach(row => {
+			row.style.backgroundColor = '';
+			console.log('Unhighlighted');
+		});
 	}
 	console.log('End Exercise Highlight');
 }
@@ -103,3 +108,4 @@ $(document).ready(function() {
 	//	});
 	//});
 });
+
