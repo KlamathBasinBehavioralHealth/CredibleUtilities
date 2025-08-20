@@ -17,6 +17,7 @@ async function loadPrimaryInsurance(){
 
 // Function to check the conditions listed in CRED-16171
 async function checkHRSN() {
+    loadPrimaryInsurance();
     if ((primaryInsurance.includes('OMAP')) && (document.querySelector('#hrsnUtilities').closest('tr').querySelector('td').querySelector('input').checked || [...document.querySelector('#housingStatus').closest('tr').nextElementSibling.querySelectorAll('input')][1].checked)) {
         [...document.querySelector('#hrsn').closest('tr').nextElementSibling.querySelectorAll('input')][0].checked = true;
     } else {
@@ -40,7 +41,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (clientID === null || clientID === undefined) {
         clientID = 200079;
     }
-    loadPrimaryInsurance();
     checkHRSN();
     
     // The event listeners for the housing status and utilities
@@ -54,3 +54,4 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
 
 });
+
