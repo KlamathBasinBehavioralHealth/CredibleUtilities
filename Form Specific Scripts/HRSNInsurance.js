@@ -19,7 +19,7 @@ async function loadPrimaryInsurance(){
 async function checkHRSN() {
     await loadPrimaryInsurance();
     console.log(primaryInsurance);
-    if ((primaryInsurance.includes('OMAP')) && (document.querySelector('#hrsnUtilities').closest('tr').querySelector('td').querySelector('input').checked || [...document.querySelector('#housingStatus').closest('tr').nextElementSibling.querySelectorAll('input')][1].checked)) {
+    if ((primaryInsurance == 'OMAP') && (document.querySelector('#hrsnUtilities').closest('tr').querySelector('td').querySelector('input').checked || [...document.querySelector('#housingStatus').closest('tr').nextElementSibling.querySelectorAll('input')][1].checked)) {
         [...document.querySelector('#hrsn').closest('tr').nextElementSibling.querySelectorAll('input')][0].checked = true;
     } else {
         [...document.querySelector('#hrsn').closest('tr').nextElementSibling.querySelectorAll('input')][1].checked = true;
@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
 
 });
+
 
 
 
