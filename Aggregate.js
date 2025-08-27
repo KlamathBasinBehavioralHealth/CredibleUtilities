@@ -29,7 +29,7 @@ if (typeof findFrameByName !== "function"){
 
 if (typeof waitForIt !== "function"){
   try{
-    function waitForElementInterval (target, interval = 500){
+    function waitForIt (target, interval = 500){
       return new Promise((resolve) => {
         let currentInterval = setInterval(function(){
             if(target?.length){
