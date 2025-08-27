@@ -46,6 +46,7 @@ if (typeof waitForIt !== "function"){
 }
 
 (async function() {
+  console.log('Let\'s do this.')
   const leftFrame = await waitForIt(() => findFrameByName(window, "left"));
   console.log("Left frame found:", leftFrame);
 })();
