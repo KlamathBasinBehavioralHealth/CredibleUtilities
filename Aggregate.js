@@ -29,14 +29,13 @@ if (typeof findFrameByName !== "function"){
 
 if (typeof waitForIt !== "function"){
   try{
-    function waitForIt(checkFn, interval = 500) {
+    function waitForElementInterval (target, interval = 500){
       return new Promise((resolve) => {
-        const timer = setInterval(() => {
-          const result = typeof checkFn === "function" ? checkFn() : checkFn;
-          if (result) {
-            clearInterval(timer);
-            resolve(result);
-          }
+        let currentInterval = setInterval(function(){
+            if(target?.length){
+              clearInterval(currentInterval);
+              resolve(`${target} exists.`);
+            }
         }, interval);
       });
     }
