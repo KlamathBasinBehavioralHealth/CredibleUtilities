@@ -84,6 +84,14 @@ var left = undefined;
   if (left) {
     // do something with leftFrame.document
     alert('Found left frame.');
+    [...left.document.querySelectorAll('a.triangle_yellows')].forEach((yellow) => {
+      console.log(yellow.getAttribute('href'));
+      console.log(yellow.innerHTML);
+      [...yellow.nextElementSibling.querySelectorAll('a.form_yellow')].forEach((element) => {
+          console.log(element.getAttribute('href'));
+          console.log(element.innerHTML);
+      }); 
+    });
   }
 })();
 
