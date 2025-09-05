@@ -44,8 +44,44 @@ if (typeof waitForIt !== "function"){
   }
 }
 
-(async function() {
-  console.log('Let\'s do this.')
-  const leftFrame = findFrameByName(window, "left");
-  console.log("Left frame found:", leftFrame);
+function waitForFrame(win, targetName, interval = 100, timeout = 5000) {
+  return new Promise((resolve, reject) => {
+    const start = Date.now();
+
+    const check = () => {
+      const leftFrame = findFrameByName(win, targetName);
+
+      if (leftFrame) {
+        resolve(leftFrame);
+      } else if (Date.now() - start >= timeout) {
+        reject(new Error(`Frame "${targetName}" not found within ${timeout}ms`));
+      } else {
+        setTimeout(check, interval);
+      }
+    };
+
+    check();
+  });
+}
+
+// ✅ Async/await usage
+async function getLeftFrame() {
+  try {
+    const leftFrame = await waitForFrame(window.top, "left");
+    console.log("✅ Found left frame:", leftFrame);
+    return leftFrame;
+  } catch (err) {
+    console.error("❌", err.message);
+    return null;
+  }
+}
+
+// Example call from right frame
+(async () => {
+  const leftFrame = await getLeftFrame();
+  if (leftFrame) {
+    // do something with leftFrame.document
+    console.log('Found left frame.');
+  }
 })();
+
