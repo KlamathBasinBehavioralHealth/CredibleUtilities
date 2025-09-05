@@ -81,9 +81,9 @@ var left = undefined;
 // Example call from right frame
 (async () => {
   left = await getLeftFrame();
-  if (leftFrame) {
+  if (left) {
     // do something with leftFrame.document
-    console.log('Found left frame.');
+    alert('Found left frame.');
   }
 })();
 
