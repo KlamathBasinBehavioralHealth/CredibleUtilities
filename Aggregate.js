@@ -87,7 +87,7 @@ var uniqueCategories = undefined;
 
     allCategories = left.document.querySelectorAll('[category_id]');
 
-    uniqueCategories = [...new Set(Array.from(allCats).map(el => el.getAttribute('category_id')))]; 
+    uniqueCategories = [...new Set(Array.from(allCategories).map(el => el.getAttribute('category_id')))]; 
 
   }
 })();
