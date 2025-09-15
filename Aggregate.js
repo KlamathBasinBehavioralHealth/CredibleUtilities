@@ -101,3 +101,5 @@ const linkPart3 = '&visittemp_id=';
 
   }
 })();
+
+//left.document.querySelector(`[href*=\'${aggregateCategoryID}\']`).setAttribute('href', `${linkPart1}${aggregateCategoryID}${linkPart2}${aggregateClientID}${linkPart3}${aggregateTempVisitID}`);
