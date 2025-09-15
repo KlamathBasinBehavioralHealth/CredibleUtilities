@@ -79,11 +79,20 @@ async function getLeftFrame() {
 var left = undefined;
 var allCategories = undefined;
 var uniqueCategories = undefined;
+var aggregateCategoryID = undefined;
+var aggregateClientID = undefined;
+var aggregateTempVisitID = undefined;
+const linkPart1 = '/webforms/category.asp?category_id=';
+const linkPart2 = '&client_id=';
+const linkPart3 = '&visittemp_id=';
 
 (async () => {
   left = await getLeftFrame();
   if (left) {
     alert('Found left frame.');
+    
+    aggregateClientID = left.document.querySelector('#client_id').value;
+    aggregateTempVisitID = left.document.querySelector('#visittemp_ids').value;
 
     allCategories = left.document.querySelectorAll('[category_id]');
 
