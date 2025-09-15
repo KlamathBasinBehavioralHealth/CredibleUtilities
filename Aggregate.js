@@ -91,6 +91,7 @@ const linkPart3 = '&visittemp_id=';
   if (left) {
     alert('Found left frame.');
     
+    aggregateCategoryID = document.querySelector('[name=category_id]').value;
     aggregateClientID = left.document.querySelector('#client_id').value;
     aggregateTempVisitID = left.document.querySelector('#visittemp_ids').value;
 
