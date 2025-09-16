@@ -79,6 +79,7 @@ async function getLeftFrame() {
 var left = undefined;
 var allCategories = undefined;
 var uniqueCategories = undefined;
+var originalLinks = undefined;
 var aggregateCategoryID = undefined;
 var aggregateClientID = undefined;
 var aggregateTempVisitID = undefined;
@@ -98,6 +99,14 @@ const linkPart3 = '&visittemp_id=';
     allCategories = left.document.querySelectorAll('[category_id]');
 
     uniqueCategories = [...new Set(Array.from(allCategories).map(el => el.getAttribute('category_id')))]; 
+    
+    originalLinks = Array(uniqueCategories.length);
+
+    //Add IDs to links and save the links
+    for(let count = 1; count < uniqueCategories.length; count++){
+      left.document.querySelector(`[href*=\'${uniqueCategories[count]}\']`).setAttribute('id', `link${count}`);
+      originalLinks[count] = left.document.querySelector(`#link${count}`).getAttribute('href');
+    }
 
   }
 })();
