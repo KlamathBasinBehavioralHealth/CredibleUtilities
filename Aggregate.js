@@ -77,6 +77,8 @@ async function getLeftFrame() {
 }
 
 var left = undefined;
+const linkStartCount = 1;
+const subformsStartCount = 4;
 var allCategories = undefined;
 var uniqueCategories = undefined;
 var originalLinks = undefined;
@@ -87,6 +89,8 @@ var aggregateTempVisitID = undefined;
 const linkPart1 = '/webforms/category.asp?category_id=';
 const linkPart2 = '&client_id=';
 const linkPart3 = '&visittemp_id=';
+var theBody = undefined;
+var firstLink = true;
 
 (async () => {
   left = await getLeftFrame();
@@ -106,12 +110,42 @@ const linkPart3 = '&visittemp_id=';
     newLinks = Array(uniqueCategories.length);
 
     //Add IDs to links and save the links
-    for(let count = 1; count < uniqueCategories.length; count++){
+    for(let count = linkStartCount; count < uniqueCategories.length; count++){
       left.document.querySelector(`[href*=\'${uniqueCategories[count]}\']`).setAttribute('id', `link${count}`);
       originalLinks[count] = left.document.querySelector(`#link${count}`).getAttribute('href');
       newLinks[count] = `${linkPart1}${uniqueCategories[count]}${linkPart2}${aggregateClientID}${linkPart3}${aggregateTempVisitID}`;
     }
 
+    //Let's add the frames
+    theBody = document.querySelector('tbody');
+
+    const row = document.createElement('tr');
+
+    [...newLinks.slice(subformsStartCount)].forEach(link => {
+      
+      const cell = document.createElement('td');
+      const iframe = document.createElement('iframe');
+      if(firstLink){
+        firstLink = false;
+        iframe.loading = 'eager';
+      }else{
+        iframe.loading = 'lazy';
+      }
+      iframe.src = link;
+      iframe.width = '100%';
+      iframe.onload = () => {
+        try {
+          const doc = iframe.contentDocument || iframe.contentWindow.document;
+          iframe.style.height = doc.body.scrollHeight + "px";
+        } catch (e) {
+          console.error("Cannot access iframe content:", e);
+        }
+      };
+      cell.appendChild(iframe);
+      row.appendChild(cell);
+    });
+
+    theBody.appendChild(row);
   }
 })();
 
