@@ -121,6 +121,7 @@ var firstLink = true;
 
     const row = document.createElement('tr');
 
+    var counter = 1;
     [...newLinks.slice(subformsStartCount)].forEach(link => {
       
       const cell = document.createElement('td');
@@ -131,6 +132,8 @@ var firstLink = true;
       }else{
         iframe.loading = 'lazy';
       }
+      iframe.id = `iframe${counter}`;
+      counter++;
       iframe.src = link;
       iframe.width = '100%';
       iframe.onload = () => {
