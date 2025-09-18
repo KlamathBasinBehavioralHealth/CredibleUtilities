@@ -133,6 +133,7 @@ var firstLink = true;
         iframe.loading = 'lazy';
       }
       iframe.id = `iframe${counter}`;
+      iframe.class = 'subFrame';
       counter++;
       iframe.src = link;
       iframe.width = '100%';
