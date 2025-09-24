@@ -125,7 +125,6 @@ var firstLink = true;
     [...newLinks.slice(subformsStartCount)].forEach(link => {
       const row = document.createElement("tr");
       const cell = document.createElement("td");
-
       const iframe = document.createElement("iframe");
       if (firstLink) {
         firstLink = false;
