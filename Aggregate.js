@@ -119,11 +119,9 @@ var firstLink = true;
     //Let's add the frames
     theBody = document.querySelector('tbody');
 
-    const row = document.createElement('tr');
-
     var counter = 1;
     [...newLinks.slice(subformsStartCount)].forEach(link => {
-      
+      const row = document.createElement('tr');
       const cell = document.createElement('td');
       const iframe = document.createElement('iframe');
       if(firstLink){
@@ -147,9 +145,8 @@ var firstLink = true;
       };
       cell.appendChild(iframe);
       row.appendChild(cell);
+      theBody.appendChild(row);
     });
-
-    theBody.appendChild(row);
   }
 })();
 
