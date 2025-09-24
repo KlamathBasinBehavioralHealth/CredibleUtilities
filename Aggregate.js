@@ -119,22 +119,27 @@ var firstLink = true;
     //Let's add the frames
     theBody = document.querySelector('tbody');
 
+    //const row = document.createElement('tr');
+    
     var counter = 1;
     [...newLinks.slice(subformsStartCount)].forEach(link => {
-      const row = document.createElement('tr');
-      const cell = document.createElement('td');
-      const iframe = document.createElement('iframe');
-      if(firstLink){
+      const row = document.createElement("tr");
+      const cell = document.createElement("td");
+
+      const iframe = document.createElement("iframe");
+      if (firstLink) {
         firstLink = false;
-        iframe.loading = 'eager';
-      }else{
-        iframe.loading = 'lazy';
+        iframe.loading = "eager"; // load the first one immediately
+      } else {
+        iframe.loading = "lazy"; // defer others
       }
+
       iframe.id = `iframe${counter}`;
-      iframe.class = 'subFrames';
+      iframe.className = "subFrames";
       counter++;
       iframe.src = link;
-      iframe.width = '100%';
+      iframe.width = "100%";
+
       iframe.onload = () => {
         try {
           const doc = iframe.contentDocument || iframe.contentWindow.document;
@@ -143,12 +148,12 @@ var firstLink = true;
           console.error("Cannot access iframe content:", e);
         }
       };
+
       cell.appendChild(iframe);
       row.appendChild(cell);
       theBody.appendChild(row);
-      document.write('<br/>');
     });
   }
-})();
+});
 
 //left.document.querySelector(`[href*=\'${aggregateCategoryID}\']`).setAttribute('href', `${linkPart1}${aggregateCategoryID}${linkPart2}${aggregateClientID}${linkPart3}${aggregateTempVisitID}`);
