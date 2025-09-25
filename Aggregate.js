@@ -120,11 +120,11 @@ var firstLink = true;
     theBody = document.querySelector('tbody');
     
     var counter = 1;
-    [...newLinks.slice(subformsStartCount)].forEach(link => {
+    /*[...newLinks.slice(subformsStartCount)].forEach(link => {
       const row = document.createElement("tr");
       const cell = document.createElement("td");
       const iframe = document.createElement("iframe");
-      
+
       if (firstLink) {
         firstLink = false;
         iframe.loading = "eager"; // load the first one immediately
@@ -150,7 +150,7 @@ var firstLink = true;
       cell.appendChild(iframe);
       row.appendChild(cell);
       theBody.appendChild(row);
-    });
+    });*/
   }
 });
 
