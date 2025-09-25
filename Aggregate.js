@@ -116,16 +116,15 @@ var firstLink = true;
       newLinks[count] = `${linkPart1}${uniqueCategories[count]}${linkPart2}${aggregateClientID}${linkPart3}${aggregateTempVisitID}`;
     }
 
-    //Let's add the frames
-    theBody = document.querySelector('tbody');
+    // Let's add the frames
+    theBody = document.querySelector("tbody");
 
-    //const row = document.createElement('tr');
-    
     var counter = 1;
     [...newLinks.slice(subformsStartCount)].forEach(link => {
       const row = document.createElement("tr");
       const cell = document.createElement("td");
       const iframe = document.createElement("iframe");
+
       if (firstLink) {
         firstLink = false;
         iframe.loading = "eager"; // load the first one immediately
@@ -142,12 +141,13 @@ var firstLink = true;
       iframe.onload = () => {
         try {
           const doc = iframe.contentDocument || iframe.contentWindow.document;
-          iframe.style.height = doc.body.scrollHeight + "px";
+          iframe.style.height = doc.body.scrollHeight + "px"; // auto height
         } catch (e) {
           console.error("Cannot access iframe content:", e);
         }
       };
 
+      // ✅ append in correct order
       cell.appendChild(iframe);
       row.appendChild(cell);
       theBody.appendChild(row);
