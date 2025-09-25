@@ -118,11 +118,10 @@ var firstLink = true;
 
     //Let's add the frames
     theBody = document.querySelector('tbody');
-
-    //const row = document.createElement('tr');
     
     var counter = 1;
     [...newLinks.slice(subformsStartCount)].forEach(link => {
+      const row = document.createElement('tr');
       const row = document.createElement("tr");
       const cell = document.createElement("td");
 
