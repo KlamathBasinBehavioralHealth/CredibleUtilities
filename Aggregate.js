@@ -146,6 +146,7 @@ var firstLink = true;
         }
       };
       cell.appendChild(iframe);
+      cell.appendChild(document.createElement('br'));
       row.appendChild(cell);
       theBody.appendChild(row);
     });
