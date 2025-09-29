@@ -153,4 +153,22 @@ var firstLink = true;
   }
 })();
 
+function toggleView(target, collapseExpand){
+  const targetDocument = document.querySelector(`#{target}`).contentDocument;
+
+  let target = undefined;
+
+  if(collapseExpand === 'collapse'){
+    target = targetDocument.querySelector('#page_container');
+  }else if (collapseExpand === 'expand'){
+    target = targetDocument.querySelector('#questions_container');
+  }else{
+    return;
+  }
+
+  const targetHeight = target.scrollHeight || target.offsetHeight;
+
+  targetDocument.style.height = targetHeight + 'px';
+}
+
 //left.document.querySelector(`[href*=\'${aggregateCategoryID}\']`).setAttribute('href', `${linkPart1}${aggregateCategoryID}${linkPart2}${aggregateClientID}${linkPart3}${aggregateTempVisitID}`);
