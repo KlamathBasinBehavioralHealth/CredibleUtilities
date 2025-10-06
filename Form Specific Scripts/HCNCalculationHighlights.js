@@ -1,4 +1,5 @@
 var is_cha;
+var tempAge;
 var client_id = 200079;
 
 function chaHighlight(client_id){
@@ -144,6 +145,7 @@ $(document).ready(function() {
 		});
 	});
 });
+
 
 
 
