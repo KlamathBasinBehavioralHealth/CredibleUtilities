@@ -2,7 +2,7 @@ var is_cha;
 var tempAge;
 var client_id = 200079;
 
-function chaHighlight(client_id){
+function chaHighlight(){
 	let divs = document.querySelectorAll('div[groupid="group1"]');
 	let trs = Array.from(divs).map(div => div.closest('tr'));
 	let hasYellowHighlight = false;
@@ -79,8 +79,8 @@ document.addEventListener("DOMContentLoaded", async function() {
 		});
 	});
 	setInterval(() => {
-	  chaHighlight(client_id);
-	}, 3000); // 3000 milliseconds = 3 seconds
+	  chaHighlight();
+	}, 2000); // 3000 milliseconds = 3 seconds
 });
 var allSafetyAnswers = [];
 
@@ -145,6 +145,7 @@ $(document).ready(function() {
 		});
 	});
 });
+
 
 
 
