@@ -12,7 +12,7 @@ function chaHighlight(client_id){
 	  }
 	});
 
-	if(hasYellowHighlights & is_cha == 1){
+	if(hasYellowHighlight & is_cha == 1){
 		document.querySelector('tr:has(div#resourceSdoh').style.backgroundColor = 'yellow';
 	}
 }
@@ -145,6 +145,7 @@ $(document).ready(function() {
 		});
 	});
 });
+
 
 
 
