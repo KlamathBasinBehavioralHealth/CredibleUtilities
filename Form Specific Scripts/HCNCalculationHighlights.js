@@ -1,4 +1,21 @@
+var is_cha;
 var tempAge;
+var client_id = 200079;
+
+function chaHighlight(){
+	let divs = document.querySelectorAll('div[groupid="group1"]');
+	let trs = Array.from(divs).map(div => div.closest('tr'));
+	let hasYellowHighlight = false;
+	trs.forEach(tr => {
+	  if (tr.style.backgroundColor === 'yellow') {
+	    hasYellowHighlight = true;
+	  }
+	});
+
+	if(hasYellowHighlight & is_cha == 1){
+		document.querySelector('tr:has(div#resourceSdoh').style.backgroundColor = 'yellow';
+	}
+}
 
 function exerciseMinuteHighlight() {
 	console.log('Start Exercise Highlight');
@@ -29,9 +46,26 @@ function exerciseMinuteHighlight() {
 }
 
 document.addEventListener("DOMContentLoaded", async function() {
+	try{
+		client_id = parseInt(window.top.document.querySelector('frame[name=left]').contentDocument.querySelector('tbody').querySelector('#client_id').value);
+	} catch(error){
+		console.log(error);
+	}
+	try{
+		var tempUrl = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0e8DPI5CjeQD6IFvAshrmh8&start_date=&end_date=&custom_param1=${client_id}&custom_param2=&custom_param3=`;
+		var tempDataOne = await getData(tempUrl);
+		is_cha = tempDataOne.documentElement.querySelector('cha_client').innerHTML;
+	} catch(error){
+		console.log(error);
+	}
 	var exerciseMinuteAnswers = [...document.querySelector('#minutesExercise').closest('tr').nextElementSibling.querySelectorAll('select')];
 	try{
-		var tempUrl = 'https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0cUts!9-2ufaavoy0FyqDIn&start_date=&end_date=&custom_param1=200079&custom_param2=&custom_param3=';
+		client_id = parseInt(window.top.document.querySelector('frame[name=left]').contentDocument.querySelector('tbody').querySelector('#client_id').value);
+	} catch(error){
+		console.log(error);
+	}
+	try{
+		var tempUrl = `https://cors-everywhere.azurewebsites.net/reportservices.crediblebh.com/reports/ExportService.asmx/ExportXML?connection=LYEC1uwvr-7RAoxbT4TJDuiO!gY1p8-aFVdERsxbI0cUts!9-2ufaavoy0FyqDIn&start_date=&end_date=&custom_param1=${client_id}&custom_param2=&custom_param3=`;
 		var tempDataOne = await getData(tempUrl);
 		tempAge = tempDataOne.documentElement.querySelector('age').innerHTML;
 	
@@ -44,6 +78,9 @@ document.addEventListener("DOMContentLoaded", async function() {
 			exerciseMinuteHighlight(input, index);
 		});
 	});
+	setInterval(() => {
+	  chaHighlight();
+	}, 2000); // 3000 milliseconds = 3 seconds
 });
 var allSafetyAnswers = [];
 
@@ -69,43 +106,48 @@ function safetyHighlight(){
 	console.log('End Safety Highlight');
 }
 
-//function mentalHealthHighlight(){
-//	var lineToHighlight = Array.from(document.querySelectorAll('tr:has(div#resourceMentalHealth'));
-//	console.log('Start Mental Health');
-//	if( (document.querySelector('#phq9Q1').closest('tr').nextElementSibling.querySelector('select').options.selectedIndex + 1) + (document.querySelector('#phq9AQ1').closest('tr').nextElementSibling.querySelector('select').options.selectedIndex + 1) >= 3){
-//		lineToHighlight.forEach(row => {
-//			row.style.backgroundColor = 'yellow';
-//			console.log('Highlighted');
-//		});
-//	} else{
-//		lineToHighlight.forEach(row => {
-//			row.style.backgroundColor = 'white';
-//			console.log('Highlighted');
-//		});
-//	}
-//}
+function mentalHealthHighlight(){
+	var lineToHighlight = Array.from(document.querySelectorAll('tr:has(div#resourceMentalHealth'));
+	console.log('Start Mental Health');
+	if( (document.querySelector('#phq9Q1').closest('tr').nextElementSibling.querySelector('select').options.selectedIndex + 1) + (document.querySelector('#phq9AQ1').closest('tr').nextElementSibling.querySelector('select').options.selectedIndex + 1) >= 3){
+		lineToHighlight.forEach(row => {
+			row.style.backgroundColor = 'yellow';
+			console.log('Highlighted');
+		});
+	} else{
+		lineToHighlight.forEach(row => {
+			row.style.backgroundColor = 'white';
+			console.log('Highlighted');
+		});
+	}
+}
 
 $(document).ready(function() {
 	[...document.querySelectorAll('#safetyAdditionCalc')].forEach(answer => {
 	allSafetyAnswers = [...allSafetyAnswers, ...answer.closest('tr').nextElementSibling.querySelectorAll('select')];
 	});
-	//[...document.querySelectorAll('#phq9AQ1')].forEach(answer => {
-	//allMentalHealthAnswers = [...allMentalHealthAnswers, ...answer.closest('tr').nextElementSibling.querySelectorAll('select')];
-	//});
-	//[...document.querySelectorAll('#phq9Q1')].forEach(answer => {
-	//	allMentalHealthAnswers = [...allMentalHealthAnswers, ...answer.closest('tr').nextElementSibling.querySelectorAll('select')];
-	//});
-	//mentalHealthHighlight();
+	[...document.querySelectorAll('#phq9AQ1')].forEach(answer => {
+	allMentalHealthAnswers = [...allMentalHealthAnswers, ...answer.closest('tr').nextElementSibling.querySelectorAll('select')];
+	});
+	[...document.querySelectorAll('#phq9Q1')].forEach(answer => {
+		allMentalHealthAnswers = [...allMentalHealthAnswers, ...answer.closest('tr').nextElementSibling.querySelectorAll('select')];
+	});
+	mentalHealthHighlight();
 	allSafetyAnswers.forEach((input) => {
 		input.addEventListener('change', () => {
 			safetyHighlight();
 		});
 	});
-	//mentalHealthHighlight();
-	//allMentalHealthAnswers.forEach((input) => {
-	//	input.addEventListener('change', () => {
-	//		mentalHealthHighlight();
-	//	});
-	//});
+	mentalHealthHighlight();
+	allMentalHealthAnswers.forEach((input) => {
+		input.addEventListener('change', () => {
+			mentalHealthHighlight();
+		});
+	});
 });
+
+
+
+
+
 
