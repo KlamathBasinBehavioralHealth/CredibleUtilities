@@ -156,17 +156,17 @@ var firstLink = true;
 function toggleView(target, collapseExpand){
   const targetDocument = document.querySelector(`#{target}`).contentDocument;
 
-  let target = undefined;
+  let element = undefined;
 
   if(collapseExpand === 'collapse'){
-    target = targetDocument.querySelector('#page_container');
+    element = targetDocument.querySelector('#page_container');
   }else if (collapseExpand === 'expand'){
-    target = targetDocument.querySelector('#questions_container');
+    element = targetDocument.querySelector('#questions_container');
   }else{
     return;
   }
 
-  const targetHeight = target.scrollHeight || target.offsetHeight;
+  const targetHeight = element.scrollHeight || element.offsetHeight;
 
   targetDocument.style.height = targetHeight + 'px';
 }
