@@ -154,7 +154,7 @@ var firstLink = true;
 })();
 
 function toggleView(target, collapseExpand){
-  const targetDocument = document.querySelector(`#${target}`).contentDocument;
+  const targetDocument = document.querySelector(`#${target}`).documentElement;
 
   let element = undefined;
 
