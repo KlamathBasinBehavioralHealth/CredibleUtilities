@@ -159,16 +159,16 @@ function toggleView(target, collapseExpand){
   let element = undefined;
 
   if(collapseExpand === 'collapse'){
-    element = targetDocument.documentElement.querySelector('#page_container');
+    element = targetDocument.contentDocument.querySelector('#page_container');
   }else if (collapseExpand === 'expand'){
-    element = targetDocument.documentElement.querySelector('#questions_container');
+    element = targetDocument.contentDocument.querySelector('#questions_container');
   }else{
     return;
   }
 
   const targetHeight = element.scrollHeight || element.offsetHeight;
 
-  targetDocument.documentElement.style.height = targetHeight + 'px';
+  targetDocument.contentDocument.style.height = targetHeight + 'px';
 }
 
 //left.document.querySelector(`[href*=\'${aggregateCategoryID}\']`).setAttribute('href', `${linkPart1}${aggregateCategoryID}${linkPart2}${aggregateClientID}${linkPart3}${aggregateTempVisitID}`);
