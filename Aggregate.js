@@ -154,21 +154,21 @@ var firstLink = true;
 })();
 
 function toggleView(target, collapseExpand){
-  const targetDocument = document.querySelector(`#${target}`).documentElement;
+  const targetDocument = document.querySelector(`#${target}`);
 
   let element = undefined;
 
   if(collapseExpand === 'collapse'){
-    element = targetDocument.querySelector('#page_container');
+    element = targetDocument.documentElement.querySelector('#page_container');
   }else if (collapseExpand === 'expand'){
-    element = targetDocument.querySelector('#questions_container');
+    element = targetDocument.documentElement.querySelector('#questions_container');
   }else{
     return;
   }
 
   const targetHeight = element.scrollHeight || element.offsetHeight;
 
-  targetDocument.style.height = targetHeight + 'px';
+  targetDocument.documentElement.style.height = targetHeight + 'px';
 }
 
 //left.document.querySelector(`[href*=\'${aggregateCategoryID}\']`).setAttribute('href', `${linkPart1}${aggregateCategoryID}${linkPart2}${aggregateClientID}${linkPart3}${aggregateTempVisitID}`);
