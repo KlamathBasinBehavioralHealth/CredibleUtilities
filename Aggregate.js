@@ -71,7 +71,6 @@ async function getLeftFrame() {
     console.log("✅ Found left frame:", leftFrame);
     return leftFrame;
   } catch (err) {
-    console.error("❌", err.message);
     return null;
   }
 }
