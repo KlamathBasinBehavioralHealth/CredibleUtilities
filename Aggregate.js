@@ -161,9 +161,11 @@ function toggleView(target, collapseExpand){
   if(collapseExpand === 'collapse'){
     element = targetDocument.contentDocument.querySelector('.toolHead');
     targetDocument.style.overflow = 'hidden';
+    targetDocument.setAttribute("scrolling", 'no');
   }else if (collapseExpand === 'expand'){
     element = targetDocument.contentDocument.querySelector('#page_container');
     targetDocument.style.overflow = 'auto';
+    targetDocument.setAttribute("scrolling", 'yes');
   }else{
     return;
   }
