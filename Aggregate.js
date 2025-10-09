@@ -160,8 +160,10 @@ function toggleView(target, collapseExpand){
 
   if(collapseExpand === 'collapse'){
     element = targetDocument.contentDocument.querySelector('.toolHead');
+    targetDocument.style.overflow = 'hidden';
   }else if (collapseExpand === 'expand'){
     element = targetDocument.contentDocument.querySelector('#page_container');
+    targetDocument.style.overflow = 'auto';
   }else{
     return;
   }
