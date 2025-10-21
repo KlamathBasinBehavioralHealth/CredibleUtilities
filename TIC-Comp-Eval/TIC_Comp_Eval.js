@@ -9,19 +9,28 @@ function populateOptionText (target){
 	$('tr').has('div[id=' + target + ']').find('option').each(function(){this.setAttribute('text', this.outerText);});
 }
 
+function getClientId (){
+  try{  
+    cid = window.top.document.querySelector('frame[name=main]').contentDocument.querySelector('frame[id=left]').contentDocument.querySelector('input[id=client_id]').value;
+  }catch(error){
+    console.log(error);
+    try{
+      cid = window.top.document.querySelector('frame[name=left]').contentDocument.querySelector('input[id=client_id]').value;
+    }catch(error){
+      console.log(error);
+      cid = '237661';
+    }
+  }
+}
+
 //Get client ID>
 $('document').ready(function(){
 	if(frameElement?.src){
-		cid = (new URL(frameElement.src)).searchParams.get('client_id');
-	}
-	
-	if(cid == undefined)
-	{
-		cid = '200079';
+		cid = getClientID();
 	}
 
 	try{ 
-		programID = window.parent.parent[0].$('input[id=programId]').val(); 
+		programID = window.top.document.querySelector('frame[name=left]').contentDocument.querySelector('input[id=programId]').value; 
 	}
 	catch{ 
 		if(programID == undefined){ 
@@ -1153,3 +1162,12 @@ try{
 }catch(error){
 	console.log(error);
 }
+
+//Day Treatment Respite Service Plan
+window.addEventListener('DOMContentLoaded', () => {
+	if(window.top.document.querySelector('frame[name=left]').contentDocument.querySelector('input[id=programId]').value === '96'){
+		visibility('show', '#itsProvideServicePlan', true);
+	}else{
+		visibility('hide', '#itsProvideServicePlan', false);
+	}
+});
