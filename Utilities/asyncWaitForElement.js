@@ -1,11 +1,14 @@
 async function waitForElement(context, selector) {
 	return new Promise((resolve, reject) => {
-        let el = context.documentElement.querySelector(selector);
+        let el = undefined;
+        try{
+            context.querySelector(selector);
+        }catch(error){}
         if (el) {
             resolve(el);
         }
         new MutationObserver((mutationRecords, observer) => {
-            const element = context.documentElement.querySelector(selector);
+            const element = context.querySelector(selector);
             if (element) {
                 resolve(element);
                 observer.disconnect();
@@ -20,12 +23,15 @@ async function waitForElement(context, selector) {
 
 async function waitForDelete(context, selector) {
 	return new Promise((resolve, reject) => {
-        let el = context.documentElement.querySelector(selector);
+        let el = undefined;
+        try{
+            context.querySelector(selector);
+        }catch(error){}
         if (!el) {
             resolve(el);
         }
         new MutationObserver((mutationRecords, observer) => {
-            const element = context.documentElement.querySelector(selector);
+            const element = context.querySelector(selector);
             if (!element) {
                 resolve(element);
                 observer.disconnect();
