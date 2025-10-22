@@ -1165,9 +1165,14 @@ try{
 
 //Day Treatment Respite Service Plan
 window.addEventListener('DOMContentLoaded', () => {
+	checkITSProvideServicePlan();
+});
+
+//Check Day Treatment Respite Service Plan
+function checkITSProvideServicePlan(){
 	if(window.top.document.querySelector('frame[name=left]').contentDocument.querySelector('input[id=programId]').value === '96'){
 		visibility('show', '#itsProvideServicePlan', true);
 	}else{
 		visibility('hide', '#itsProvideServicePlan', false);
 	}
-});
+}
