@@ -1163,13 +1163,18 @@ try{
 	console.log(error);
 }
 
+var itsProgram = undefined;
+
 //Day Treatment Respite Service Plan
 window.addEventListener('DOMContentLoaded', () => {
-	itsProgram = window.top.document.querySelector('frame[name=left]').contentDocument.querySelector('input[id=programId]').value;
+	try{
+		itsProgram = window.top.document.querySelector('frame[name=left]').contentDocument.querySelector('input[id=programId]').value;
+	}catch(error){
+		itsProgram = '130';
+	}
+	
 	checkITSProvideServicePlan();
 });
-
-var itsProgram = undefined;
 
 //Check Day Treatment Respite Service Plan
 function checkITSProvideServicePlan(){
