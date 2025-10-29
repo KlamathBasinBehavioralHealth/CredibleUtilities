@@ -13,13 +13,9 @@ function getClientId (){
   try{  
     cid = window.top.document.querySelector('frame[name=main]').contentDocument.querySelector('frame[id=left]').contentDocument.querySelector('input[id=client_id]').value;
   }catch(error){
-    console.log(error);
-    try{
-      cid = window.top.document.querySelector('frame[name=left]').contentDocument.querySelector('input[id=client_id]').value;
-    }catch(error){
-      console.log(error);
-      cid = '237661';
-    }
+    if(cid == undefined){
+		cid = '237661';
+	}
   }
 }
 
@@ -32,7 +28,7 @@ $('document').ready(function(){
 	try{ 
 		programID = window.top.document.querySelector('frame[name=left]').contentDocument.querySelector('input[id=programId]').value; 
 	}
-	catch{ 
+	catch(error){ 
 		if(programID == undefined){ 
 			programID = 130; 
 		} 
