@@ -1,8 +1,8 @@
-var test1;
-var age;
-var cid;
-var programID;
-var program;
+var test1 = undefined;
+var age = undefined;
+var cid = undefined;
+var programID = undefined;
+var program = undefined;
 
 //Set text property of dropdown options to be available to search for
 function populateOptionText (target){
@@ -10,20 +10,23 @@ function populateOptionText (target){
 }
 
 function getClientId (){
-  try{  
-    cid = window.top.document.querySelector('frame[name=main]').contentDocument.querySelector('frame[id=left]').contentDocument.querySelector('input[id=client_id]').value;
-  }catch(error){
-    if(cid == undefined){
-		cid = '237661';
+	let client_id = undefined;
+
+	try{  
+		client_id = window.top.document.querySelector('frame[name=main]').contentDocument.querySelector('frame[id=left]').contentDocument.querySelector('input[id=client_id]').value;
+	}catch(error){
+		if(cid == undefined){
+			client_id = '237661';
+		}
 	}
-  }
+	
+	return client_id;
 }
 
 //Get client ID>
 $('document').ready(function(){
-	if(frameElement?.src){
-		cid = getClientID();
-	}
+	cid = getClientID();
+
 
 	try{ 
 		programID = window.top.document.querySelector('frame[name=left]').contentDocument.querySelector('input[id=programId]').value; 
