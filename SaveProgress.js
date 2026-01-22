@@ -637,7 +637,7 @@ function createSubmitButtons(){
         buttonContainer.appendChild(saveProgress);
         buttonContainer.appendChild(complete);
     }
-    window.onbeforeunload = () => { console.log(document.querySelector('.toolHead').textContent); };
+    window.onbeforeunload = () => { try{console.log(document.querySelector('.toolHead').textContent);}catch(error){} };
 }
 
 document.addEventListener('DOMContentLoaded', () => { createSubmitButtons(); addStyling(); } );

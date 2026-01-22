@@ -1155,11 +1155,11 @@ try{
 				score.closest('table').querySelector('input').setAttribute('tabIndex', -1);
 			});
 		}catch(error){
-
+			console.log(error);
 		}
 	});
 }catch(error){
-	
+	console.log(error);
 }
 
 var itsProgram = undefined;

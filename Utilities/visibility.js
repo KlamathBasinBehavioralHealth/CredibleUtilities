@@ -33,6 +33,34 @@ function requireField (target, condition) {
   } 
 } 
  
+function requireNotes (target, condition) {  
+  let textarea = undefined;
+  let redAsterisk = document.createElement('div');   
+    redAsterisk.className = 'redAsterisk';   
+    redAsterisk.style = 'color:red; display:inline;';   
+    redAsterisk.innerText = '*'; 
+  if(document.querySelector('[name=Complete]')){ 
+    try{ 
+      textarea = target.closest('table').closest('tr').nextElementSibling.querySelector('textarea');
+      try{
+        if(textarea.nextSibling?.className == 'redAsterisk'){
+          textarea.nextSibling.remove(); 
+        }
+      }catch(error){
+
+      }
+      if(condition){
+        textarea.required = true;
+        textarea.after(redAsterisk);
+      }else{
+        textarea.required = false;
+      }
+    }catch(error){ 
+      
+    } 
+  } 
+} 
+
 function visibility(hideShow, target, require = false){ 
   if(document.querySelector('[name=Complete]')){   
     try{   
