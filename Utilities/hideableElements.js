@@ -1,7 +1,6 @@
 try{ 
   intervalTime = 250;   
 }catch(error){ 
-  console.log(error); 
   let intervalTime = 250;   
 }    
 if(typeof checkRedAsterisk != 'function'){ 
@@ -101,7 +100,7 @@ function checkConditionsQuestion(mode, textMode, requireOnShow, inputs, selects,
         } 
       }   
     }catch(error){ 
-      console.log(error);   
+
     } 
   }   
 } 
@@ -115,7 +114,7 @@ function hideableQuestionSetDrivers(){
         try{ 
           textMode = question.getAttribute('textMode');   
         }catch(error){ 
-          console.log(error);   
+
         }   
         let requireOnShow = JSON.parse(question.getAttribute('requireOnShow'));   
         let inputDriverArray = [];   
@@ -127,7 +126,7 @@ function hideableQuestionSetDrivers(){
             conditionArray.push(condition); 
           });   
         }catch(error){ 
-          console.log(error);   
+
         }    
         let element = null;      
         try{ 
@@ -158,7 +157,7 @@ function hideableQuestionSetDrivers(){
             } 
           });   
         }catch(error){ 
-          console.log(error);   
+  
         }    
         setInterval(() => { 
           checkConditionsQuestion(mode, textMode, requireOnShow, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, question);   
@@ -166,7 +165,7 @@ function hideableQuestionSetDrivers(){
         checkConditionsQuestion(mode, textMode, requireOnShow, inputDriverArray, selectDriverArray, textDriverArray, conditionArray, question); 
       });   
     }catch(error){ 
-      console.log(error);   
+ 
     } 
   }   
 } 
@@ -204,11 +203,11 @@ function requireTextareas(){
               textarea.required = false;  
             } 
           }catch(error){   
-            console.log(error); 
+
           }   
         }, intervalTime); 
       }catch(error){   
-        console.log(error); 
+
       }  
       try{   
         if(window.getComputedStyle(textarea.closest('table')).display == 'table'){ 
@@ -217,7 +216,7 @@ function requireTextareas(){
           textarea.required = false;   
         } 
       }catch(error){   
-        console.log(error); 
+
       }   
     }); 
   }   
