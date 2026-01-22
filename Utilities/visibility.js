@@ -9,7 +9,7 @@ function requireField (target, condition) {
           try{ 
             target.removeAttribute('requireCheckbox'); 
           }catch(error){ 
-            console.log(error); 
+            
           } 
         } else if(target.closest('tbody').querySelector('input').type == 'checkbox'){ 
           $('tr').has(target).find('input').prop('required', false);  
@@ -24,11 +24,11 @@ function requireField (target, condition) {
         try{ 
           target.removeAttribute('requireCheckbox'); 
         }catch(error){ 
-          console.log(error); 
+           
         } 
       } 
     }catch(error){ 
-      console.log(error); 
+      
     } 
   } 
 } 
@@ -80,8 +80,7 @@ function visibility(hideShow, target, require = false){
               $(this).next().show();         
             }       
           }       
-          catch(error){         
-            console.log(error);         
+          catch(error){                
             if($(this).next().find('textarea').length){             
               $(this).next().next().show();         
             }else{            
@@ -104,8 +103,7 @@ function visibility(hideShow, target, require = false){
             }else{             
               $(this).next().hide();         
             }       
-          }catch(error){         
-            console.log(error);         
+          }catch(error){                  
             if($(this).next().find('textarea').length){             
               $(this).next().next().hide();         
             }else{             
@@ -116,7 +114,7 @@ function visibility(hideShow, target, require = false){
         target.setAttribute('visibility', 'hide');
       }   
     }catch(error){   
-      console.log(error);   
+ 
     }    
     try{   
       if(require == true){     
@@ -125,7 +123,7 @@ function visibility(hideShow, target, require = false){
         requireField(target, false);   
       }   
     }catch(error){ 
-      console.log(error);  
+
     } 
   } 
 }  
