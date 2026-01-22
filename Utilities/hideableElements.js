@@ -189,7 +189,6 @@ function requireTextareas(){
           textarea = element.closest('table').closest('tr').nextElementSibling.querySelector('textarea');   
         }catch(error){ 
           console.log('Where the text area at?'); 
-          console.log('error');   
         }    
         setInterval(() => { 
           if(checkRedAsterisk(textarea)){   
