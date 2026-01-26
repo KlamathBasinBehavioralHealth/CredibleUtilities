@@ -1,37 +1,60 @@
 function requireField (target, condition) {  
   if(document.querySelector('[name=Complete]')){ 
     try{ 
-      $('tr').find(target).next().remove();   
+      try{
+        [...document.querySelectorAll(target)].forEach((element) => {
+          try{
+            element.querySelector('.redAsterisk').remove();
+          }catch(error){}
+        });
+      }catch(error){}  
       if(condition) {  
-        if(target.closest('tbody').querySelector('input').type != 'checkbox') { 
-          $('tr').has(target).find('input').prop('required', true);  
-          $('tr').has(target).find('select').prop('required', true);  
-          try{ 
-            target.removeAttribute('requireCheckbox'); 
-          }catch(error){ 
-            
-          } 
-        } else if(target.closest('tbody').querySelector('input').type == 'checkbox'){ 
-          $('tr').has(target).find('input').prop('required', false);  
-          $('tr').has(target).find('select').prop('required', false); 
-          target.setAttribute('requireCheckbox', true); 
-        }  
+        let selected = document.querySelectorAll(target);
+        [...selected].forEach((thing) => {
+          if(thing.closest('tbody').querySelector('input').type != 'checkbox'){
+            try{
+              thing.closest('tbody').querySelector('input').required = true;
+            }catch(error){}
+            try{
+              thing.closest('tbody').querySelector('select').required = true;
+            }catch(error){}
+            try{ 
+              thing.removeAttribute('requireCheckbox'); 
+            }catch(error){} 
+          }else if(thing.closest('tbody').querySelector('input').type == 'checkbox'){
+            try{
+              thing.closest('tbody').querySelector('input').required = false;
+            }catch(error){}
+            try{
+              thing.closest('tbody').querySelector('select').required = false;
+            }catch(error){}
+            target.setAttribute('requireCheckbox', true); 
+          }
 
-        $('tr').find(target).after('<div class=\'redAsterisk\' style=\'color : red; display : inline\'>*</div>');   
-      }else {  
-        $('tr').has(target).find('input').prop('required', false);  
-        $('tr').has(target).find('select').prop('required', false); 
-        try{ 
-          target.removeAttribute('requireCheckbox'); 
-        }catch(error){ 
-           
-        } 
+          const redAsterisk = document.createElement("div");
+          redAsterisk.className = "redAsterisk";
+          redAsterisk.textContent = "*";
+          redAsterisk.style.color = "red";
+          redAsterisk.style.display = "inline";
+          thing.appendChild(redAsterisk);
+        }); 
+      }else{  
+        let selected = document.querySelectorAll(target);
+        [...selected].forEach((thing) => {
+          try{
+            thing.closest('tbody').querySelector('input').required = false;
+          }catch(error){}
+          try{
+            thing.closest('tbody').querySelector('select').required = false;
+          }catch(error){}
+          try{ 
+            thing.removeAttribute('requireCheckbox'); 
+          }catch(error){}
+        });
       } 
-    }catch(error){ 
-      
-    } 
+    }catch(error){} 
   } 
-} 
+}
  
 function requireNotes (target, condition) {  
   let textarea = undefined;
