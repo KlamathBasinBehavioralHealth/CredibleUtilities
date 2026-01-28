@@ -56,24 +56,24 @@ function requireField (target, condition) {
 }
  
 function requireNotes (target, condition) {  
-  let textarea = undefined;
-  let redAsterisk = document.createElement('div');   
-    redAsterisk.className = 'redAsterisk';   
-    redAsterisk.style = 'color:red; display:inline;';   
-    redAsterisk.innerText = '*'; 
-  if(document.querySelector('[name=Complete]')){ 
+  if(document.querySelector('[name=Complete]')){
+    let textarea = undefined;
+    const redAsterisk = document.createElement("div");
+          redAsterisk.className = "redAsterisk";
+          redAsterisk.textContent = "*";
+          redAsterisk.style.color = "red";
+          redAsterisk.style.display = "inline";
+   
     try{ 
-      textarea = target.closest('table').closest('tr').nextElementSibling.querySelector('textarea');
+      textarea = document.querySelector(target).closest('table').closest('tr').nextElementSibling.querySelector('textarea');
       try{
-        if(textarea.nextSibling?.className == 'redAsterisk'){
-          textarea.nextSibling.remove(); 
-        }
+        textarea.nextSibling.querySelector('.redAsterisk').remove(); 
       }catch(error){
 
       }
       if(condition){
         textarea.required = true;
-        textarea.after(redAsterisk);
+        textarea.appendChild(redAsterisk);
       }else{
         textarea.required = false;
       }
@@ -81,7 +81,7 @@ function requireNotes (target, condition) {
       
     } 
   } 
-} 
+}
 
 function visibility(hideShow, target, require = false){ 
   if(document.querySelector('[name=Complete]')){   
