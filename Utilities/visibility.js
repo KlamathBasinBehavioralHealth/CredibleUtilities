@@ -30,11 +30,11 @@ function requireField (target, condition) {
             thing.setAttribute('requireCheckbox', true); 
           }
 
-          const redAsterisk = document.createElement("div");
-          redAsterisk.className = "redAsterisk";
-          redAsterisk.textContent = "*";
-          redAsterisk.style.color = "red";
-          redAsterisk.style.display = "inline";
+          const redAsterisk = document.createElement('div');
+          redAsterisk.className = 'redAsterisk';
+          redAsterisk.textContent = '*';
+          redAsterisk.style.color = 'red';
+          redAsterisk.style.display = 'inline';
           thing.appendChild(redAsterisk);
         }); 
       }else{  
@@ -58,11 +58,11 @@ function requireField (target, condition) {
 function requireNotes (target, condition) {  
   if(document.querySelector('[name=Complete]')){
     let textarea = undefined;
-    const redAsterisk = document.createElement("div");
-          redAsterisk.className = "redAsterisk";
-          redAsterisk.textContent = "*";
-          redAsterisk.style.color = "red";
-          redAsterisk.style.display = "inline";
+    const redAsterisk = document.createElement('div');
+          redAsterisk.className = 'redAsterisk';
+          redAsterisk.textContent = '*';
+          redAsterisk.style.color = 'red';
+          redAsterisk.style.display = 'inline';
    
     try{ 
       textarea = document.querySelector(target).closest('table').closest('tr').nextElementSibling.querySelector('textarea');
