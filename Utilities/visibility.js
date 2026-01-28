@@ -11,24 +11,23 @@ function requireField (target, condition) {
       if(condition) {  
         let selected = document.querySelectorAll(target);
         [...selected].forEach((thing) => {
-          if(thing.closest('tbody').querySelector('input').type != 'checkbox'){
+          if(selected.length == 1){
             try{
-              thing.closest('tbody').querySelector('input').required = true;
+              thing.closest('table').querySelector('input').required = true;
             }catch(error){}
             try{
-              thing.closest('tbody').querySelector('select').required = true;
+              thing.closest('table').querySelector('select').required = true;
             }catch(error){}
             try{ 
               thing.removeAttribute('requireCheckbox'); 
             }catch(error){} 
-          }else if(thing.closest('tbody').querySelector('input').type == 'checkbox'){
+          }else if(selected.length > 1){
             try{
-              thing.closest('tbody').querySelector('input').required = false;
+              [...thing.closest('table').querySelectorAll('input')].forEach((element) => {
+                element.required = false;
+              });
             }catch(error){}
-            try{
-              thing.closest('tbody').querySelector('select').required = false;
-            }catch(error){}
-            target.setAttribute('requireCheckbox', true); 
+            thing.setAttribute('requireCheckbox', true); 
           }
 
           const redAsterisk = document.createElement("div");
@@ -42,10 +41,10 @@ function requireField (target, condition) {
         let selected = document.querySelectorAll(target);
         [...selected].forEach((thing) => {
           try{
-            thing.closest('tbody').querySelector('input').required = false;
+            thing.closest('table').querySelector('input').required = false;
           }catch(error){}
           try{
-            thing.closest('tbody').querySelector('select').required = false;
+            thing.closest('table').querySelector('select').required = false;
           }catch(error){}
           try{ 
             thing.removeAttribute('requireCheckbox'); 
