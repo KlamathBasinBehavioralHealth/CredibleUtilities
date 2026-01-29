@@ -86,12 +86,14 @@ function requireNotes (target, condition) {
 function visibility(hideShow, target, require = false, requireTextarea = false){ 
   let selector = undefined;
   if(document.querySelector('[name=Complete]')){   
-    if(typeof target == 'object'){
+    if(typeof target === 'object'){
       if(target.id){
         selector = document.querySelectorAll(`#${target.id}`);
       }else{
         selector = [target];
       }
+    }else if(typeof target === 'string'){
+      selector = document.querySelectorAll(target);
     }
 
     try{   
@@ -136,7 +138,7 @@ function visibility(hideShow, target, require = false, requireTextarea = false){
  
     }    
   } 
-}  
+}
 
 window.onload = () => { 
   if(document.querySelector('[name=Complete]')){ 
