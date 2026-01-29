@@ -84,10 +84,19 @@ function requireNotes (target, condition) {
 }
 
 function visibility(hideShow, target, require = false, requireTextarea = false){ 
+  let selector = undefined;
   if(document.querySelector('[name=Complete]')){   
+    if(typeof target == 'object'){
+      if(target.id){
+        selector = document.querySelectorAll(`#${target.id}`);
+      }else{
+        selector = [target];
+      }
+    }
+
     try{   
       if(hideShow == 'show'){    
-        [...document.querySelectorAll(target)].forEach((element) => {
+        [...selector].forEach((element) => {
           element.closest('table').closest('tr').hidden = false;
           if(element.closest('table').closest('tr').nextElementSibling.querySelector('textarea')){
             element.closest('table').closest('tr').nextElementSibling.hidden = false;
@@ -109,7 +118,7 @@ function visibility(hideShow, target, require = false, requireTextarea = false){
           requireNotes(element, false);   
         }   
       }else if(hideShow == 'hide'){     
-        [...document.querySelectorAll(target)].forEach((element) => {
+        [...selector].forEach((element) => {
           element.closest('table').closest('tr').hidden = true;
           if(element.closest('table').closest('tr').nextElementSibling.querySelector('textarea')){
             element.closest('table').closest('tr').nextElementSibling.hidden = true;
