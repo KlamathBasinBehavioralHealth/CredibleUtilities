@@ -107,18 +107,18 @@ function visibility(hideShow, target, require = false, requireTextarea = false){
             element.closest('table').closest('tr').nextElementSibling.hidden = false;
           }
           element.setAttribute('visibility', 'show');
-        });
 
-        if(require){   
-          requireField(element, true);   
-        }else{    
-          requireField(element, false);   
-        }   
-        if(requireTextarea){   
-          requireNotes(element, true);   
-        }else{    
-          requireNotes(element, false);   
-        }   
+          if(require){   
+            requireField(element, true);   
+          }else{    
+            requireField(element, false);   
+          }   
+          if(requireTextarea){   
+            requireNotes(element, true);   
+          }else{    
+            requireNotes(element, false);   
+          } 
+        });
       }else if(hideShow == 'hide'){     
         [...selector].forEach((element) => {
           element.closest('table').closest('tr').hidden = true;
@@ -129,10 +129,9 @@ function visibility(hideShow, target, require = false, requireTextarea = false){
             element.closest('table').closest('tr').nextElementSibling.hidden = true;
           }
           element.setAttribute('visibility', 'hide');
+          requireField(element, false);
+          requireNotes(element, false);
         });
-
-        requireField(element, false);
-        requireNotes(element, false);
       }   
     }catch(error){   
  
