@@ -67,13 +67,13 @@ function requireNotes (target, condition) {
     try{ 
       textarea = document.querySelector(target).closest('table').closest('tr').nextElementSibling.querySelector('textarea');
       try{
-        textarea.nextSibling.querySelector('.redAsterisk').remove(); 
+        textarea.closest('tr').querySelector('.redAsterisk').remove(); 
       }catch(error){
 
       }
       if(condition){
         textarea.required = true;
-        textarea.appendChild(redAsterisk);
+        textarea.closest('td').appendChild(redAsterisk);
       }else{
         textarea.required = false;
       }
