@@ -87,7 +87,7 @@ function visibility(hideShow, target, require = false, requireTextarea = false){
   if(document.querySelector('[name=Complete]')){   
     try{   
       if(hideShow == 'show'){    
-        [...document.querySelectorAll('#purpose')].forEach((element) => {
+        [...document.querySelectorAll(target)].forEach((element) => {
           element.closest('table').closest('tr').hidden = false;
           if(element.closest('table').closest('tr').nextElementSibling.querySelector('textarea')){
             element.closest('table').closest('tr').nextElementSibling.hidden = false;
@@ -109,7 +109,7 @@ function visibility(hideShow, target, require = false, requireTextarea = false){
           requireNotes(element, false);   
         }   
       }else if(hideShow == 'hide'){     
-        [...document.querySelectorAll('#purpose')].forEach((element) => {
+        [...document.querySelectorAll(target)].forEach((element) => {
           element.closest('table').closest('tr').hidden = true;
           if(element.closest('table').closest('tr').nextElementSibling.querySelector('textarea')){
             element.closest('table').closest('tr').nextElementSibling.hidden = true;
