@@ -83,7 +83,7 @@ function requireNotes (target, condition) {
   } 
 }
 
-function visibility(hideShow, target, require = false){ 
+function visibility(hideShow, target, require = false, requireTextarea = false){ 
   if(document.querySelector('[name=Complete]')){   
     try{   
       if(hideShow == 'show'){    
@@ -98,15 +98,16 @@ function visibility(hideShow, target, require = false){
           element.setAttribute('visibility', 'show');
         });
 
-        try{   
-          if(require){   
-            requireField(element, true);   
-          }else{    
-            requireField(element, false);   
-          }   
-        }catch(error){ 
-
-        } 
+        if(require){   
+          requireField(element, true);   
+        }else{    
+          requireField(element, false);   
+        }   
+        if(requireTextarea){   
+          requireNotes(element, true);   
+        }else{    
+          requireNotes(element, false);   
+        }   
       }else if(hideShow == 'hide'){     
         [...document.querySelectorAll('#purpose')].forEach((element) => {
           element.closest('table').closest('tr').hidden = true;
@@ -120,6 +121,7 @@ function visibility(hideShow, target, require = false){
         });
 
         requireField(element, false);
+        requireNotes(element, false);
       }   
     }catch(error){   
  
