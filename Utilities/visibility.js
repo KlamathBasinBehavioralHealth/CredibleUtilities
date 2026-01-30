@@ -1,17 +1,32 @@
+function getSelector(target){
+  let selector = undefined;
+  if(typeof target === 'object'){
+      if(target.id){
+        selector = document.querySelectorAll(`#${target.id}`);
+      }else{
+        selector = [target];
+      }
+    }else if(typeof target === 'string'){
+      selector = document.querySelectorAll(target);
+    }
+    return selected;
+}
+
 function requireField (target, condition) {  
+  let selector = undefined;
   if(document.querySelector('[name=Complete]')){ 
+  selector = getSelector(target);
     try{ 
       try{
-        [...document.querySelectorAll(target)].forEach((element) => {
+        [...selector].forEach((element) => {
           try{
             element.querySelector('.redAsterisk').remove();
           }catch(error){}
         });
       }catch(error){}  
       if(condition) {  
-        let selected = document.querySelectorAll(target);
-        [...selected].forEach((thing) => {
-          if(selected.length == 1){
+        [...selector].forEach((thing) => {
+          if(selector.length == 1){
             try{
               thing.closest('table').querySelector('input').required = true;
             }catch(error){}
@@ -21,7 +36,7 @@ function requireField (target, condition) {
             try{ 
               thing.removeAttribute('requireCheckbox'); 
             }catch(error){} 
-          }else if(selected.length > 1){
+          }else if(selector.length > 1){
             try{
               [...thing.closest('table').querySelectorAll('input')].forEach((element) => {
                 element.required = false;
@@ -38,8 +53,7 @@ function requireField (target, condition) {
           thing.appendChild(redAsterisk);
         }); 
       }else{  
-        let selected = document.querySelectorAll(target);
-        [...selected].forEach((thing) => {
+        [...selector].forEach((thing) => {
           try{
             thing.closest('table').querySelector('input').required = false;
           }catch(error){}
@@ -56,7 +70,9 @@ function requireField (target, condition) {
 }
  
 function requireNotes (target, condition) {  
+  let selector = undefined;
   if(document.querySelector('[name=Complete]')){
+    selector = getSelector(target);
     let textarea = undefined;
     const redAsterisk = document.createElement('div');
           redAsterisk.className = 'redAsterisk';
@@ -65,7 +81,7 @@ function requireNotes (target, condition) {
           redAsterisk.style.display = 'inline';
    
     try{ 
-      textarea = document.querySelector(target).closest('table').closest('tr').nextElementSibling.querySelector('textarea');
+      textarea = [...selector][0].closest('table').closest('tr').nextElementSibling.querySelector('textarea');
       try{
         textarea.closest('tr').querySelector('.redAsterisk').remove(); 
       }catch(error){
@@ -86,15 +102,7 @@ function requireNotes (target, condition) {
 function visibility(hideShow, target, require = false, requireTextarea = false){ 
   let selector = undefined;
   if(document.querySelector('[name=Complete]')){   
-    if(typeof target === 'object'){
-      if(target.id){
-        selector = document.querySelectorAll(`#${target.id}`);
-      }else{
-        selector = [target];
-      }
-    }else if(typeof target === 'string'){
-      selector = document.querySelectorAll(target);
-    }
+    selector = getSelector(target);
 
     try{   
       if(hideShow == 'show'){    
