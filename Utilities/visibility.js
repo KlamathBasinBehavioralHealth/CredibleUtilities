@@ -9,7 +9,7 @@ function getSelector(target){
     }else if(typeof target === 'string'){
       selector = document.querySelectorAll(target);
     }
-    return selected;
+    return selector;
 }
 
 function requireField (target, condition) {  
