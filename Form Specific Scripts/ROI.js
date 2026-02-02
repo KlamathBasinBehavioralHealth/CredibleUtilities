@@ -1,66 +1,84 @@
-if(typeof visibility != 'function'){
-	if (typeof include === "undefined") {
-		window.include = function (file){
-		var script = document.createElement('script');
-		script.src = file;
-		script.type = 'text/javascript';
-		script.defer = true;
-			
-		document.getElementsByTagName('head').item(0).appendChild(script);
-		}
+//Initialize display states and add event handlers for dropMatchId
+document.addEventListener('DOMContentLoaded', (event) => { 
+	visibility('hide', '.sender');
+	try{
+		[...document.querySelectorAll('.sender')].forEach((sender) => {
+			/*sender.closest('table').querySelector('select').setAttribute(
+				'style',
+				'-webkit-appearance: none; text-indent: 1px; pointer-events: none;'
+			);*/
+			sender.closest('table').querySelector('select').disabled = true;
+		});
+	}catch(error){
+
 	}
-  
-	include('https://cdn.jsdelivr.net/gh/KlamathBasinBehavioralHealth/CredibleUtilities@7c95c8d/Utilities/visibility.js');
-}
 
-//Tooltips
-$('document').ready(function(){ 
-    $('input, select, tr, td, div').tooltip({ 
-        content: function(){ 
-            return this.getAttribute('title'); 
-        }, 
-    });  
-});
-
-//Initialize display states and add event handlers for dropMatchId and dropdownShowHide
-$(document).ready(function(){
-	$('tr').has('div[class*=passenger]').find('select').attr('style', '-webkit-appearance: none; text-indent: 1px; pointer-events: none;');
-	$('tr').has('div[class*=payerDriverText]').find('input').attr('style', '-webkit-appearance: none; text-indent: 1px; pointer-events: none;');
-	$('tr').has('div[class*=providerDriverText]').find('input').attr('style', '-webkit-appearance: none; text-indent: 1px; pointer-events: none;');
-	$('tr').has('div[class*=payerPassengerText]').find('input').attr('style', '-webkit-appearance: none; text-indent: 1px; pointer-events: none;');
-	$('tr').has('div[class*=providerPassengerText]').find('input').attr('style', '-webkit-appearance: none; text-indent: 1px; pointer-events: none;');
+	document.querySelector('#recipientSenderType').closest('table').querySelector('select').addEventListener('change', () => {
+		//If Swapping from one to another, clear fields of appropriate Then autofill when interpreter
+		let type = document.querySelector('#recipientSenderType').closest('table').querySelector('select').options[document.querySelector('#recipientSenderType').closest('table').querySelector('select').selectedIndex].text;
 		
-	/* $('td').has('div[class*=passenger]').css('display', 'none');
-	$('tr').has('div[class*=passenger]').next().find('td').css('display', 'none'); */
-	visibility('hide', '.passenger');
-	
-	/* $('td').has('div[class*=hideMe]').css('display', 'none');
-	$('tr').has('div[class*=hideMe]').next().find('td').css('display', 'none'); */
-	visibility('hide', '.hideMe');
-	/* $('td').has('div[class*=payerDriver]').css('display', 'none');
-	$('tr').has('div[class*=payerDriver]').next().find('td').css('display', 'none'); */
-	visibility('hide', '.payerDriver');
-	/* $('td').has('div[class*=providerDriver]').css('display', 'none');
-	$('tr').has('div[class*=providerDriver]').next().find('td').css('display', 'none'); */
-	visibility('hide', '.providerDriver');
+		visibility('show', '.reciever');
 
-	$('tr').has('div[class*=driver]').find('select').change(() => {
+		switch(type){
+			case 'Payer':
+				clearSenders();
+				clearRecievers();
+				restrictUnrestrictRecievers(false);
+				break;
+			case 'Provider':
+				clearSenders();
+				clearRecievers();
+				restrictUnrestrictRecievers(false);
+				break;	
+			case 'Interpreter':
+				clearSenders();
+				clearRecievers();
+				restrictUnrestrictRecievers(true);
+				document.querySelector('#entity').closest('table').querySelector('input').value = 'Any Interpreter Entity';
+				visibility('hide', '.reciever');
+				visibility('show', '#entity');
+				$('tr').has('div[insuranceType=medicaid]').find('input').each(function(){
+					if(!$(this).prop('checked')){
+						$(this).prop('checked', true);
+					}
+				});
+				break;
+			default:
+				clearSenders();
+				clearRecievers();
+				restrictUnrestrictRecievers(false);
+		}
+	});
+	document.querySelector('#recipientSenderType').closest('table').querySelector('select').addEventListener('mouseleave', () => {
+		//If Swapping from one to another, clear fields of appropriate Then autofill when interpreter
+	});
+
+	document.querySelector('#payerSelect').closest('table').querySelector('select').addEventListener('change', () => {
 		try{
 			dropMatchId();
 		}catch(error){
 			console.log(error);
 		}
 	});
-	$('tr').has('div[class*=driver]').find('select').change(() => {
+	document.querySelector('#payerSelect').closest('table').querySelector('select').addEventListener('mouseleave', () => {
 		try{
-			dropdownShowHide();
+			dropMatchId();
 		}catch(error){
 			console.log(error);
 		}
 	});
-	$('tr').has('div[class*=hideDriver]').find('select').change(() => {
+
+	
+	document.querySelector('#providerSelect').closest('table').querySelector('select').addEventListener('change', () => {
 		try{
-			dropdownShowHide();
+			dropMatchId();
+		}catch(error){
+			console.log(error);
+		}
+	});
+	document.querySelector('#providerSelect').closest('table').querySelector('select').addEventListener('mouseleave', () => {
+		try{
+			dropMatchId();
 		}catch(error){
 			console.log(error);
 		}
@@ -71,259 +89,212 @@ $(document).ready(function(){
 	}catch(error){
 		console.log(error);
 	}
-	try{
-		dropdownShowHide();
-	}catch(error){
-		console.log(error);
-	}
 	
-	$('hr[class=line]').css('width', '100em');
+	document.querySelectorAll('hr.line').forEach(hr => {
+		hr.style.width = '100em';
+	});
 	
-	$('input[name=Complete]').prop('disabled', false);
-	/* $('input[name=Complete]').click(() => {
-		try{
-			dropdownShowHide();
-		}catch(error){
-			console.log(error);
-		}
-	}); */
+	document.querySelectorAll('input[name="Complete"]').forEach(input => {
+		input.disabled = false;
+	});
 });
 
 //Functions for Matching dropdown IDs and Running Show Hide
-
 function dropMatchId ()
 {	
-	if($('tr').has('div[class*=payerDriver]').find('select').val())
-	{
-		$('tr').has('div[class*=payerPassenger]').find('select').val($('tr').has('div[class*=payerDriver]').find('select').val());
-		
-		$('tr').has('div[class*=payerDriverText]').find('input').val($('tr').has('div[class*=payerDriver]').find('option[value=' + $('tr').has('div[class*=payerDriver]').find('select').val() + ']').text());
-		for(let count = 0; count < $('tr').has('div[class*=payerPassenger]').find('select').length; count++)
-		{
-			$('tr').has('div[class*=payerPassengerText]').find('input')[count].value = $('tr').has('div[class*=payerPassenger]').find('option[value=' + $('tr').has('div[class*=payerPassenger]').find('select')[count].value + ']')[count].text;
+	if(document.querySelector('#payerSelect').closest('table').querySelector('select').value){
+		clearRecievers();
+
+		[...document.querySelectorAll('.payerPassenger')].forEach((passenger) => {
+			passenger.closest('table').querySelector('select').value = document.querySelector('#payerSelect').closest('table').querySelector('select').value;
+		});
+
+		if(document.querySelector('#payerSelect').closest('table').querySelector('select').options[document.querySelector('#payerSelect').closest('table').querySelector('select').selectedIndex].text != ''){
+			document.querySelector('#entity').closest('table').querySelector('input').value = document.querySelector('#payerSelect').closest('table').querySelector('select').options[document.querySelector('#payerSelect').closest('table').querySelector('select').selectedIndex].text.replace(/\./g, '');
+
+			document.querySelector('#entity').closest('table').querySelector('input').readOnly = true;
 		}
-		
-		requireHidden(false, 'payerDriver');
-	}
-	if($('tr').has('div[class*=providerDriver]').find('select').val())
-	{
-		if($('tr').has('div[class*=providerDriver]').find('select').val() == 550 | $('tr').has('div[class*=providerDriver]').find('select').val() == 733 | $('tr').has('div[class*=providerDriver]').find('select').val() == 734 | $('tr').has('div[class*=providerDriver]').find('select').val() == 283){
-			$('tr').has('div[class*=providerPassenger]').find('select').val($('tr').has('div[class*=providerDriver]').find('select').val());
-			
-			$('tr').has('div[class*=providerDriverText]').find('input').val($('tr').has('div[class*=providerDriver]').find('option[value=' + 779 + ']').text());
-			for(let count = 0; count < $('tr').has('div[class*=providerPassenger]').find('select').length; count++)
-			{
-				$('tr').has('div[class*=providerPassengerText]').find('input')[count].value = $('tr').has('div[class*=providerPassenger]').find('option[value=' + 779 + ']')[count].text;
-			}
+		if(document.querySelector('#payerAddressOne').closest('table').querySelector('select').options[document.querySelector('#payerAddressOne').closest('table').querySelector('select').selectedIndex].text != ''){
+			document.querySelector('#addressOne').closest('table').querySelector('input').value = document.querySelector('#payerAddressOne').closest('table').querySelector('select').options[document.querySelector('#payerAddressOne').closest('table').querySelector('select').selectedIndex].text;
+
+			document.querySelector('#addressOne').closest('table').querySelector('input').readOnly = true;
 		}
-		else{
-			$('tr').has('div[class*=providerPassenger]').find('select').val($('tr').has('div[class*=providerDriver]').find('select').val());
-			
-			$('tr').has('div[class*=providerDriverText]').find('input').val($('tr').has('div[class*=providerDriver]').find('option[value=' + $('tr').has('div[class*=providerDriver]').find('select').val() + ']').text());
-			for(let count = 0; count < $('tr').has('div[class*=providerPassenger]').find('select').length; count++)
-			{
-				$('tr').has('div[class*=providerPassengerText]').find('input')[count].value = $('tr').has('div[class*=providerPassenger]').find('option[value=' + $('tr').has('div[class*=providerPassenger]').find('select')[count].value + ']')[count].text;
-			}
+		if(document.querySelector('#payerAddressTwo').closest('table').querySelector('select').options[document.querySelector('#payerAddressTwo').closest('table').querySelector('select').selectedIndex].text != ''){
+			document.querySelector('#addressTwo').closest('table').querySelector('input').value = document.querySelector('#payerAddressTwo').closest('table').querySelector('select').options[document.querySelector('#payerAddressTwo').closest('table').querySelector('select').selectedIndex].text;
+
+			document.querySelector('#addressTwo').closest('table').querySelector('input').readOnly = true;
 		}
-		requireHidden(false, 'providerDriver');
+		if(document.querySelector('#payerCity').closest('table').querySelector('select').options[document.querySelector('#payerCity').closest('table').querySelector('select').selectedIndex].text != ''){
+			document.querySelector('#city').closest('table').querySelector('input').value = document.querySelector('#payerCity').closest('table').querySelector('select').options[document.querySelector('#payerCity').closest('table').querySelector('select').selectedIndex].text;
+
+			document.querySelector('#city').closest('table').querySelector('input').readOnly = true;
+		}
+		if(document.querySelector('#payerState').closest('table').querySelector('select').options[document.querySelector('#payerState').closest('table').querySelector('select').selectedIndex].text != ''){
+			document.querySelector('#state').closest('table').querySelector('select').value = [...document.querySelector('#state').closest('table').querySelector('select').options].find(option =>	option.title.trim().toLowerCase() == document.querySelector('#payerState').closest('table').querySelector('select').options[document.querySelector('#payerState').closest('table').querySelector('select').selectedIndex].text.trim().toLowerCase()).value;
+
+			document.querySelector('#state').closest('table').querySelector('select').disabled = true;
+		}
+		if(document.querySelector('#payerZip').closest('table').querySelector('select').options[document.querySelector('#payerZip').closest('table').querySelector('select').selectedIndex].text != ''){
+			document.querySelector('#zip').closest('table').querySelector('input').value = document.querySelector('#payerZip').closest('table').querySelector('select').options[document.querySelector('#payerZip').closest('table').querySelector('select').selectedIndex].text;
+
+			document.querySelector('#zip').closest('table').querySelector('input').readOnly = true;
+		}
+		if(document.querySelector('#payerPhone').closest('table').querySelector('select').options[document.querySelector('#payerPhone').closest('table').querySelector('select').selectedIndex].text != ''){
+			document.querySelector('#phone').closest('table').querySelector('input').value = document.querySelector('#payerPhone').closest('table').querySelector('select').options[document.querySelector('#payerPhone').closest('table').querySelector('select').selectedIndex].text;
+
+			document.querySelector('#phone').closest('table').querySelector('input').readOnly = true;
+		}
+		if(document.querySelector('#payerFax').closest('table').querySelector('select').options[document.querySelector('#payerFax').closest('table').querySelector('select').selectedIndex].text != ''){
+			document.querySelector('#fax').closest('table').querySelector('input').value = document.querySelector('#payerFax').closest('table').querySelector('select').options[document.querySelector('#payerFax').closest('table').querySelector('select').selectedIndex].text;
+
+			document.querySelector('#fax').closest('table').querySelector('input').readOnly = true;
+		}
+
+		requireField('#payerSelect', false);
+		clearSenders();
 	}
 
-	clearDropdowns();
-}
+	if(document.querySelector('#providerSelect').closest('table').querySelector('select').value){
+		clearRecievers();
+		[...document.querySelectorAll('.providerPassenger')].forEach((passenger) => {
+			passenger.closest('table').querySelector('select').value = document.querySelector('#providerSelect').closest('table').querySelector('select').value;
+		});
 
-function dropdownShowHide ()
-{
-	
-	/* $('td').has('div[class*=payerDriver]').css('display', 'none');
-	$('tr').has('div[class*=payerDriver]').next().find('td').css('display', 'none'); */
-	visibility('hide', '.payerDriver');
-	visibility('hide', '.payerDriverText');
-	/* $('td').has('div[class*=payerPassenger]').css('display', 'none');
-	$('tr').has('div[class*=payerPassenger]').next().find('td').css('display', 'none'); */
-	visibility('hide', '.payerPassenger');
-	/* $('td').has('div[class*=providerDriver]').css('display', 'none');
-	$('tr').has('div[class*=providerDriver]').next().find('td').css('display', 'none'); */
-	visibility('hide', '.providerDriver');
-	visibility('hide', '.providerDriverText');
-	/* $('td').has('div[class*=providerPassenger]').css('display', 'none');
-	$('tr').has('div[class*=providerPassenger]').next().find('td').css('display', 'none'); */
-	visibility('hide', '.providerPassenger');
-	/* $('td').has('div[class*=payerPassengerText]').css('display', 'none');
-	$('tr').has('div[class*=payerPassengerText]').next().find('td').css('display', 'none'); */
-	visibility('hide', '.payerPassengerText');
-	/* $('td').has('div[class*=providerPassengerText]').css('display', 'none');
-	$('tr').has('div[class*=providerPassengerText]').next().find('td').css('display', 'none'); */
-	visibility('hide', '.providerPassengerText');
-	/* $('td').has('div[class*=hideMe]').css('display', 'none');
-	$('tr').has('div[class*=hideMe]').next().find('td').css('display', 'none'); */
-	visibility('hide', '.hideMe');
-		
-	if($('tr').has('div[class*=hideDriver]').find('select').attr('value') == $('option:contains(\'Other\')').attr('value'))
-	{
-		/* $('td').has('div[class*=hideMe]').css('display', 'inline-block');
-		$('tr').has('div[class*=hideMe]').next().find('td').css('display', 'inline'); */
-		visibility('show', '.hideMe');
+		if(document.querySelector('#providerSelect').closest('table').querySelector('select').options[document.querySelector('#providerSelect').closest('table').querySelector('select').selectedIndex].text != ''){
+			document.querySelector('#entity').closest('table').querySelector('input').value = document.querySelector('#providerSelect').closest('table').querySelector('select').options[document.querySelector('#providerSelect').closest('table').querySelector('select').selectedIndex].text.replace(/\./g, '');
+
+			document.querySelector('#entity').closest('table').querySelector('input').readOnly = true;
+		}
+		if(document.querySelector('#providerAddressOne').closest('table').querySelector('select').options[document.querySelector('#providerAddressOne').closest('table').querySelector('select').selectedIndex].text != ''){
+			document.querySelector('#addressOne').closest('table').querySelector('input').value = document.querySelector('#providerAddressOne').closest('table').querySelector('select').options[document.querySelector('#providerAddressOne').closest('table').querySelector('select').selectedIndex].text;
+
+			document.querySelector('#addressOne').closest('table').querySelector('input').readOnly = true;
+		}
+		if(document.querySelector('#providerCity').closest('table').querySelector('select').options[document.querySelector('#providerCity').closest('table').querySelector('select').selectedIndex].text != ''){
+			document.querySelector('#city').closest('table').querySelector('input').value = document.querySelector('#providerCity').closest('table').querySelector('select').options[document.querySelector('#providerCity').closest('table').querySelector('select').selectedIndex].text;
+
+			document.querySelector('#city').closest('table').querySelector('input').readOnly = true;
+		}
+		if(document.querySelector('#providerState').closest('table').querySelector('select').options[document.querySelector('#providerState').closest('table').querySelector('select').selectedIndex].text != ''){
+			document.querySelector('#state').closest('table').querySelector('select').value = [...document.querySelector('#state').closest('table').querySelector('select').options].find(option =>	option.title.trim().toLowerCase() == document.querySelector('#providerState').closest('table').querySelector('select').options[document.querySelector('#providerState').closest('table').querySelector('select').selectedIndex].text.trim().toLowerCase()).value;
+
+			document.querySelector('#state').closest('table').querySelector('select').disabled = true;
+		}
+		if(document.querySelector('#providerZip').closest('table').querySelector('select').options[document.querySelector('#providerZip').closest('table').querySelector('select').selectedIndex].text != ''){
+			document.querySelector('#zip').closest('table').querySelector('input').value = document.querySelector('#providerZip').closest('table').querySelector('select').options[document.querySelector('#providerZip').closest('table').querySelector('select').selectedIndex].text;
+
+			document.querySelector('#zip').closest('table').querySelector('input').readOnly = true;
+		}
+		if(document.querySelector('#providerPhone').closest('table').querySelector('select').options[document.querySelector('#providerPhone').closest('table').querySelector('select').selectedIndex].text != ''){
+			document.querySelector('#phone').closest('table').querySelector('input').value = document.querySelector('#providerPhone').closest('table').querySelector('select').options[document.querySelector('#providerPhone').closest('table').querySelector('select').selectedIndex].text;
+
+			document.querySelector('#phone').closest('table').querySelector('input').readOnly = true;
+		}
+		if(document.querySelector('#providerFax').closest('table').querySelector('select').options[document.querySelector('#providerFax').closest('table').querySelector('select').selectedIndex].text != ''){
+			document.querySelector('#fax').closest('table').querySelector('input').value = document.querySelector('#providerFax').closest('table').querySelector('select').options[document.querySelector('#providerFax').closest('table').querySelector('select').selectedIndex].text;
+
+			document.querySelector('#fax').closest('table').querySelector('input').readOnly = true;
+		}
+		if(document.querySelector('#providerEmail').closest('table').querySelector('select').options[document.querySelector('#providerEmail').closest('table').querySelector('select').selectedIndex].text != ''){
+			document.querySelector('#email').closest('table').querySelector('input').value = document.querySelector('#providerEmail').closest('table').querySelector('select').options[document.querySelector('#providerEmail').closest('table').querySelector('select').selectedIndex].text;
+
+			document.querySelector('#email').closest('table').querySelector('input').readOnly = true;
+		}
+
+		requireField('#providerSelect', false);
+		clearSenders();
 	}
-	else if ($('tr').has('div[class*=hideDriver]').find('select').attr('value') == $('option:contains(\'Payer\')').attr('value'))
-	{
-		visibility('show', '#payerName');
-		/* $('td').has('div[class*=payerDriver]').css('display', 'inline-block');
-		$('tr').has('div[class*=payerDriver]').next().find('td').css('display', 'inline'); */
-		visibility('show', '.payerDriver');
-		/* $('td').has('div[class*=payerPassenger]').css('display', 'inline-block');
-		$('tr').has('div[class*=payerPassenger]').next().find('td').css('display', 'inline');	 */
-		visibility('show', '.payerPassenger');
-	}
-	else if ($('tr').has('div[class*=hideDriver]').find('select').attr('value') == $('option:contains(\'Provider\')').attr('value'))
-	{
-		visibility('show', '#providerName');
-		/* $('td').has('div[class*=providerDriver]').css('display', 'inline-block');
-		$('tr').has('div[class*=providerDriver]').next().find('td').css('display', 'inline'); */
-		visibility('show', '.providerDriver');
-		/* $('td').has('div[class*=providerPassenger]').css('display', 'inline-block');
-		$('tr').has('div[class*=providerPassenger]').next().find('td').css('display', 'inline'); */
-		visibility('show', '.providerPassenger');
-	}
-	
-	if($('tr').has('div[class*=payerDriverText]').find('input').val())
-	{
-		/* $('td').has('div[class*=payerPassengerText]').css('display', 'inline-block');
-		$('tr').has('div[class*=payerPassengerText]').next().find('td').css('display', 'inline'); */
-		visibility('show', '.payerPassengerText');
-	}
-	else if($('tr').has('div[class*=providerDriverText]').find('input').val())
-	{
-		/* $('td').has('div[class*=providerPassengerText]').css('display', 'inline-block');
-		$('tr').has('div[class*=providerPassengerText]').next().find('td').css('display', 'inline'); */
-		visibility('show', '.providerPassengerText');
-	}
-	
-	if($('tr').has('div[class*=payerEmail]').find('input').val())
-	{
-		/* $('td').has('div[class*=payerEmail]').css('display', 'inline-block');
-		$('tr').has('div[class*=payerEmail]').next().find('td').css('display', 'inline'); */
-		visibility('show', '.payerEmail');
-	}
-	else if($('tr').has('div[class*=providerSpecificIndividual]').find('input').val())
-	{
-		/* $('td').has('div[class*=providerSpecificIndividual]').css('display', 'inline-block');
-		$('tr').has('div[class*=providerSpecificIndividual]').next().find('td').css('display', 'inline'); */
-		visibility('show', '.providerSpecificIndividual');
-	}
-	/* $('td').has('div[class*=goAway]').css('display', 'none');
-	$('tr').has('div[class*=goAway]').next().find('td').css('display', 'none'); */
-	visibility('hide', '.goAway');
 }
 
 //Clearing dropdowns on form submit
-function clearDropdowns ()
+function clearSenders()
 {	
-	if($('tr').has('div[class*=payerDriverText]').find('input').val())
-	{
-		$('tr').has('div[class*=payerDriver]').find('select').val('');
-		$('tr').has('div[class*=payerPassenger]').find('select').val('');
-	}
-	
-	if($('tr').has('div[class*=providerDriverText]').find('input').val())
-	{
-		$('tr').has('div[class*=providerDriver]').find('select').val('');
-		$('tr').has('div[class*=providerPassenger]').find('select').val('');
-	}	
-	
-	if($('tr').has('div[class*=hideDriver]').find('select').attr('value') == $('option:contains(\'Other\')').attr('value'))
-	{
-		$('tr').has('div[class*=payerDriver]').find('select').val('');
-		$('tr').has('div[class*=payerPassenger]').find('select').val('');
-		$('tr').has('div[class*=providerDriver]').find('select').val('');
-		$('tr').has('div[class*=providerPassenger]').find('select').val('');
-	}
-	else if ($('tr').has('div[class*=hideDriver]').find('select').attr('value') == $('option:contains(\'Payer\')').attr('value'))
-	{
-		$('tr').has('div[class*=providerDriver]').find('select').val('');
-		$('tr').has('div[class*=providerPassenger]').find('select').val('');
-	}
-	else if ($('tr').has('div[class*=hideDriver]').find('select').attr('value') == $('option:contains(\'Provider\')').attr('value'))
-	{
-		$('tr').has('div[class*=payerDriver]').find('select').val('');
-		$('tr').has('div[class*=payerPassenger]').find('select').val('');
+	document.querySelector('#payerSelect').closest('table').querySelector('select').value = '';
+	document.querySelector('#providerSelect').closest('table').querySelector('select').value = '';
+	[...document.querySelectorAll('.sender')].forEach((sender) => {
+		sender.closest('table').querySelector('select').value = '';
+	});
+}
+
+//Clear all reciever entries
+function clearRecievers(){
+	[...document.querySelectorAll('.reciever')].forEach((reciever) => {
+		reciever.closest('table').querySelector('input, select').value = '';
+
+		restrictUnrestrictRecievers(false);
+	});
+}
+
+//Restrict/Unrestrict recievers
+function restrictUnrestrictRecievers(condition){
+	if(condition == true || condition == false){
+		[...document.querySelectorAll('.reciever')].forEach((reciever) => {
+			try{
+				reciever.closest('table').querySelector('input').readOnly = condition;
+			}catch(error){
+
+			}
+			try{
+				reciever.closest('table').querySelector('select').disabled = condition;
+			}catch(error){
+
+			}
+		});
 	}
 }
 
-//Functions to drive mandatory hidden questions
-function requireHidden (condition, target) { 
-	$('tr').find('div[class*=' + target + ']').next().remove(); 
-	$('tr').find('div[id=' + target + ']').next().remove();  
-	if(condition) { 
-		$('tr').has('div[class*=' + target + ']').find('input').prop('required', true); 
-		$('tr').has('div[class*=' + target + ']').find('select').prop('required', true); 
-		$('tr').find('div[class*=' + target + ']').after('<div class=\'redAsterisk\' style=\'color : red; display : inline\'>*</div>');
-		$('tr').has('div[id=' + target + ']').find('input').prop('required', true); 
-		$('tr').has('div[id=' + target + ']').find('select').prop('required', true); 
-		$('tr').find('div[id=' + target + ']').after('<div class=\'redAsterisk\' style=\'color : red; display : inline\'>*</div>');  
-	} 
-	else { 
-		$('tr').has('div[class*=' + target + ']').find('input').prop('required', false); 
-		$('tr').has('div[class*=' + target + ']').find('select').prop('required', false); 
-		$('tr').has('div[id=' + target + ']').find('input').prop('required', false); 
-		$('tr').has('div[id=' + target + ']').find('select').prop('required', false);
-	} 
-}  
+//Re-enable any disabled dropdowns before form submit
+document.addEventListener('submit', () => {
+  [...document.querySelectorAll('select:disabled')].forEach(select => {
+    select.disabled = false;
+  });
+});
 
-function requireHiddenNotes (condition, target) { 
-	$('tr').find('div[class*=' + target + ']').next().remove(); 
-	$('tr').find('div[id=' + target + ']').next().remove();  
-	if(condition) { 
-		$('tr').has('div[class*=' + target + ']').next().find('textarea').prop('required', true); 
-		$('tr').find('div[class*=' + target + ']').after('<div class=\'redAsterisk\' style=\'color : red; display : inline\'>*</div>');
-		$('tr').has('div[id=' + target + ']').next().find('textarea').prop('required', true); 
-		$('tr').find('div[id=' + target + ']').after('<div class=\'redAsterisk\' style=\'color : red; display : inline\'>*</div>');
-	} 
-	else { 
-		$('tr').has('div[class*=' + target + ']').next().find('textarea').prop('required', false); 
-		$('tr').has('div[id=' + target + ']').next().find('textarea').prop('required', false);   
-	} 
-}  
+function checkGuardianDriver(){
+	visibility('hide', '.guardianRequired', false);
+	visibility('hide', '.relationshipRequiredNotes', false, false);
+	if($('tr').has('div[class*=guardianRequiredDriver]').find('input')[0].checked){
+		visibility('show', '.guardianRequired', true);
+		visibility('show', '.relationshipRequiredNotes', true, true);
+	}
+}
+
+function checkHIV(){
+	visibility('hide', '.requiredDates', false);
+	if($('tr').has('div[id=hivAids]').find('input').prop('checked') == true){
+		visibility('show', '.requiredDates', true);
+	}
+}
+
+function checkVerified(){
+	visibility('hide', '.verifiedRequired', false);
+	requireField('.verifiedRequired', false);
+
+	if(document.querySelector('.verifiedRequiredDriver').closest('table').querySelector('select')[document.querySelector('.verifiedRequiredDriver').closest('table').querySelector('select').selectedIndex].text === 'Other (listed below)'){
+		visibility('show', '.verifiedRequired', true);
+		requireField('.verifiedRequired', true);
+	}else if(document.querySelector('.verifiedRequiredDriver').closest('table').querySelector('select')[document.querySelector('.verifiedRequiredDriver').closest('table').querySelector('select').selectedIndex].text === 'Parent'){
+		visibility('show', '.verifiedRequired', false);
+	}
+}
 
 //Event handlers for mandatory hidden questions
 $(document).ready(function(){
-	$('tr').has('div[class*=requiredDriver]').find('select').change(function(event)
-	{
-		requireHidden(false, 'requiredPassenger');
-		requireHidden(false, 'payerDriver');
-		requireHidden(false, 'providerDriver');
-		
-		if ($('tr').has('div[class*=requiredDriver]').find('select').attr('value') == $('tr').has('div[class*=requiredDriver]').find('option:contains(\'Other\')').attr('value'))
-		{
-			requireHidden(true, 'requiredPassenger');
-			requireHidden(false, 'payerDriver');
-			requireHidden(false, 'providerDriver');
-		}
-		else if ($('tr').has('div[class*=requiredDriver]').find('select').attr('value') == $('tr').has('div[class*=requiredDriver]').find('option:contains(\'Payer\')').attr('value'))
-		{
-			requireHidden(false, 'requiredPassenger');
-			requireHidden(true, 'payerDriver');
-			requireHidden(false, 'providerDriver');
-		}
-		else if ($('tr').has('div[class*=requiredDriver]').find('select').attr('value') == $('tr').has('div[class*=requiredDriver]').find('option:contains(\'Provider\')').attr('value'))
-		{
-			requireHidden(false, 'requiredPassenger');
-			requireHidden(false, 'payerDriver');
-			requireHidden(true, 'providerDriver');
-		}
-	});
+	checkGuardianDriver();
+	checkHIV();
+	checkVerified();
 	$('tr').has('div[class*=guardianRequiredDriver]').find('input').change(function(event)
 	{
-		requireHidden( $('tr').has('div[class*=guardianRequiredDriver]').find('input')[0].checked
-, 			'guardianRequired');
+		checkGuardianDriver();
+		checkVerified();
 	});
 	$('tr').has('div[id=hivAids]').find('input').change(function(event)
 	{
-		requireHidden( ($('tr').has('div[id=hivAids]').find('input').prop('checked') == true), 'requiredDates');
+		checkHIV();
 	});
 	$('tr').has('div[class*=verifiedRequiredDriver]').find('select').change(function(event)
 	{
-		requireHidden( $('tr').has('div[class*=verifiedRequiredDriver]').find('select').attr('value') != $('tr').has('div[class*=verifiedRequiredDriver]').find('option:contains(\'Parent\')').attr('value')
-, 			'verifiedRequired');
+		checkVerified();
 	});
 
 	checkRestrictions();
@@ -332,34 +303,29 @@ $(document).ready(function(){
 		checkRestrictions();
 	});
 	
-	$('tr').has('div[class*=revocationRequiredDriver]').find('input').change(function()
+	/* $('tr').has('div[class*=revocationRequiredDriver]').find('input').change(function()
 	{
-		requireHidden($('tr').has('div[class*=revocationRequiredDriver]').find('input').prop('checked'), 'voidType');
+		requireField('.voidType', $('tr').has('div[class*=revocationRequiredDriver]').find('input').prop('checked'));
 	});
 	$('tr').has('div[class*=voidType]').find('select').change(function(event)
 	{
-		requireHidden( ($('tr').has('div[class*=voidType]').find('select').val() == $('tr').has('div[class*=voidType]').find('option:contains(\'Revoked\')').val()), 'revocationDetails');
-	});
-
-	//On form load show dropdowns based on Recipient/Sender type
-	setTimeout(function(){
-		dropdownShowHide();
-	}, 1000); 
+		requireField('.revocationDetails', ($('tr').has('div[class*=voidType]').find('select').val() == $('tr').has('div[class*=voidType]').find('option:contains(\'Revoked\')').val()));
+	}); */
 });
 
 function checkRestrictions(){
-	requireHidden(false, 'readingRestrictionRequired');
-	requireHidden(false, 'writingRestrictionRequired');
-	requireHidden(false, 'languageRestrictionRequired');
+	requireField('#readingRestrictionRequired', false);
+	requireField('#writingRestrictionRequired', false);
+	requireField('#languageRestrictionRequired', false);
 		
 	if ($('tr').has('div[class*=restrictionRequiredDriver]').find('input')[1].checked){
-		requireHidden(true, 'readingRestrictionRequired');
+		requireField('#readingRestrictionRequired', false);
 	}
 	if ($('tr').has('div[class*=restrictionRequiredDriver]').find('input')[2].checked){
-		requireHidden(true, 'writingRestrictionRequired');
+		requireField('#writingRestrictionRequired', false);
 	}
 	if ($('tr').has('div[class*=restrictionRequiredDriver]').find('input')[3].checked){
-		requireHidden(true, 'languageRestrictionRequired');
+		requireField('#languageRestrictionRequired', false);
 	}
 }
 
@@ -367,30 +333,30 @@ function checkRestrictions(){
 $(document).ready(function(){
 	$('tr').has('div[id=informationRecordsOther]').find('input').change(function(event)
 	{
-		requireHiddenNotes($('tr').has('div[id=informationRecordsOther]').find('input').prop('checked'), 'informationRecordsOther');
+		requireNotes('#informationRecordsOther', $('tr').has('div[id=informationRecordsOther]').find('input').prop('checked'));
 	});
 	$('tr').has('div[class*=phiRequiredNotes]').find('input').change(function(event)
 	{
-		requireHiddenNotes($('tr').has('div[class*=phiRequiredNotes]').find('tr:contains(\'Other\')').eq(1).find('input').prop('checked'), 'phiRequiredNotes');
+		requireNotes('#phiRequiredNotes', $('tr').has('div[class*=phiRequiredNotes]').find('tr:contains(\'Other\')').eq(1).find('input').prop('checked'));
 	});
 	$('tr').has('div[class*=relationshipRequiredNotes]').find('select').change(function(event)
 	{
-		requireHiddenNotes($('tr').has('div[class*=relationshipRequiredNotes]').find('select').attr('value') == $('tr').has('div[class*=relationshipRequiredNotes]').find('option:contains(\'Other\')').attr('value'), 'relationshipRequiredNotes');
+		requireNotes('#relationshipRequiredNotes', $('tr').has('div[class*=relationshipRequiredNotes]').find('select').attr('value') == $('tr').has('div[class*=relationshipRequiredNotes]').find('option:contains(\'Other\')').attr('value'));
 	});
 	$('tr').has('div[class*=revocationNotes]').find('input').change(function(event)
 	{
-		requireHiddenNotes($('tr').has('div[class*=revocationNotes]').find('input').prop('checked'), 'revocationNotes');
+		requireNotes('#revocationNotes', $('tr').has('div[class*=revocationNotes]').find('input').prop('checked'));
 	});
 	$('tr').has('div[id=language]').find('select').change(function(event)
 	{
 		console.log('Entered Language Dropdown');
 		if($('tr').has('div[id=language]').find('option:contains(\'Other\')').prop('selected') == true)
 		{
-			requireHiddenNotes(true, 'language');
+			requireNotes('#language', true);
 		}
 		else
 		{
-			requireHiddenNotes(false, 'language');
+			requireNotes('#language', false);
 		}
 	});
 });
@@ -407,57 +373,63 @@ $(document).ready(function(){
 });
 
 function checkVoid(){
-	/* $('td').has('div[id=reason]').css('display', 'none');
-	$('tr').has('div[id=reason]').next().find('td').css('display', 'none'); */
-	visibility('hide', '#reason');
+	visibility('hide', '#reason', false);
 	if($('tr').has('div[class=revocationRequiredDriver]').find('input').prop('checked')){
-		/* $('td').has('div[id=reason]').css('display', 'inline');
-		$('tr').has('div[id=reason]').next().find('td').css('display', 'inline'); */
-		visibility('show', '#reason');
+		visibility('show', '#reason', true);
 	}
 }
 
 function checkHidden () 
 {     
+	$('tr').has('div[class=expiredROI]').find('input').attr('checked', false);
+	$('tr').has('div[class=invalidROI]').find('input').attr('checked', false);
+	$('tr').has('div[class=revokedROI]').find('input').attr('checked', false);   
+	requireField('voidType', false);
+	visibility('hide', '.revocationDetails', false);
+	visibility('hide', '.expiredROI', false);	
+	visibility('hide', '.invalidROI', false);
+	visibility('hide', '.revokedROI', false);
+	requireField('#revocationDate', false);
+	requireNotes('.revocationNotes', false);
+	
 	if (($('tr').has('div[class*=voidType]').find('option[value=\'' + $('tr').has('div[class*=voidType]').find('select').val() + '\']').text()) == 'Expired')    
 	{         
 		$('tr').has('div[class=expiredROI]').find('input').attr('checked', true);
 		$('tr').has('div[class=invalidROI]').find('input').attr('checked', false);
 		$('tr').has('div[class=revokedROI]').find('input').attr('checked', false);
-		requireHiddenNotes(false, 'voidType');
-		/* $('td').has('div[class*=revocationDetails]').css('display', 'none');
-		$('tr').has('div[class*=revocationDetails]').next().find('td').css('display', 'none'); */
+		requireField('#voidType', false);
 		visibility('hide', '.revocationDetails');	
+		visibility('show', '.expiredROI', true);	
+		visibility('hide', '.invalidROI', false);
+		visibility('hide', '.revokedROI', false);
+		requireField('#revocationDate', false);
+		requireNotes('.revocationNotes', false);
 	}
 	else if (($('tr').has('div[class*=voidType]').find('option[value=\'' + $('tr').has('div[class*=voidType]').find('select').val() + '\']').text()) == 'Invalid')     
 	{                  
 		$('tr').has('div[class=expiredROI]').find('input').attr('checked', false);
 		$('tr').has('div[class=invalidROI]').find('input').attr('checked', true);	
 		$('tr').has('div[class=revokedROI]').find('input').attr('checked', false);
-		requireHiddenNotes(true, 'voidType');
-		/* $('td').has('div[class*=revocationDetails]').css('display', 'none');
-		$('tr').has('div[class*=revocationDetails]').next().find('td').css('display', 'none'); */
-		visibility('hide', '.revocationDetails');	
+		requireField('#voidType', true);
+		visibility('hide', '.revocationDetails', false);	
+		visibility('hide', '.expiredROI', false);	
+		visibility('show', '.invalidROI', true);
+		visibility('hide', '.revokedROI', false);
+		requireField('#revocationDate', false);
+		requireNotes('.revocationNotes', false);
 	}
 	else if (($('tr').has('div[class*=voidType]').find('option[value=\'' + $('tr').has('div[class*=voidType]').find('select').val() + '\']').text()) == 'Revoked')     
 	{                  
 		$('tr').has('div[class=expiredROI]').find('input').attr('checked', false);
 		$('tr').has('div[class=invalidROI]').find('input').attr('checked', false);
 		$('tr').has('div[class=revokedROI]').find('input').attr('checked', true);		
-		requireHiddenNotes(false, 'voidType');
-		/* $('td').has('div[class*=revocationDetails]').css('display', 'inline');
-		$('tr').has('div[class*=revocationDetails]').next().find('td').css('display', 'inline-block'); */
-		visibility('show', '.revocationDetails');
-	}	
-	else
-	{
-		$('tr').has('div[class=expiredROI]').find('input').attr('checked', false);
-		$('tr').has('div[class=invalidROI]').find('input').attr('checked', false);
-		$('tr').has('div[class=revokedROI]').find('input').attr('checked', false);   
-		requireHiddenNotes(false, 'voidType');
-		/* $('td').has('div[class*=revocationDetails]').css('display', 'none');
-		$('tr').has('div[class*=revocationDetails]').next().find('td').css('display', 'none'); */
-		visibility('hide', '.revocationDetails');
+		requireField('#voidType', false);
+		visibility('show', '.revocationDetails', true);
+		visibility('hide', '.expiredROI', false);	
+		visibility('hide', '.invalidROI', false);
+		visibility('show', '.revokedROI', true);
+		requireField('#revocationDate', true);
+		requireNotes('.revocationNotes', true);
 	}
 }
 
@@ -467,9 +439,6 @@ $(document).ready(function()
 	setTimeout(function(){
 		checkHidden();
 	}, 1000);
-	$('tr').has('div[class=expiredROI]').find('input').css('display', 'inline');
-	$('tr').has('div[class=invalidROI]').find('input').css('display', 'inline');
-	$('tr').has('div[class=revokedROI]').find('input').css('display', 'inline');
 	$('tr').has('div[class*=voidType]').find('select').change(checkHidden);
 });
 
@@ -511,117 +480,34 @@ $(window).bind('load', function (){
 	$('#add_signature_1').find('h3').text('Client Signature');
 	$('#add_signature_2').find('h3').text('Legal Guardian Signature');
 	$('#add_signature_3').find('h3').text('Revocation Signature');
-});    
-
-//Clear text boxes based on dropdown
-var clearCounter;
-
-function clearPayerPassengerText ()
-{
-	/* $('td').has('div[class*=payerBegone]').css('display', 'none');
-	$('tr').has('div[class*=payerBegone]').next().find('td').css('display', 'none'); */
-	visibility('hide', '.payerBegone');
-	/* $('td').has('div[class*=payerPassengerText]').css('display', 'none');
-	$('tr').has('div[class*=payerPassengerText]').next().find('td').css('display', 'none'); */
-	visibility('hide', '.payerPassengerText');
-	$('tr').has('div[class*=payerDriverText]').find('input').val('');
-	for(clearCounter = 0; clearCounter < $('tr').has('div[class*=payerPassengerText]').find('input').length; clearCounter++)
-	{
-		$('tr').has('div[class*=payerPassengerText]').find('input')[clearCounter].value = '';
-	}
-	$('tr').has('div[class*=payerEmail]').find('input').val('');
-}
-
-function clearProviderPassengerText ()
-{
-	/* $('td').has('div[class*=providerBegone]').css('display', 'none');
-	$('tr').has('div[class*=providerBegone]').next().find('td').css('display', 'none'); */
-	visibility('hide', '.providerBegone');
-	/* $('td').has('div[class*=providerPassengerText]').css('display', 'none');
-	$('tr').has('div[class*=providerPassengerText]').next().find('td').css('display', 'none'); */
-	visibility('hide', '.providerPassengerText');
-	$('tr').has('div[class*=providerDriverText]').find('input').val('');
-	$('tr').has('div[class*=providerSpecificIndividual]').find('input').val('');
-	for(clearCounter = 0; clearCounter < $('tr').has('div[class*=providerPassengerText]').find('input').length; clearCounter++)
-	{
-		$('tr').has('div[class*=providerPassengerText]').find('input')[clearCounter].value = '';
-	}
-}
-
-function clearOtherText ()
-{
-	for(clearCounter = 0; clearCounter < $('tr').has('div[class*=hideMe]').find('input').length; clearCounter++)
-	{
-		$('tr').has('div[class*=hideMe]').find('input')[clearCounter].value = '';
-	}
-	for(clearCounter = 0; clearCounter < $('tr').has('div[class*=hideMe]').find('select').length; clearCounter++)
-	{
-		$('tr').has('div[class*=hideMe]').find('select')[clearCounter].value = '';
-	}
-}
-
-function clearText ()
-{
-	if ($('tr').has('div[class*=requiredDriver]').find('select').val() == $('tr').has('div[class*=requiredDriver]').find('option:contains(\'Payer\')').val())
-	{
-		clearProviderPassengerText();
-		clearOtherText();
-	}
-	else if ($('tr').has('div[class*=requiredDriver]').find('select').val() == $('tr').has('div[class*=requiredDriver]').find('option:contains(\'Provider\')').val())
-	{
-		clearPayerPassengerText();
-		clearOtherText();
-	}
-	else if ($('tr').has('div[class*=requiredDriver]').find('select').val() == $('tr').has('div[class*=requiredDriver]').find('option:contains(\'Other\')').val())
-	{
-		clearPayerPassengerText();
-		clearProviderPassengerText();
-	}
-	else
-	{
-		clearPayerPassengerText();
-		clearProviderPassengerText();
-		clearOtherText();
-	}
-}
-
-$(document).ready(function() 
-{
-	$('tr').has('div[class*=requiredDriver]').find('select').change(clearText);
 });
 
 //Restrictions checkbox logic
 $(document).ready(function() 
 {
-	//$('td').has('div[class*=readingRestriction]').hide();
-	visibility('hide', '.readingRestriction');
-	visibility('hide', '.readingRestrictionRequired');
-	//$('td').has('div[class*=writingRestriction]').hide();
-	visibility('hide', '.writingRestriction');
-	visibility('hide', '.writingRestrictionRequired');
-	//$('td').has('div[class*=languageRestriction]').hide();
-	visibility('hide', '.languageRestriction');
-	visibility('hide', '.languageRestrictionRequired');
+	visibility('hide', '.readingRestriction', false);
+	visibility('hide', '.readingRestrictionRequired', false);
+	visibility('hide', '.writingRestriction', false);
+	visibility('hide', '.writingRestrictionRequired', false);
+	visibility('hide', '.languageRestriction', false);
+	visibility('hide', '.languageRestrictionRequired', false);
 	
 	if($('tr').has('div[class*=restrictionRequiredDriver]').find('input').eq(1).prop('checked'))
 	{
-		//$('td').has('div[class*=readingRestriction]').show();
-		visibility('show', '.readingRestriction');
-		visibility('show', '.readingRestrictionRequired');
+		visibility('show', '.readingRestriction', false);
+		visibility('show', '.readingRestrictionRequired', true);
 	}
 	
 	if($('tr').has('div[class*=restrictionRequiredDriver]').find('input').eq(2).prop('checked'))
 	{
-		//$('td').has('div[class*=writingRestriction]').show();
-		visibility('show', '.writingRestriction');
-		visibility('show', '.writingRestrictionRequired');
+		visibility('show', '.writingRestriction', false);
+		visibility('show', '.writingRestrictionRequired', true);
 	}
 	
 	if($('tr').has('div[class*=restrictionRequiredDriver]').find('input').eq(3).prop('checked'))
 	{
-		//$('td').has('div[class*=languageRestriction]').show();
-		visibility('show', '.languageRestriction');
-		visibility('show', '.languageRestrictionRequired');
+		visibility('show', '.languageRestriction', false);
+		visibility('show', '.languageRestrictionRequired', true);
 	}
 			
 	$('tr').has('div[class*=restrictionRequiredDriver]').find('input').eq(0).change(function(){
@@ -630,60 +516,51 @@ $(document).ready(function()
 			$('tr').has('div[class*=restrictionRequiredDriver]').find('input').eq(1).prop('checked', false);
 			$('tr').has('div[class*=restrictionRequiredDriver]').find('input').eq(2).prop('checked', false);
 			$('tr').has('div[class*=restrictionRequiredDriver]').find('input').eq(3).prop('checked', false);
-			//$('td').has('div[class*=readingRestriction]').hide();
-			visibility('hide', '.readingRestriction');
-			visibility('hide', '.readingRestrictionRequired');
-			//$('td').has('div[class*=writingRestriction]').hide();
-			visibility('hide', '.writingRestriction');
-			visibility('hide', '.writingRestrictionRequired');
-			//$('td').has('div[class*=languageRestriction]').hide();
-			visibility('hide', '.languageRestriction');
-			visibility('hide', '.languageRestrictionRequired');
+			visibility('hide', '.readingRestriction', false);
+			visibility('hide', '.readingRestrictionRequired', false);
+			visibility('hide', '.writingRestriction', false);
+			visibility('hide', '.writingRestrictionRequired', false);
+			visibility('hide', '.languageRestriction', false);
+			visibility('hide', '.languageRestrictionRequired', false);
 		}
 	});
 	$('tr').has('div[class*=restrictionRequiredDriver]').find('input').eq(1).change(function(){
 		if($('tr').has('div[class*=restrictionRequiredDriver]').find('input').eq(1).prop('checked'))
 		{
 			$('tr').has('div[class*=restrictionRequiredDriver]').find('input').eq(0).prop('checked', false);
-			//$('td').has('div[class*=readingRestriction]').show();
-			visibility('show', '.readingRestriction');
-			visibility('show', '.readingRestrictionRequired');
+			visibility('show', '.readingRestriction', false);
+			visibility('show', '.readingRestrictionRequired', true);
 		}
 		else
 		{
-			//$('td').has('div[class*=readingRestriction]').hide();
-			visibility('hide', '.readingRestriction');
-			visibility('hide', '.readingRestrictionRequired');
+			visibility('hide', '.readingRestriction', false);
+			visibility('hide', '.readingRestrictionRequired', false);
 		}
 	});
 	$('tr').has('div[class*=restrictionRequiredDriver]').find('input').eq(2).change(function(){
 		if($('tr').has('div[class*=restrictionRequiredDriver]').find('input').eq(2).prop('checked'))
 		{
 			$('tr').has('div[class*=restrictionRequiredDriver]').find('input').eq(0).prop('checked', false);
-			//$('td').has('div[class*=writingRestriction]').show();
-			visibility('show', '.writingRestriction');
-			visibility('show', '.writingRestrictionRequired');
+			visibility('show', '.writingRestriction', false);
+			visibility('show', '.writingRestrictionRequired', true);
 		}
 		else
 		{
-			//$('td').has('div[class*=writingRestriction]').hide();
-			visibility('hide', '.writingRestriction');
-			visibility('hide', '.writingRestrictionRequired');
+			visibility('hide', '.writingRestriction', false);
+			visibility('hide', '.writingRestrictionRequired', false);
 		}
 	});
 	$('tr').has('div[class*=restrictionRequiredDriver]').find('input').eq(3).change(function(){
 		if($('tr').has('div[class*=restrictionRequiredDriver]').find('input').eq(3).prop('checked'))
 		{
 			$('tr').has('div[class*=restrictionRequiredDriver]').find('input').eq(0).prop('checked', false);
-			//$('td').has('div[class*=languageRestriction]').show();
-			visibility('show', '.languageRestriction');
-			visibility('show', '.languageRestrictionRequired');
+			visibility('show', '.languageRestriction', false);
+			visibility('show', '.languageRestrictionRequired', true);
 		}
 		else
 		{
-			//$('td').has('div[class*=languageRestriction]').hide();
-			visibility('hide', '.languageRestriction');
-			visibility('hide', '.languageRestrictionRequired');
+			visibility('hide', '.languageRestriction', false);
+			visibility('hide', '.languageRestrictionRequired', false);
 		}
 	});
 });
@@ -812,11 +689,24 @@ $(document).ready(function()
 
 //Auto check purposes if recipient/sender is a payer
 function checkPayer(){
-	if($('tr').has('div[id=recipientSenderType]').find('select').val() == $('tr').has('div[id=recipientSenderType]').find('option[text=Payer]').val()){
+	$('tr').has('div[id=purpose]').find('tr:contains(\'Payment\')').eq(1).find('input').prop('checked', true);
+	$('tr').has('div[id=purpose]').find('tr:contains(\'Treatment\')').eq(1).find('input').prop('checked', true);
+	$('tr').has('div[id=purpose]').find('tr:contains(\'Healthcare Operations\')').eq(1).find('input').prop('checked', true);
+	
+	/*if(document.querySelector('#recipientSenderType').closest('table').querySelector('select').value === [...document.querySelector('#recipientSenderType').closest('table').querySelectorAll('option')].filter((option) => { return option.innerText === 'Payer';})[0].value{
 		$('tr').has('div[id=purpose]').find('tr:contains(\'Payment\')').eq(1).find('input').prop('checked', true);
 		$('tr').has('div[id=purpose]').find('tr:contains(\'Treatment\')').eq(1).find('input').prop('checked', true);
 		$('tr').has('div[id=purpose]').find('tr:contains(\'Healthcare Operations\')').eq(1).find('input').prop('checked', true);
 	}
+	else if(document.querySelector('#recipientSenderType').closest('table').querySelector('select').value === [...document.querySelector('#recipientSenderType').closest('table').querySelectorAll('option')].filter((option) => { return option.innerText === 'Interpreter';})[0].value){
+		$('tr').has('div[id=purpose]').find('tr:contains(\'Payment\')').eq(1).find('input').prop('checked', true);
+		$('tr').has('div[id=purpose]').find('tr:contains(\'Treatment\')').eq(1).find('input').prop('checked', true);
+		$('tr').has('div[id=purpose]').find('tr:contains(\'Healthcare Operations\')').eq(1).find('input').prop('checked', true);
+	}else{
+		$('tr').has('div[id=purpose]').find('tr:contains(\'Payment\')').eq(1).find('input').prop('checked', true);
+		$('tr').has('div[id=purpose]').find('tr:contains(\'Treatment\')').eq(1).find('input').prop('checked', true);
+		$('tr').has('div[id=purpose]').find('tr:contains(\'Healthcare Operations\')').eq(1).find('input').prop('checked', true);
+	}*/
 }
 
 $('document').ready(function(){
@@ -833,25 +723,17 @@ function checkSUD(){
 		$('tr').has('div[id=sudOption]').find('input').eq(2).prop('checked', false);
 		$('tr').has('div[id=sudOption]').find('input').eq(3).prop('checked', false);
 		$('tr').has('div[id=sudOption]').find('input').eq(4).prop('checked', false);
-		/* $('td').has('div[id=sudOption]').hide();
-		$('tr').has('div[id=sudOption]').next().find('td').hide(); */
 		visibility('hide', '.sudOptions');
 	}
 	else{
-		/* $('td').has('div[id=sudOption]').show();
-		$('tr').has('div[id=sudOption]').next().find('td').show(); */
 		visibility('show', '.sudOptions');
 	}
 	
 	if($('tr').has('div[id=sudOption]').find('input').eq(0).prop('checked') || $('tr').has('div[id=sudOption]').find('input').eq(1).prop('checked') || $('tr').has('div[id=sudOption]').find('input').eq(2).prop('checked') || $('tr').has('div[id=sudOption]').find('input').eq(3).prop('checked') || $('tr').has('div[id=sudOption]').find('input').eq(4).prop('checked')){
 		$('tr').has('div[id=sudAll]').find('input').prop('checked', false);
-		/* $('td').has('div[id=sudAll]').hide();
-		$('tr').has('div[id=sudAll]').next().find('td').hide(); */
 		visibility('hide', '#sudAll');
 	}
 	else{
-		/* $('td').has('div[id=sudAll]').show();
-		$('tr').has('div[id=sudAll]').next().find('td').show(); */
 		visibility('show', '#sudAll');
 	}
 }
@@ -870,7 +752,7 @@ var formState;
 
 function checkFormState(){
 	formState = 'new';
-	for(let count = 0; count < arguments.length; count++){
+	/*for(let count = 0; count < arguments.length; count++){
 		while($('tr').has(`div[class=${arguments[count]}], div[id=${arguments[count]}]`).length == 0){
 
 		}
@@ -879,31 +761,36 @@ function checkFormState(){
 		if($('tr').has(`div[class=${arguments[count]}], div[id=${arguments[count]}]`).find('input:checked').length || $('tr').has(`div[class=${arguments[count]}], div[id=${arguments[count]}]`).find('input').val() || $('tr').has(`div[class=${arguments[count]}], div[id=${arguments[count]}]`).find('select').val()){
 			formState = 'reloaded';
 		}
+	}*/
+	if([...document.querySelectorAll('.awknowledgement')].filter(element => element.closest('table').querySelector('input').checked == true).length){
+		formState = 'reloaded';
 	}
 	console.log(formState);
 	checkMedicaid();
+	restrictValidDates();
 }
 
 function checkMedicaid(){
 	if(formState == 'new'){
 		$('tr').has('div[insuranceType=medicaid]').find('input').each(function(){
 			if(!$(this).prop('checked')){
-				$(this).trigger('click');
+				$(this).prop('checked', true);
 			}
 		});
 		console.log('Checking All');
 
-		$('tr').has('div[id=releaseType]').find('select').val($('tr').has('div[id=releaseType]').find('option').filter(function (){return $(this).html() == 'Release/Receive Records/Information';}).val());
-
-		$('tr').has('div[id=releaseType]').find('select').trigger('change');
+		[...document.querySelector('#releaseType').closest('table').querySelectorAll('input')].forEach((input) => {
+			input.checked = true;
+			input.dispatchEvent(new Event("change", { bubbles: true }));
+		});
 		
 		$('tr').has('div[id=recipientSenderType]').find('select').val($('tr').has('div[id=recipientSenderType]').find('option').filter(function (){return $(this).html() == 'Payer';}).val());
 
 		$('tr').has('div[id=recipientSenderType]').find('select').trigger('change');
-		
-		$('tr').has('div[class*=payerDriver]').find('select').val($('tr').has('div[class*=payerDriver]').find('option').filter(function (){return $(this).html() == 'CHA/OMAP';}).val());
 
-		$('tr').has('div[class*=payerDriver]').find('select').trigger('change');
+		document.querySelector('#payerSelect').closest('table').querySelector('select').value = [...document.querySelector('#payerSelect').closest('table').querySelector('select').options].filter((option) => option.title.includes('CHA/OMAP'))[0].value;
+
+		document.querySelector('#payerSelect').closest('table').querySelector('select').dispatchEvent(new Event("change", { bubbles: true }));
 
 		console.log('Defaulting to CHA/OMHP');
 	}
@@ -911,10 +798,6 @@ function checkMedicaid(){
 		console.log('Checking None')
 	}	
 }
-
-window.onload = function(){
-  checkFormState.apply(null, ['releaseType', 'recipientSenderType']);    
-};
 
 //Hide unwanted Options in Select
 function hideOption (target, optionText, mode = 'hide'){
@@ -947,7 +830,7 @@ $('document').ready(function(){
 
 //When CHA/OMAP
 function setMedicaid(){
-	if($('tr').has('div[id=payerName]').find('input').val() == 'CHA/OMAP'){
+	if($('tr').has('div[id=entity]').find('input').val() == 'CHA/OMAP'){
 		$('tr').has('div[insuranceType=medicaid]').find('input').prop('checked', true);
 		checkSUD();
 	}
@@ -957,18 +840,24 @@ function whenCHAOMAP(){
 	$('tr').has('div[insuranceType=medicaid]').find('input').attr('title', '');
 
 	if($('#recipientSenderType').closest('table').parent().find('select').val() == $('#recipientSenderType').closest('table').parent().find('option').filter(function (){ return $(this).html() == 'Payer'}).val()){
-		if($('tr').has('div[id=payerName]').find('input').val() == 'CHA/OMAP'){
-			$('tr').has('div[insuranceType=medicaid]').find('input').attr('title', '<ul><li>As a Medicaid member, your insurance requires you release all KBBH records to all local Medicaid payers in order to receive services.  This includes, but is not limited to mental health and substance use disorder records, regardless of past or future services in these areas.</li></ul>');
+		if($('tr').has('div[id=entity]').find('input').val() == 'CHA/OMAP'){
+			$('tr').has('div[insuranceType=medicaid]').find('input').attr('title', 'As a Medicaid member, your insurance requires you release all KBBH records to all local Medicaid payers in order to receive services.  This includes, but is not limited to mental health and substance use disorder records, regardless of past or future services in these areas.');
 
 			setMedicaid();
 
 			$('tr').has('div[class*=payerPassengerText]').find('input').val('');
+
+			/*[...document.querySelectorAll('div[insuranceType=\'medicaid\']')].forEach((div) => {
+				div.closest('table').querySelector('input').style.border = '2px solid black';
+				div.closest('table').querySelector('input').style.backgroundColor = 'lightblue';
+				div.closest('table').querySelector('input').style.outline = 'none';
+			});*/
 		}
-		else if($('tr').has('div[id=payerName]').find('input').val() == 'Medicare'){
-			$('tr').has('div[insuranceType=medicaid]').find('input').attr('title', '<ul><li>As a Medicare member, your insurance requires you release all KBBH records in order to receive services.  This includes, but is not limited to mental health and substance use disorder records, regardless of past or future services in these areas.</li></ul>');
+		else if($('tr').has('div[id=entity]').find('input').val() == 'Medicare'){
+			$('tr').has('div[insuranceType=medicaid]').find('input').attr('title', 'As a Medicare member, your insurance requires you release all KBBH records in order to receive services.  This includes, but is not limited to mental health and substance use disorder records, regardless of past or future services in these areas.');
 		}
-		else if($('tr').has('div[id=payerName]').find('input').val() != null && $('tr').has('div[id=payerName]').find('input').val() != 'CHA/OMAP' && $('tr').has('div[id=payerName]').find('input').val() != 'Medicare'){
-			$('tr').has('div[insuranceType=medicaid]').find('input').attr('title', '<ul><li>Your insurance requires you release records related to both mental health and substance use disorders in order for KBBH to bill your insurance, regardless of past or future services in these areas.  Without this release, we will not be able to bill your insurance and you will be financially responsible for any charges to your account.</li></ul>');
+		else if($('tr').has('div[id=entity]').find('input').val() != null && $('tr').has('div[id=entity]').find('input').val() != 'CHA/OMAP' && $('tr').has('div[id=entity]').find('input').val() != 'Medicare'){
+			$('tr').has('div[insuranceType=medicaid]').find('input').attr('title', 'Your insurance requires you release records related to both mental health and substance use disorders in order for KBBH to bill your insurance, regardless of past or future services in these areas.  Without this release, we will not be able to bill your insurance and you will be financially responsible for any charges to your account.');
 		}
 	}
 }
@@ -976,7 +865,9 @@ function whenCHAOMAP(){
 $('document').ready(function(){
 	//Prevent input if CHA/OMAP
 	$('tr').has('div[insuranceType=medicaid]').find('input').click(function(e){
-		if($('tr').has('div[id=payerName]').find('input').val() == 'CHA/OMAP' || $('tr').has('div[id=payerName]').find('input').val() == 'Medicare' || $('tr').has('div[id=payerName]').find('input').val() == 'Medicare (check only)'){
+		if($('tr').has('div[id=entity]').find('input').val() == 'CHA/OMAP' || $('tr').has('div[id=entity]').find('input').val() == 'Medicare' || $('tr').has('div[id=entity]').find('input').val() == 'Medicare (check only)'){
+			e.preventDefault();
+		}else if(document.querySelector('#recipientSenderType').closest('table').querySelector('select').value === [...document.querySelector('#recipientSenderType').closest('table').querySelectorAll('option')].filter((option) => { return option.innerText === 'Interpreter';})[0].value){
 			e.preventDefault();
 		}
 	});
@@ -986,9 +877,9 @@ $('document').ready(function(){
 	$('tr').has('div[id=recipientSenderType]').find('select').change(whenCHAOMAP);
 	$('tr').has('div[class*=payerDriver]').find('select').change(whenCHAOMAP);
 
-	//Add tooltip for All SUD Records
+	/*//Add tooltip for All SUD Records
 	$('#sudAll').attr('title', 'SUD All Records include:\n<ul><li>SUD Assessment</li><li>SUD Diagnosis</li><li>SUD Treatment Plan</li><li>SUD Treatment Notes</li><li>Substance Use History</li></ul>');
-	$('#sudAll').tooltip(); 
+	$('#sudAll').tooltip(); */
 
 	setTimeout(function(){
 		whenCHAOMAP();
@@ -998,28 +889,10 @@ $('document').ready(function(){
 //Auto populate message for Outreach and default to CHA/OMAP if not
 var programID;
 
-/*function checkProgram(){
-	if(programID != 138){
-		if($('tr').has('div[id=releaseType]').find('select').val() == '' && $('tr').has('div[id=recipientSenderType]').find('select').val() == ''){
-			$('tr').has('div[id=releaseType]').find('select').val($('tr').has('div[id=releaseType]').find('option').filter(function (){return $(this).html() == 'Release/Receive Records/Information';}).val());
-
-			$('tr').has('div[id=releaseType]').find('select').trigger('change');
-		
-			$('tr').has('div[id=recipientSenderType]').find('select').val($('tr').has('div[id=recipientSenderType]').find('option').filter(function (){return $(this).html() == 'Payer';}).val());
-
-			$('tr').has('div[id=recipientSenderType]').find('select').trigger('change');
-		
-			$('tr').has('div[class*=payerDriver]').find('select').val($('tr').has('div[class*=payerDriver]').find('option').filter(function (){return $(this).html() == 'CHA/OMAP';}).val());
-
-			$('tr').has('div[class*=payerDriver]').find('select').trigger('change');
-		}
-	}
-}*/
-
 function checkPayerDefault(){
 	if(programID != 138){
 		if($('#recipientSenderType').closest('table').parent().find('select').val() == $('#recipientSenderType').closest('table').parent().find('option').filter(function (){ return $(this).html() == 'Payer'}).val()){
-			if($('#payerName').closest('table').parent().find('input').val() == ''){
+			if($('#entity').closest('table').parent().find('input').val() == ''){
 				$('.payerDriver').closest('table').parent().find('select').val($('.payerDriver').closest('table').parent().find('option').filter(function (){ return $(this).html() == 'CHA/OMAP'}).val());
 				$('.payerDriver').closest('table').parent().find('select').trigger('change');
 			}
@@ -1086,23 +959,16 @@ function handleOtherOption(){
 	let payerSelect = document.querySelector('#payerSelect').closest('table').querySelector('select');
 
 	if(payerSelect.value === 'other'){
-		clearDropdowns();
-		document.querySelector('#payerName').closest('table').querySelector('input').value = '';
-		[...document.querySelectorAll('.payerPassengerText')].forEach((passenger) => {
-			passenger.closest('table').querySelector('input').value = '';
-		});
-		document.querySelector('.payerEmail').closest('table').querySelector('input').value = '';
-		visibility('hide', '#payerName');
-		visibility('hide', '.payerPassengerText');
-		visibility('hide', '.payerEmail');
-		visibility('show', '.hideMe');
-		visibility('show', '#otherName', true);
-	}else if(payerSelect.value != 'other' && payerSelect.value != ''){
+		
+		document.querySelector('#entity').closest('table').querySelector('input').value = '';
+		clearSenders();
+		restrictUnrestrictRecievers(false);
+	}/*else if(payerSelect.value != 'other' && payerSelect.value != ''){
 		visibility('show', '#payerName');
 		visibility('show', '.payerPassengerText');
 		visibility('show', '.payerEmail');
 		visibility('hide', '.hideMe');
-	}
+	}*/
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1119,45 +985,112 @@ function makeDropDownReadOnly(){
     $('tr').has('div[class*=passenger]').find('select').attr('style', '-webkit-appearance: none; text-indent: 1px; pointer-events: none;');
 }
 
-///Debug Test
-function debugTest(){
-    /* $('td').has('div[class*=hideMe]').css('display', 'inline-block');
-    $('tr').has('div[class*=hideMe]').next().find('td').css('display', 'inline'); */
-	visibility('show', '.hideMe');
-    /* $('td').has('div[class*=payerDriver]').css('display', 'inline-block');
-    $('tr').has('div[class*=payerDriver]').next().find('td').css('display', 'inline'); */
-	visibility('show', '.payerDriver');
-    /* $('td').has('div[class*=payerPassenger]').css('display', 'inline-block');
-    $('tr').has('div[class*=payerPassenger]').next().find('td').css('display', 'inline'); */
-	visibility('show', '.payerPassenger');
-    /* $('td').has('div[class*=providerDriver]').css('display', 'inline-block');
-    $('tr').has('div[class*=providerDriver]').next().find('td').css('display', 'inline'); */
-	visibility('show', '.providerDriver');
-    /* $('td').has('div[class*=providerPassenger]').css('display', 'inline-block');
-    $('tr').has('div[class*=providerPassenger]').next().find('td').css('display', 'inline'); */
-	visibility('show', '.providerPassenger');
-    /* $('td').has('div[class*=payerPassengerText]').css('display', 'inline-block');
-    $('tr').has('div[class*=payerPassengerText]').next().find('td').css('display', 'inline'); */
-	visibility('show', '.payerPassengerText');
-    /* $('td').has('div[class*=providerPassengerText]').css('display', 'inline-block');
-    $('tr').has('div[class*=providerPassengerText]').next().find('td').css('display', 'inline'); */
-	visibility('show', '.providerPassengerText');
+//Hide extra BCBS Options
+document.addEventListener("DOMContentLoaded", (event) => {
+  [...document.querySelector('#payerSelect').closest('table').querySelectorAll('option')].filter((option) => {
+    return option.title.includes('BCBS') || option.title.includes('Blue Cross/Blue Shield') || option.title.includes('Blue Cross') || option.title.includes('Blue Shield');
+  }).forEach((result) => {
+    if(result.title !== 'Blue Cross/Blue Shield'){
+      console.log(result.title);
+      result.style.display = 'none';
+    }
+  });
+});
 
-    if($('tr').has('div[class*=hideDriver]').find('select').attr('value') == $('option:contains(\'Other\')').attr('value'))
-    {
-        $('tr').has('div[class*=payerDriver]').find('select').val('');
-        $('tr').has('div[class*=payerPassenger]').find('select').val('');
-        $('tr').has('div[class*=providerDriver]').find('select').val('');
-        $('tr').has('div[class*=providerPassenger]').find('select').val('');
+document.addEventListener("DOMContentLoaded", (event) => {
+  [...document.querySelector('#providerSelect').closest('table').querySelectorAll('option')].filter((option) => {
+    return option.title.includes('Sky Lakes');
+  }).forEach((result) => {
+    if(result.title !== 'Sky Lakes Medical Center And Affiliates'){
+      console.log(result.title);
+      result.style.display = 'none';
     }
-    else if ($('tr').has('div[class*=hideDriver]').find('select').attr('value') == $('option:contains(\'Payer\')').attr('value'))
-    {
-        $('tr').has('div[class*=providerDriver]').find('select').val('');
-        $('tr').has('div[class*=providerPassenger]').find('select').val('');
+  });
+});
+
+//ROI Valid Options
+function restrictValidDates(){
+  let recipientType = document.querySelector('#recipientSenderType').closest('table').querySelector('select');
+  let payerValue = [...document.querySelector('#recipientSenderType').closest('table').querySelectorAll('option')].filter((option) => {
+    return option.innerText === 'Payer';
+  })[0].value;
+  let providerValue = [...document.querySelector('#recipientSenderType').closest('table').querySelectorAll('option')].filter((option) => {
+    return option.innerText === 'Provider';
+  })[0].value;
+    let interpreterValue = [...document.querySelector('#recipientSenderType').closest('table').querySelectorAll('option')].filter((option) => {
+    return option.innerText === 'Interpreter';
+  })[0].value;
+  let otherValue = [...document.querySelector('#recipientSenderType').closest('table').querySelectorAll('option')].filter((option) => {
+    return option.innerText === 'Other (details below)';
+  })[0].value;
+  let validByLaw = document.querySelector('#validByLaw').closest('tr');  
+  let validByLawInput = document.querySelector('#validByLaw').closest('tr').querySelector('input');
+  let validByDate = document.querySelector('#validByDate').closest('tr');
+  let validByDateInput = document.querySelector('#validByDate').closest('tr').querySelector('input');
+  
+  if(recipientType.value === payerValue || recipientType.value === providerValue || recipientType.value === interpreterValue){
+    validByLawInput.style.pointerEvents = 'none';
+    validByDateInput.style.pointerEvents = 'auto';
+    validByLaw.hidden = false;
+    validByDate.hidden = true;
+    if(!validByLaw.querySelector('input').checked){
+      validByLaw.querySelector('input').click();
     }
-    else if ($('tr').has('div[class*=hideDriver]').find('select').attr('value') == $('option:contains(\'Provider\')').attr('value'))
-    {
-        $('tr').has('div[class*=payerDriver]').find('select').val('');
-        $('tr').has('div[class*=payerPassenger]').find('select').val('');
+  }else if(recipientType.value === otherValue){
+    validByLawInput.style.pointerEvents = 'auto';
+    validByDateInput.style.pointerEvents = 'none';
+    validByLaw.hidden = true; 
+    validByDate.hidden = false;
+    if(!validByDate.querySelector('input').checked){
+      validByDate.querySelector('input').click();
     }
+  }else{
+    validByLawInput.style.pointerEvents = 'auto';
+    validByDateInput.style.pointerEvents = 'auto';
+    validByLaw.hidden = false; 
+    validByDate.hidden = false;
+  }
+  fillValidDates();
 }
+  
+//ROI Valid Update
+function fillValidDates(){
+  const oneYearInDays = 365;
+  let date = new Date();
+  let laterDate = new Date(date);
+  laterDate.setDate(date.getDate() + oneYearInDays);
+  let today = (date.getMonth() + 1) + '/' + date.getDate().toString().padStart(2, 0) + '/' + date.getFullYear().toString();
+  let yearLater =  (laterDate.getMonth() + 1) + '/' + laterDate.getDate().toString().padStart(2, 0) + '/' + laterDate.getFullYear().toString();
+  
+  let startDate = document.querySelector('#validDateStart').closest('table').querySelector('input');
+  let endDate = document.querySelector('#validDateEnd').closest('table').querySelector('input');
+  
+  if(document.querySelector('#validByDate').closest('tr').querySelector('input').checked){
+    if(startDate.value === ''){
+      startDate.value = today;
+    }
+    if(endDate.value === ''){
+      endDate.value = yearLater;
+    }
+  }else if(!document.querySelector('#validByDate').closest('tr').querySelector('input').checked){
+    startDate.value = '';
+    endDate.value = '';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  fillValidDates();
+  [...document.querySelectorAll('.validOptions')].forEach((validOption) => {
+    validOption.addEventListener('change', fillValidDates);
+    validOption.addEventListener('mouseleave', fillValidDates);
+  });
+  
+  restrictValidDates();
+  document.querySelector('#recipientSenderType').closest('table').querySelector('select').addEventListener('change', restrictValidDates);
+  document.querySelector('#recipientSenderType').closest('table').querySelector('select').addEventListener('mouseleave', restrictValidDates);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  //checkFormState.apply(null, ['releaseType', 'recipientSenderType']);    
+  checkFormState();
+});
