@@ -6,7 +6,7 @@ function errorMsg(element){
     if (element.parentElement != null){
         err.innerHTML = `Please complete <b><i>${element.parentElement.textContent.replace('*','')}</i></b>`;
     }
-    err.style.color = 'red';
+    err.style.color = 'red'; 
     let inputElements = [];
     let allRequired = false;
     if (element.closest('tr') != null && element.closest('tr').querySelector('div[questionSelector]') != null){
@@ -364,7 +364,7 @@ if(typeof waitForIt !== 'function'){
 async function forceTemplateSubmit(){
     return new Promise(async (resolve, reject) => {
         try{
-            overrideTemplateValidator();
+            //overrideTemplateValidator();
             document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnSave').click();
             document.querySelector('#txPlanModule').addEventListener('load',async () => {
                 await waitForIt(document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnNewTX2'));
