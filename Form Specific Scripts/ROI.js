@@ -255,7 +255,7 @@ function checkGuardianDriver(){
 	visibility('hide', '.relationshipRequiredNotes', false, false);
 	if($('tr').has('div[class*=guardianRequiredDriver]').find('input')[0].checked){
 		visibility('show', '.guardianRequired', true);
-		visibility('show', '.relationshipRequiredNotes', true, true);
+		visibility('show', '.relationshipRequiredNotes', true);
 	}
 }
 
@@ -269,12 +269,16 @@ function checkHIV(){
 function checkVerified(){
 	visibility('hide', '.verifiedRequired', false);
 	requireField('.verifiedRequired', false);
+	requireNotes('#verifiedReqDrive', false);
 
 	if(document.querySelector('.verifiedRequiredDriver').closest('table').querySelector('select')[document.querySelector('.verifiedRequiredDriver').closest('table').querySelector('select').selectedIndex].text === 'Other (listed below)'){
 		visibility('show', '.verifiedRequired', true);
 		requireField('.verifiedRequired', true);
+		requireNotes('#verifiedReqDrive', true);
 	}else if(document.querySelector('.verifiedRequiredDriver').closest('table').querySelector('select')[document.querySelector('.verifiedRequiredDriver').closest('table').querySelector('select').selectedIndex].text === 'Parent'){
 		visibility('show', '.verifiedRequired', false);
+		requireField('.verifiedRequired', false);
+		requireNotes('#verifiedReqDrive', false);
 	}
 }
 
