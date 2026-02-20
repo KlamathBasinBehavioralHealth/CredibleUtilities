@@ -6,7 +6,7 @@ function errorMsg(element){
     if (element.parentElement != null){
         err.innerHTML = `Please complete <b><i>${element.parentElement.textContent.replace('*','')}</i></b>`;
     }
-    err.style.color = 'red';
+    err.style.color = 'red'; 
     let inputElements = [];
     let allRequired = false;
     if (element.closest('tr') != null && element.closest('tr').querySelector('div[questionSelector]') != null){
@@ -174,7 +174,7 @@ function validation() {
             }
         });
     }
-    if (document.querySelectorAll('.frame').length > 0){
+    /*if (document.querySelectorAll('.frame').length > 0){
         document.querySelectorAll('.frame').forEach(frame => {
             if (frame.contentWindow.userChange){
                 if (frame.contentWindow.document.querySelectorAll('font[color=\'red\'], .redAsterisk').length > 0){
@@ -253,7 +253,7 @@ function validation() {
                 }
             }
         });
-    }
+    }*/
     let errorMsgs = [...document.querySelectorAll('.errMsg')];
     document.querySelectorAll('.frame').forEach(frame => {
         errorMsgs = [...errorMsgs, ...frame.contentDocument.querySelectorAll('.errMsg')]
@@ -275,7 +275,7 @@ let globalIsValid = true;
 /* Async wizardry */
 async function unrequireAll() {
   const promises = [];
-  if (document.querySelectorAll('.frame').length > 0) {
+  /*if (document.querySelectorAll('.frame').length > 0) {
     document.querySelectorAll('.frame').forEach((frame) => {
       frame.contentWindow.document.querySelector('form').noValidate = true;
       [...frame.contentWindow.document.querySelectorAll('div[requireCheckbox=true]')].forEach(element => {
@@ -297,7 +297,7 @@ async function unrequireAll() {
         })
       );
     });
-  } else {
+  } else {*/
     document.querySelectorAll('[required]').forEach((req) => {
       req.removeAttribute('required');
     });
@@ -308,7 +308,7 @@ async function unrequireAll() {
         }
       })
     );
-  }
+  //}
   return Promise.all(promises);
 }
 
@@ -364,7 +364,7 @@ if(typeof waitForIt !== 'function'){
 async function forceTemplateSubmit(){
     return new Promise(async (resolve, reject) => {
         try{
-            overrideTemplateValidator();
+            //overrideTemplateValidator();
             document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnSave').click();
             document.querySelector('#txPlanModule').addEventListener('load',async () => {
                 await waitForIt(document.querySelector('#txPlanModule').contentDocument.querySelector('#ctl00_cph_btnNewTX2'));
@@ -378,12 +378,12 @@ async function forceTemplateSubmit(){
 }
 
 async function formSubmit(){
-    if (document.querySelectorAll('.frame').length > 0){
+    /*if (document.querySelectorAll('.frame').length > 0){
         unrequireAll().then(() => {
             submitFrames().then(() => {
                 deleteFrames().then(() => {
                     document.querySelector('#input').submit();
-                    /*let form = document.querySelector('form');
+                    let form = document.querySelector('form');
 
                     // Create the submit button
                     let submitBtn = document.createElement('button');
@@ -399,12 +399,12 @@ async function formSubmit(){
                     form.appendChild(submitBtn);  
 
                     //Submit the form
-                    document.querySelector('#dynamicSubmitBtn').click();*/
+                    document.querySelector('#dynamicSubmitBtn').click();
                 });
             });
         });
     }
-    else{
+    else{*/
         await forceTemplateSubmit().catch((error) => {
             console.log(error);
         });
@@ -428,16 +428,16 @@ async function formSubmit(){
             //Submit the form
             document.querySelector('#dynamicSubmitBtn').click(); */
         });
-    }
+    //}
 }
 
 async function formSubmitSaveProgress(){
-    if (document.querySelectorAll('.frame').length > 0){
+    /*if (document.querySelectorAll('.frame').length > 0){
         unrequireAll().then(() => {
             submitFrames().then(() => {
                 deleteFrames().then(() => {
                     document.querySelector('#input').submit();
-                    /*let form = document.querySelector('form');
+                    let form = document.querySelector('form');
 
                     // Create the submit button
                     let submitBtn = document.createElement('button');
@@ -453,12 +453,12 @@ async function formSubmitSaveProgress(){
                     form.appendChild(submitBtn);  
 
                     //Submit the form
-                    document.querySelector('#dynamicSubmitBtn').click();*/
+                    document.querySelector('#dynamicSubmitBtn').click();
                 });
             });
         });
     }
-    else{
+    else{*/
         await forceTemplateSubmit().catch((error) => {
             console.log(error);
         });
@@ -471,11 +471,29 @@ async function formSubmitSaveProgress(){
             submitBtn.type = 'submit';
             submitBtn.textContent = 'Submit'; // Button label
             submitBtn.id = 'dynamicSubmitBtn';
-            submitBtn.formAction = 'https://www.cbh3.crediblebh.com/webforms/process.asp';
+            // Hide the button initially
+            submitBtn.style.display = 'none';
 
             // OPTIONAL: Clear default or attached behaviors
-            submitBtn.onclick = null;
-            submitBtn.removeAttribute('onclick');
+            submitBtn.onclick = function (e){
+                let form = document.querySelector('form');
+
+                // Temporarily disable form validation
+                form.setAttribute('novalidate', true);
+
+                // Submit the form natively
+                form.submit();
+
+                // Optional: delay redirect if the form submission happens asynchronously (depends on server)
+                setTimeout(() => {
+                    let leftFrame = findFrameByName(window.top, 'left');
+                    let redirectLink = leftFrame?.document.querySelector('a.triangle_yellows');
+                    if (redirectLink) {
+                        window.location.href = redirectLink.href;
+                    }
+                }, 1000); // Adjust delay if needed
+            };
+            //submitBtn.removeAttribute('onclick');
 
             // Append it to the form (or wherever you want)
             form.appendChild(submitBtn);  
@@ -483,7 +501,7 @@ async function formSubmitSaveProgress(){
             //Submit the form
             document.querySelector('#dynamicSubmitBtn').click();
         });
-    }
+    //}
 }
 
 /* Assign id and hide old complete. Create new complete and trigger validation and submit on click */
@@ -619,7 +637,7 @@ function createSubmitButtons(){
         buttonContainer.appendChild(saveProgress);
         buttonContainer.appendChild(complete);
     }
-    window.onbeforeunload = () => { console.log(document.querySelector('.toolHead').textContent); };
+    window.onbeforeunload = () => { try{console.log(document.querySelector('.toolHead').textContent);}catch(error){} };
 }
 
 document.addEventListener('DOMContentLoaded', () => { createSubmitButtons(); addStyling(); } );
