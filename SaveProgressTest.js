@@ -616,7 +616,7 @@ function saveProgressButton(){
 /* Create submit buttons and wrap in containers for positioning. Handle different situations where they need to be created */
 function createSubmitButtons(){
     const form = document.querySelector('#input');
-    form.setexit.value = 1;
+    //form.setexit.value = 1;
 
     const complete = completeButton();
 
