@@ -465,7 +465,7 @@ async function formSubmitSaveProgress(){
         unrequireAll(document).then(async () => {
             //document.querySelector('#oldComplete').click();
             let form = document.querySelector('form');
-
+            form.setexit.value = 1;
             // Create the submit button
             let submitBtn = document.createElement('button');
             submitBtn.type = 'submit';
