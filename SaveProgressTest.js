@@ -42,7 +42,7 @@ function errorMsg(element){
         };
 
         const observer = new MutationObserver((mutationsList, observer) =>{
-            if (elem.value != '' || elem.getAttribute('data-value') != ''){
+            if ((elem.value != '' && elem.value != null) || (elem.getAttribute('data-value') != '' && elem.getAttribute('data-value') != null)){
                 elem.style.border = '1px solid #8f8f9d';
                 if (elem.closest('table').querySelector('.errMsg') != null){
                     elem.closest('table').querySelector('.errMsg').remove();
